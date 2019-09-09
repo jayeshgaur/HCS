@@ -6,12 +6,15 @@ public class Appointment {
 		private Test test;
 		private DiagnosticCenter center;
 		private boolean approved;
+		// DateTime not implemented
+		
 		
 		public Appointment()
 		{
 			
 		}
 		
+		//Constructor
 		public Appointment(User user, Test test, DiagnosticCenter center) 
 		{
 			super();
@@ -20,6 +23,8 @@ public class Appointment {
 			this.center = center;
 		}
 
+		
+		//User
 		public User getUser() {
 			return user;
 		}
@@ -28,6 +33,7 @@ public class Appointment {
 			this.user = user;
 		}
 
+		//Test
 		public Test getTest() {
 			return test;
 		}
@@ -36,6 +42,8 @@ public class Appointment {
 			this.test = test;
 		}
 
+		
+		//DiagnosticCenter
 		public DiagnosticCenter getCenter() {
 			return center;
 		}
@@ -44,6 +52,6 @@ public class Appointment {
 			this.center = center;
 		}
 		
-		
+		//Implement hashcode, tostring and equals after implementing datetime
 		
 }

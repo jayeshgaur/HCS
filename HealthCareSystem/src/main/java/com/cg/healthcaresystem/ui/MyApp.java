@@ -34,20 +34,21 @@ public class MyApp {
 			  switch(adminChoice)
 			  {
 			  	case 1:
-			  	
-			  		
-			  		
 			  		System.out.println("Enter the name of the center:");
-			  		
-		
-			  		
 			  		String centerName = sc.next();
+			  		System.out.println("Enter the address of the center:");
+			  		String centerAddress = sc.next();
+			  		System.out.println("Enter the contact number of the center:");
+			  		BigInteger centerContactNo = sc.nextBigInteger();
 			  		
-			 
-			  		
-			  		 DiagnosticCenter center=new DiagnosticCenter(centerName);
-			  		userService.addCenter(center);
-			  	
+			  		DiagnosticCenter center=new DiagnosticCenter(centerName, centerAddress, centerContactNo);
+			  		if(userService.addCenter(center)!=null)
+			  		{
+			  			System.out.println("Center added successfully!");
+			  		}
+			  		List<DiagnosticCenter> li = userService.getCenterList();
+			  		DiagnosticCenter a = li.get(0);
+			  		System.out.println(a);
 			  		break;
 			  	case 2:
 			  		System.out.println("gh");

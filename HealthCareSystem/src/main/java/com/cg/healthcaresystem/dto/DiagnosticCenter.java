@@ -1,35 +1,50 @@
 package com.cg.healthcaresystem.dto;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class DiagnosticCenter {
+	private String centerId;
 	private static Integer centerCounter=0;
 	private static final String prefix = "HSC";
 	private String centerName;
-	private String centerId;
-	private List<Test> listOfTests;
-	private List<Appointment> listOfAppointments;
+	private BigInteger centerContactNo;
+	private String centerAddress;	
+	private List<Test> listOfTests = new ArrayList<Test>();
+	private List<Appointment> listOfAppointments = new ArrayList<Appointment>();
 	
 	public DiagnosticCenter()
 	{
 		
 	}
 	
-	public DiagnosticCenter(String centerName) {
+	//Constructor
+	public DiagnosticCenter(String centerName, String centerAddress, BigInteger centerNo) {
 		super();
-		this.centerName = centerName;
-//		this.centerId = prefix + (centerCounter++).toString();
-//		Test t1=new Test("Blood Test");
-//		Test t2=new Test("Blood Sugar");
-//		Test t3=new Test("Blood Pressure");		
-//		this.listOfTests.add(t1);
-//		this.listOfTests.add(t2);
-//		this.listOfTests.add(t3);	
-//		this.listOfAppointments = null;
+		this.setCenterName(centerName);
+		this.setCenterId(prefix + (centerCounter++).toString());
+		this.setCenterAddress(centerAddress);
+		this.setCenterContactNo(centerNo);
+		Test t1 = new Test("Blood Test");
+		Test t2 = new Test("Blood Group");
+		Test t3 = new Test("Blood Pressure");
+		this.addTest(t1);
+		this.addTest(t2);
+		this.addTest(t3);
+	}
+
+	
+	//Center ID
+	public String getCenterId() {
+		return centerId;
+	}
+
+	public void setCenterId(String centerId) {
+		this.centerId=centerId;
 	}
 	
+	//Center Name
 	public String getCenterName() {
 		return centerName;
 	}
@@ -39,26 +54,34 @@ public class DiagnosticCenter {
 		this.centerName = centerName ;
 	}
 
-	public String getCenterId() {
-		return centerId;
-	}
-
-	public void setCenterId(String centerId) {
-		this.centerId=centerId;
-	}
-
+	//ListOfTests
 	public List<Test> getListOfTests() {
 		return listOfTests;
 	}
 
-	public void setListOfTests(List<Test> listOfTests) {
-		this.listOfTests = listOfTests;
+	public void addTest(Test t) {
+		this.listOfTests.add(t);
 	}
 
-	
-	
-	
-	
+	//CenterContactNumber
+	public BigInteger getCenterContactNo() {
+		return centerContactNo;
+	}
+
+	public void setCenterContactNo(BigInteger centerNo) {
+		this.centerContactNo = centerNo;
+	}
+
+	//Center Address
+	public String getCenterAddress() {
+		return centerAddress;
+	}
+
+	public void setCenterAddress(String centerAddress) {
+		this.centerAddress = centerAddress;
+	}
+
+	//ListOfAppointments
 	public List<Appointment> getListOfAppointments() {
 		return listOfAppointments;
 	}
@@ -66,11 +89,13 @@ public class DiagnosticCenter {
 	public void setListOfAppointments(List<Appointment> listOfAppointments) {
 		this.listOfAppointments = listOfAppointments;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((centerAddress == null) ? 0 : centerAddress.hashCode());
+		result = prime * result + ((centerContactNo == null) ? 0 : centerContactNo.hashCode());
 		result = prime * result + ((centerId == null) ? 0 : centerId.hashCode());
 		result = prime * result + ((centerName == null) ? 0 : centerName.hashCode());
 		result = prime * result + ((listOfAppointments == null) ? 0 : listOfAppointments.hashCode());
@@ -87,6 +112,16 @@ public class DiagnosticCenter {
 		if (getClass() != obj.getClass())
 			return false;
 		DiagnosticCenter other = (DiagnosticCenter) obj;
+		if (centerAddress == null) {
+			if (other.centerAddress != null)
+				return false;
+		} else if (!centerAddress.equals(other.centerAddress))
+			return false;
+		if (centerContactNo == null) {
+			if (other.centerContactNo != null)
+				return false;
+		} else if (!centerContactNo.equals(other.centerContactNo))
+			return false;
 		if (centerId == null) {
 			if (other.centerId != null)
 				return false;
@@ -112,9 +147,12 @@ public class DiagnosticCenter {
 
 	@Override
 	public String toString() {
-		return "DiagnosticCenter [centerName=" + centerName + ", centerId=" + centerId + ", listOfTests=" + listOfTests
+		return "DiagnosticCenter [centerId=" + centerId + ", centerName=" + centerName + ", centerContactNo="
+				+ centerContactNo + ", centerAddress=" + centerAddress + ", listOfTests=" + listOfTests
 				+ ", listOfAppointments=" + listOfAppointments + "]";
 	}
+	
+
 
 	
 

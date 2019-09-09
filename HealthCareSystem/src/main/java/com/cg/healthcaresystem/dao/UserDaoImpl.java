@@ -10,8 +10,11 @@ public class UserDaoImpl implements UserDao {
 	static List<DiagnosticCenter> centerList = new ArrayList<DiagnosticCenter>();
 	Map<String, User> userList = new HashMap<String, User>();
 
-	public void addCenter(DiagnosticCenter center) {
-		this.centerList.add(center);
+	public DiagnosticCenter addCenter(DiagnosticCenter center) {
+		if(centerList.add(center))
+		return center;
+		else
+			return null;
 	}
 
 	public void removeCenter(DiagnosticCenter center) {
@@ -20,8 +23,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public void addTest(Test test) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	public void removeTest(Test test) {

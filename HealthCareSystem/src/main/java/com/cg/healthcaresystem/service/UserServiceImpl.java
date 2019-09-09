@@ -1,5 +1,7 @@
 package com.cg.healthcaresystem.service;
 
+import java.util.List;
+
 import com.cg.healthcaresystem.dao.UserDao;
 import com.cg.healthcaresystem.dao.UserDaoImpl;
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
@@ -10,8 +12,8 @@ public class UserServiceImpl implements UserService {
 	
 	UserDao dao = new UserDaoImpl();
 
-	public void addCenter(DiagnosticCenter center) {
-		dao.addCenter(center);
+	public DiagnosticCenter addCenter(DiagnosticCenter center) {
+		return dao.addCenter(center);
 	}
 
 	public void removeCenter(DiagnosticCenter center) {
@@ -43,6 +45,11 @@ public class UserServiceImpl implements UserService {
 	public User register(User user) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+
+	public List<DiagnosticCenter> getCenterList() {
+		return dao.getCenterList();
 	}
 
 }
