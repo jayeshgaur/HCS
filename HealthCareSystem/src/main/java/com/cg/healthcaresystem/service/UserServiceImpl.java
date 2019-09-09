@@ -15,11 +15,13 @@ public class UserServiceImpl implements UserService {
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
 		return dao.addCenter(center);
 	}
-
-	public void removeCenter(DiagnosticCenter center) {
-		// TODO Auto-generated method stub
+	public boolean removeCenter(String centerid) {
 		
+		return dao.removeCenter(centerid);
 	}
+	
+		
+	
 	
 	public void addTest(Test test) {
 		// TODO Auto-generated method stub
@@ -51,5 +53,7 @@ public class UserServiceImpl implements UserService {
 	public List<DiagnosticCenter> getCenterList() {
 		return dao.getCenterList();
 	}
+
+	
 
 }

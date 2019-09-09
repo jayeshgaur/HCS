@@ -50,12 +50,25 @@ public class MyApp {
 			  		DiagnosticCenter a = li.get(0);
 			  		System.out.println(a);
 			  		break;
-			  	case 2:
-			  		System.out.println("gh");
+			  	case 2: 
 			  		break;
+			  		
 			  	case 3:
+			  		System.out.println("Enter the id of center which you want to remove");
+			  		String centerid=sc.next();
+			  		if(userService.removeCenter(centerid))
+			  		{
+			  			System.out.println("Center deleted successfully");
+			  		}
+			  		else
+			  		{
+			  			System.out.println("No diagnostic center found with centerid "+centerid);
+			  		}
+			  		
 			  		break;
+			  	
 			  	case 4:
+			  		
 			  		
 			  		break;
 			  	case 5:

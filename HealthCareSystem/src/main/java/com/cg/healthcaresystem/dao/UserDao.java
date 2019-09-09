@@ -8,7 +8,7 @@ import com.cg.healthcaresystem.dto.User;
 
 public interface UserDao {
 	public DiagnosticCenter addCenter(DiagnosticCenter center);
-	public void removeCenter(DiagnosticCenter center);
+	public boolean removeCenter(String centerid);
 	public void addTest(Test test);
 	public void removeTest(Test test);
 	public void approveAppointment();

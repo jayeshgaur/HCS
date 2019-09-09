@@ -16,12 +16,24 @@ public class UserDaoImpl implements UserDao {
 		else
 			return null;
 	}
-
-	public void removeCenter(DiagnosticCenter center) {
+	public boolean removeCenter(String centerid) {
 		// TODO Auto-generated method stub
-		
+		Iterator itr=centerList.iterator();
+		while(itr.hasNext())
+		{
+			DiagnosticCenter obj=(DiagnosticCenter) itr.next();
+			if(obj.getCenterId().equals(centerid))
+				{
+						centerList.remove(obj);
+						return true;
+				}
+
+
+		}
+		return false;
 	}
 
+	
 	public void addTest(Test test) {
 		// TODO Auto-generated method stub	
 	}
@@ -50,4 +62,6 @@ public class UserDaoImpl implements UserDao {
 		return centerList;
 	}
 
+
+	
 }
