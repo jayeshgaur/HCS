@@ -15,6 +15,7 @@ import com.cg.healthcaresystem.dto.Appointment;
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
 import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
+import com.cg.healthcaresystem.exception.UserDefinedException;
 import com.cg.healthcaresystem.service.UserService;
 import com.cg.healthcaresystem.service.UserServiceImpl;
 
@@ -46,6 +47,7 @@ public class MyApp {
 			  	case 1: //Add Center
 			  		System.out.println("Enter the name of the center:");
 			  		String centerName = sc.next();
+			  		
 			  		System.out.println("Enter the address of the center:");
 			  		String centerAddress = sc.next();
 			  		System.out.println("Enter the contact number of the center:");
@@ -227,18 +229,78 @@ public class MyApp {
   			 {
   			 case 1: //User Registration
   				 System.out.println("-------------Registration-----------");
-  				 System.out.println("Enter your password");
- 				 String userPassword=sc.next();
   				 System.out.println("Enter your name");
+  				 
   				 String userName=sc.next();
+  				try
+  				 {
+  				 UserServiceImpl.validateName(userName);
+  				 }
+  				 catch(Exception e)
+  				 {
+  					 System.out.println(e.getMessage());
+  					 System.out.println("--------------------------------------");
+  					 break;
+  				 }
+  				 System.out.println("Enter your password");
+  				
+ 				 String userPassword=sc.next();
+ 				 try {
+ 			
+ 				 UserServiceImpl.validatePassword(userPassword);
+  				 }
+  				 catch(Exception e)
+  				 {
+  					 System.out.println(e.getMessage());
+  					System.out.println("--------------------------------------");
+ 					 break;
+  				 }
   				 System.out.println("Enter your contact number");
   				 BigInteger userContactNo = sc.nextBigInteger();
+  				 try {
+  				 UserServiceImpl.validateContactNo(userContactNo);
+  				 }
+  				 catch(UserDefinedException e)
+  				 {
+  					 System.out.println(e.getMessage());
+  					System.out.println("--------------------------------------");
+ 					 break;
+  				 }
+  				 
   				 System.out.println("Enter your email");
   				 String userEmail = sc.next();
+  				 try
+  				 {
+  					 UserServiceImpl.validateEmail(userEmail);
+  				 }
+  				 catch(Exception e)
+  				 {
+  					 System.out.println(e.getMessage());
+  					 System.out.println("--------------------------------------");
+  					 break;
+  				 }
   				 System.out.println("Enter your age");
   				 Integer age = sc.nextInt();
+  				 try {
+  					 UserServiceImpl.validateAge(age);
+  				 }
+  				 catch(Exception e)
+  				 {
+  					 System.out.println(e.getMessage());
+  					 System.out.println("--------------------------------------");
+  					 break;
+  				 }
   				 System.out.println("Choose your gender    M.Male F.Female O.Other");
   				 String gender = sc.next();
+  				 try
+  				 {
+  					 UserServiceImpl.validateGender(gender);
+  				 }
+  				 catch(Exception e)
+  				 {
+  					 System.out.println(e.getMessage());
+  				 }
+  				 
   				 User u;
   				 if(gender.equals("M"))
   				 {
