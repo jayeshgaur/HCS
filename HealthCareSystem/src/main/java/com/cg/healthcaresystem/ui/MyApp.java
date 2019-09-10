@@ -1,7 +1,11 @@
 package com.cg.healthcaresystem.ui;
 
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -18,7 +22,7 @@ import com.cg.healthcaresystem.service.UserServiceImpl;
 
 public class MyApp {
 
-	public static void main(String[] args) 
+	public static void main(String[] args) throws ParseException 
 	{
 	UserService userService=new UserServiceImpl();
 	int userRole=0,adminChoice=0,userChoice=0;
@@ -298,7 +302,18 @@ public class MyApp {
 		  			Test t = testList.get(testIndex);
 		  			System.out.println(testIndex+" Test Name"+t.getTestName());
 		  		}
+		  		System.out.println("Select from the above tests");
 		  		int selectTestIndex = sc.nextInt();
+		  		
+		  		//datetime
+		  		LocalTime time = LocalTime.now();
+		  		System.out.println("Enter date in the following format: dd-MM-yyyy");
+		  		String dateString=sc.next();
+		  		SimpleDateFormat format=new SimpleDateFormat("dd-MM-yyyy H:m:s");
+		  		Date date=format.parse(dateString);
+		  		System.out.println(date.toString());
+		  		
+		  		
 		  		System.out.println("Enter your user ID");
 		  		String userId = sc.next();
 		  		userList = userService.getUserList();
@@ -310,8 +325,12 @@ public class MyApp {
 		  				user = userList.get(userIndex);
 		  			}
 		  		}
-		  		Appointment ap = new Appointment(user,  testList.get(selectTestIndex), centerList1.get(selectCenterIndex));
-		  		System.out.println(ap.toString());
+		  		Appointment ap = new Appointment(user,  testList.get(selectTestIndex), centerList1.get(selectCenterIndex), date, time);
+		  		if(centerList1.get(selectCenterIndex).addAppointment(ap))
+		  		{
+		  			System.out.println("Appointment request submitted!");
+		  		}
+		  		userService.setCenterList(centerList1);
 //		  		for(int i=0;i<centerList1.size();i++)
 //		  		{
 //		  			if(centerList1.get(select).getCenterId().equals(selectCenterId));

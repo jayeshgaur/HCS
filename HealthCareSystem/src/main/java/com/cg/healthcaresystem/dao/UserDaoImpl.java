@@ -119,6 +119,13 @@ public class UserDaoImpl implements UserDao {
 		return centerList;
 	}
 	
+	public boolean setCenterList(List<DiagnosticCenter> centerList)
+	{
+		this.centerList = centerList;
+		return true;
+	}
+	
+	
 	//RegisteredUserList
 	public List<User> getUserList() {
 		return userList;

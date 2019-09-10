@@ -56,6 +56,11 @@ public class UserServiceImpl implements UserService {
 		return dao.getCenterList();
 	}
 	
+	public boolean setCenterList(List<DiagnosticCenter> centerList)
+	{
+		return dao.setCenterList(centerList);
+	}
+	
 	
 	public List<User> getUserList() {
 		return dao.getUserList();
@@ -65,6 +70,8 @@ public class UserServiceImpl implements UserService {
 	{
 		return dao.setUserList(li);
 	}
+	
+	
 	
 
 }

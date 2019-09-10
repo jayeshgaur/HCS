@@ -7,6 +7,7 @@ import java.util.List;
 public class DiagnosticCenter {
 	private String centerId;
 	private static Integer centerCounter=0;
+	private Integer appointmentCounter=0;
 	private static final String prefix = "HSC";
 	private String centerName;
 	private BigInteger centerContactNo;
@@ -155,9 +156,19 @@ public class DiagnosticCenter {
 				+ centerContactNo + ", centerAddress=" + centerAddress + ", listOfTests=" + listOfTests
 				+ ", listOfAppointments=" + listOfAppointments + "]";
 	}
-	
 
+	public Integer getAppointmentCounter() {
+		appointmentCounter++;
+		return appointmentCounter;
+	}
 
+	public void setAppointmentCounter(Integer appointmentCounter) {
+		this.appointmentCounter = appointmentCounter;
+	}
 	
+	public boolean addAppointment(Appointment ap)
+	{
+		return this.listOfAppointments.add(ap);
+	}
 
 }

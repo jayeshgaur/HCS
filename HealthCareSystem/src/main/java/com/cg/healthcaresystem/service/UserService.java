@@ -16,4 +16,5 @@ public interface UserService {
 	public String register(User user);
 	public List<DiagnosticCenter> getCenterList();
 	public List<User> getUserList();
+	public boolean setCenterList(List<DiagnosticCenter> centerList);
 }
