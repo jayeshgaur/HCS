@@ -10,7 +10,7 @@ public interface UserService {
 	public DiagnosticCenter addCenter(DiagnosticCenter center);
 	public boolean removeCenter(String centerid);
 	public Test addTest(String name,Test test);
-	public boolean removeTest(String centername,String testname);
+	public boolean removeTest(String removeCenterId,String removeTestId);
 	public void approveAppointment();
 	public String makeAppointment(User user,DiagnosticCenter center,Test test,String datetime);
 	public User register(User user);
