@@ -13,14 +13,13 @@ public class Appointment {
 		private DiagnosticCenter center;
 		private boolean approved;
 		private Date date;
-		private LocalTime time;
 		
 		public Appointment()
 		{
 			
 		}
 		
-		public Appointment(User user, Test test, DiagnosticCenter center, Date date, LocalTime time) {
+		public Appointment(User user, Test test, DiagnosticCenter center, Date date) {
 			super();
 			this.setAppointmentId(prefix + center.getAppointmentCounter().toString());
 			this.setApproved(false);
@@ -28,7 +27,6 @@ public class Appointment {
 			this.test = test;
 			this.center = center;
 			this.date = date;
-			this.time = time;
 		}
 
 		public User getUser() {
@@ -79,13 +77,7 @@ public class Appointment {
 			this.date = date;
 		}
 
-		public LocalTime getTime() {
-			return time;
-		}
-
-		public void setTime(LocalTime time) {
-			this.time = time;
-		}
+		
 
 		@Override
 		public int hashCode() {
@@ -96,7 +88,6 @@ public class Appointment {
 			result = prime * result + ((center == null) ? 0 : center.hashCode());
 			result = prime * result + ((date == null) ? 0 : date.hashCode());
 			result = prime * result + ((test == null) ? 0 : test.hashCode());
-			result = prime * result + ((time == null) ? 0 : time.hashCode());
 			result = prime * result + ((user == null) ? 0 : user.hashCode());
 			return result;
 		}
@@ -132,11 +123,6 @@ public class Appointment {
 					return false;
 			} else if (!test.equals(other.test))
 				return false;
-			if (time == null) {
-				if (other.time != null)
-					return false;
-			} else if (!time.equals(other.time))
-				return false;
 			if (user == null) {
 				if (other.user != null)
 					return false;
@@ -148,7 +134,7 @@ public class Appointment {
 		@Override
 		public String toString() {
 			return "Appointment [user=" + user + ", appointmentId=" + appointmentId + ", test=" + test + ", center="
-					+ center + ", approved=" + approved + ", date=" + date + ", time=" + time + "]";
+					+ center + ", approved=" + approved + ", date=" + date + "]";
 		}
 		
 		

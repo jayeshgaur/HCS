@@ -85,7 +85,7 @@ public class MyApp {
 			  		break;
 			  	
 			  	case 3: //Add Test
-			  		System.out.println("Select the center in which you want to add to test");
+	//		  		System.out.println("Select the center in which you want to add test");
 			  		List<DiagnosticCenter> centerList=userService.getCenterList();
 			  		Iterator itr=centerList.iterator();
 			  		int count=1;
@@ -97,9 +97,9 @@ public class MyApp {
 			  			
 			  		}
 			  		
-			  		System.out.println("Enter the center in which you want to add test");
+			  		System.out.println("Enter the centerName in which you want to add test");
 			  		String centername=sc.next();
-			  		System.out.println("Enter the test which you want to add in center "+centername);
+			  		System.out.println("Enter the name of the test which you want to add in center "+centername);
 			  		String testname=sc.next();
 			  		Test test=new Test(testname);
 			  		if(userService.addTest(centername, test)!=null)
@@ -110,13 +110,15 @@ public class MyApp {
 			  		{
 			  			System.out.println("Not added");
 			  		}
-			  		List<DiagnosticCenter> li2 = userService.getCenterList();
-			  		Iterator itr4=li2.iterator();
-			  		while(itr4.hasNext())
-			  		{
-			  			System.out.println(itr4.next());
-			  		}
+//			  		List<DiagnosticCenter> li2 = userService.getCenterList();
+//			  		Iterator itr4=li2.iterator();
+//			  		while(itr4.hasNext())
+//			  		{
+//			  			System.out.println(itr4.next());
+//			  		}
 			  		break;
+			  		
+			  		
 			  	case 4: // Remove Test
 			  		System.out.println("Select the center where you want to delete test");
 			  		centerList1=userService.getCenterList();
@@ -368,14 +370,12 @@ public class MyApp {
 		  		int selectTestIndex = sc.nextInt();
 		  		
 		  		//datetime
-		  		LocalTime time = LocalTime.now();
 		  		System.out.println("Enter date in the following format: dd-MM-yyyy");
-		  		String dateString=sc.next();
-		  		SimpleDateFormat format=new SimpleDateFormat("dd-MM-yyyy H:m:s");
+		  		sc.nextLine();
+		  		String dateString=sc.nextLine();
+		  		SimpleDateFormat format=new SimpleDateFormat("d/M/yyyy H:m:s");
 		  		Date date=format.parse(dateString);
-		  		System.out.println(date.toString());
-		  		
-		  		
+		  				  		
 		  		System.out.println("Enter your user ID");
 		  		String userId = sc.next();
 		  		userList = userService.getUserList();
@@ -387,7 +387,7 @@ public class MyApp {
 		  				user = userList.get(userIndex);
 		  			}
 		  		}
-		  		Appointment ap = new Appointment(user,  testList.get(selectTestIndex), centerList1.get(selectCenterIndex), date, time);
+		  		Appointment ap = new Appointment(user,  testList.get(selectTestIndex), centerList1.get(selectCenterIndex), date);
 		  		if(centerList1.get(selectCenterIndex).addAppointment(ap))
 		  		{
 		  			System.out.println("Appointment request submitted!");
