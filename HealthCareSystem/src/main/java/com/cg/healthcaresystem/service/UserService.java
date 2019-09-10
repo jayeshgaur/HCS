@@ -9,8 +9,8 @@ import com.cg.healthcaresystem.dto.User;
 public interface UserService {
 	public DiagnosticCenter addCenter(DiagnosticCenter center);
 	public boolean removeCenter(String centerid);
-	public void addTest(Test test);
-	public void removeTest(Test test);
+	public Test addTest(String name,Test test);
+	public boolean removeTest(String centername,String testname);
 	public void approveAppointment();
 	public String makeAppointment(User user,DiagnosticCenter center,Test test,String datetime);
 	public User register(User user);

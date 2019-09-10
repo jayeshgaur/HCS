@@ -23,13 +23,15 @@ public class UserServiceImpl implements UserService {
 		
 	
 	
-	public void addTest(Test test) {
+	public Test addTest(String name,Test test) {
 		// TODO Auto-generated method stub
+		return dao.addTest(name,test);
 		
 	}
 
-	public void removeTest(Test test) {
+	public boolean removeTest(String centername,String testname) {
 		// TODO Auto-generated method stub
+		return dao.removeTest(centername,testname);
 		
 	}
 

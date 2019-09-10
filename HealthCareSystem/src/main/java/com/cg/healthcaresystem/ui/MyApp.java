@@ -1,11 +1,13 @@
 package com.cg.healthcaresystem.ui;
 
 import java.math.BigInteger;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 import com.cg.healthcaresystem.dao.UserDaoImpl;
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
+import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.service.UserService;
 import com.cg.healthcaresystem.service.UserServiceImpl;
 
@@ -25,11 +27,11 @@ public class MyApp {
 	 switch(userRole)
 	 {
 	  case 1:
-		  while(adminChoice!=8)
+		  while(adminChoice!=6)
 		  {
-			  System.out.println("What function do you want to perform? \n. 1.Add new Center 2.Update an existing "
-			  		+ "center 3.Remove an existing center \n 4.Add new Test in an existing center "
-			  		+ "5.Update an existing Test 6.Remove a Test\n 7. Approve new appointments");
+			  System.out.println("What function do you want to perform? \n. 1.Add new Center "
+			  		+ "2.Remove an existing center \n 3.Add new Test in an existing center "
+			  		+ "4.Remove a Test\n 5.Approve appointments");
 			  adminChoice = sc.nextInt();
 			  switch(adminChoice)
 			  {
@@ -50,10 +52,9 @@ public class MyApp {
 			  		DiagnosticCenter a = li.get(0);
 			  		System.out.println(a);
 			  		break;
-			  	case 2: 
-			  		break;
+			  	
 			  		
-			  	case 3:
+			  	case 2:
 			  		System.out.println("Enter the id of center which you want to remove");
 			  		String centerid=sc.next();
 			  		if(userService.removeCenter(centerid))
@@ -67,11 +68,65 @@ public class MyApp {
 			  		
 			  		break;
 			  	
-			  	case 4:
+			  	case 3:
+			  		System.out.println("Select the center in which you want to add to test");
+			  		List<DiagnosticCenter> centerList=userService.getCenterList();
+			  		Iterator itr=centerList.iterator();
+			  		int count=1;
+			  		while(itr.hasNext())
+			  		{
+			  			DiagnosticCenter obj=(DiagnosticCenter) itr.next();
+			  			System.out.println(count+"."+obj.getCenterName());
+			  			count++;
+			  			
+			  		}
 			  		
-			  		
+			  		System.out.println("Enter the center in which you want to add test");
+			  		String centername=sc.next();
+			  		System.out.println("Enter the test which you want to add in center "+centername);
+			  		String testname=sc.next();
+			  		Test test=new Test(testname);
+			  		if(userService.addTest(centername, test)!=null)
+			  		{
+			  			System.out.println("Test addedd successfully");
+			  		}
+			  		else
+			  		{
+			  			System.out.println("Not added");
+			  		}
+			  		List<DiagnosticCenter> li2 = userService.getCenterList();
+			  		Iterator itr4=li2.iterator();
+			  		while(itr4.hasNext())
+			  		{
+			  			System.out.println(itr4.next());
+			  		}
 			  		break;
-			  	case 5:
+			  	case 4:
+			  		//System.out.println("Select the center where you want to delete test");
+			  		List<DiagnosticCenter> centerList1=userService.getCenterList();
+			  		Iterator itr1=centerList1.iterator();
+			  		int counter=1;
+			  		while(itr1.hasNext())
+			  		{
+			  			DiagnosticCenter obj=(DiagnosticCenter) itr1.next();
+			  			System.out.println(counter+"."+obj.getCenterName());
+			  			counter++;
+			  			
+			  		}
+			  		System.out.println("Enter the center in which you want to remove test");
+			  		String centername1=sc.next();
+			  		System.out.println("Enter the test which you want to remove");
+			  		String testname1=sc.next();
+			  		if(userService.removeTest(centername1,testname1))
+			  		{
+			  			System.out.println("Test deleted successfully");
+			  		}
+			  		else
+			  		{
+			  			System.out.println("Test is not present");
+			  		}
+			  		
+			  		
 			  		break;
 			  	case 6: 
 			  		break;
@@ -83,7 +138,8 @@ public class MyApp {
 			  }
 		  }
   		break;
-  	 case 2: 
+  		
+  	 //case 2: 
   		 
 //  		 while(userChoice!=3)
 //  		 {

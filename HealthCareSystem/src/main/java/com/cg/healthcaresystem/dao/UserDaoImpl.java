@@ -34,12 +34,55 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	
-	public void addTest(Test test) {
+	public Test addTest(String name,Test test) {
+		Iterator itr=centerList.iterator();
+		int flag=0;
+		while(itr.hasNext())
+		{
+			DiagnosticCenter obj=(DiagnosticCenter) itr.next();
+			if(obj.getCenterName().equals(name))
+			{
+				obj.getListOfTests().add(test);
+				flag++;
+				
+			}
+			if(flag>0)
+				break;
+		}
+		if(flag>0)
+		return test;
+		else
+		return null;
 		// TODO Auto-generated method stub	
 	}
 
-	public void removeTest(Test test) {
+	public boolean removeTest(String centername,String testname) {
 		// TODO Auto-generated method stub
+		int flag=0;
+		Iterator itr=centerList.iterator();
+		while(itr.hasNext())
+		{
+			DiagnosticCenter obj=(DiagnosticCenter) itr.next();
+			if(obj.getCenterName().equals(centername))
+			{
+				List<Test> testList=obj.getListOfTests();
+				Iterator testlistitr=testList.iterator();
+				while(testlistitr.hasNext())
+				{
+					Test testobj=(Test)itr.next();
+					if(testobj.getTestName()==testname)
+					{
+						testList.remove(testobj);
+						flag++;
+						break;
+					}
+				}
+			}
+		}
+		if(flag==0)
+		return false;
+		else
+			return true;
 		
 	}
 
