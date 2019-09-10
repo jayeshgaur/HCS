@@ -56,33 +56,52 @@ public class UserDaoImpl implements UserDao {
 		// TODO Auto-generated method stub	
 	}
 
-	public boolean removeTest(String centername,String testname) {
+	public boolean removeTest(String removeCenterId,String removeTestId) {
 		// TODO Auto-generated method stub
-		int flag=0;
-		Iterator itr=centerList.iterator();
-		while(itr.hasNext())
+		List<Test> tempTestList = new ArrayList<Test>();
+		for(int i=0;i<centerList.size();i++)
 		{
-			DiagnosticCenter obj=(DiagnosticCenter) itr.next();
-			if(obj.getCenterName().equals(centername))
+			if(centerList.get(i).getCenterId().equals(removeCenterId))
 			{
-				List<Test> testList=obj.getListOfTests();
-				Iterator testlistitr=testList.iterator();
-				while(testlistitr.hasNext())
+				tempTestList = centerList.get(i).getListOfTests();
+				for(int j =0;j<tempTestList.size();j++)
 				{
-					Test testobj=(Test)itr.next();
-					if(testobj.getTestName()==testname)
+					if(tempTestList.get(j).getTestId().equals(removeTestId))
 					{
-						testList.remove(testobj);
-						flag++;
-						break;
+						tempTestList.remove(j);
 					}
 				}
+				centerList.get(i).setListOfTests(tempTestList);
+				return true;
 			}
 		}
-		if(flag==0)
 		return false;
-		else
-			return true;
+		
+		//		int flag=0;
+//		Iterator itr=centerList.iterator();
+//		while(itr.hasNext())
+//		{
+//			DiagnosticCenter obj=(DiagnosticCenter) itr.next();
+//			if(obj.getCenterName().equals(centername))
+//			{
+//				List<Test> testList=obj.getListOfTests();
+//				Iterator testlistitr=testList.iterator();
+//				while(testlistitr.hasNext())
+//				{
+//					Test testobj=(Test)itr.next();
+//					if(testobj.getTestName()==testname)
+//					{
+//						testList.remove(testobj);
+//						flag++;
+//						break;
+//					}
+//				}
+//			}
+//		}
+//		if(flag==0)
+//		return false;
+//		else
+//			return true;
 		
 	}
 

@@ -1,6 +1,7 @@
 package com.cg.healthcaresystem.ui;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -48,9 +49,9 @@ public class MyApp {
 			  		{
 			  			System.out.println("Center added successfully!");
 			  		}
-			  		List<DiagnosticCenter> li = userService.getCenterList();
-			  		DiagnosticCenter a = li.get(0);
-			  		System.out.println(a);
+			  		else{
+			  			System.out.println("Failed");
+			  		}
 			  		break;
 			  	
 			  		
@@ -104,20 +105,30 @@ public class MyApp {
 			  	case 4:
 			  		//System.out.println("Select the center where you want to delete test");
 			  		List<DiagnosticCenter> centerList1=userService.getCenterList();
+			  		List<Test> testList = new ArrayList<Test>();
 			  		Iterator itr1=centerList1.iterator();
 			  		int counter=1;
 			  		while(itr1.hasNext())
 			  		{
 			  			DiagnosticCenter obj=(DiagnosticCenter) itr1.next();
-			  			System.out.println(counter+"."+obj.getCenterName());
-			  			counter++;
-			  			
+			  			System.out.println(counter+"."+obj.getCenterName()+"Center Id"+obj.getCenterId());
+			  			counter++;	
 			  		}
-			  		System.out.println("Enter the center in which you want to remove test");
-			  		String centername1=sc.next();
-			  		System.out.println("Enter the test which you want to remove");
-			  		String testname1=sc.next();
-			  		if(userService.removeTest(centername1,testname1))
+			  		System.out.println("Enter the center Id in which you want to remove test");
+			  		String removeCenterId=sc.next();
+			  		for(int i=0; i<centerList1.size();i++)
+			  		{
+			  			if(centerList1.get(i).getCenterId().equals(removeCenterId))
+			  			{
+			  				testList = centerList1.get(i).getListOfTests();
+			  			}
+			  		}
+			  		counter=1;
+			  		for(int i=0;i<testList.size();i++)
+			  			System.out.println(counter+". ID: "+testList.get(i).getTestId()+"Test Name"+testList.get(i).getTestName());
+			  		System.out.println("Enter the id of the test which you want to remove");
+			  		String removeTestId=sc.next();
+			  		if(userService.removeTest(removeCenterId,removeTestId))
 			  		{
 			  			System.out.println("Test deleted successfully");
 			  		}
@@ -139,8 +150,8 @@ public class MyApp {
 		  }
   		break;
   		
-  	 //case 2: 
-  		 
+//  	 case 2: 
+//  		 
 //  		 while(userChoice!=3)
 //  		 {
 //  			System.out.println("What function do u want to perform?\n 1.Registration\n 2.Make Appointments\n 3.Exit");

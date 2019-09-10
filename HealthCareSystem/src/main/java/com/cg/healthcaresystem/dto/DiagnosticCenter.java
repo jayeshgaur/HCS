@@ -58,6 +58,10 @@ public class DiagnosticCenter {
 	public List<Test> getListOfTests() {
 		return listOfTests;
 	}
+	
+	public void setListOfTests(List<Test> listOfTests) {
+		this.listOfTests =  listOfTests;
+	}
 
 	public void addTest(Test t) {
 		this.listOfTests.add(t);

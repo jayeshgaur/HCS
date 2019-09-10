@@ -29,9 +29,9 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
-	public boolean removeTest(String centername,String testname) {
+	public boolean removeTest(String removeCenterId,String removeTestId) {
 		// TODO Auto-generated method stub
-		return dao.removeTest(centername,testname);
+		return dao.removeTest(removeCenterId,removeTestId);
 		
 	}
 
@@ -55,6 +55,8 @@ public class UserServiceImpl implements UserService {
 	public List<DiagnosticCenter> getCenterList() {
 		return dao.getCenterList();
 	}
+	
+	
 
 	
 
