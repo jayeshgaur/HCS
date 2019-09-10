@@ -46,9 +46,9 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
-	public User register(User user) {
+	public String register(User user) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.register(user);
 	}
 	
 
@@ -57,7 +57,14 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	
-
+	public List<User> getUserList() {
+		return dao.getUserList();
+	}
+	
+	public boolean setUserList(List<User> li)
+	{
+		return dao.setUserList(li);
+	}
 	
 
 }

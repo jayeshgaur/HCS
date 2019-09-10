@@ -2,7 +2,7 @@ package com.cg.healthcaresystem.dto;
 
 public class Test {
 	private final static String prefix = "Test";
-	private static Integer testCounter = 0;
+	private Integer testCounter = 0;
 	private String testId;
 	private String testName;
 	

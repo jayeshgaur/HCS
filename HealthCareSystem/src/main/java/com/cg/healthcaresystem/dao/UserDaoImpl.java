@@ -8,7 +8,7 @@ import java.util.*;
 public class UserDaoImpl implements UserDao {
 	
 	static List<DiagnosticCenter> centerList = new ArrayList<DiagnosticCenter>();
-	Map<String, User> userList = new HashMap<String, User>();
+	List<User> userList = new ArrayList<User>();
 
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
 		if(centerList.add(center))
@@ -115,13 +115,24 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 
-	public User register(User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public List<DiagnosticCenter> getCenterList() {
 		return centerList;
+	}
+	
+	//RegisteredUserList
+	public List<User> getUserList() {
+		return userList;
+	}
+	
+	public boolean setUserList(List<User> userList) {
+		 this.userList = userList;
+		 return true;
+	}
+	
+	public String register(User user) {
+		// TODO Auto-generated method stub
+		userList.add(user);
+		return user.getUserId();
 	}
 
 

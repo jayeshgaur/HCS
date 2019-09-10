@@ -1,12 +1,16 @@
 package com.cg.healthcaresystem.dto;
 
+import java.time.LocalTime;
+import java.util.Date;
+
 public class Appointment {
 		private User user;
 		private String appointmentId;
 		private Test test;
 		private DiagnosticCenter center;
 		private boolean approved;
-		// DateTime not implemented
+		private Date date;
+		private LocalTime time;
 		
 		
 		public Appointment()
@@ -50,6 +54,22 @@ public class Appointment {
 
 		public void setCenter(DiagnosticCenter center) {
 			this.center = center;
+		}
+
+		public boolean isApproved() {
+			return approved;
+		}
+
+		public void setApproved(boolean approved) {
+			this.approved = approved;
+		}
+
+		public String getAppointmentId() {
+			return appointmentId;
+		}
+
+		public void setAppointmentId(String appointmentId) {
+			this.appointmentId = appointmentId;
 		}
 		
 		//Implement hashcode, tostring and equals after implementing datetime

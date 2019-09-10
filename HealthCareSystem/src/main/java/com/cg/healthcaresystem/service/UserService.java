@@ -13,6 +13,7 @@ public interface UserService {
 	public boolean removeTest(String removeCenterId,String removeTestId);
 	public void approveAppointment();
 	public String makeAppointment(User user,DiagnosticCenter center,Test test,String datetime);
-	public User register(User user);
+	public String register(User user);
 	public List<DiagnosticCenter> getCenterList();
+	public List<User> getUserList();
 }

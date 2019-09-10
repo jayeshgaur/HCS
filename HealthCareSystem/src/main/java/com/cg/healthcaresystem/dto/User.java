@@ -5,6 +5,7 @@ import java.math.BigInteger;
 public class User {
 	private final String prefix = "HSC-Customer:";
 	private static Integer counter=0;
+	
 	private String userId;
 	private String userPassword;
 	private String userName;
@@ -19,7 +20,7 @@ public class User {
 		
 	}
 	
-	public User(String userPassword, String userName, BigInteger contactNo, String userRole,
+	public User(String userPassword, String userName, BigInteger contactNo, 
 			String userEmail, Integer age, String gender) {
 		super();
 		setUserId(prefix+(++counter).toString());
@@ -32,6 +33,8 @@ public class User {
 		this.gender = gender;
 	}
 
+	
+	//UserId
 	public String getUserId() {
 		return userId;
 	}
@@ -40,6 +43,8 @@ public class User {
 		this.userId = userId;
 	}
 
+	
+	//UserPassword
 	public String getUserPassword() {
 		return userPassword;
 	}
@@ -47,7 +52,19 @@ public class User {
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
+	
+	
+	//User Name
+		public String getUserName() {
+			return userName;
+		}
 
+		public void setUserName(String userName) {
+			this.userName = userName;
+		}
+
+	
+	//ContactNumber
 	public BigInteger getContactNo() {
 		return contactNo;
 	}
@@ -56,6 +73,8 @@ public class User {
 		this.contactNo = contactNo;
 	}
 
+	
+	//UserRole
 	public String getUserRole() {
 		return userRole;
 	}
@@ -64,6 +83,8 @@ public class User {
 		this.userRole = userRole;
 	}
 
+	
+	//User Email
 	public String getUserEmail() {
 		return userEmail;
 	}
@@ -72,6 +93,8 @@ public class User {
 		this.userEmail = userEmail;
 	}
 
+	
+	//User Age
 	public Integer getAge() {
 		return age;
 	}
@@ -80,6 +103,8 @@ public class User {
 		this.age = age;
 	}
 
+	
+	//User Gender
 	public String getGender() {
 		return gender;
 	}
@@ -161,6 +186,9 @@ public class User {
 				+ contactNo + ", userRole=" + userRole + ", userEmail=" + userEmail + ", age=" + age + ", gender="
 				+ gender + "]";
 	}
+
+	
+	
 }
 
 	
