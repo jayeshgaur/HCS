@@ -23,13 +23,14 @@ import com.cg.healthcaresystem.service.UserServiceImpl;
 
 public class MyApp {
 
-	public static void main(String[] args) throws ParseException 
+	public static void main(String[] args) 
 	{
 	UserService userService=new UserServiceImpl();
 	int userRole=0,adminChoice=0,userChoice=0;
 	while(userRole!=3)
 	{
-	 System.out.println("Enter your role: \n 1. Admin 2. User");
+		userRole=adminChoice=userChoice=0;
+	 System.out.println("Enter your role: \n 1.Admin 2.User 3.Exit");
 	 Scanner sc = new Scanner(System.in);
 	 userRole = sc.nextInt();
 	 switch(userRole)
@@ -38,22 +39,28 @@ public class MyApp {
 		  
 		  while(adminChoice!=6)
 		  {
+			  adminChoice=0;
 			  System.out.println("What function do you want to perform? \n. 1.Add new Center "
 			  		+ "2.Remove an existing center \n 3.Add new Test in an existing center "
 			  		+ "4.Remove a Test\n 5.Approve appointments\n 6.Exit");
+			 
 			  adminChoice = sc.nextInt();
 			  switch(adminChoice)
 			  {
 			  	case 1: //Add Center
 			  		System.out.println("Enter the name of the center:");
-			  		String centerName = sc.next();
+			  		sc.nextLine();
+			  		String centerName = sc.nextLine();
 			  		
 			  		System.out.println("Enter the address of the center:");
-			  		String centerAddress = sc.next();
-			  		System.out.println("Enter the contact number of the center:");
-			  		BigInteger centerContactNo = sc.nextBigInteger();
+			  		String centerAddress = sc.nextLine();
 			  		
-			  		DiagnosticCenter center=new DiagnosticCenter(centerName, centerAddress, centerContactNo);
+			  		System.out.println("Enter the contact number of the center:");
+			  		String centerContactNo = sc.nextLine();
+			  		try {
+			  		UserServiceImpl.validateContactNo(centerContactNo);
+			  		BigInteger centerContact=new BigInteger(centerContactNo);
+			  		DiagnosticCenter center=new DiagnosticCenter(centerName, centerAddress, centerContact);
 			  		if(userService.addCenter(center)!=null)
 			  		{
 			  			System.out.println("Center added successfully!");
@@ -61,46 +68,64 @@ public class MyApp {
 			  		else{
 			  			System.out.println("Failed");
 			  		}
+			  		}catch(UserDefinedException e) {
+			  			System.out.println(e.getMessage());
+			  		}
+			  		
+			  		
 			  		break;
 			  	
 			  		
 			  	case 2: //Remove Center
-			  		System.out.println("Enter the id of center which you want to remove");
+			  		
 			  		List<DiagnosticCenter> centerList1=userService.getCenterList();
-			  		for(int centerIndex=0;centerIndex<centerList1.size();centerIndex++)
+			  		if(centerList1.size()<1)
 			  		{
-			  			DiagnosticCenter d = centerList1.get(centerIndex);
-			  			System.out.println(centerIndex+" CenterName: "+d.getCenterName()+" "+d.getCenterId());
-			  		}
-			  		String centerid=sc.next();
-			  		if(userService.removeCenter(centerid))
-			  		{
-			  			System.out.println("Center deleted successfully");
+			  			System.out.println("No center in the system");
 			  		}
 			  		else
-			  		{
+			  		{		
+			  		System.out.println("Enter the id of center which you want to remove");
+			  		for(int centerIndex=0;centerIndex<centerList1.size();centerIndex++)
+			  		 {
+			  	   		DiagnosticCenter d = centerList1.get(centerIndex);
+			  	  		System.out.println(centerIndex+" CenterName: "+d.getCenterName()+" CenterID: "+d.getCenterId());
+			  		 }
+			  		 String centerid=sc.next();
+			  		 if(userService.removeCenter(centerid))
+			  		 {
+			  			System.out.println("Center deleted successfully");
+			  		 }
+			  		 else
+			  		 {
 			  			System.out.println("No diagnostic center found with centerid "+centerid);
+			  		 }
 			  		}
-			  		
 			  		break;
 			  	
 			  	case 3: //Add Test
 	//		  		System.out.println("Select the center in which you want to add test");
 			  		List<DiagnosticCenter> centerList=userService.getCenterList();
+			  		if(centerList.size()<1)
+			  		{
+			  			System.out.println("No centers in the system to add test into");
+			  		}
+			  		else {
 			  		Iterator itr=centerList.iterator();
 			  		int count=1;
 			  		while(itr.hasNext())
 			  		{
 			  			DiagnosticCenter obj=(DiagnosticCenter) itr.next();
-			  			System.out.println(count+"."+obj.getCenterName());
+			  			System.out.println(count+". CenterName: "+obj.getCenterName());
 			  			count++;
 			  			
 			  		}
 			  		
 			  		System.out.println("Enter the centerName in which you want to add test");
-			  		String centername=sc.next();
+			  		sc.nextLine();
+			  		String centername=sc.nextLine();
 			  		System.out.println("Enter the name of the test which you want to add in center "+centername);
-			  		String testname=sc.next();
+			  		String testname=sc.nextLine();
 			  		Test test=new Test(testname);
 			  		if(userService.addTest(centername, test)!=null)
 			  		{
@@ -116,6 +141,7 @@ public class MyApp {
 //			  		{
 //			  			System.out.println(itr4.next());
 //			  		}
+			  		}
 			  		break;
 			  		
 			  		
@@ -128,11 +154,14 @@ public class MyApp {
 			  		while(itr1.hasNext())
 			  		{
 			  			DiagnosticCenter obj=(DiagnosticCenter) itr1.next();
-			  			System.out.println(counter+"."+obj.getCenterName()+"Center Id"+obj.getCenterId());
+			  			System.out.println(counter+". CenterName: "+obj.getCenterName()+" Center Id: "+obj.getCenterId());
 			  			counter++;	
 			  		}
 			  		System.out.println("Enter the center Id in which you want to remove test");
-			  		String removeCenterId=sc.next();
+			  		String removeCenterId="";
+			  		try {
+			  		removeCenterId=sc.next();
+			  		UserServiceImpl.validateCenterId(removeCenterId, centerList1);
 			  		for(int i=0; i<centerList1.size();i++)
 			  		{
 			  			if(centerList1.get(i).getCenterId().equals(removeCenterId))
@@ -143,11 +172,12 @@ public class MyApp {
 			  		counter=1;
 			  		for(int i=0;i<testList.size();i++)
 			  		{
-			  			System.out.println(counter+". ID: "+testList.get(i).getTestId()+"Test Name"+testList.get(i).getTestName());
+			  			System.out.println(counter+". ID: "+testList.get(i).getTestId()+"  Name: "+testList.get(i).getTestName());
 			  			counter++;
 			  		}
-			  			System.out.println("Enter the id of the test which you want to remove");
+			  		System.out.println("Enter the id of the test which you want to remove");
 			  		String removeTestId=sc.next();
+			  		UserServiceImpl.validateTestid(removeTestId, removeCenterId, centerList1);
 			  		if(userService.removeTest(removeCenterId,removeTestId))
 			  		{
 			  			System.out.println("Test deleted successfully");
@@ -156,6 +186,12 @@ public class MyApp {
 			  		{
 			  			System.out.println("Test is not present");
 			  		}
+			  		}
+			  		catch(UserDefinedException e)
+			  		{
+			  			System.out.println(e.getMessage());
+			  		}
+			  		
 			  		
 			  		
 			  		break;
@@ -165,39 +201,54 @@ public class MyApp {
 			  	  List<DiagnosticCenter> diagnosticcenter=userService.getCenterList();
 			  	  Iterator itr5=diagnosticcenter.iterator();
 			  	  int count5=1;
+			  	  String centerid5="";
 			  	  while(itr5.hasNext())
 			  	  {
 			  	  DiagnosticCenter obj=(DiagnosticCenter) itr5.next();
 			  	  System.out.println(count5+"."+obj.getCenterId()+" "+obj.getCenterName());
 			  	  count5++;
-			  	  }
-			  	 
+			  	  }		  	 
 			  	  System.out.println("Enter Diagnostic Center Id");
-			  	  String centerid5=sc.next();
 			  	 
-			  	  System.out.println("=====List of appointments======");
+			  	  try {
+			  	  centerid5=sc.next();
+			  	  UserServiceImpl.validateCenterId(centerid5, diagnosticcenter);
+			  	System.out.println("=====List of appointments======");
 			  	 
 			  	  List<DiagnosticCenter> listofdc=userService.getCenterList();
 			  	  for(int i=0;i<listofdc.size();i++)
 			  	  {
-			  	  System.out.println(listofdc.get(0));
 			  	  if(listofdc.get(i).getCenterId().equals(centerid5))
 			  	  {
-			  	  List<Appointment> listofappointment=listofdc.get(i).getListOfAppointments();
-			  	  for(int j=0;j<listofappointment.size();j++)
-			  	  {
-			  	  System.out.println(listofappointment.get(j));
-			  	  }
+			  	   List<Appointment> listofappointment=listofdc.get(i).getListOfAppointments();
+			  	   if(listofappointment.size()<1)
+			  	   {
+			  		   System.out.println("There are no appointments!");
+			  	   }
+			  	   else
+			  	   {
+			  	   for(int j=0;j<listofappointment.size();j++)
+			  	   {
+			  	    System.out.println("Appointment ID: "+listofappointment.get(j).getAppointmentId()+" TestDetails: "+listofappointment.get(j).getTest()+" Status"+listofappointment.get(j).isApproved());
+			  	   }
 			  	  System.out.println("Enter the appointment id which you want to approve");
 			  	  String appointmentid=sc.next();
+			  	  UserServiceImpl.validateAppointmentId(appointmentid, listofappointment);
 			  	  for(int k=0;k<listofappointment.size();k++)
 			  	  {
-			  		if(listofappointment.get(k).getAppointmentId().contentEquals(appointmentid))
+			  	//	if(listofappointment.get(k).getAppointmentId().contentEquals(appointmentid))
+			  		if(listofappointment.get(k).getAppointmentId().equals(appointmentid))
 			  		{
-			  		  listofappointment.get(k).setApproved(true);
-			  		 }
+			  		  if(listofappointment.get(k).setApproved(true))
+			  		  {
+			  			  System.out.println("Status updated");
+			  		  }
+			  		}
 			  	  }
+			  	   }
+			  	  //
 			  	  }
+			  	  
 			  	  else
 			  	  {
 			  	  System.out.println("Diagnostic center with "+centerid5+" not found");
@@ -210,13 +261,20 @@ public class MyApp {
 			  	  //Appointment obj=(Appointment)itr6.next();
 			  	  //System.out.println("User name "+obj.getUser().getUserId()+" "+obj.getUser().getUserName()+" "+obj.getUser().getAge()+" "+obj.getUser().getGender()+" "+listofAppointment.get);
 			  	  //}
+			  	 
+			  	  }
+			  	  catch(UserDefinedException e)
+			  	  {
+			  		  System.out.println(e.getMessage());
+			  	  }
+			  	 
 			  		
 			  		break;
 			  	case 6: 
 			  		break;
 			  	default:
 			  		System.out.println("Enter a proper function");
-		
+			  		break;
 			  }
 		  }
   		break;
@@ -225,6 +283,7 @@ public class MyApp {
   		 
   		 while(userChoice!=3)
   		 {
+  			 userChoice=0;
   			System.out.println("What function do u want to perform?\n 1.Registration\n 2.Make Appointments\n 3.Exit");
 	  		 userChoice=sc.nextInt();
   			 switch(userChoice)
@@ -232,90 +291,56 @@ public class MyApp {
   			 case 1: //User Registration
   				 System.out.println("-------------Registration-----------");
   				 System.out.println("Enter your name");
-  				 
-  				 String userName=sc.next();
+  				 sc.nextLine();
+  				 String userName=sc.nextLine();
   				try
   				 {
   				 UserServiceImpl.validateName(userName);
-  				 }
-  				 catch(Exception e)
-  				 {
-  					 System.out.println(e.getMessage());
-  					 System.out.println("--------------------------------------");
-  					 break;
-  				 }
+  				
   				 System.out.println("Enter your password");
   				
- 				 String userPassword=sc.next();
- 				 try {
+ 				 String userPassword=sc.nextLine();
+
  			
  				 UserServiceImpl.validatePassword(userPassword);
-  				 }
-  				 catch(Exception e)
-  				 {
-  					 System.out.println(e.getMessage());
-  					System.out.println("--------------------------------------");
- 					 break;
-  				 }
+  				
+  			
   				 System.out.println("Enter your contact number");
-  				 BigInteger userContactNo = sc.nextBigInteger();
-  				 try {
+  				 String userContactNo = sc.next();
+  				
   				 UserServiceImpl.validateContactNo(userContactNo);
-  				 }
-  				 catch(UserDefinedException e)
-  				 {
-  					 System.out.println(e.getMessage());
-  					System.out.println("--------------------------------------");
- 					 break;
-  				 }
+  				
+  				 BigInteger contactNo=new BigInteger(userContactNo);
   				 
   				 System.out.println("Enter your email");
   				 String userEmail = sc.next();
-  				 try
-  				 {
+  				 
   					 UserServiceImpl.validateEmail(userEmail);
-  				 }
-  				 catch(Exception e)
-  				 {
-  					 System.out.println(e.getMessage());
-  					 System.out.println("--------------------------------------");
-  					 break;
-  				 }
+  				 
   				 System.out.println("Enter your age");
   				 Integer age = sc.nextInt();
-  				 try {
+  				 
   					 UserServiceImpl.validateAge(age);
-  				 }
-  				 catch(Exception e)
-  				 {
-  					 System.out.println(e.getMessage());
-  					 System.out.println("--------------------------------------");
-  					 break;
-  				 }
+  				
   				 System.out.println("Choose your gender    M.Male F.Female O.Other");
   				 String gender = sc.next();
-  				 try
-  				 {
+  				
   					 UserServiceImpl.validateGender(gender);
-  				 }
-  				 catch(Exception e)
-  				 {
-  					 System.out.println(e.getMessage());
-  				 }
+  				
   				 
   				 User u;
   				 if(gender.equals("M"))
   				 {
-  					 u = new User(userPassword, userName, userContactNo, userEmail, 
+  					 u = new User(userPassword, userName, contactNo, userEmail, 
   							 age, "Male"); 
   				 }
   				 else if(gender.equals("F"))
   				 {
-  					 u = new User(userPassword, userName, userContactNo, userEmail, 
+  					 u = new User(userPassword, userName, contactNo, userEmail, 
   							 age, "Female"); 
   				 }
   				 else {
-  					u = new User(userPassword, userName, userContactNo, userEmail, 
+  					u = new User(userPassword, userName, contactNo, userEmail, 
  							 age, "other"); 
   				 }
   				 System.out.println("Your userID is: "+userService.register(u));
@@ -339,11 +364,23 @@ public class MyApp {
 //  					 break;
 //  				 }
 //  				 System.out.println("Enter your role");
+  				 }
+  				catch(UserDefinedException e)
+  				{
+  					System.out.println(e.getMessage());
+  				}
    				 break;
    				 
   			 case 2: //Make Appointment
-  				System.out.println("Select the center where you want to book a test");
+  				
 		  		List<DiagnosticCenter> centerList1=userService.getCenterList();
+		  		if(centerList1.size()<1)
+		  		{
+		  			System.out.println("Sorry, we have no active centers right now!");
+		  		}
+		  		else
+		  		{
+		  		System.out.println("Select the center where you want to book a test");
 		  		List<Test> testList = new ArrayList<Test>();
 		  		List<User> userList = new ArrayList<User>();
 		  		for(int centerIndex=0;centerIndex<centerList1.size();centerIndex++)
@@ -359,27 +396,35 @@ public class MyApp {
 //		  			System.out.println(counter+"."+obj.getCenterName()+"Center Id"+obj.getCenterId());
 //		  			counter++;	
 //		  		}
-		  		int selectCenterIndex=sc.nextInt();
-		  		testList = centerList1.get(selectCenterIndex).getListOfTests();
+		  		try {
+		  		String selectCenterIndex=sc.next();
+		  		UserServiceImpl.validateCenterIndex(selectCenterIndex, centerList1);
+		  		int selectCenterIndexNum = Integer.parseInt(selectCenterIndex);
+		  		testList = centerList1.get(selectCenterIndexNum).getListOfTests();
 		  		for(int testIndex=0;testIndex<testList.size();testIndex++)
 		  		{
 		  			Test t = testList.get(testIndex);
 		  			System.out.println(testIndex+" Test Name"+t.getTestName());
 		  		}
 		  		System.out.println("Select from the above tests");
-		  		int selectTestIndex = sc.nextInt();
+		  		String selectTestIndex = sc.next();
+		  		UserServiceImpl.validateTestIndex(selectTestIndex, selectCenterIndexNum, testList);
+		  		int selectTestIndexNum = Integer.parseInt(selectTestIndex);
 		  		
 		  		//datetime
-		  		System.out.println("Enter date in the following format: dd-MM-yyyy");
+		  		System.out.println("Enter date in the following format: DD/MM/yyyy HH:mm:ss");
 		  		sc.nextLine();
 		  		String dateString=sc.nextLine();
+		  		UserServiceImpl.validateDate(dateString);
 		  		SimpleDateFormat format=new SimpleDateFormat("d/M/yyyy H:m:s");
 		  		Date date=format.parse(dateString);
-		  				  		
+		  		
+		  		
 		  		System.out.println("Enter your user ID");
 		  		String userId = sc.next();
 		  		userList = userService.getUserList();
-		  		User user=new User();
+		  		UserServiceImpl.validateUser(userId, userList);
+		  		User user=null;;
 		  		for(int userIndex=0;userIndex<userList.size();userIndex++)
 		  		{
 		  			if(userList.get(userIndex).getUserId().equals(userId))
@@ -387,8 +432,8 @@ public class MyApp {
 		  				user = userList.get(userIndex);
 		  			}
 		  		}
-		  		Appointment ap = new Appointment(user,  testList.get(selectTestIndex), centerList1.get(selectCenterIndex), date);
-		  		if(centerList1.get(selectCenterIndex).addAppointment(ap))
+		  		Appointment ap = new Appointment(user,  testList.get(selectTestIndexNum), centerList1.get(selectCenterIndexNum), date);
+		  		if(centerList1.get(selectCenterIndexNum).addAppointment(ap))
 		  		{
 		  			System.out.println("Appointment request submitted!");
 		  		}
@@ -412,6 +457,18 @@ public class MyApp {
 //		  			
 //		  			Appointment ap = new Appointment("")
 //		  		}
+		  		}
+		  		catch(UserDefinedException e)
+		  		{
+		  			System.out.println(e.getMessage());
+		  		}catch(ParseException p)
+		  		{
+		  			System.out.println("Enter the datetime in the specified format!");
+		  		}
+		  		
+		  		}
+  				 break;
+  			 case 3:
   				 break;
   			 default:
   				 System.out.println("Enter proper value!");
@@ -419,6 +476,9 @@ public class MyApp {
   			 }
   		 }
 		break;
+		
+  	 case 3:
+  		 break;
 	 default:
 		System.out.println("Enter a proper choice!");
 	    break;	

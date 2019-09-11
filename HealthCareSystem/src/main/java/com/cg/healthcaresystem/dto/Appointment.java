@@ -65,8 +65,8 @@ public class Appointment {
 			return approved;
 		}
 
-		public void setApproved(boolean approved) {
-			this.approved = approved;
+		public boolean setApproved(boolean approved) {
+			return this.approved = approved;
 		}
 
 		public Date getDate() {

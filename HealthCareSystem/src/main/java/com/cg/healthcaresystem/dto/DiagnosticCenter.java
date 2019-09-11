@@ -154,7 +154,7 @@ public class DiagnosticCenter {
 	public String toString() {
 		return "DiagnosticCenter [centerId=" + centerId + ", centerName=" + centerName + ", centerContactNo="
 				+ centerContactNo + ", centerAddress=" + centerAddress + ", listOfTests=" + listOfTests
-				+ ", listOfAppointments=" + listOfAppointments + "]";
+				+ ", listOfAppointments=" + listOfAppointments.toString() + "]";
 	}
 
 	public Integer getAppointmentCounter() {

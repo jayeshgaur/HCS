@@ -2,7 +2,7 @@ package com.cg.healthcaresystem.dto;
 
 public class Test {
 	private final static String prefix = "Test";
-	private Integer testCounter = 0;
+	private static Integer testCounter = 0;
 	private String testId;
 	private String testName;
 	
@@ -16,7 +16,8 @@ public class Test {
 	{
 		super();
 		this.setTestName(testName);
-		this.setTestId(prefix + (testCounter++).toString());
+		testCounter++;
+		this.setTestId(prefix + (testCounter).toString());
 	}
 
 	
