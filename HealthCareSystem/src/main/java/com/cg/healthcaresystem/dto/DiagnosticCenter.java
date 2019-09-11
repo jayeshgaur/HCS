@@ -7,6 +7,7 @@ import java.util.List;
 public class DiagnosticCenter {
 	private String centerId;
 	private static Integer centerCounter=0;
+//	private Integer testCounter=0;
 	private Integer appointmentCounter=0;
 	private static final String prefix = "HSC";
 	private String centerName;
@@ -154,7 +155,7 @@ public class DiagnosticCenter {
 	public String toString() {
 		return "DiagnosticCenter [centerId=" + centerId + ", centerName=" + centerName + ", centerContactNo="
 				+ centerContactNo + ", centerAddress=" + centerAddress + ", listOfTests=" + listOfTests
-				+ ", listOfAppointments=" + listOfAppointments.toString() + "]";
+				+ ", listOfAppointments=" + listOfAppointments + "]";
 	}
 
 	public Integer getAppointmentCounter() {

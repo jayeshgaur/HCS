@@ -233,7 +233,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	
-	public static void validateUser(String userId, List<User> userList) throws UserDefinedException
+	public static void validateUserId(String userId, List<User> userList) throws UserDefinedException
 	{
 		int i=0;
 		for(i=0;i<userList.size();i++)
