@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(userName);
 		if (matcher.matches() == false) {
-			throw new UserDefinedException("Enter a valid name.\n Name should start with a capital letter");
+			throw new UserDefinedException(UserErrorMessage.userErrorUserName);
 		}
 
 	}
@@ -89,10 +89,10 @@ public class UserServiceImpl implements UserService {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher((CharSequence) userContactNo);
 		if (matcher.matches() == false) {
-			throw new UserDefinedException("Enter valid contact number");
+			throw new UserDefinedException(UserErrorMessage.userErrorStringContactNo);
 		} else {
 			if (userContactNo.length() != 10) {
-				throw new UserDefinedException("Contact number should have 10 digits");
+				throw new UserDefinedException(UserErrorMessage.userErrorContactNoLength);
 			}
 		}
 
@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(userEmail);
 		if (matcher.matches() == false) {
-			throw new UserDefinedException("Enter valid email id.");
+			throw new UserDefinedException(UserErrorMessage.userErrorEmailId);
 		}
 
 	}
@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService {
 	public static void validateAge(Integer age) throws UserDefinedException {
 		// TODO Auto-generated method stub
 		if (age <= 0 && age > 110) {
-			throw new UserDefinedException("Enter valid age");
+			throw new UserDefinedException(UserErrorMessage.userErrorUserAge);
 		}
 
 	}
@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
 	public static void validateGender(String gender) throws UserDefinedException {
 		// TODO Auto-generated method stub
 		if (!(gender.equals("M") || gender.equals("F") || gender.equals("O"))) {
-			throw new UserDefinedException("Enter valid gender");
+			throw new UserDefinedException(UserErrorMessage.userErrorUserGender);
 		}
 
 	}
@@ -133,7 +133,7 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		if (i == centerList.size())
-			throw new UserDefinedException("Enter a proper center id");
+			throw new UserDefinedException(UserErrorMessage.userErrorInvalidCenterId);
 	}
 
 	public static void validateTestid(String removeTestId, String centerId, List<DiagnosticCenter> centerList)
@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService {
 					}
 				}
 				if (j == testList.size()) {
-					throw new UserDefinedException("Enter correct test id");
+					throw new UserDefinedException(UserErrorMessage.userErrorInvalidTestId);
 				}
 			}
 		}
