@@ -148,8 +148,15 @@ public class MyApp {
 			  		
 			  		
 			  	case 4: // Remove Test
-			  		System.out.println("Select the center where you want to delete test");
+			  		
 			  		centerList=userService.getCenterList();
+			  		if(centerList.size()<1)
+			  		{
+			  			System.out.println("There is no center in the system!");
+			  		}
+			  		else
+			  		{
+			  		System.out.println("Select the center where you want to delete test");
 			  		List<Test> testList = new ArrayList<Test>();
 			  		Iterator itr1=centerList.iterator();
 			  		int counter=1;
@@ -193,7 +200,7 @@ public class MyApp {
 			  		{
 			  			System.out.println(e.getMessage());
 			  		}
-			  		
+			  		}
 			  		
 			  		
 			  		break;
@@ -201,6 +208,12 @@ public class MyApp {
 			  		
 			  	  System.out.println("====List of diagnostic center=====");
 			  	  centerList=userService.getCenterList();
+			  	  if(centerList.size()<1)
+			  	  {
+			  		  System.out.println("Create a new center first");
+			  	  }
+			  	  else
+			  	  {
 			  	  Iterator<DiagnosticCenter> iterator=centerList.iterator();
 			  	  int count=1;
 			  	  centerId="";
@@ -262,7 +275,7 @@ public class MyApp {
 			  	  {
 			  		  System.out.println(e.getMessage());
 			  	  }
-			  	 
+			  	  }
 			  		
 			  		break;
 			  	case 6: 
