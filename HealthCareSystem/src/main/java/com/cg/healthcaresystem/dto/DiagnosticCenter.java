@@ -97,7 +97,8 @@ public class DiagnosticCenter {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode() 
+	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((centerAddress == null) ? 0 : centerAddress.hashCode());
@@ -152,24 +153,27 @@ public class DiagnosticCenter {
 	}
 
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return "DiagnosticCenter [centerId=" + centerId + ", centerName=" + centerName + ", centerContactNo="
 				+ centerContactNo + ", centerAddress=" + centerAddress + ", listOfTests=" + listOfTests
 				+ ", listOfAppointments=" + listOfAppointments + "]";
 	}
 
-	public Integer getAppointmentCounter() {
+	public Integer getAppointmentCounter() 
+	{
 		appointmentCounter++;
 		return appointmentCounter;
 	}
 
-	public void setAppointmentCounter(Integer appointmentCounter) {
+	public void setAppointmentCounter(Integer appointmentCounter) 
+	{
 		this.appointmentCounter = appointmentCounter;
 	}
 	
-	public boolean addAppointment(Appointment ap)
+	public boolean addAppointment(Appointment appointment)
 	{
-		return this.listOfAppointments.add(ap);
+		return this.listOfAppointments.add(appointment);
 	}
 
 }
