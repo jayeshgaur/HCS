@@ -65,8 +65,8 @@ public class DiagnosticCenter {
 		this.listOfTests =  listOfTests;
 	}
 
-	public void addTest(Test t) {
-		this.listOfTests.add(t);
+	public void addTest(Test test) {
+		this.listOfTests.add(test);
 	}
 
 	//CenterContactNumber

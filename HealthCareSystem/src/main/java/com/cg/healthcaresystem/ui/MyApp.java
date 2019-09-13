@@ -25,100 +25,149 @@ public class MyApp {
 		String centerName = "";
 		String centerId = "";
 		String userId = "";
+		String choices = "";
 		List<DiagnosticCenter> centerList = null;
 		while (userRole != 3) {
 			userRole = adminChoice = userChoice = 0;
 			System.out.println("Enter your role: \n 1.Admin 2.User 3.Exit");
 			Scanner sc = new Scanner(System.in);
-			userRole = sc.nextInt();
+
+			// validate numeric choice for menu
+			while (true) {
+				choices = sc.next();
+				try {
+					userRole = Integer.parseInt(choices);
+					break;
+				} catch (Exception parseException) {
+					System.out.println("Enter a numeric choice!");
+				}
+			}
+
 			switch (userRole) {
 			case 1: // Admin functions
 
 				while (adminChoice != 6) {
 					adminChoice = 0;
-					System.out.println("What function do you want to perform? \n. 1.Add new Center "
+					System.out.println("What function do you want to perform? \n1.Add new Center "
 							+ "2.Remove an existing center \n 3.Add new Test in an existing center "
 							+ "4.Remove a Test\n 5.Approve appointments\n 6.Exit");
 
-					adminChoice = sc.nextInt();
+					// validate adminChoice
+					while (true) {
+						choices = sc.next();
+						try {
+							adminChoice = Integer.parseInt(choices);
+							break;
+						} catch (Exception parseException) {
+							System.out.println("Enter a numeric choice!");
+						}
+					}
+
 					switch (adminChoice) {
 					case 1: // Add Center
+
+						// Get new center details
 						System.out.println("Enter the name of the center:");
 						sc.nextLine();
 						centerName = sc.nextLine();
-
 						System.out.println("Enter the address of the center:");
 						String centerAddress = sc.nextLine();
-
 						System.out.println("Enter the contact number of the center:");
 						String centerContactNo = sc.nextLine();
 						try {
-							UserServiceImpl.validateContactNo(centerContactNo);
-							BigInteger centerContact = new BigInteger(centerContactNo);
-							DiagnosticCenter center = new DiagnosticCenter(centerName, centerAddress, centerContact);
-							if (userService.addCenter(center) != null) {
+							// validate contact number and add
+							BigInteger centerContact = new BigInteger(userService.validateContactNo(centerContactNo));
+
+							// create center object to add to centerlist
+							DiagnosticCenter diagnosticCenter = new DiagnosticCenter(centerName, centerAddress, centerContact);
+
+							// add object to list
+							if (null != userService.addCenter(diagnosticCenter)) {
 								System.out.println("Center added successfully!");
 							} else {
-								System.out.println("Failed");
+								System.out.println("Could not add center. Try again!");
 							}
 						} catch (UserDefinedException e) {
 							System.out.println(e.getMessage());
 						}
-
 						break;
 
 					case 2: // Remove Center
 
+						// Get list of centers to check if center(s) exists or not!
 						centerList = userService.getCenterList();
 						if (centerList.size() < 1) {
 							System.out.println("No center in the system");
 						} else {
-							System.out.println("Enter the id of center which you want to remove");
-							for (int centerIndex = 0; centerIndex < centerList.size(); centerIndex++) {
-								DiagnosticCenter d = centerList.get(centerIndex);
-								System.out.println(centerIndex + " CenterName: " + d.getCenterName() + " CenterID: "
-										+ d.getCenterId());
+							DiagnosticCenter diagnosticCenter;
+							// print all existing centers for the admin to choose from
+							for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
+								diagnosticCenter = iterator.next();
+								System.out.println("CenterName: " + diagnosticCenter.getCenterName() + " CenterId: "
+										+ diagnosticCenter.getCenterId() + " Address: "
+										+ diagnosticCenter.getCenterAddress());
 							}
+
+							//Get CenterId from admin to delete center
+							System.out.println("Enter the id of center which you want to remove");
 							centerId = sc.next();
-							if (userService.removeCenter(centerId)) {
-								System.out.println("Center deleted successfully");
-							} else {
-								System.out.println("No diagnostic center found with centerid " + centerId);
+							
+							//validate ID and remove
+							try {
+								if (userService.removeCenter(userService.validateCenterId(centerId, centerList))) {
+									System.out.println("Center deleted successfully");
+								} else {
+									System.out.println("No diagnostic center found with centerid " + centerId);
+								}
+							} catch (UserDefinedException userDefinedException) {
+								System.out.println(userDefinedException.getMessage());
 							}
 						}
 						break;
 
 					case 3: // Add Test
-						// System.out.println("Select the center in which you want to add test");
+						// Get list of centers
 						centerList = userService.getCenterList();
+
+						// Check if there's a center present in the system to perform "Add Test"
 						if (centerList.size() < 1) {
 							System.out.println("No centers in the system to add test into");
 						} else {
+
+							// Get Test Details First
+							System.out.println("Enter the name of the test which you want to add in center ");
+							sc.nextLine();
+							String testName = sc.nextLine();
+
+							// Display list of centers to display to the user
 							Iterator<DiagnosticCenter> iterator = centerList.iterator();
 							int count = 1;
+							DiagnosticCenter diagnosticCenter;
 							while (iterator.hasNext()) {
-								DiagnosticCenter obj = iterator.next();
-								System.out.println(count + ". CenterName: " + obj.getCenterName());
+								diagnosticCenter = iterator.next();
+								System.out.println(count + ". CenterName: " + diagnosticCenter.getCenterName()
+										+ " CenterId: " + diagnosticCenter.getCenterId());
 								count++;
 							}
-							System.out.println("Enter the centerName in which you want to add test");
-							sc.nextLine();
-							centerName = sc.nextLine();
-							System.out.println(
-									"Enter the name of the test which you want to add in center " + centerName);
-							String testName = sc.nextLine();
+
+							// Select Center Id
+							System.out.println("Enter the Center Id of the Center in which you want to add test");
+
+							centerId = sc.nextLine();
+
+							// Create Test object to add
 							Test test = new Test(testName);
-							if (userService.addTest(centerName, test) != null) {
-								System.out.println("Test addedd successfully");
-							} else {
-								System.out.println("Not added");
+							// validate center id and add to center
+							try {
+								if (null != userService.addTest(userService.validateCenterId(centerId, centerList),
+										test)) {
+									System.out.println("Test addedd successfully");
+								} else {
+									System.out.println("Not added. Please try again");
+								}
+							} catch (UserDefinedException e) {
+								System.out.println(e.getMessage());
 							}
-//			  		List<DiagnosticCenter> li2 = userService.getCenterList();
-//			  		Iterator itr4=li2.iterator();
-//			  		while(itr4.hasNext())
-//			  		{
-//			  			System.out.println(itr4.next());
-//			  		}
 						}
 						break;
 
@@ -142,7 +191,7 @@ public class MyApp {
 							String removeCenterId = "";
 							try {
 								removeCenterId = sc.next();
-								UserServiceImpl.validateCenterId(removeCenterId, centerList);
+								userService.validateCenterId(removeCenterId, centerList);
 								for (int i = 0; i < centerList.size(); i++) {
 									if (centerList.get(i).getCenterId().equals(removeCenterId)) {
 										testList = centerList.get(i).getListOfTests();
@@ -187,7 +236,7 @@ public class MyApp {
 							System.out.println("Enter Diagnostic Center Id");
 							try {
 								centerId = sc.next();
-								UserServiceImpl.validateCenterId(centerId, centerList);
+								userService.validateCenterId(centerId, centerList);
 								System.out.println("=====List of appointments======");
 								for (int i = 0; i < centerList.size(); i++) {
 									if (centerList.get(i).getCenterId().equals(centerId)) {
@@ -241,7 +290,7 @@ public class MyApp {
 					case 6:
 						break;
 					default:
-						System.out.println("Enter a proper function");
+						System.out.println("Enter a proper choice");
 						break;
 					}
 				}
@@ -253,7 +302,18 @@ public class MyApp {
 					userChoice = 0;
 					System.out.println(
 							"What function do u want to perform?\n 1.Registration\n 2.Make Appointments\n 3.View Appointments 4.Exit");
-					userChoice = sc.nextInt();
+
+					// validate user choice
+					while (true) {
+						choices = sc.next();
+						try {
+							userChoice = Integer.parseInt(choices);
+							break;
+						} catch (Exception parseException) {
+							System.out.println("Enter a numeric choice!");
+						}
+					}
+
 					switch (userChoice) {
 					case 1: // User Registration
 						System.out.println("-------------Registration-----------");
@@ -272,9 +332,7 @@ public class MyApp {
 							System.out.println("Enter your contact number");
 							String userContactNo = sc.next();
 
-							UserServiceImpl.validateContactNo(userContactNo);
-
-							BigInteger contactNo = new BigInteger(userContactNo);
+							BigInteger contactNo = new BigInteger(userService.validateContactNo(userContactNo));
 
 							System.out.println("Enter your email");
 							String userEmail = sc.next();

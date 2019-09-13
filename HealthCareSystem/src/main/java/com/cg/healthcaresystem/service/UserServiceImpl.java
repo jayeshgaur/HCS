@@ -3,6 +3,7 @@ package com.cg.healthcaresystem.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,20 +25,19 @@ public class UserServiceImpl implements UserService {
 		return dao.addCenter(center);
 	}
 
-	public boolean removeCenter(String centerid) {
+	public boolean removeCenter(String centerId) {
 
-		return dao.removeCenter(centerid);
+		return dao.removeCenter(centerId);
 	}
 
-	public Test addTest(String name, Test test) {
-		return dao.addTest(name, test);
+	public Test addTest(String centerId, Test test) {
+		return dao.addTest(centerId, test);
 
 	}
 
 	public boolean removeTest(String removeCenterId, String removeTestId) {
 		// TODO Auto-generated method stub
 		return dao.removeTest(removeCenterId, removeTestId);
-
 	}
 
 	public String register(User user) {
@@ -69,7 +69,6 @@ public class UserServiceImpl implements UserService {
 		if (matcher.matches() == false) {
 			throw new UserDefinedException(UserErrorMessage.userErrorPassword);
 		}
-
 	}
 
 	public static void validateName(String userName) throws UserDefinedException {
@@ -83,7 +82,7 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	public static void validateContactNo(String userContactNo) throws UserDefinedException {
+	public String validateContactNo(String userContactNo) throws UserDefinedException {
 		// TODO Auto-generated method stub
 		String regex = "^[0-9]+";
 		Pattern pattern = Pattern.compile(regex);
@@ -95,7 +94,7 @@ public class UserServiceImpl implements UserService {
 				throw new UserDefinedException(UserErrorMessage.userErrorContactNoLength);
 			}
 		}
-
+		return userContactNo;
 	}
 
 	public static void validateEmail(String userEmail) throws UserDefinedException {
@@ -124,16 +123,16 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	public static void validateCenterId(String centerId, List<DiagnosticCenter> centerList)
+	public String validateCenterId(String centerId, List<DiagnosticCenter> centerList)
 			throws UserDefinedException {
-		int i = 0;
-		for (i = 0; i < centerList.size(); i++) {
-			if (centerList.get(i).getCenterId().equals(centerId)) {
-				break;
-			}
+		for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
+			DiagnosticCenter diagnosticCenter =  iterator.next();
+			if(diagnosticCenter.getCenterId().equals(centerId))
+				return centerId;
+			
 		}
-		if (i == centerList.size())
-			throw new UserDefinedException(UserErrorMessage.userErrorInvalidCenterId);
+		throw new UserDefinedException("Invalid Center Id");
+		
 	}
 
 	public static void validateTestid(String removeTestId, String centerId, List<DiagnosticCenter> centerList)

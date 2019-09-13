@@ -17,12 +17,12 @@ public class UserDaoImpl implements UserDao {
 			return null;
 	}
 
-	public boolean removeCenter(String centerid) {
+	public boolean removeCenter(String centerId) {
 		// TODO Auto-generated method stub
-		Iterator<DiagnosticCenter> itr = centerList.iterator();
-		while (itr.hasNext()) {
-			DiagnosticCenter obj = (DiagnosticCenter) itr.next();
-			if (obj.getCenterId().equals(centerid)) {
+		Iterator<DiagnosticCenter> iterator = centerList.iterator();
+		while (iterator.hasNext()) {
+			DiagnosticCenter obj = iterator.next();
+			if (obj.getCenterId().equals(centerId)) {
 				centerList.remove(obj);
 				return true;
 			}
@@ -31,13 +31,15 @@ public class UserDaoImpl implements UserDao {
 		return false;
 	}
 
-	public Test addTest(String name, Test test) {
-		for (int i = 0; i < centerList.size(); i++) {
-			if (centerList.get(i).getCenterName().equals(name)) {
-				centerList.get(i).addTest(test);
+	public Test addTest(String centerId, Test test) {
+		for (DiagnosticCenter diagnosticCenter : centerList) {
+			if(diagnosticCenter.getCenterId().equals(centerId))
+			{
+				diagnosticCenter.addTest(test);
+				return test;
 			}
 		}
-		return test;
+		return null;
 	}
 
 	public boolean removeTest(String removeCenterId, String removeTestId) {
