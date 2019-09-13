@@ -33,8 +33,28 @@ public class UserServiceImpl implements UserService {
 		return dao.addTest(centerId, test);
 	}
 
-	public boolean removeTest(String removeCenterId, String removeTestId) {
-		return dao.removeTest(removeCenterId, removeTestId);
+	public boolean removeTest(String removeCenterId, String removeTestId, List<DiagnosticCenter> centerList) {
+			List<Test> testList = null;
+			DiagnosticCenter diagnosticCenter = null;
+			Test test = null;
+			Iterator<DiagnosticCenter> diagnosticCenterIterator = centerList.iterator();
+			while(diagnosticCenterIterator.hasNext()) {
+				diagnosticCenter = diagnosticCenterIterator.next();
+				if(diagnosticCenter.getCenterId().equals(removeCenterId)) {
+					testList = diagnosticCenter.getListOfTests();
+					break;
+				}
+			}
+			
+			Iterator<Test> testListIterator = testList.iterator();
+			while(testListIterator.hasNext()) {
+				test = testListIterator.next();
+				if(test.getTestId().equals(removeTestId)) {
+					break;
+				}
+				
+			}
+			return testList.remove(test);
 	}
 
 	public String register(User user) {

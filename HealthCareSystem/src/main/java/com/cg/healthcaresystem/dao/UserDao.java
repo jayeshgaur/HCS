@@ -13,7 +13,7 @@ public interface UserDao {
 
 	public Test addTest(String name, Test test);
 
-	public boolean removeTest(String removeCenterid, String removeTestId);
+//	public boolean removeTest(String removeCenterid, String removeTestId);
 
 	public String register(User user);
 

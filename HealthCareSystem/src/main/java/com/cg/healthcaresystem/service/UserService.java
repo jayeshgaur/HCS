@@ -14,7 +14,7 @@ public interface UserService {
 
 	public Test addTest(String name, Test test);
 
-	public boolean removeTest(String removeCenterId, String removeTestId);
+	public boolean removeTest(String removeCenterId, String removeTestId, List<DiagnosticCenter> centerList);
 
 	public String register(User user);
 

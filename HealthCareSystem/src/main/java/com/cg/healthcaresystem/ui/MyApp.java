@@ -158,6 +158,7 @@ public class MyApp {
 
 							// Create Test object to add
 							test = new Test(testName);
+
 							// validate center id and add to center
 							try {
 								if (null != userService.addTest(userService.validateCenterId(centerId, centerList),
@@ -201,7 +202,8 @@ public class MyApp {
 								removeCenterId = userService.validateCenterId(removeCenterId, centerList);
 
 								// Retrieve list of tests from the selected center id
-								for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
+								Iterator<DiagnosticCenter> iterator = centerList.iterator();
+								while (iterator.hasNext()) {
 									diagnosticCenter = iterator.next();
 									if (diagnosticCenter.getCenterId().equals(removeCenterId)) {
 										testList = diagnosticCenter.getListOfTests();
@@ -209,10 +211,10 @@ public class MyApp {
 								}
 
 								// Display test list from the selected center id
-								for (Iterator<Test> iterator = testList.iterator(); iterator.hasNext();) {
-									test = iterator.next();
-									System.out.println(
-											"Test Name " + test.getTestName() + " Test Id: " + test.getTestId());
+								Iterator<Test> testListIterator = testList.iterator();
+								while(testListIterator.hasNext()) {
+									test = testListIterator.next();
+									System.out.println("Test ID: "+test.getTestId()+" Test Name: "+test.getTestName());
 								}
 
 								// Get Test Id of the test to be removed
@@ -220,8 +222,7 @@ public class MyApp {
 								String removeTestId = scanner.next();
 
 								// Remove test from the list if test id is correct
-								if (userService.removeTest(removeCenterId,
-										userService.validateTestid(removeTestId, removeCenterId, centerList))) {
+								if (userService.removeTest(removeCenterId,userService.validateTestid(removeTestId, removeCenterId, centerList),centerList)) {
 									System.out.println("Test deleted successfully");
 								} else {
 									System.out.println("Test is not present");
@@ -412,7 +413,7 @@ public class MyApp {
 						} else {
 							System.out.println("Select the center where you want to book a test");
 							List<User> userList = null;
-							
+
 //		  		Iterator itr1=centerList1.iterator();
 //		  		int counter=1;
 //		  		while(itr1.hasNext())
@@ -421,7 +422,7 @@ public class MyApp {
 //		  			System.out.println(counter+"."+obj.getCenterName()+"Center Id"+obj.getCenterId());
 //		  			counter++;	
 //		  		}
-							
+
 							// print all existing centers to choose from
 							Iterator<DiagnosticCenter> diagnosticCenterIterator = centerList.iterator();
 							while (diagnosticCenterIterator.hasNext()) {
@@ -430,7 +431,7 @@ public class MyApp {
 										+ diagnosticCenter.getCenterId() + " Address: "
 										+ diagnosticCenter.getCenterAddress());
 							}
-							
+
 							try {
 								String selectCenterIndex = scanner.next();
 								UserServiceImpl.validateCenterIndex(selectCenterIndex, centerList);
