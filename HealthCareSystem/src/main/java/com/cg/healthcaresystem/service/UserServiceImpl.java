@@ -19,62 +19,85 @@ import com.cg.healthcaresystem.exception.UserErrorMessage;
 
 public class UserServiceImpl implements UserService {
 
-	private UserDao dao = new UserDaoImpl();
+	private UserDao userDao = new UserDaoImpl();
 
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
-		return dao.addCenter(center);
+		return userDao.addCenter(center);
 	}
 
 	public boolean removeCenter(String centerId) {
-		return dao.removeCenter(centerId);
+		return userDao.removeCenter(centerId);
 	}
 
-	public Test addTest(String centerId, Test test) {
-		return dao.addTest(centerId, test);
+	public Test addTest(String centerId, Test test) throws UserDefinedException {
+		List<DiagnosticCenter> centerList = userDao.getCenterList();
+		DiagnosticCenter diagnosticCenter = null;
+		Iterator<DiagnosticCenter> centerListIterator = centerList.iterator();
+		while (centerListIterator.hasNext()) {
+			diagnosticCenter = centerListIterator.next();
+			if (diagnosticCenter.getCenterId().equals(centerId)) {
+				diagnosticCenter.getListOfTests().add(test);
+				return test;
+			}
+		}
+		throw new UserDefinedException(UserErrorMessage.userErrorAddTestFailed);
 	}
 
 	public boolean removeTest(String removeCenterId, String removeTestId, List<DiagnosticCenter> centerList) {
-			List<Test> testList = null;
-			DiagnosticCenter diagnosticCenter = null;
-			Test test = null;
-			Iterator<DiagnosticCenter> diagnosticCenterIterator = centerList.iterator();
-			while(diagnosticCenterIterator.hasNext()) {
-				diagnosticCenter = diagnosticCenterIterator.next();
-				if(diagnosticCenter.getCenterId().equals(removeCenterId)) {
-					testList = diagnosticCenter.getListOfTests();
-					break;
-				}
+		List<Test> testList = null;
+		DiagnosticCenter diagnosticCenter = null;
+		Test test = null;
+		Iterator<DiagnosticCenter> diagnosticCenterIterator = centerList.iterator();
+		while (diagnosticCenterIterator.hasNext()) {
+			diagnosticCenter = diagnosticCenterIterator.next();
+			if (diagnosticCenter.getCenterId().equals(removeCenterId)) {
+				testList = diagnosticCenter.getListOfTests();
+				break;
 			}
-			
-			Iterator<Test> testListIterator = testList.iterator();
-			while(testListIterator.hasNext()) {
-				test = testListIterator.next();
-				if(test.getTestId().equals(removeTestId)) {
-					break;
-				}
-				
+		}
+
+		Iterator<Test> testListIterator = testList.iterator();
+		while (testListIterator.hasNext()) {
+			test = testListIterator.next();
+			if (test.getTestId().equals(removeTestId)) {
+				break;
 			}
-			return testList.remove(test);
+
+		}
+		return testList.remove(test);
 	}
 
 	public String register(User user) {
-		return dao.register(user);
+		return userDao.register(user);
 	}
 
 	public List<DiagnosticCenter> getCenterList() {
-		return dao.getCenterList();
+		return userDao.getCenterList();
 	}
 
 	public boolean setCenterList(List<DiagnosticCenter> centerList) {
-		return dao.setCenterList(centerList);
+		return userDao.setCenterList(centerList);
 	}
 
 	public List<User> getUserList() {
-		return dao.getUserList();
+		return userDao.getUserList();
 	}
 
 	public boolean setUserList(List<User> li) {
-		return dao.setUserList(li);
+		return userDao.setUserList(li);
+	}
+
+	public boolean approveAppointment(String appointmentId, List<Appointment> appointmentList) {
+		boolean status = false;
+		Iterator<Appointment> appointmentListIterator = appointmentList.iterator();
+		Appointment appointment;
+		while (appointmentListIterator.hasNext()) {
+			appointment = appointmentListIterator.next();
+			if (appointment.getAppointmentId().equals(appointmentId)) {
+				status = appointment.setApproved(true);
+			}
+		}
+		return status;
 	}
 
 	public static void validatePassword(String userPassword) throws UserDefinedException {
@@ -86,28 +109,35 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	public static void validateName(String userName) throws UserDefinedException {
-		String regex = "^[A-Z].*";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(userName);
-		if (matcher.matches() == false) {
-			throw new UserDefinedException(UserErrorMessage.userErrorUserName);
-		}
+	public String validateName(String userName) throws UserDefinedException {
 
+		if (userName.matches("^[A-Z].*")) {
+			return userName;
+		}
+		throw new UserDefinedException(UserErrorMessage.userErrorUserName);
 	}
 
 	public String validateContactNo(String userContactNo) throws UserDefinedException {
-		String regex = "^[0-9]+";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher((CharSequence) userContactNo);
-		if (matcher.matches() == false) {
-			throw new UserDefinedException(UserErrorMessage.userErrorStringContactNo);
-		} else {
-			if (userContactNo.length() != 10) {
+		if(userContactNo.matches("^[0-9]+")) {
+			if(userContactNo.length() != 10) {
 				throw new UserDefinedException(UserErrorMessage.userErrorContactNoLength);
+			}else {
+				return userContactNo;
 			}
 		}
-		return userContactNo;
+		throw new UserDefinedException(UserErrorMessage.userErrorStringContactNo);
+		
+//		String regex = "^[0-9]+";
+//		Pattern pattern = Pattern.compile(regex);
+//		Matcher matcher = pattern.matcher((CharSequence) userContactNo);
+//		if (matcher.matches() == false) {
+//			throw new UserDefinedException(UserErrorMessage.userErrorStringContactNo);
+//		} else {
+//			if (userContactNo.length() != 10) {
+//				throw new UserDefinedException(UserErrorMessage.userErrorContactNoLength);
+//			}
+//		}
+//		return userContactNo;
 	}
 
 	public static void validateEmail(String userEmail) throws UserDefinedException {
@@ -214,20 +244,17 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	public static void validateAppointmentId(String appointmentid, List<Appointment> listofappointment)
+	public String validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)
 			throws UserDefinedException {
-		int i = 0;
-		for (i = 0; i < listofappointment.size(); i++) {
-			if (listofappointment.get(i).getAppointmentId().equals(appointmentid)) {
-				if (listofappointment.get(i).isApproved() == true) {
-					throw new UserDefinedException("Appointment is already approved!");
-				}
-				break;
+		Appointment appointment = null;
+		Iterator<Appointment> appointmentListIterator = listOfAppointment.iterator();
+		while (appointmentListIterator.hasNext()) {
+			appointment = appointmentListIterator.next();
+			if (appointment.getAppointmentId().equals(appointmentId)) {
+				return appointmentId;
 			}
 		}
-		if (i == listofappointment.size())
-			throw new UserDefinedException("Enter a proper appointmentId");
-
+		throw new UserDefinedException(UserErrorMessage.userErrorInvalidAppointmentId);
 	}
 
 }

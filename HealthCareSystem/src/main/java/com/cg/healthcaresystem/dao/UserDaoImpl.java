@@ -1,7 +1,6 @@
 package com.cg.healthcaresystem.dao;
 
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
-import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
 import java.util.*;
 
@@ -18,29 +17,29 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public boolean removeCenter(String centerId) {
-		// TODO Auto-generated method stub
+		boolean status = false;
 		Iterator<DiagnosticCenter> iterator = centerList.iterator();
 		while (iterator.hasNext()) {
 			DiagnosticCenter obj = iterator.next();
 			if (obj.getCenterId().equals(centerId)) {
 				centerList.remove(obj);
-				return true;
+				status =  true;
 			}
 
 		}
-		return false;
+		return status;
 	}
 
-	public Test addTest(String centerId, Test test) {
-		for (DiagnosticCenter diagnosticCenter : centerList) {
-			if(diagnosticCenter.getCenterId().equals(centerId))
-			{
-				diagnosticCenter.addTest(test);
-				return test;
-			}
-		}
-		return null;
-	}
+//	public Test addTest(String centerId, Test test) {
+//		for (DiagnosticCenter diagnosticCenter : centerList) {
+//			if(diagnosticCenter.getCenterId().equals(centerId))
+//			{
+//				diagnosticCenter.addTest(test);
+//				return test;
+//			}
+//		}
+//		return null;
+//	}
 
 //	public boolean removeTest(String removeCenterId, String removeTestId) {
 //		List<Test> tempTestList = new ArrayList<Test>();

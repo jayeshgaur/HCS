@@ -10,7 +10,6 @@ public class UserErrorMessage {
 	public static final String userErrorUserGender = "Enter valid gender";
 	public static final String userErrorInvalidCenterId = "Enter a proper center id";
 	public static final String userErrorInvalidTestId = "Enter correct test id";
-//	public static final String userErrorInvalidCenterIndex = "Enter a numeric choice!";
-	
-	
+	public static final String userErrorInvalidAppointmentId = "Enter correct appointment id!";
+	public static final String userErrorAddTestFailed = "Failed to add test";
 }

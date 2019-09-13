@@ -11,7 +11,7 @@ public interface UserDao {
 
 	public boolean removeCenter(String centerid);
 
-	public Test addTest(String name, Test test);
+//	public Test addTest(String name, Test test);
 
 //	public boolean removeTest(String removeCenterid, String removeTestId);
 

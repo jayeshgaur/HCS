@@ -2,6 +2,7 @@ package com.cg.healthcaresystem.service;
 
 import java.util.List;
 
+import com.cg.healthcaresystem.dto.Appointment;
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
 import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
@@ -12,7 +13,7 @@ public interface UserService {
 
 	public boolean removeCenter(String centerId);
 
-	public Test addTest(String name, Test test);
+	public Test addTest(String name, Test test) throws UserDefinedException;
 
 	public boolean removeTest(String removeCenterId, String removeTestId, List<DiagnosticCenter> centerList);
 
@@ -29,5 +30,11 @@ public interface UserService {
 	public String validateCenterId(String centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
 	
 	public String validateTestid(String removeTestId, String centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
+	
+	public String validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)throws UserDefinedException;
+	
+	public boolean approveAppointment(String appointmentId, List<Appointment> appointmentList);
+
+	public String validateName(String nextLine) throws UserDefinedException;
 
 }
