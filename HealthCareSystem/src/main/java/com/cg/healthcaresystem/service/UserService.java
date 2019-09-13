@@ -27,5 +27,7 @@ public interface UserService {
 	public String validateContactNo(String userContactNo) throws UserDefinedException;
 	
 	public String validateCenterId(String centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
+	
+	public String validateTestid(String removeTestId, String centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
 
 }

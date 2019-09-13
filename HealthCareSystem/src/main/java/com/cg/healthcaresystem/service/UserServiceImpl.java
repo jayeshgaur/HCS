@@ -26,22 +26,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean removeCenter(String centerId) {
-
 		return dao.removeCenter(centerId);
 	}
 
 	public Test addTest(String centerId, Test test) {
 		return dao.addTest(centerId, test);
-
 	}
 
 	public boolean removeTest(String removeCenterId, String removeTestId) {
-		// TODO Auto-generated method stub
 		return dao.removeTest(removeCenterId, removeTestId);
 	}
 
 	public String register(User user) {
-		// TODO Auto-generated method stub
 		return dao.register(user);
 	}
 
@@ -62,7 +58,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public static void validatePassword(String userPassword) throws UserDefinedException {
-		// TODO Auto-generated method stub
 		String regex = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(userPassword);
@@ -72,7 +67,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public static void validateName(String userName) throws UserDefinedException {
-		// TODO Auto-generated method stub
 		String regex = "^[A-Z].*";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(userName);
@@ -83,7 +77,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public String validateContactNo(String userContactNo) throws UserDefinedException {
-		// TODO Auto-generated method stub
 		String regex = "^[0-9]+";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher((CharSequence) userContactNo);
@@ -108,7 +101,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public static void validateAge(Integer age) throws UserDefinedException {
-		// TODO Auto-generated method stub
 		if (age <= 0 && age > 110) {
 			throw new UserDefinedException(UserErrorMessage.userErrorUserAge);
 		}
@@ -116,42 +108,39 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public static void validateGender(String gender) throws UserDefinedException {
-		// TODO Auto-generated method stub
 		if (!(gender.equals("M") || gender.equals("F") || gender.equals("O"))) {
 			throw new UserDefinedException(UserErrorMessage.userErrorUserGender);
 		}
 
 	}
 
-	public String validateCenterId(String centerId, List<DiagnosticCenter> centerList)
-			throws UserDefinedException {
+	public String validateCenterId(String centerId, List<DiagnosticCenter> centerList) throws UserDefinedException {
 		for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
-			DiagnosticCenter diagnosticCenter =  iterator.next();
-			if(diagnosticCenter.getCenterId().equals(centerId))
+			DiagnosticCenter diagnosticCenter = iterator.next();
+			if (diagnosticCenter.getCenterId().equals(centerId))
 				return centerId;
-			
+
 		}
-		throw new UserDefinedException("Invalid Center Id");
-		
+		throw new UserDefinedException(UserErrorMessage.userErrorInvalidCenterId);
 	}
 
-	public static void validateTestid(String removeTestId, String centerId, List<DiagnosticCenter> centerList)
+	public String validateTestid(String removeTestId, String centerId, List<DiagnosticCenter> centerList)
 			throws UserDefinedException {
-		int i = 0;
-		int j = 0;
-		for (i = 0; i < centerList.size(); i++) {
-			if (centerList.get(i).getCenterId().equals(centerId)) {
-				List<Test> testList = centerList.get(i).getListOfTests();
-				for (j = 0; j < testList.size(); j++) {
-					if (testList.get(j).getTestId().equals(removeTestId)) {
-						break;
+		DiagnosticCenter diagnosticCenter;
+		Test test;
+		for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
+			diagnosticCenter = iterator.next();
+			if (diagnosticCenter.getCenterId().equals(centerId)) {
+				for (Iterator<Test> iteratorTestList = diagnosticCenter.getListOfTests().iterator(); iteratorTestList
+						.hasNext();) {
+					test = iteratorTestList.next();
+					if (test.getTestId().equals(removeTestId)) {
+						return removeTestId;
 					}
-				}
-				if (j == testList.size()) {
-					throw new UserDefinedException(UserErrorMessage.userErrorInvalidTestId);
 				}
 			}
 		}
+		throw new UserDefinedException(UserErrorMessage.userErrorInvalidTestId);
 	}
 
 	public static void validateCenterIndex(String selectCenterIndex, List<DiagnosticCenter> centerList1)
