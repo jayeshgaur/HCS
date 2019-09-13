@@ -238,29 +238,30 @@ public class MyApp {
 						// Print list of diagnostic centers
 						System.out.println("====List of diagnostic center=====");
 						centerList = userService.getCenterList();
+						
+						//Check if there's a center present
 						if (centerList.size() < 1) {
 							System.out.println("Create a new center first");
 						} else {
-
-							// print all existing centers to choose from
 							Iterator<DiagnosticCenter> diagnosticCenterIterator = centerList.iterator();
 							while (diagnosticCenterIterator.hasNext()) {
 								diagnosticCenter = diagnosticCenterIterator.next();
 								System.out.println("CenterName: " + diagnosticCenter.getCenterName() + " CenterId: "
 										+ diagnosticCenter.getCenterId() + " Address: "
 										+ diagnosticCenter.getCenterAddress());
-							}
+							}	
 
 							System.out.println("Enter Diagnostic Center Id");
 							try {
 
 								// Accept center id
-								centerId = scanner.next();
+								centerId = userService.validateCenterId(scanner.next(), centerList);
 
+								//get list of appointments in the center
 								System.out.println("=====List of appointments======");
 								for (int i = 0; i < centerList.size(); i++) {
 									if (centerList.get(i).getCenterId()
-											.equals(userService.validateCenterId(centerId, centerList))) {
+											.equals(centerId)) {
 										List<Appointment> listOfAppointments = centerList.get(i)
 												.getListOfAppointments();
 										if (listOfAppointments.size() < 1) {
