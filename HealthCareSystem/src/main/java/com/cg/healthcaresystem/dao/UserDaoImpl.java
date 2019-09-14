@@ -17,17 +17,18 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public boolean removeCenter(String centerId) {
-		boolean status = false;
+		DiagnosticCenter diagnosticCenter=null;
 		Iterator<DiagnosticCenter> iterator = centerList.iterator();
 		while (iterator.hasNext()) {
-			DiagnosticCenter obj = iterator.next();
-			if (obj.getCenterId().equals(centerId)) {
-				centerList.remove(obj);
-				status =  true;
+			diagnosticCenter = iterator.next();
+			if (diagnosticCenter.getCenterId().equals(centerId)) {
+				break;
+//				centerList.remove(diagnosticCenter);
+//				status =  true;
 			}
 
 		}
-		return status;
+		return (centerList.remove(diagnosticCenter));
 	}
 
 //	public Test addTest(String centerId, Test test) {

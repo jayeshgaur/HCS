@@ -1,6 +1,7 @@
 package com.cg.healthcaresystem.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -190,37 +191,49 @@ public class UserServiceImpl implements UserService {
 //		}
 //	}
 
-	public LocalDate validateDate(String dateString) throws UserDefinedException {
-		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("M/d/yyyy");
-		LocalDate userDate=null;
-		try {
-		userDate = LocalDate.parse(dateString, dateFormat);
+	public LocalDateTime validateDateTime(String dateString) throws UserDefinedException {
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
+		LocalDateTime userDateTime=null;
+		LocalDate userDate = null;
+		LocalTime userTime = null;
+		LocalTime closeTime = LocalTime.parse("20:00", timeFormat);
+		LocalTime openTime = LocalTime.parse("10:00", timeFormat);
+
+		userDateTime = LocalDateTime.parse(dateString, dateFormat);
+		System.out.println("userInputDateTime"+userDateTime);
+		userDate = userDateTime.toLocalDate();
+		userTime = userDateTime.toLocalTime();
+			
 		LocalDate currentDate = LocalDate.now();
 		if(userDate.isBefore(currentDate)) {
 			throw new UserDefinedException(UserErrorMessage.userErrorPastDate);
 		}
-		}catch(Exception parseException) {
+		else if(userTime.isAfter(closeTime) || userTime.isBefore(openTime)) {
+			throw new UserDefinedException(UserErrorMessage.userErrorNonWorkingHours);
+		}
+		else if(null == (userDateTime=LocalDateTime.parse(dateString, dateFormat))){
 			throw new UserDefinedException(UserErrorMessage.userErrorInvalidDateFormat);
 		}
-		return userDate;
+		return userDateTime;
 	}
 	
-	public LocalTime validateTime(String timeString) throws UserDefinedException {
-		LocalTime userInputTime=null;
-		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
-		LocalTime closeTime = LocalTime.parse("20:00", timeFormat);
-		LocalTime openTime = LocalTime.parse("10:00", timeFormat);
-		try {
-			userInputTime = LocalTime.parse(timeString, timeFormat);
-			if(userInputTime.isAfter(closeTime) || userInputTime.isBefore(openTime)) {
-				throw new UserDefinedException(UserErrorMessage.userErrorNonWorkingHours);
-			}
-			
-		}catch(Exception parseException) {
-			throw new UserDefinedException(UserErrorMessage.userErrorInvalidTimeFormat);
-		}
-		return userInputTime;
-	}
+//	public LocalTime validateTime(String timeString) throws UserDefinedException {
+//		LocalTime userInputTime=null;
+//		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
+//		LocalTime closeTime = LocalTime.parse("20:00", timeFormat);
+//		LocalTime openTime = LocalTime.parse("10:00", timeFormat);
+//		try {
+//			userInputTime = LocalTime.parse(timeString, timeFormat);
+//			if(userInputTime.isAfter(closeTime) || userInputTime.isBefore(openTime)) {
+//				throw new UserDefinedException(UserErrorMessage.userErrorNonWorkingHours);
+//			}
+//			
+//		}catch(Exception parseException) {
+//			throw new UserDefinedException(UserErrorMessage.userErrorInvalidTimeFormat);
+//		}
+//		return userInputTime;
+//	}
 
 	public User validateUserId(String userId) throws UserDefinedException {
 		User user = null;

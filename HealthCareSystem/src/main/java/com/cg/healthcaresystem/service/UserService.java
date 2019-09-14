@@ -1,7 +1,8 @@
 package com.cg.healthcaresystem.service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+
+import java.time.LocalDateTime;
+
 import java.util.List;
 
 import com.cg.healthcaresystem.dto.Appointment;
@@ -49,9 +50,9 @@ public interface UserService {
 	
 	public User validateUserId(String userId) throws UserDefinedException;
 
-	public LocalDate validateDate(String dateString) throws UserDefinedException;
+	public LocalDateTime validateDateTime(String dateString) throws UserDefinedException;
 
-	public LocalTime validateTime(String next)throws UserDefinedException;
+//	public LocalTime validateTime(String next)throws UserDefinedException;
 
 	public Appointment addAppointment(Appointment appointment, String centerId, List<DiagnosticCenter> centerList);
 

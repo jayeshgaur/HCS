@@ -1,8 +1,7 @@
 package com.cg.healthcaresystem.ui;
 
 import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +14,7 @@ import com.cg.healthcaresystem.exception.UserDefinedException;
 import com.cg.healthcaresystem.service.UserService;
 import com.cg.healthcaresystem.service.UserServiceImpl;
 
-public class MyApp {
+public class HealthCareSystem {
 
 	public static void main(String[] args) {
 		UserService userService = new UserServiceImpl();
@@ -283,7 +282,7 @@ public class MyApp {
 										System.out.println("Appointment ID: " + appointment.getAppointmentId()
 												+ " Center Name: " + appointment.getCenter().getCenterName()
 												+ " Test Name: " + appointment.getTest().getTestName()
-												+ " Date and Time: " + appointment.getDate() + " Status: "
+												+ " Date and Time: " + appointment.getDateTime() + " Status: "
 												+ appointment.isApproved());
 									}
 									System.out.println("Enter the appointment ID to approve");
@@ -437,15 +436,17 @@ public class MyApp {
 								// Get user Id
 								User user = userService.validateUserId(scanner.next());
 
-								// Date
-								System.out.println("Enter date in the format: M/d/yyyy");
-								LocalDate date = userService.validateDate(scanner.next());
+								// DateTime
+								System.out.println("Enter date in the format: dd-MM-yyyy HH:mm:ss");
+								scanner.nextLine();
+								LocalDateTime dateTime = userService.validateDateTime(scanner.nextLine());
+								
 
 								// Time
-								System.out.println("Enter appointment time in the format: HH:mm");
-								LocalTime time = userService.validateTime(scanner.next());
+//								System.out.println("Enter appointment time in the format: HH:mm");
+//								LocalTime time = userService.validateTime(scanner.next());
 
-								appointment = new Appointment(user, test, diagnosticCenter, date, time);
+								appointment = new Appointment(user, test, diagnosticCenter, dateTime);
 								if (null != userService.addAppointment(appointment, centerId, centerList)) {
 									System.out.println("Added successfully");
 								}

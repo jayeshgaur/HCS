@@ -1,155 +1,83 @@
 package com.cg.healthcaresystem.dto;
 
+import java.time.LocalDateTime;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class Appointment {
-	
-		private final String prefix = "App";
-		private User user;
-		private String appointmentId;
-		private Test test;
-		private DiagnosticCenter center;
-		private boolean approved;
-		private LocalDate date;
-		private LocalTime time;
-		
-		public Appointment()
-		{
-			
-		}
-		
-		public Appointment(User user, Test test, DiagnosticCenter center, LocalDate date,LocalTime time) {
-			super();
-			this.setAppointmentId(prefix + center.getAppointmentCounter().toString());
-			this.setApproved(false);
-			this.user = user;
-			this.test = test;
-			this.center = center;
-			this.date = date;
-			this.time = time;
-		}
 
-		public User getUser() {
-			return user;
-		}
+	private final String prefix = "App";
+	private User user;
+	private String appointmentId;
+	private Test test;
+	private DiagnosticCenter center;
+	private boolean approved;
+	private LocalDateTime dateTime;
 
-		public void setUser(User user) {
-			this.user = user;
-		}
+	public Appointment() {
 
-		public String getAppointmentId() {
-			return appointmentId;
-		}
+	}
 
-		public void setAppointmentId(String appointmentId) {
-			this.appointmentId = appointmentId;
-		}
+	public Appointment(User user, Test test, DiagnosticCenter center, LocalDateTime dateTime) {
+		super();
+		this.setAppointmentId(prefix + center.getAppointmentCounter().toString());
+		this.setApproved(false);
+		this.user = user;
+		this.test = test;
+		this.center = center;
+		this.dateTime = dateTime;
+	}
 
-		public Test getTest() {
-			return test;
-		}
+	public User getUser() {
+		return user;
+	}
 
-		public void setTest(Test test) {
-			this.test = test;
-		}
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-		public DiagnosticCenter getCenter() {
-			return center;
-		}
+	public Test getTest() {
+		return test;
+	}
 
-		public void setCenter(DiagnosticCenter center) {
-			this.center = center;
-		}
+	public void setTest(Test test) {
+		this.test = test;
+	}
 
-		public boolean isApproved() {
-			return approved;
-		}
+	public DiagnosticCenter getCenter() {
+		return center;
+	}
 
-		public boolean setApproved(boolean approved) {
-			return this.approved = approved;
-		}
+	public void setCenter(DiagnosticCenter center) {
+		this.center = center;
+	}
 
-		public LocalDate getDate() {
-			return date;
-		}
+	public boolean isApproved() {
+		return approved;
+	}
 
-		public void setDate(LocalDate date) {
-			this.date = date;
-		}
+	public boolean setApproved(boolean approved) {
+		return (this.approved = approved);
+	}
 
-		public LocalTime getTime() {
-			return time;
-		}
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
 
-		public void setTime(LocalTime time) {
-			this.time = time;
-		}
-		
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
+	}
 
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((appointmentId == null) ? 0 : appointmentId.hashCode());
-			result = prime * result + (approved ? 1231 : 1237);
-			result = prime * result + ((center == null) ? 0 : center.hashCode());
-			result = prime * result + ((date == null) ? 0 : date.hashCode());
-			result = prime * result + ((test == null) ? 0 : test.hashCode());
-			result = prime * result + ((user == null) ? 0 : user.hashCode());
-			return result;
-		}
+	public String getPrefix() {
+		return prefix;
+	}
 
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			Appointment other = (Appointment) obj;
-			if (appointmentId == null) {
-				if (other.appointmentId != null)
-					return false;
-			} else if (!appointmentId.equals(other.appointmentId))
-				return false;
-			if (approved != other.approved)
-				return false;
-			if (center == null) {
-				if (other.center != null)
-					return false;
-			} else if (!center.equals(other.center))
-				return false;
-			if (date == null) {
-				if (other.date != null)
-					return false;
-			} else if (!date.equals(other.date))
-				return false;
-			if (test == null) {
-				if (other.test != null)
-					return false;
-			} else if (!test.equals(other.test))
-				return false;
-			if (user == null) {
-				if (other.user != null)
-					return false;
-			} else if (!user.equals(other.user))
-				return false;
-			return true;
-		}
+	public String getAppointmentId() {
+		return appointmentId;
+	}
 
-		@Override
-		public String toString() {
-			return "Appointment [user=" + user + ", appointmentId=" + appointmentId + ", test=" + test + ", center="
-					+ center + ", approved=" + approved + ", date=" + date + "]";
-		}
+	public void setAppointmentId(String appointmentId) {
+		this.appointmentId = appointmentId;
+	}
 
-		
-		
-		
-		
-		//Implement hashcode, tostring and equals after implementing datetime
-		
+
 }
