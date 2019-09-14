@@ -104,7 +104,6 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public String register(User user) {
-		// TODO Auto-generated method stub
 		userList.add(user);
 		return user.getUserId();
 	}

@@ -1,9 +1,8 @@
 package com.cg.healthcaresystem.ui;
 
 import java.math.BigInteger;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -23,10 +22,10 @@ public class MyApp {
 		int userRole = 0, adminChoice = 0, userChoice = 0;
 		String centerName = "";
 		String centerId = "";
-		String userId = "";
 		String choices = "";
-		DiagnosticCenter diagnosticCenter;
-		Test test;
+		DiagnosticCenter diagnosticCenter = null;
+		Test test = null;
+		Appointment appointment = null;
 		List<DiagnosticCenter> centerList = null;
 		List<Test> testList = null;
 		while (userRole != 3) {
@@ -224,7 +223,7 @@ public class MyApp {
 
 								// Remove test from the list if test id is correct
 								if (userService.removeTest(removeCenterId,
-										userService.validateTestid(removeTestId, removeCenterId, centerList),
+										userService.validateTestId(removeTestId, removeCenterId, centerList),
 										centerList)) {
 									System.out.println("Test deleted successfully");
 								} else {
@@ -240,7 +239,7 @@ public class MyApp {
 
 						// Print list of diagnostic centers
 						List<Appointment> appointmentList = null;
-						Appointment appointment = null;
+						appointment = null;
 						System.out.println("====List of diagnostic center=====");
 						centerList = userService.getCenterList();
 
@@ -284,15 +283,15 @@ public class MyApp {
 										System.out.println("Appointment ID: " + appointment.getAppointmentId()
 												+ " Center Name: " + appointment.getCenter().getCenterName()
 												+ " Test Name: " + appointment.getTest().getTestName()
-												+ " Date and Time: " + appointment.getDate()
-												+ " Status: "+ appointment.isApproved());
+												+ " Date and Time: " + appointment.getDate() + " Status: "
+												+ appointment.isApproved());
 									}
 									System.out.println("Enter the appointment ID to approve");
-									String appointmentId = userService.validateAppointmentId(scanner.next(), appointmentList);
-									if(userService.approveAppointment(appointmentId, appointmentList)) {
+									String appointmentId = userService.validateAppointmentId(scanner.next(),
+											appointmentList);
+									if (userService.approveAppointment(appointmentId, appointmentList)) {
 										System.out.println("Status updated successfully!");
-									}
-									else {
+									} else {
 										System.out.println("Status update failed, try again.");
 									}
 								}
@@ -317,7 +316,7 @@ public class MyApp {
 					userChoice = 0;
 					System.out.println(
 							"What function do u want to perform?\n 1.Registration\n 2.Make Appointments\n 3.View Appointments \n4.Exit");
-					
+
 					// validate user choice
 					while (true) {
 						choices = scanner.next();
@@ -334,45 +333,36 @@ public class MyApp {
 						System.out.println("-------------Registration-----------");
 						System.out.println("Enter your name");
 						scanner.nextLine();
-						
+
 						try {
 							String userName = userService.validateName(scanner.nextLine());
+
 							System.out.println("Enter your password");
-
-							String userPassword = scanner.nextLine();
-
-							UserServiceImpl.validatePassword(userPassword);
+							String userPassword = userService.validatePassword(scanner.nextLine());
 
 							System.out.println("Enter your contact number");
-							String userContactNo = scanner.next();
-
-							BigInteger contactNo = new BigInteger(userService.validateContactNo(userContactNo));
+							String userContactNo = userService.validateContactNo(scanner.next());
+							BigInteger contactNo = new BigInteger(userContactNo);
 
 							System.out.println("Enter your email");
-							String userEmail = scanner.next();
-
-							UserServiceImpl.validateEmail(userEmail);
+							String userEmail = userService.validateEmail(scanner.next());
 
 							System.out.println("Enter your age");
-							Integer age = scanner.nextInt();
-
-							UserServiceImpl.validateAge(age);
+							Integer age = userService.validateAge(scanner.nextInt());
 
 							System.out.println("Choose your gender    M.Male F.Female O.Other");
-							String gender = scanner.next();
+							String gender = userService.validateGender(scanner.next());
 
-							UserServiceImpl.validateGender(gender);
-
-							User u;
+							User user;
 							if (gender.equals("M")) {
-								u = new User(userPassword, userName, contactNo, userEmail, age, "Male");
+								user = new User(userPassword, userName, contactNo, userEmail, age, "Male");
 							} else if (gender.equals("F")) {
-								u = new User(userPassword, userName, contactNo, userEmail, age, "Female");
+								user = new User(userPassword, userName, contactNo, userEmail, age, "Female");
 							} else {
-								u = new User(userPassword, userName, contactNo, userEmail, age, "other");
+								user = new User(userPassword, userName, contactNo, userEmail, age, "other");
 							}
 							/* add user to userList */
-							System.out.println("Your userID is: " + userService.register(u));
+							System.out.println("Your userID is: " + userService.register(user));
 						} catch (UserDefinedException e) {
 							System.out.println(e.getMessage());
 						}
@@ -380,12 +370,15 @@ public class MyApp {
 
 					case 2: // Make Appointment
 
+						// Get Center list
 						centerList = userService.getCenterList();
+
+						// Check if centers exist or not
 						if (centerList.size() < 1) {
 							System.out.println("Sorry, we have no active centers right now!");
 						} else {
+
 							System.out.println("Select the center where you want to book a test");
-							List<User> userList = null;
 
 //		  		Iterator itr1=centerList1.iterator();
 //		  		int counter=1;
@@ -406,107 +399,89 @@ public class MyApp {
 							}
 
 							try {
-								String selectCenterIndex = scanner.next();
-								UserServiceImpl.validateCenterIndex(selectCenterIndex, centerList);
-								int selectCenterIndexNum = Integer.parseInt(selectCenterIndex);
-								testList = centerList.get(selectCenterIndexNum).getListOfTests();
-								for (int testIndex = 0; testIndex < testList.size(); testIndex++) {
-									Test t = testList.get(testIndex);
-									System.out.println(testIndex + " Test Name: " + t.getTestName());
-								}
-								System.out.println("Select from the above tests");
-								String selectTestIndex = scanner.next();
-								UserServiceImpl.validateTestIndex(selectTestIndex, selectCenterIndexNum, testList);
-								int selectTestIndexNum = Integer.parseInt(selectTestIndex);
+								// Get Center Id to make an appointment in
+								centerId = userService.validateCenterId(scanner.next(), centerList);
 
-								// datetime
-								System.out.println("Enter date in the following format: DD/MM/yyyy HH:mm:ss");
-								scanner.nextLine();
-								String dateString = scanner.nextLine();
-								UserServiceImpl.validateDate(dateString);
-								SimpleDateFormat format = new SimpleDateFormat("d/M/yyyy H:m:s");
-								Date date = format.parse(dateString);
-								System.out.println("Enter your user ID");
-								userId = scanner.next();
-								userList = userService.getUserList();
-								UserServiceImpl.validateUserId(userId, userList);
-								User user = null;
-								;
-								for (int userIndex = 0; userIndex < userList.size(); userIndex++) {
-									if (userList.get(userIndex).getUserId().equals(userId)) {
-										user = userList.get(userIndex);
+								// Get List of tests
+								diagnosticCenterIterator = centerList.iterator();
+								while (diagnosticCenterIterator.hasNext()) {
+									diagnosticCenter = diagnosticCenterIterator.next();
+									if (diagnosticCenter.getCenterId().equals(centerId)) {
+										testList = diagnosticCenter.getListOfTests();
+										// break the loop to preserve the selected center object
+										break;
 									}
 								}
-								Appointment ap = new Appointment(user, testList.get(selectTestIndexNum),
-										centerList.get(selectCenterIndexNum), date);
-								if (centerList.get(selectCenterIndexNum).addAppointment(ap)) {
-									System.out.println("Appointment request submitted!");
+								System.out.println("Enter the test id you want to book an appointment for: ");
+
+								// Print all tests present in the selected center
+								Iterator<Test> testListIterator = testList.iterator();
+								while (testListIterator.hasNext()) {
+									test = testListIterator.next();
+									System.out.println(
+											"TestName: " + test.getTestName() + " TestID: " + test.getTestId());
 								}
-								userService.setCenterList(centerList);
-//		  		for(int i=0;i<centerList1.size();i++)
-//		  		{
-//		  			if(centerList1.get(select).getCenterId().equals(selectCenterId));
-//		  			{
-//		  				testList = centerList1.get(i).getListOfTests();
-//		  			}
-//		  			itr1 = testList.iterator();
-//		  			while(itr1.hasNext())
-//		  			{
-//		  				Test t = (Test) itr1.next();
-//		  				System.out.println("Test Name: "+t.getTestName()+" Test ID: "+t.getTestId());
-//		  			}
-//		  			System.out.println("Select the id of the test you want to book an appointment for");
-//		  			String selectTestId = sc.next();
-//		  			System.out.println("Enter your user ID: ");
-//		  			String userId = sc.next();
-//		  			
-//		  			Appointment ap = new Appointment("")
-//		  		}
+
+								String testId = userService.validateTestId(scanner.next(), centerId, centerList);
+
+								// Get the test object corresponding to the testId
+								testListIterator = testList.iterator();
+								while (testListIterator.hasNext()) {
+									test = testListIterator.next();
+									if (test.getTestId().equals(testId)) {
+										break;
+									}
+								}
+
+								System.out.println("Enter your user id: ");
+								// Get user Id
+								User user = userService.validateUserId(scanner.next());
+
+								// Date
+								System.out.println("Enter date in the format: M/d/yyyy");
+								LocalDate date = userService.validateDate(scanner.next());
+
+								// Time
+								System.out.println("Enter appointment time in the format: HH:mm");
+								LocalTime time = userService.validateTime(scanner.next());
+
+								appointment = new Appointment(user, test, diagnosticCenter, date, time);
+								if (null != userService.addAppointment(appointment, centerId, centerList)) {
+									System.out.println("Added successfully");
+								}
+
 							} catch (UserDefinedException e) {
 								System.out.println(e.getMessage());
-							} catch (ParseException p) {
-								System.out.println("Enter the datetime in the specified format!");
 							}
 
 						}
 						break;
 					case 3:
+						//Get Center List
 						centerList = userService.getCenterList();
-						List<User> userList = userService.getUserList();
+						
+						//Check if centers exist
 						if (centerList.size() < 1)
 							System.out.println("We are not functional yet!");
 						else {
 							try {
+								
+								//Enter user id
 								System.out.println("Enter your user ID: ");
 								scanner.nextLine();
-								userId = scanner.nextLine();
-								int appointmentCount = 0;
-								UserServiceImpl.validateUserId(userId, userList);
-								for (int centerIndex = 0; centerIndex < centerList.size(); centerIndex++) {
-									for (int appointmentListIndex = 0; appointmentListIndex < centerList
-											.get(centerIndex).getListOfAppointments().size(); appointmentListIndex++) {
-										if (centerList.get(centerIndex).getListOfAppointments()
-												.get(appointmentListIndex).getUser().getUserId().equals(userId)) {
-											System.out.println("AppointmentID: "
-													+ centerList.get(centerIndex).getListOfAppointments()
-															.get(appointmentListIndex).getAppointmentId()
-													+ " TestName: "
-													+ centerList.get(centerIndex).getListOfAppointments()
-															.get(appointmentListIndex).getTest().getTestId()
-													+ " CenterId: "
-													+ centerList.get(centerIndex).getListOfAppointments()
-															.get(appointmentListIndex).getCenter().getCenterName()
-													+ " App Date: "
-													+ centerList.get(centerIndex).getListOfAppointments()
-															.get(appointmentListIndex).getDate());
-											appointmentCount++;
-										}
+								User user = userService.validateUserId(scanner.nextLine());
+								List<Appointment> userAppointmentList = userService.getAppointmentList(user);
+								if(null != userAppointmentList) {
+									Iterator<Appointment> appointmentIterator = userAppointmentList.iterator();
+									while(appointmentIterator.hasNext()) {
+										appointment = appointmentIterator.next();
+										System.out.println("AppointmentID: "+appointment.getAppointmentId()+" TestName: "+appointment.getTest().getTestName()+"\nCenterLocation: "+appointment.getCenter().getCenterAddress()+" Status: "+appointment.isApproved());
 									}
 								}
-								if (appointmentCount == 0) {
-									System.out.println("You don't have any appointments!");
+								else {
+									System.out.println("You have no appointments with us");
 								}
-							} catch (UserDefinedException e) {
+							} catch (Exception e) {
 								System.out.println(e.getMessage());
 							}
 						}

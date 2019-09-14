@@ -1,5 +1,7 @@
 package com.cg.healthcaresystem.service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import com.cg.healthcaresystem.dto.Appointment;
@@ -29,12 +31,30 @@ public interface UserService {
 	
 	public String validateCenterId(String centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
 	
-	public String validateTestid(String removeTestId, String centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
+	public String validateTestId(String removeTestId, String centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
 	
 	public String validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)throws UserDefinedException;
 	
 	public boolean approveAppointment(String appointmentId, List<Appointment> appointmentList);
 
 	public String validateName(String nextLine) throws UserDefinedException;
+	
+	public String validatePassword(String userPassword) throws UserDefinedException;
+	
+	public String validateEmail(String userEmail) throws UserDefinedException;
+	
+	public Integer validateAge(Integer age) throws UserDefinedException;
+	
+	public String validateGender(String gender) throws UserDefinedException;
+	
+	public User validateUserId(String userId) throws UserDefinedException;
+
+	public LocalDate validateDate(String dateString) throws UserDefinedException;
+
+	public LocalTime validateTime(String next)throws UserDefinedException;
+
+	public Appointment addAppointment(Appointment appointment, String centerId, List<DiagnosticCenter> centerList);
+
+	public List<Appointment> getAppointmentList(User user);
 
 }

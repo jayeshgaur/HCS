@@ -3,7 +3,6 @@ package com.cg.healthcaresystem.dao;
 import java.util.List;
 
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
-import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
 
 public interface UserDao {

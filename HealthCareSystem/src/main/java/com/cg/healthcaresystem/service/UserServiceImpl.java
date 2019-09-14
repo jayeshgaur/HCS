@@ -1,12 +1,11 @@
 package com.cg.healthcaresystem.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.cg.healthcaresystem.dao.UserDao;
 import com.cg.healthcaresystem.dao.UserDaoImpl;
@@ -100,13 +99,11 @@ public class UserServiceImpl implements UserService {
 		return status;
 	}
 
-	public static void validatePassword(String userPassword) throws UserDefinedException {
-		String regex = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(userPassword);
-		if (matcher.matches() == false) {
-			throw new UserDefinedException(UserErrorMessage.userErrorPassword);
+	public String validatePassword(String userPassword) throws UserDefinedException {
+		if(userPassword.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})")) {
+			return userPassword;			
 		}
+		throw new UserDefinedException(UserErrorMessage.userErrorPassword);
 	}
 
 	public String validateName(String userName) throws UserDefinedException {
@@ -126,41 +123,27 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		throw new UserDefinedException(UserErrorMessage.userErrorStringContactNo);
-		
-//		String regex = "^[0-9]+";
-//		Pattern pattern = Pattern.compile(regex);
-//		Matcher matcher = pattern.matcher((CharSequence) userContactNo);
-//		if (matcher.matches() == false) {
-//			throw new UserDefinedException(UserErrorMessage.userErrorStringContactNo);
-//		} else {
-//			if (userContactNo.length() != 10) {
-//				throw new UserDefinedException(UserErrorMessage.userErrorContactNoLength);
-//			}
-//		}
-//		return userContactNo;
 	}
 
-	public static void validateEmail(String userEmail) throws UserDefinedException {
-		String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(userEmail);
-		if (matcher.matches() == false) {
-			throw new UserDefinedException(UserErrorMessage.userErrorEmailId);
+	public String validateEmail(String userEmail) throws UserDefinedException {
+		if(userEmail.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+			return userEmail;
 		}
-
+		throw new UserDefinedException(UserErrorMessage.userErrorEmailId);
 	}
 
-	public static void validateAge(Integer age) throws UserDefinedException {
+	public Integer validateAge(Integer age) throws UserDefinedException {
 		if (age <= 0 && age > 110) {
 			throw new UserDefinedException(UserErrorMessage.userErrorUserAge);
 		}
-
+		return age;
 	}
 
-	public static void validateGender(String gender) throws UserDefinedException {
+	public String validateGender(String gender) throws UserDefinedException {
 		if (!(gender.equals("M") || gender.equals("F") || gender.equals("O"))) {
 			throw new UserDefinedException(UserErrorMessage.userErrorUserGender);
 		}
+		return gender;
 
 	}
 
@@ -174,7 +157,7 @@ public class UserServiceImpl implements UserService {
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidCenterId);
 	}
 
-	public String validateTestid(String removeTestId, String centerId, List<DiagnosticCenter> centerList)
+	public String validateTestId(String removeTestId, String centerId, List<DiagnosticCenter> centerList)
 			throws UserDefinedException {
 		DiagnosticCenter diagnosticCenter;
 		Test test;
@@ -193,55 +176,63 @@ public class UserServiceImpl implements UserService {
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidTestId);
 	}
 
-	public static void validateCenterIndex(String selectCenterIndex, List<DiagnosticCenter> centerList1)
-			throws UserDefinedException {
-		String regex = "^[0-9]*$";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(selectCenterIndex);
-		if (!matcher.matches()) {
-			throw new UserDefinedException("Enter a numeric choice!");
-		} else {
-			if (Integer.parseInt(selectCenterIndex) >= centerList1.size()
-					|| (Integer.parseInt(selectCenterIndex) < 0)) {
-				throw new UserDefinedException("Enter a proper choice");
-			}
+//	public static void validateTestIndex(String selectTestIndex, int selectCenterIndex, List<Test> testList)
+//			throws UserDefinedException {
+//		String regex = "^[0-9]*$";
+//		Pattern pattern = Pattern.compile(regex);
+//		Matcher matcher = pattern.matcher(selectTestIndex);
+//		if (!matcher.matches()) {
+//			throw new UserDefinedException("Enter a numeric choice!");
+//		} else {
+//			if (Integer.parseInt(selectTestIndex) >= testList.size() || (Integer.parseInt(selectTestIndex) < 0)) {
+//				throw new UserDefinedException("Enter a proper test choice");
+//			}
+//		}
+//	}
+
+	public LocalDate validateDate(String dateString) throws UserDefinedException {
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("M/d/yyyy");
+		LocalDate userDate=null;
+		try {
+		userDate = LocalDate.parse(dateString, dateFormat);
+		LocalDate currentDate = LocalDate.now();
+		if(userDate.isBefore(currentDate)) {
+			throw new UserDefinedException(UserErrorMessage.userErrorPastDate);
 		}
+		}catch(Exception parseException) {
+			throw new UserDefinedException(UserErrorMessage.userErrorInvalidDateFormat);
+		}
+		return userDate;
+	}
+	
+	public LocalTime validateTime(String timeString) throws UserDefinedException {
+		LocalTime userInputTime=null;
+		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
+		LocalTime closeTime = LocalTime.parse("20:00", timeFormat);
+		LocalTime openTime = LocalTime.parse("10:00", timeFormat);
+		try {
+			userInputTime = LocalTime.parse(timeString, timeFormat);
+			if(userInputTime.isAfter(closeTime) || userInputTime.isBefore(openTime)) {
+				throw new UserDefinedException(UserErrorMessage.userErrorNonWorkingHours);
+			}
+			
+		}catch(Exception parseException) {
+			throw new UserDefinedException(UserErrorMessage.userErrorInvalidTimeFormat);
+		}
+		return userInputTime;
 	}
 
-	public static void validateTestIndex(String selectTestIndex, int selectCenterIndex, List<Test> testList)
-			throws UserDefinedException {
-		String regex = "^[0-9]*$";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(selectTestIndex);
-		if (!matcher.matches()) {
-			throw new UserDefinedException("Enter a numeric choice!");
-		} else {
-			if (Integer.parseInt(selectTestIndex) >= testList.size() || (Integer.parseInt(selectTestIndex) < 0)) {
-				throw new UserDefinedException("Enter a proper test choice");
+	public User validateUserId(String userId) throws UserDefinedException {
+		User user = null;
+		List<User> userList = userDao.getUserList();
+		Iterator<User> userListIterator = userList.iterator();
+		while(userListIterator.hasNext()) {
+			user = userListIterator.next();
+			if(user.getUserId().equals(userId)) {
+				return user;
 			}
 		}
-	}
-
-	public static void validateDate(String dateString) throws UserDefinedException, ParseException {
-		SimpleDateFormat format = new SimpleDateFormat("d/M/yyyy H:m:s");
-		Date date = format.parse(dateString);
-		Date currentDate = new Date();
-		if (date.before(currentDate)) {
-			throw new UserDefinedException("You cannot  book an appointment in the past!!");
-		}
-	}
-
-	public static void validateUserId(String userId, List<User> userList) throws UserDefinedException {
-		int i = 0;
-		for (i = 0; i < userList.size(); i++) {
-			if (userList.get(i).getUserId().equals(userId)) {
-				break;
-			}
-		}
-		if (i == userList.size()) {
-			throw new UserDefinedException(
-					"Invalid User ID. Make sure you are entering the exact id given after registration!");
-		}
+		throw new UserDefinedException(UserErrorMessage.userErrorInvalidUserId);
 	}
 
 	public String validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)
@@ -255,6 +246,46 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidAppointmentId);
+	}
+
+	public Appointment addAppointment(Appointment appointment, String centerId, List<DiagnosticCenter> centerList) {
+		DiagnosticCenter diagnosticCenter = null;
+		Iterator<DiagnosticCenter> diagnosticCenterIterator = centerList.iterator();
+		while(diagnosticCenterIterator.hasNext()) {
+			diagnosticCenter = diagnosticCenterIterator.next();
+			if(diagnosticCenter.getCenterId().equals(centerId)) {
+				diagnosticCenter.getListOfAppointments().add(appointment);
+			}
+		}
+		return appointment;
+	}
+
+	public List<Appointment> getAppointmentList(User user) {
+		//Local Variables
+		DiagnosticCenter diagnosticCenter;
+		Appointment appointment=null;
+		Iterator<Appointment> appointmentIterator = null;
+		
+		//create a list to send to UI of user appointments
+		List<Appointment> userAppointmentList = new ArrayList<Appointment>();
+		
+		//get list of all centers
+		List<DiagnosticCenter> centerList = userDao.getCenterList();
+		
+		//Traverse through all centers and check each appointment inside the lists of all centers
+		//If User id matches, add that appointment object to the userAppointmentList to be sent to UI
+		Iterator<DiagnosticCenter> diagnosticCenterIterator = centerList.iterator();
+		while(diagnosticCenterIterator.hasNext()) {
+			diagnosticCenter = diagnosticCenterIterator.next();
+			appointmentIterator = diagnosticCenter.getListOfAppointments().iterator();
+			while(appointmentIterator.hasNext()) {
+				appointment = appointmentIterator.next();
+				if(appointment.getUser().equals(user)) {
+					userAppointmentList.add(appointment);
+				}
+			}
+		}
+		return userAppointmentList;
 	}
 
 }

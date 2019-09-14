@@ -12,4 +12,10 @@ public class UserErrorMessage {
 	public static final String userErrorInvalidTestId = "Enter correct test id";
 	public static final String userErrorInvalidAppointmentId = "Enter correct appointment id!";
 	public static final String userErrorAddTestFailed = "Failed to add test";
+	public static final String userErrorInvalidUserId = "Invalid User Id.";
+	public static final String userErrorInvalidDateFormat = "Please enter the date in the specified format";
+	public static final String userErrorPastDate = "You cannot book an appointment today or in the past!";
+	public static final String userErrorInvalidTimeFormat = "Please enter the time in the specified format";
+	public static final String userErrorNonWorkingHours = "Our working hours are only from 10am to 8pm.";
+	
 }

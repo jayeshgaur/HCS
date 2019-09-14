@@ -1,7 +1,8 @@
 package com.cg.healthcaresystem.dto;
 
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Appointment {
 	
@@ -11,14 +12,15 @@ public class Appointment {
 		private Test test;
 		private DiagnosticCenter center;
 		private boolean approved;
-		private Date date;
+		private LocalDate date;
+		private LocalTime time;
 		
 		public Appointment()
 		{
 			
 		}
 		
-		public Appointment(User user, Test test, DiagnosticCenter center, Date date) {
+		public Appointment(User user, Test test, DiagnosticCenter center, LocalDate date,LocalTime time) {
 			super();
 			this.setAppointmentId(prefix + center.getAppointmentCounter().toString());
 			this.setApproved(false);
@@ -26,6 +28,7 @@ public class Appointment {
 			this.test = test;
 			this.center = center;
 			this.date = date;
+			this.time = time;
 		}
 
 		public User getUser() {
@@ -68,14 +71,21 @@ public class Appointment {
 			return this.approved = approved;
 		}
 
-		public Date getDate() {
+		public LocalDate getDate() {
 			return date;
 		}
 
-		public void setDate(Date date) {
+		public void setDate(LocalDate date) {
 			this.date = date;
 		}
 
+		public LocalTime getTime() {
+			return time;
+		}
+
+		public void setTime(LocalTime time) {
+			this.time = time;
+		}
 		
 
 		@Override
@@ -135,6 +145,7 @@ public class Appointment {
 			return "Appointment [user=" + user + ", appointmentId=" + appointmentId + ", test=" + test + ", center="
 					+ center + ", approved=" + approved + ", date=" + date + "]";
 		}
+
 		
 		
 		
