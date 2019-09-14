@@ -1,5 +1,6 @@
 package com.cg.healthcaresystem.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
@@ -8,9 +9,9 @@ import com.cg.healthcaresystem.dto.User;
 public interface UserDao {
 	public DiagnosticCenter addCenter(DiagnosticCenter center);
 
-	public boolean removeCenter(String centerid);
+	public boolean removeCenter(BigInteger centerid);
 
-//	public Test addTest(String name, Test test);
+//	public Test addTest(BigInteger name, Test test);
 
 //	public boolean removeTest(String removeCenterid, String removeTestId);
 

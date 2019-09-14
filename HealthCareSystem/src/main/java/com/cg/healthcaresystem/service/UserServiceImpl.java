@@ -1,5 +1,6 @@
 package com.cg.healthcaresystem.service;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -25,11 +26,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.addCenter(center);
 	}
 
-	public boolean removeCenter(String centerId) {
+	public boolean removeCenter(BigInteger centerId) {
 		return userDao.removeCenter(centerId);
 	}
 
-	public Test addTest(String centerId, Test test) throws UserDefinedException {
+	public Test addTest(BigInteger centerId, Test test) throws UserDefinedException {
 		List<DiagnosticCenter> centerList = userDao.getCenterList();
 		DiagnosticCenter diagnosticCenter = null;
 		Iterator<DiagnosticCenter> centerListIterator = centerList.iterator();
@@ -43,7 +44,7 @@ public class UserServiceImpl implements UserService {
 		throw new UserDefinedException(UserErrorMessage.userErrorAddTestFailed);
 	}
 
-	public boolean removeTest(String removeCenterId, String removeTestId, List<DiagnosticCenter> centerList) {
+	public boolean removeTest(BigInteger removeCenterId, String removeTestId, List<DiagnosticCenter> centerList) {
 		List<Test> testList = null;
 		DiagnosticCenter diagnosticCenter = null;
 		Test test = null;
@@ -148,17 +149,17 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	public String validateCenterId(String centerId, List<DiagnosticCenter> centerList) throws UserDefinedException {
+	public BigInteger validateCenterId(BigInteger centerId, List<DiagnosticCenter> centerList) throws UserDefinedException {
 		for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
 			DiagnosticCenter diagnosticCenter = iterator.next();
-			if (diagnosticCenter.getCenterId().equals(centerId))
+			if (diagnosticCenter.getCenterId()==centerId)
 				return centerId;
 
 		}
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidCenterId);
 	}
 
-	public String validateTestId(String removeTestId, String centerId, List<DiagnosticCenter> centerList)
+	public String validateTestId(String removeTestId, BigInteger centerId, List<DiagnosticCenter> centerList)
 			throws UserDefinedException {
 		DiagnosticCenter diagnosticCenter;
 		Test test;

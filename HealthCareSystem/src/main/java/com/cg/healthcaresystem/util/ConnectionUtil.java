@@ -10,7 +10,7 @@ public class ConnectionUtil {
 	private static Connection connection;
 	public static Connection getConnection() throws UserDefinedException  {
 		String url="jdbc:mysql://localhost:3306/HealthCareSystem";
-		String user="root@localhost";
+		String user="root";
 		String password="password";
 		try {
 			//Class.forName("com.mysql.jdbc.Driver");
@@ -21,7 +21,7 @@ public class ConnectionUtil {
 		return connection;
 	}
 	public static void main(String[] args) throws UserDefinedException  {
-		connection=ConnectionUtil.getConnection();
+		connection=DbUtil.getConnection();
 		if(connection!=null) System.out.println("Connection Obtained!!");
 		else System.out.println("Connection NOT Obtained!!");
 	}

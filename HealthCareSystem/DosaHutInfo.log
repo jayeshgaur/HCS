@@ -1,0 +1,29 @@
+2019-09-14-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-14-main-ERROR-DBUtil.class:connection not established at EmployeeDao: com.cg.healthcaresystem.exception.UserDefinedException: CLIENT_PLUGIN_AUTH is required
+2019-09-14-main-ERROR-DBUtil.class:Error at addEmployee Dao method: null
+2019-09-14-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-14-main-ERROR-DBUtil.class:connection not established at EmployeeDao: com.cg.healthcaresystem.exception.UserDefinedException: Unknown system variable 'lower_case_table_names'
+2019-09-14-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-14-main-ERROR-DBUtil.class:connection not established at EmployeeDao: com.cg.healthcaresystem.exception.UserDefinedException: CLIENT_PLUGIN_AUTH is required
+2019-09-14-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-14-main-ERROR-DBUtil.class:connection not established at EmployeeDao: com.cg.healthcaresystem.exception.UserDefinedException: CLIENT_PLUGIN_AUTH is required
+2019-09-14-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-14-main-ERROR-DBUtil.class:connection not established at EmployeeDao: com.cg.healthcaresystem.exception.UserDefinedException: CLIENT_PLUGIN_AUTH is required
+2019-09-14-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-14-main-ERROR-DBUtil.class:connection not established at EmployeeDao: com.cg.healthcaresystem.exception.UserDefinedException: CLIENT_PLUGIN_AUTH is required
+2019-09-14-main-ERROR-DBUtil.class:Error at addEmployee Dao method: null
+2019-09-14-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-14-main-ERROR-DBUtil.class:connection not established at EmployeeDao: com.cg.healthcaresystem.exception.UserDefinedException: CLIENT_PLUGIN_AUTH is required
+2019-09-14-main-ERROR-DBUtil.class:Error at addEmployee Dao method: null
+2019-09-14-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-14-main-ERROR-DBUtil.class:connection not established at EmployeeDao: com.cg.healthcaresystem.exception.UserDefinedException: CLIENT_PLUGIN_AUTH is required
+2019-09-14-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-14-main-ERROR-DBUtil.class:connection not established at EmployeeDao: com.cg.healthcaresystem.exception.UserDefinedException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+2019-09-14-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-14-main-ERROR-DBUtil.class:connection not established at EmployeeDao: com.cg.healthcaresystem.exception.UserDefinedException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+2019-09-14-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-14-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-14-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....

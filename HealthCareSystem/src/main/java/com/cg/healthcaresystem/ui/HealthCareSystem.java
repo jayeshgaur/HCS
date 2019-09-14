@@ -20,7 +20,7 @@ public class HealthCareSystem {
 		UserService userService = new UserServiceImpl();
 		int userRole = 0, adminChoice = 0, userChoice = 0;
 		String centerName = "";
-		String centerId = "";
+		BigInteger centerId ;
 		String choices = "";
 		DiagnosticCenter diagnosticCenter = null;
 		Test test = null;
@@ -111,7 +111,7 @@ public class HealthCareSystem {
 
 							// Get CenterId from admin to delete center
 							System.out.println("Enter the id of center which you want to remove");
-							centerId = scanner.next();
+							centerId = scanner.nextBigInteger();
 
 							// validate ID and remove
 							try {
@@ -126,7 +126,7 @@ public class HealthCareSystem {
 						}
 						break;
 
-					case 3: // Add Test
+				      case 3: // Add Test
 						// Get list of centers
 						centerList = userService.getCenterList();
 
@@ -152,7 +152,7 @@ public class HealthCareSystem {
 							// Select Center Id
 							System.out.println("Enter the Center Id of the Center in which you want to add test");
 
-							centerId = scanner.nextLine();
+							centerId = scanner.nextBigInteger();
 
 							// Create Test object to add
 							test = new Test(testName);
@@ -171,7 +171,7 @@ public class HealthCareSystem {
 						}
 						break;
 
-					case 4: // Remove Test
+				    case 4: // Remove Test
 
 						// Get list of existing centers
 						centerList = userService.getCenterList();
@@ -192,9 +192,9 @@ public class HealthCareSystem {
 							}
 
 							// Take center id to get list of test to be removed
-							String removeCenterId = "";
+							BigInteger removeCenterId ;
 							try {
-								removeCenterId = scanner.next();
+								removeCenterId = scanner.nextBigInteger();
 
 								// validate center Id
 								removeCenterId = userService.validateCenterId(removeCenterId, centerList);
@@ -258,7 +258,7 @@ public class HealthCareSystem {
 							try {
 
 								// Accept center id
-								centerId = userService.validateCenterId(scanner.next(), centerList);
+								centerId = userService.validateCenterId(scanner.nextBigInteger(), centerList);
 
 								// get list of appointments in the center
 								System.out.println("=====List of appointments======");
@@ -395,9 +395,9 @@ public class HealthCareSystem {
 								System.out.println("CenterName: " + diagnosticCenter.getCenterName() + " CenterId: "
 										+ diagnosticCenter.getCenterId() + " Address: "
 										+ diagnosticCenter.getCenterAddress());
-							}
+							}}
 
-							try {
+							/*try {
 								// Get Center Id to make an appointment in
 								centerId = userService.validateCenterId(scanner.next(), centerList);
 
@@ -456,7 +456,7 @@ public class HealthCareSystem {
 							}
 
 						}
-						break;
+						break;*/
 					case 3:
 						//Get Center List
 						centerList = userService.getCenterList();
@@ -502,8 +502,7 @@ public class HealthCareSystem {
 			default:
 				System.out.println("Enter a proper choice!");
 				break;
-			}
-		}
+			}	}
 
 	}
 

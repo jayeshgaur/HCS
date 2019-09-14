@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiagnosticCenter {
-	private String centerId;
+	private BigInteger centerId;
 	private static Integer centerCounter=0;
 //	private Integer testCounter=0;
 	private Integer appointmentCounter=0;
-	private static final String prefix = "HSC";
+	//private static final String prefix = "HSC";
 	private String centerName;
 	private BigInteger centerContactNo;
 	private String centerAddress;	
@@ -25,7 +25,6 @@ public class DiagnosticCenter {
 	public DiagnosticCenter(String centerName, String centerAddress, BigInteger centerNo) {
 		super();
 		this.setCenterName(centerName);
-		this.setCenterId(prefix + (centerCounter++).toString());
 		this.setCenterAddress(centerAddress);
 		this.setCenterContactNo(centerNo);
 		Test t1 = new Test("Blood Test");
@@ -38,11 +37,11 @@ public class DiagnosticCenter {
 
 	
 	//Center ID
-	public String getCenterId() {
+	public BigInteger getCenterId() {
 		return centerId;
 	}
 
-	public void setCenterId(String centerId) {
+	public void setCenterId(BigInteger centerId) {
 		this.centerId=centerId;
 	}
 	

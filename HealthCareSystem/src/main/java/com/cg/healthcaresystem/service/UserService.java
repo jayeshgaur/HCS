@@ -1,6 +1,7 @@
 package com.cg.healthcaresystem.service;
 
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 import java.util.List;
@@ -14,11 +15,11 @@ import com.cg.healthcaresystem.exception.UserDefinedException;
 public interface UserService {
 	public DiagnosticCenter addCenter(DiagnosticCenter center);
 
-	public boolean removeCenter(String centerId);
+	public boolean removeCenter(BigInteger centerId);
 
-	public Test addTest(String name, Test test) throws UserDefinedException;
+	public Test addTest(BigInteger centerid, Test test) throws UserDefinedException;
 
-	public boolean removeTest(String removeCenterId, String removeTestId, List<DiagnosticCenter> centerList);
+	public boolean removeTest(BigInteger removeCenterId, String removeTestId, List<DiagnosticCenter> centerList);
 
 	public String register(User user);
 
@@ -30,9 +31,9 @@ public interface UserService {
 	
 	public String validateContactNo(String userContactNo) throws UserDefinedException;
 	
-	public String validateCenterId(String centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
+	public BigInteger validateCenterId(BigInteger centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
 	
-	public String validateTestId(String removeTestId, String centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
+	public String validateTestId(String removeTestId, BigInteger centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
 	
 	public String validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)throws UserDefinedException;
 	

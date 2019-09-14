@@ -2,36 +2,120 @@ package com.cg.healthcaresystem.dao;
 
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
 import com.cg.healthcaresystem.dto.User;
+import com.cg.healthcaresystem.exception.UserDefinedException;
+import com.cg.healthcaresystem.util.DbUtil;
+
+import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 public class UserDaoImpl implements UserDao {
 
 	private static List<DiagnosticCenter> centerList = new ArrayList<DiagnosticCenter>();
 	List<User> userList = new ArrayList<User>();
+	private static Connection connection;
+	private PreparedStatement ps;
+	private ResultSet rs;
+	private static Logger myLogger;
+	static{
+	  	
+	  	  Properties props = System.getProperties();
+	  	  String userDir= props.getProperty("user.dir")+"\\src\\main\\resources\\"
+	  	  		+ "";
+	  	  System.out.println("Current working directory is " +userDir);
+	  	  PropertyConfigurator.configure(userDir+"log4j.properties");
+			myLogger=Logger.getLogger("DBUtil.class");
+			}
+	static {
+		try {
+			connection=DbUtil.getConnection();
+			myLogger.info("connection obtained.....");
+		} catch (UserDefinedException e) {
+			// TODO Auto-generated catch block
+			myLogger.error("connection not established at EmployeeDao: "+e);
+		}
+	}
+	
 
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
-		if (centerList.add(center))
-			return center;
-		else
-			return null;
-	}
-
-	public boolean removeCenter(String centerId) {
-		DiagnosticCenter diagnosticCenter=null;
-		Iterator<DiagnosticCenter> iterator = centerList.iterator();
-		while (iterator.hasNext()) {
-			diagnosticCenter = iterator.next();
-			if (diagnosticCenter.getCenterId().equals(centerId)) {
-				break;
-//				centerList.remove(diagnosticCenter);
-//				status =  true;
+		
+		String sql="insert into Center(center_name,center_address,center_contact_no) values(?,?,?)";
+		try
+		{
+			ps=connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			ps.setLong(3,center.getCenterContactNo().longValue());
+			ps.setString(1,center.getCenterName());
+			ps.setString(2,center.getCenterAddress());
+			
+			int noOfRecords=ps.executeUpdate();
+			if(noOfRecords>0)
+			{
+				System.out.println("Record inserted successfully");
 			}
-
+			
+			
 		}
-		return (centerList.remove(diagnosticCenter));
+		catch(Exception exception)
+		{
+			myLogger.error("Error at addCenter Dao method: "+exception.getMessage());
+		}
+		finally {
+			if(ps!=null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					myLogger.error("Error at addCenter Dao method:"+e.getMessage());
+				}
+			}
+		}
+		
+		
+		
+		return center;
 	}
 
-//	public Test addTest(String centerId, Test test) {
+	public boolean removeCenter(BigInteger centerId) {
+		String sql="delete from Center where center_id=?";
+		try
+		{
+			ps=connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			ps.setLong(1,centerId.longValue());
+			
+			int noOfRecords=ps.executeUpdate();
+			if(noOfRecords>0)
+			{
+				System.out.println("Center deleted successfully");
+			}
+			
+			
+		}
+		catch(Exception exception)
+		{
+			myLogger.error("Error at removeCenter Dao method: "+exception.getMessage());
+		}
+		finally {
+			if(ps!=null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					myLogger.error("Error at removeCenter Dao method:"+e.getMessage());
+				}
+			}
+		}
+		return true;
+		
+	}
+
+//	public Test addTest(BigInteger centerId, Test test) {
 //		for (DiagnosticCenter diagnosticCenter : centerList) {
 //			if(diagnosticCenter.getCenterId().equals(centerId))
 //			{
@@ -42,7 +126,7 @@ public class UserDaoImpl implements UserDao {
 //		return null;
 //	}
 
-//	public boolean removeTest(String removeCenterId, String removeTestId) {
+//	public boolean removeTest(BigInteger removeCenterId, String removeTestId) {
 //		List<Test> tempTestList = new ArrayList<Test>();
 //		for (int i = 0; i < centerList.size(); i++) {
 //			if (centerList.get(i).getCenterId().equals(removeCenterId)) {
