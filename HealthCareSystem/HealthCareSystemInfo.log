@@ -241,3 +241,6 @@
 2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
 2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
 2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....

@@ -95,6 +95,7 @@ public class HealthCareSystem {
 					case 2: // Remove Center
 
 						// Get list of centers to check if center(s) exists or not!
+						//a
 						centerList = userService.getCenterList();
 						if (centerList.size() < 1) {
 							System.out.println("No center in the system");
