@@ -76,9 +76,9 @@ public class UserServiceImpl implements UserService {
 		return userDao.getCenterList();
 	}
 
-	public boolean setCenterList(List<DiagnosticCenter> centerList) {
-		return userDao.setCenterList(centerList);
-	}
+//	public boolean setCenterList(List<DiagnosticCenter> centerList) {
+	//	return userDao.setCenterList(centerList);
+//	}
 
 	public List<User> getUserList() {
 		return userDao.getUserList();
@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserService {
 	public BigInteger validateCenterId(BigInteger centerId, List<DiagnosticCenter> centerList) throws UserDefinedException {
 		for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
 			DiagnosticCenter diagnosticCenter = iterator.next();
-			if (diagnosticCenter.getCenterId()==centerId)
+			if (diagnosticCenter.getCenterId().compareTo(centerId)==0)
 				return centerId;
 
 		}

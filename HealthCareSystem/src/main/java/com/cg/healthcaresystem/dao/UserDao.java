@@ -23,5 +23,5 @@ public interface UserDao {
 
 	public boolean setUserList(List<User> li);
 
-	public boolean setCenterList(List<DiagnosticCenter> centerList);
+	//public boolean setCenterList(List<DiagnosticCenter> centerList);
 }

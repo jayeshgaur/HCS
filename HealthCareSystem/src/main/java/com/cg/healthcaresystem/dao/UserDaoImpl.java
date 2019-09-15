@@ -3,6 +3,7 @@ package com.cg.healthcaresystem.dao;
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
 import com.cg.healthcaresystem.dto.User;
 import com.cg.healthcaresystem.exception.UserDefinedException;
+import com.cg.healthcaresystem.exception.UserErrorMessage;
 import com.cg.healthcaresystem.util.DbUtil;
 
 import java.math.BigInteger;
@@ -18,7 +19,8 @@ import org.apache.log4j.PropertyConfigurator;
 
 public class UserDaoImpl implements UserDao {
 
-	private static List<DiagnosticCenter> centerList = new ArrayList<DiagnosticCenter>();
+	static List<DiagnosticCenter> centerList = new ArrayList<DiagnosticCenter>();
+	
 	List<User> userList = new ArrayList<User>();
 	private static Connection connection;
 	private PreparedStatement ps;
@@ -32,8 +34,7 @@ public class UserDaoImpl implements UserDao {
 	  	  System.out.println("Current working directory is " +userDir);
 	  	  PropertyConfigurator.configure(userDir+"log4j.properties");
 			myLogger=Logger.getLogger("DBUtil.class");
-			}
-	static {
+	
 		try {
 			connection=DbUtil.getConnection();
 			myLogger.info("connection obtained.....");
@@ -55,9 +56,9 @@ public class UserDaoImpl implements UserDao {
 			ps.setString(2,center.getCenterAddress());
 			
 			int noOfRecords=ps.executeUpdate();
-			if(noOfRecords>0)
+			if(noOfRecords<=0)
 			{
-				System.out.println("Record inserted successfully");
+				throw new UserDefinedException(UserErrorMessage.userErrorNoCenterAdded);
 			}
 			
 			
@@ -90,9 +91,9 @@ public class UserDaoImpl implements UserDao {
 			ps.setLong(1,centerId.longValue());
 			
 			int noOfRecords=ps.executeUpdate();
-			if(noOfRecords>0)
+			if(noOfRecords<=0)
 			{
-				System.out.println("Center deleted successfully");
+				throw new UserDefinedException(UserErrorMessage.userErrorNoCenterDeleted);
 			}
 			
 			
@@ -171,12 +172,41 @@ public class UserDaoImpl implements UserDao {
 //	}
 
 	public List<DiagnosticCenter> getCenterList() {
+		String sql="select * from Center";
+		try
+		{
+			ps=connection.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next())
+			{
+				 DiagnosticCenter dignosticcenter=new DiagnosticCenter();
+				 dignosticcenter.setCenterId(BigInteger.valueOf(rs.getLong(1)));
+				 dignosticcenter.setCenterName(rs.getString(2));
+				 dignosticcenter.setCenterAddress(rs.getString(3));
+				 dignosticcenter.setCenterContactNo(BigInteger.valueOf(rs.getLong(4)));
+				 centerList.add(dignosticcenter);
+			}
+		}
+		catch(Exception exception)
+		{
+			myLogger.error("Error at listCenter Dao method: "+exception.getMessage());
+		}
+		finally {
+			if(ps!=null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					myLogger.error("Error at istCenterr Dao method:"+e.getMessage());
+				}
+			}
+		}
 		return centerList;
 	}
 
-	public boolean setCenterList(List<DiagnosticCenter> centerList) {
-		return (null != (UserDaoImpl.centerList = centerList));
-	}
+	//public boolean setCenterList(List<DiagnosticCenter> centerList) {
+	//	return (null != (UserDaoImpl.centerList = centerList));
+	//}
 
 	// RegisteredUserList
 	public List<User> getUserList() {

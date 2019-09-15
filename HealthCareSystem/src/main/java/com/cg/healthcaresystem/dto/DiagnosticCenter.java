@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DiagnosticCenter {
 	private BigInteger centerId;
-	private static Integer centerCounter=0;
+//	private static Integer centerCounter=0;
 //	private Integer testCounter=0;
 	private Integer appointmentCounter=0;
 	//private static final String prefix = "HSC";

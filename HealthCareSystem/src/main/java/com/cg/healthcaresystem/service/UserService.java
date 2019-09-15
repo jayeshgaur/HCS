@@ -27,7 +27,7 @@ public interface UserService {
 
 	public List<User> getUserList();
 
-	public boolean setCenterList(List<DiagnosticCenter> centerList);
+	//public boolean setCenterList(List<DiagnosticCenter> centerList);
 	
 	public String validateContactNo(String userContactNo) throws UserDefinedException;
 	

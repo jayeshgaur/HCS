@@ -17,5 +17,6 @@ public class UserErrorMessage {
 	public static final String userErrorPastDate = "You cannot book an appointment today or in the past!";
 	public static final String userErrorInvalidTimeFormat = "Please enter the time in the specified format";
 	public static final String userErrorNonWorkingHours = "Our working hours are only from 10am to 8pm.";
-	
+	public static final String userErrorNoCenterAdded="Add center failed";
+	public static final String userErrorNoCenterDeleted="Center deleted successfully";
 }
