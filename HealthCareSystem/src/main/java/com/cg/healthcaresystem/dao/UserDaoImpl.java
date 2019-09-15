@@ -297,7 +297,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
 		// TODO Auto-generated method stub
-//
+///
 		  List<Test> testList=new ArrayList<Test>();
 		String sql="select * from Test where center_id=? AND isEmpty=?";
 		try
