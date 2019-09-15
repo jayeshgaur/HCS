@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
+import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
 
 public interface UserDao {
@@ -11,9 +12,9 @@ public interface UserDao {
 
 	public boolean removeCenter(BigInteger centerid);
 
-//	public Test addTest(BigInteger name, Test test);
+	public Test addTest(BigInteger name, Test test);
 
-//	public boolean removeTest(String removeCenterid, String removeTestId);
+	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId);
 
 	public String register(User user);
 
@@ -22,6 +23,8 @@ public interface UserDao {
 	public List<User> getUserList();
 
 	public boolean setUserList(List<User> li);
+
+	public List<Test> getListOfTests(BigInteger centerId);
 
 	//public boolean setCenterList(List<DiagnosticCenter> centerList);
 }

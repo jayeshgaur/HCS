@@ -1,6 +1,7 @@
 package com.cg.healthcaresystem.dao;
 
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
+import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
 import com.cg.healthcaresystem.exception.UserDefinedException;
 import com.cg.healthcaresystem.exception.UserErrorMessage;
@@ -19,9 +20,11 @@ import org.apache.log4j.PropertyConfigurator;
 
 public class UserDaoImpl implements UserDao {
 
-	static List<DiagnosticCenter> centerList = new ArrayList<DiagnosticCenter>();
-	
+	  
+	  List<Test> testList=new ArrayList<Test>();
 	List<User> userList = new ArrayList<User>();
+	DiagnosticCenter dignosticcenter=null;
+	Test test=null;
 	private static Connection connection;
 	private PreparedStatement ps;
 	private ResultSet rs;
@@ -47,13 +50,14 @@ public class UserDaoImpl implements UserDao {
 
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
 		
-		String sql="insert into Center(center_name,center_address,center_contact_no) values(?,?,?)";
+		String sql="insert into Center(center_name,center_address,center_contact_no,isEmpty) values(?,?,?,?)";
 		try
 		{
 			ps=connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			ps.setLong(3,center.getCenterContactNo().longValue());
 			ps.setString(1,center.getCenterName());
 			ps.setString(2,center.getCenterAddress());
+			ps.setInt(4, 1);
 			
 			int noOfRecords=ps.executeUpdate();
 			if(noOfRecords<=0)
@@ -65,6 +69,8 @@ public class UserDaoImpl implements UserDao {
 		}
 		catch(Exception exception)
 		{
+			
+			//1. Insert appropriate error messages
 			myLogger.error("Error at addCenter Dao method: "+exception.getMessage());
 		}
 		finally {
@@ -84,12 +90,18 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public boolean removeCenter(BigInteger centerId) {
-		String sql="delete from Center where center_id=?";
+		String sql="update Test SET isEmpty=0 where center_id=?";
+		String sql1="update Center set isEmpty=0 where center_id=?";
+		System.out.println("888888888");
 		try
 		{
+			System.out.println("1");
 			ps=connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			ps.setLong(1,centerId.longValue());
-			
+			int a=ps.executeUpdate();
+			ps=connection.prepareStatement(sql1,Statement.RETURN_GENERATED_KEYS);
+			ps.setLong(1,centerId.longValue());
+			System.out.println("2");
 			int noOfRecords=ps.executeUpdate();
 			if(noOfRecords<=0)
 			{
@@ -116,16 +128,36 @@ public class UserDaoImpl implements UserDao {
 		
 	}
 
-//	public Test addTest(BigInteger centerId, Test test) {
-//		for (DiagnosticCenter diagnosticCenter : centerList) {
-//			if(diagnosticCenter.getCenterId().equals(centerId))
-//			{
-//				diagnosticCenter.addTest(test);
-//				return test;
-//			}
-//		}
-//		return null;
-//	}
+	public Test addTest(BigInteger centerId, Test test) {
+		String sql="insert into Test(test_name,center_id,isEmpty) values(?,?,?)";
+		try
+		{
+			ps=connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1,test.getTestName());
+			ps.setLong(2, centerId.longValue());
+			ps.setInt(3,1);
+			int noOfRecords=ps.executeUpdate();
+			if(noOfRecords<=0)
+			{
+				throw new UserDefinedException(UserErrorMessage.userErrorAddTestFailed);
+			}
+		}
+		catch(Exception exception)
+		{
+			myLogger.error("Error at addTest Dao method: "+exception.getMessage());
+		}
+		finally {
+			if(ps!=null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					myLogger.error("Error at addTest Dao method:"+e.getMessage());
+				}
+			}
+		}
+	return test;
+	}
 
 //	public boolean removeTest(BigInteger removeCenterId, String removeTestId) {
 //		List<Test> tempTestList = new ArrayList<Test>();
@@ -172,20 +204,25 @@ public class UserDaoImpl implements UserDao {
 //	}
 
 	public List<DiagnosticCenter> getCenterList() {
-		String sql="select * from Center";
+		List<DiagnosticCenter> centerList = new LinkedList<DiagnosticCenter>();
+		String sql="select * from Center where isEmpty=1";
 		try
 		{
+			
 			ps=connection.prepareStatement(sql);
 			rs=ps.executeQuery();
 			while(rs.next())
 			{
-				 DiagnosticCenter dignosticcenter=new DiagnosticCenter();
+				 dignosticcenter=new DiagnosticCenter();
 				 dignosticcenter.setCenterId(BigInteger.valueOf(rs.getLong(1)));
 				 dignosticcenter.setCenterName(rs.getString(2));
 				 dignosticcenter.setCenterAddress(rs.getString(3));
 				 dignosticcenter.setCenterContactNo(BigInteger.valueOf(rs.getLong(4)));
+				
 				 centerList.add(dignosticcenter);
+				 
 			}
+			
 		}
 		catch(Exception exception)
 		{
@@ -201,6 +238,7 @@ public class UserDaoImpl implements UserDao {
 				}
 			}
 		}
+		
 		return centerList;
 	}
 
@@ -221,6 +259,74 @@ public class UserDaoImpl implements UserDao {
 	public String register(User user) {
 		userList.add(user);
 		return user.getUserId();
+	}
+
+	@Override
+	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) {
+		// TODO Auto-generated method stub
+		String sql="update Test set isEmpty=0  where test_id=? AND center_id=?";
+		
+		try
+		{
+			ps=connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			ps.setLong(1, removeTestId.longValue());
+			ps.setLong(2, removeCenterId.longValue());;
+			int noOfRecords=ps.executeUpdate();
+			System.out.println(noOfRecords);
+			if(noOfRecords<=0)
+			{
+				throw new UserDefinedException(UserErrorMessage.userErrorNoTestDeleted);
+			}
+		}
+		catch(Exception exception)
+		{
+			myLogger.error("Error at addTest Dao method: "+exception.getMessage());
+		}
+		finally {
+			if(ps!=null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					myLogger.error("Error at addTest Dao method:"+e.getMessage());
+				}
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public List<Test> getListOfTests(BigInteger centerId) {
+		// TODO Auto-generated method stub
+		String sql="select * from Test where center_id=? AND isEmpty=1";
+		try
+		{
+			ps=connection.prepareStatement(sql);
+			ps.setLong(1,centerId.longValue());
+			rs=ps.executeQuery();
+			while(rs.next())
+			{
+				test=new Test();
+				test.setTestId(BigInteger.valueOf(rs.getLong(1)));
+				test.setTestName(rs.getString(2));
+				testList.add(test);
+			}
+		}
+		catch(Exception exception)
+		{
+			myLogger.error("Error at listTest Dao method: "+exception.getMessage());
+		}
+		finally {
+			if(ps!=null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					myLogger.error("Error at listTest Dao method:"+e.getMessage());
+				}
+			}
+		}
+		return testList;
 	}
 
 }

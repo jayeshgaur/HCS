@@ -19,7 +19,7 @@ public interface UserService {
 
 	public Test addTest(BigInteger centerid, Test test) throws UserDefinedException;
 
-	public boolean removeTest(BigInteger removeCenterId, String removeTestId, List<DiagnosticCenter> centerList);
+	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId);
 
 	public String register(User user);
 
@@ -33,7 +33,7 @@ public interface UserService {
 	
 	public BigInteger validateCenterId(BigInteger centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
 	
-	public String validateTestId(String removeTestId, BigInteger centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
+	public BigInteger validateTestId(BigInteger removeTestId, BigInteger centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
 	
 	public String validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)throws UserDefinedException;
 	
@@ -58,5 +58,7 @@ public interface UserService {
 	public Appointment addAppointment(Appointment appointment, String centerId, List<DiagnosticCenter> centerList);
 
 	public List<Appointment> getAppointmentList(User user);
+
+	public List<Test> getListOfTests(BigInteger centerId);
 
 }

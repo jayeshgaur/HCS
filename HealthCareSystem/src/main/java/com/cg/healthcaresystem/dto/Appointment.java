@@ -19,7 +19,7 @@ public class Appointment {
 
 	public Appointment(User user, Test test, DiagnosticCenter center, LocalDateTime dateTime) {
 		super();
-		this.setAppointmentId(prefix + center.getAppointmentCounter().toString());
+		//this.setAppointmentId(prefix + center.getAppointmentCounter().toString());
 		this.setApproved(false);
 		this.user = user;
 		this.test = test;

@@ -1,9 +1,9 @@
 package com.cg.healthcaresystem.dto;
 
+import java.math.BigInteger;
+
 public class Test {
-	private final static String prefix = "Test";
-	private static Integer testCounter = 0;
-	private String testId;
+	private BigInteger testId;
 	private String testName;
 	
 	public Test()
@@ -16,17 +16,16 @@ public class Test {
 	{
 		super();
 		this.setTestName(testName);
-		testCounter++;
-		this.setTestId(prefix + (testCounter).toString());
+		
 	}
 
 	
 	//Testid
-	public String getTestId() {
+	public BigInteger getTestId() {
 		return testId;
 	}
 
-	public void setTestId(String testId) {
+	public void setTestId(BigInteger testId) {
 		this.testId = testId;
 	}
 

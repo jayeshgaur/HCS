@@ -25,3 +25,207 @@
 2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
 2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
 2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at removeCenter Dao method: Cannot delete or update a parent row: a foreign key constraint fails (`healthcaresystem`.`test`, CONSTRAINT `test_ibfk_1` FOREIGN KEY (`center_id`) REFERENCES `center` (`center_id`))
+2019-09-15-main-ERROR-DBUtil.class:Error at removeCenter Dao method: Cannot delete or update a parent row: a foreign key constraint fails (`healthcaresystem`.`test`, CONSTRAINT `test_ibfk_1` FOREIGN KEY (`center_id`) REFERENCES `center` (`center_id`))
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at removeCenter Dao method: Cannot delete or update a parent row: a foreign key constraint fails (`healthcaresystem`.`test`, CONSTRAINT `test_ibfk_1` FOREIGN KEY (`center_id`) REFERENCES `center` (`center_id`))
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at removeCenter Dao method: Cannot delete or update a parent row: a foreign key constraint fails (`healthcaresystem`.`test`, CONSTRAINT `test_ibfk_1` FOREIGN KEY (`center_id`) REFERENCES `center` (`center_id`))
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at removeCenter Dao method: Cannot delete or update a parent row: a foreign key constraint fails (`healthcaresystem`.`test`, CONSTRAINT `test_ibfk_1` FOREIGN KEY (`center_id`) REFERENCES `center` (`center_id`))
+2019-09-15-main-ERROR-DBUtil.class:Error at removeCenter Dao method: Cannot delete or update a parent row: a foreign key constraint fails (`healthcaresystem`.`test`, CONSTRAINT `test_ibfk_1` FOREIGN KEY (`center_id`) REFERENCES `center` (`center_id`))
+2019-09-15-main-ERROR-DBUtil.class:Error at removeCenter Dao method: Cannot delete or update a parent row: a foreign key constraint fails (`healthcaresystem`.`test`, CONSTRAINT `test_ibfk_1` FOREIGN KEY (`center_id`) REFERENCES `center` (`center_id`))
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at removeCenter Dao method: Cannot delete or update a parent row: a foreign key constraint fails (`healthcaresystem`.`test`, CONSTRAINT `test_ibfk_1` FOREIGN KEY (`center_id`) REFERENCES `center` (`center_id`))
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at removeCenter Dao method: Cannot delete or update a parent row: a foreign key constraint fails (`healthcaresystem`.`test`, CONSTRAINT `test_ibfk_1` FOREIGN KEY (`center_id`) REFERENCES `center` (`center_id`))
+2019-09-15-main-ERROR-DBUtil.class:Error at removeCenter Dao method: Cannot delete or update a parent row: a foreign key constraint fails (`healthcaresystem`.`test`, CONSTRAINT `test_ibfk_1` FOREIGN KEY (`center_id`) REFERENCES `center` (`center_id`))
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at removeCenter Dao method: Cannot delete or update a parent row: a foreign key constraint fails (`healthcaresystem`.`test`, CONSTRAINT `test_ibfk_1` FOREIGN KEY (`center_id`) REFERENCES `center` (`center_id`))
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at removeCenter Dao method: Cannot delete or update a parent row: a foreign key constraint fails (`healthcaresystem`.`test`, CONSTRAINT `test_ibfk_1` FOREIGN KEY (`center_id`) REFERENCES `center` (`center_id`))
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at removeCenter Dao method: Cannot delete or update a parent row: a foreign key constraint fails (`healthcaresystem`.`test`, CONSTRAINT `test_ibfk_1` FOREIGN KEY (`center_id`) REFERENCES `center` (`center_id`))
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at addTest Dao method: Unknown column 'removeTestId' in 'where clause'
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at addTest Dao method: Unknown column 'removeTestId' in 'where clause'
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at addTest Dao method: Unknown column 'removeTestId' in 'where clause'
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at addTest Dao method: Unknown column 'removeTestId' in 'where clause'
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at listTest Dao method: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where isEmpty=1' at line 1
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at addTest Dao method: Parameter index out of range (3 > number of parameters, which is 2).
+2019-09-15-main-ERROR-DBUtil.class:Error at addTest Dao method: Parameter index out of range (3 > number of parameters, which is 2).
+2019-09-15-main-ERROR-DBUtil.class:Error at listTest Dao method: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where isEmpty=1' at line 1
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at listTest Dao method: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where isEmpty=1' at line 1
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at listTest Dao method: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where isEmpty=1' at line 1
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-ERROR-DBUtil.class:Error at listTest Dao method: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where isEmpty=1' at line 1
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....
+2019-09-15-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-15-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@6ae5aa72
+2019-09-15-main-INFO -DBUtil.class:connection obtained.....

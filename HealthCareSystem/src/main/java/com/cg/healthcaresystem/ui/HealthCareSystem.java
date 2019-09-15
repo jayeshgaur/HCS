@@ -16,7 +16,7 @@ import com.cg.healthcaresystem.service.UserServiceImpl;
 
 public class HealthCareSystem {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UserDefinedException {
 		UserService userService = new UserServiceImpl();
 		int userRole = 0, adminChoice = 0, userChoice = 0;
 		String centerName = "";
@@ -25,8 +25,8 @@ public class HealthCareSystem {
 		DiagnosticCenter diagnosticCenter = null;
 		Test test = null;
 		Appointment appointment = null;
-		List<DiagnosticCenter> centerList = null;
-		List<Test> testList = null;
+		 List<DiagnosticCenter> centerList = null;
+		 List<Test> testList = null;
 		while (userRole != 3) {
 			userRole = adminChoice = userChoice = 0;
 			System.out.println("Enter your role: \n 1.Admin 2.User 3.Exit");
@@ -111,6 +111,8 @@ public class HealthCareSystem {
 
 							// Get CenterId from admin to delete center
 							System.out.println("Enter the id of center which you want to remove");
+							
+							//2. handle the InputMismatchException here
 							centerId = scanner.nextBigInteger();
 
 							// validate ID and remove
@@ -181,58 +183,41 @@ public class HealthCareSystem {
 							System.out.println("There is no center in the system!");
 						} else {
 							System.out.println("Select the center where you want to delete test");
-
-							// print all existing centers to choose from
-							Iterator<DiagnosticCenter> diagnosticCenterIterator = centerList.iterator();
-							while (diagnosticCenterIterator.hasNext()) {
-								diagnosticCenter = diagnosticCenterIterator.next();
-								System.out.println("CenterName: " + diagnosticCenter.getCenterName() + " CenterId: "
-										+ diagnosticCenter.getCenterId() + " Address: "
-										+ diagnosticCenter.getCenterAddress());
+							Iterator centerListIterator=centerList.iterator();
+							while(centerListIterator.hasNext())
+							{
+								DiagnosticCenter diagnosticcenter=(DiagnosticCenter) centerListIterator.next();
+								System.out.println(diagnosticcenter.getCenterId()+" "+diagnosticcenter.getCenterName()+
+										" "+diagnosticcenter.getCenterAddress());
+								
+								
 							}
-
-							// Take center id to get list of test to be removed
-							BigInteger removeCenterId ;
-							try {
-								removeCenterId = scanner.nextBigInteger();
-
-								// validate center Id
-								removeCenterId = userService.validateCenterId(removeCenterId, centerList);
-
-								// Retrieve list of tests from the selected center id
-								Iterator<DiagnosticCenter> iterator = centerList.iterator();
-								while (iterator.hasNext()) {
-									diagnosticCenter = iterator.next();
-									if (diagnosticCenter.getCenterId().equals(removeCenterId)) {
-										testList = diagnosticCenter.getListOfTests();
-									}
-								}
-
-								// Display test list from the selected center id
-								Iterator<Test> testListIterator = testList.iterator();
-								while (testListIterator.hasNext()) {
-									test = testListIterator.next();
-									System.out.println(
-											"Test ID: " + test.getTestId() + " Test Name: " + test.getTestName());
-								}
-
-								// Get Test Id of the test to be removed
-								System.out.println("Enter the id of the test which you want to remove");
-								String removeTestId = scanner.next();
-
-								// Remove test from the list if test id is correct
-								if (userService.removeTest(removeCenterId,
-										userService.validateTestId(removeTestId, removeCenterId, centerList),
-										centerList)) {
-									System.out.println("Test deleted successfully");
-								} else {
-									System.out.println("Test is not present");
-								}
-							} catch (UserDefinedException e) {
-								System.out.println(e.getMessage());
+							System.out.println("Enter centerid where u want to remove test");
+							BigInteger removeCenterId=scanner.nextBigInteger();
+							
+							List<Test> testList1=userService.getListOfTests(removeCenterId);
+							if(testList1.size()<1)
+							{
+								System.out.println("No test found");
 							}
-						}
-
+							else {
+							System.out.println("Choose test which you want to delete");
+							Iterator testIterator=testList1.iterator();
+							while(testIterator.hasNext())
+							{
+								Test test2=(Test) testIterator.next();
+								System.out.println(test2.getTestId()+" "+test2.getTestName());
+								
+							}
+							System.out.println("Select testid which you want to delete");
+							BigInteger removeTestId=scanner.nextBigInteger();
+							if(userService.removeTest(removeCenterId, removeTestId))
+							{
+								System.out.println("deleted successfully");
+							
+							
+							}}
+							}
 						break;
 					case 5: // ApproveAppointment
 
@@ -266,7 +251,7 @@ public class HealthCareSystem {
 								while (diagnosticCenterIterator.hasNext()) {
 									diagnosticCenter = diagnosticCenterIterator.next();
 									if (diagnosticCenter.getCenterId().equals(centerId)) {
-										appointmentList = diagnosticCenter.getListOfAppointments();
+										// appointmentList = diagnosticCenter.getListOfAppointments();
 										break;
 									}
 								}
