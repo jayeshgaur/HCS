@@ -113,6 +113,7 @@ public class HealthCareSystem {
 							System.out.println("Enter the id of center which you want to remove");
 							
 							//2. handle the InputMismatchException here
+							
 							centerId = scanner.nextBigInteger();
 
 							// validate ID and remove

@@ -21,7 +21,6 @@ import org.apache.log4j.PropertyConfigurator;
 public class UserDaoImpl implements UserDao {
 
 	  
-	  List<Test> testList=new ArrayList<Test>();
 	List<User> userList = new ArrayList<User>();
 	DiagnosticCenter dignosticcenter=null;
 	Test test=null;
@@ -298,11 +297,14 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
 		// TODO Auto-generated method stub
-		String sql="select * from Test where center_id=? AND isEmpty=1";
+
+		  List<Test> testList=new ArrayList<Test>();
+		String sql="select * from Test where center_id=? AND isEmpty=?";
 		try
 		{
 			ps=connection.prepareStatement(sql);
 			ps.setLong(1,centerId.longValue());
+			ps.setInt(2, 1);
 			rs=ps.executeQuery();
 			while(rs.next())
 			{
