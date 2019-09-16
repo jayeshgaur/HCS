@@ -344,3 +344,14 @@
 2019-09-16-main-INFO -UserDaoImpl.class:Property File loaded : 
 2019-09-16-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@5dfcfece
 2019-09-16-main-INFO -DBUtil.class:connection obtained.....
+2019-09-16-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-16-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@70beb599
+2019-09-16-main-INFO -DBUtil.class:connection obtained.....
+2019-09-16-main-ERROR-DBUtil.class:Error at removeCenter Dao method: null
+2019-09-16-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-16-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@70beb599
+2019-09-16-main-INFO -DBUtil.class:connection obtained.....
+2019-09-16-main-ERROR-DBUtil.class:Error at removeCenter Dao method: null
+2019-09-16-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-16-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
+2019-09-16-main-INFO -DBUtil.class:connection obtained.....
