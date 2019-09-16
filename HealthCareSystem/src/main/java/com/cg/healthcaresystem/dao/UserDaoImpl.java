@@ -48,8 +48,9 @@ public class UserDaoImpl implements UserDao {
 	
 
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
-		
-		DiagnosticCenter newcenter=null;
+
+		DiagnosticCenter newCenter=null;
+
 		String sql="insert into Center(center_name,center_address,center_contact_no,isEmpty) values(?,?,?,?)";
 		try
 		{
@@ -72,7 +73,9 @@ public class UserDaoImpl implements UserDao {
 			{
 				throw new UserDefinedException(UserErrorMessage.userErrorNoCenterAdded);
 			}
-			newcenter=center;
+
+			newCenter=center;
+
 			
 		}
 		catch(Exception exception)
@@ -94,7 +97,7 @@ public class UserDaoImpl implements UserDao {
 		
 		
 		
-		return newcenter;
+		return newCenter;
 	}
 
 	public boolean removeCenter(BigInteger centerId) {
