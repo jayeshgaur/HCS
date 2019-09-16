@@ -3,6 +3,7 @@ package com.cg.healthcaresystem.dao;
 import java.math.BigInteger;
 import java.util.List;
 
+import com.cg.healthcaresystem.dto.Appointment;
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
 import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
@@ -15,6 +16,8 @@ public interface UserDao {
 	public Test addTest(BigInteger name, Test test);
 
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId);
+	
+	public Appointment addAppointment(Appointment appointment);
 
 	public BigInteger register(User user);
 

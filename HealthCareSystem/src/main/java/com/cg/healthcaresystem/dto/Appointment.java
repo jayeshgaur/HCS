@@ -1,62 +1,69 @@
 package com.cg.healthcaresystem.dto;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 
 public class Appointment {
 
-	private final String prefix = "App";
-	private User user;
-	private String appointmentId;
-	private Test test;
-	private DiagnosticCenter center;
-	private boolean approved;
+	private BigInteger appointmentid;
+	private BigInteger centerid;
+	private BigInteger testid;
+	private BigInteger userid;
+	private int appointmentstatus;
 	private LocalDateTime dateTime;
+	private int isEmpty;
 
 	public Appointment() {
 
 	}
 
-	public Appointment(User user, Test test, DiagnosticCenter center, LocalDateTime dateTime) {
+	public Appointment( BigInteger centerid, BigInteger testid, BigInteger userid,LocalDateTime dateTime) {
 		super();
-		//this.setAppointmentId(prefix + center.getAppointmentCounter().toString());
-		this.setApproved(false);
-		this.user = user;
-		this.test = test;
-		this.center = center;
+		this.centerid = centerid;
+		this.testid = testid;
+		this.userid = userid;
 		this.dateTime = dateTime;
 	}
 
-	public User getUser() {
-		return user;
+	public BigInteger getAppointmentid() {
+		return appointmentid;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setAppointmentid(BigInteger appointmentid) {
+		this.appointmentid = appointmentid;
 	}
 
-	public Test getTest() {
-		return test;
+	public BigInteger getCenterid() {
+		return centerid;
 	}
 
-	public void setTest(Test test) {
-		this.test = test;
+	public void setCenterid(BigInteger centerid) {
+		this.centerid = centerid;
 	}
 
-	public DiagnosticCenter getCenter() {
-		return center;
+	public BigInteger getTestid() {
+		return testid;
 	}
 
-	public void setCenter(DiagnosticCenter center) {
-		this.center = center;
+	public void setTestid(BigInteger testid) {
+		this.testid = testid;
 	}
 
-	public boolean isApproved() {
-		return approved;
+	public BigInteger getUserid() {
+		return userid;
 	}
 
-	public boolean setApproved(boolean approved) {
-		return (this.approved = approved);
+	public void setUserid(BigInteger userid) {
+		this.userid = userid;
+	}
+
+	public int getAppointmentstatus() {
+		return appointmentstatus;
+	}
+
+	public void setAppointmentstatus(int appointmentstatus) {
+		this.appointmentstatus = appointmentstatus;
 	}
 
 	public LocalDateTime getDateTime() {
@@ -67,17 +74,76 @@ public class Appointment {
 		this.dateTime = dateTime;
 	}
 
-	public String getPrefix() {
-		return prefix;
+	public int getIsEmpty() {
+		return isEmpty;
 	}
 
-	public String getAppointmentId() {
-		return appointmentId;
+	public void setIsEmpty(int isEmpty) {
+		this.isEmpty = isEmpty;
 	}
 
-	public void setAppointmentId(String appointmentId) {
-		this.appointmentId = appointmentId;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((appointmentid == null) ? 0 : appointmentid.hashCode());
+		result = prime * result + appointmentstatus;
+		result = prime * result + ((centerid == null) ? 0 : centerid.hashCode());
+		result = prime * result + ((dateTime == null) ? 0 : dateTime.hashCode());
+		result = prime * result + isEmpty;
+		result = prime * result + ((testid == null) ? 0 : testid.hashCode());
+		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
+		return result;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Appointment other = (Appointment) obj;
+		if (appointmentid == null) {
+			if (other.appointmentid != null)
+				return false;
+		} else if (!appointmentid.equals(other.appointmentid))
+			return false;
+		if (appointmentstatus != other.appointmentstatus)
+			return false;
+		if (centerid == null) {
+			if (other.centerid != null)
+				return false;
+		} else if (!centerid.equals(other.centerid))
+			return false;
+		if (dateTime == null) {
+			if (other.dateTime != null)
+				return false;
+		} else if (!dateTime.equals(other.dateTime))
+			return false;
+		if (isEmpty != other.isEmpty)
+			return false;
+		if (testid == null) {
+			if (other.testid != null)
+				return false;
+		} else if (!testid.equals(other.testid))
+			return false;
+		if (userid == null) {
+			if (other.userid != null)
+				return false;
+		} else if (!userid.equals(other.userid))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Appointment [appointmentid=" + appointmentid + ", centerid=" + centerid + ", testid=" + testid
+				+ ", userid=" + userid + ", appointmentstatus=" + appointmentstatus + ", dateTime=" + dateTime
+				+ ", isEmpty=" + isEmpty + "]";
+	}
+	
+	
 
 }

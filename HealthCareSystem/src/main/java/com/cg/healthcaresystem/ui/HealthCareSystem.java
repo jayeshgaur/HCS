@@ -221,7 +221,7 @@ public class HealthCareSystem {
 							}}
 							}
 						break;
-					case 5: // ApproveAppointment
+				/*	case 5: // ApproveAppointment
 
 						// Print list of diagnostic centers
 						List<Appointment> appointmentList = null;
@@ -286,7 +286,7 @@ public class HealthCareSystem {
 							}
 						}
 
-						break;
+						break;*/
 					case 6:
 						break;
 					default:
@@ -365,6 +365,7 @@ public class HealthCareSystem {
 						} else {
 
 							System.out.println("Select the center where you want to book a test");
+							
 
 //		  		Iterator itr1=centerList1.iterator();
 //		  		int counter=1;
@@ -398,6 +399,11 @@ public class HealthCareSystem {
 										break;
 									}
 								}
+								if(testList==null) {
+									System.out.println("Sorry....No test found");
+								}
+								else
+								{
 								System.out.println("Enter the test id you want to book an appointment for: ");
 
 								// Print all tests present in the selected center
@@ -408,7 +414,7 @@ public class HealthCareSystem {
 											"TestName: " + test.getTestName() + " TestID: " + test.getTestId());
 								}
 
-								BigInteger testId = userService.validateTestId(scanner.nextBigInteger(), centerId, centerList);
+								BigInteger testId = userService.validateTestId(scanner.nextBigInteger(),centerId);
 
 								// Get the test object corresponding to the testId
 								testListIterator = testList.iterator();
@@ -421,22 +427,22 @@ public class HealthCareSystem {
 
 								System.out.println("Enter your user id: ");
 								// Get user Id
-								User user = userService.validateUserId(scanner.next());
+								User user = userService.validateUserId(scanner.nextBigInteger());
 
 								// DateTime
 								System.out.println("Enter date in the format: dd-MM-yyyy HH:mm:ss");
 								scanner.nextLine();
 								LocalDateTime dateTime = userService.validateDateTime(scanner.nextLine());
-								
+								System.out.println(dateTime);
 
 								// Time
 //								System.out.println("Enter appointment time in the format: HH:mm");
 //								LocalTime time = userService.validateTime(scanner.next());
-
-								appointment = new Appointment(user, test, diagnosticCenter, dateTime);
-								if (null != userService.addAppointment(appointment, centerId, centerList)) {
+								appointment=new Appointment(centerId,testId,user.getUserId(),dateTime);
+								System.out.println("Appointemnt before add :"+appointment);
+								if (null != userService.addAppointment(appointment)) {
 									System.out.println("Added successfully");
-								}
+								}}
 
 							} catch (UserDefinedException e) {
 								System.out.println(e.getMessage());
@@ -444,7 +450,7 @@ public class HealthCareSystem {
 
 						}
 						break;
-					case 3:
+					/*case 3:
 						//Get Center List
 						centerList = userService.getCenterList();
 						
@@ -463,7 +469,6 @@ public class HealthCareSystem {
 									Iterator<Appointment> appointmentIterator = userAppointmentList.iterator();
 									while(appointmentIterator.hasNext()) {
 										appointment = appointmentIterator.next();
-										System.out.println("AppointmentID: "+appointment.getAppointmentId()+" TestName: "+appointment.getTest().getTestName()+"\nCenterLocation: "+appointment.getCenter().getCenterAddress()+" Status: "+appointment.isApproved());
 									}
 								}
 								else {
@@ -473,7 +478,7 @@ public class HealthCareSystem {
 								System.out.println(e.getMessage());
 							}
 						}
-						break;
+						break;*/
 					case 4:
 						break;
 					default:

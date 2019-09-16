@@ -6,7 +6,7 @@ public class User {
 	private final String prefix = "HSC-Customer:";
 	private static Integer counter=0;
 	
-	private String userId;
+	private BigInteger userId;
 	private String userPassword;
 	private String userName;
 	private BigInteger contactNo;
@@ -23,11 +23,9 @@ public class User {
 	public User(String userPassword, String userName, BigInteger contactNo, 
 			String userEmail, Integer age, String gender) {
 		super();
-		setUserId(prefix+(++counter).toString());
 		this.userPassword = userPassword;
 		this.userName = userName;
 		this.contactNo = contactNo;
-		this.userRole = "Customer";
 		this.userEmail = userEmail;
 		this.age = age;
 		this.gender = gender;
@@ -35,11 +33,11 @@ public class User {
 
 	
 	//UserId
-	public String getUserId() {
+	public BigInteger getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(BigInteger userId) {
 		this.userId = userId;
 	}
 

@@ -70,18 +70,18 @@ public class UserServiceImpl implements UserService {
 		return userDao.setUserList(li);
 	}
 
-	public boolean approveAppointment(String appointmentId, List<Appointment> appointmentList) {
-		boolean status = false;
+	/*public boolean approveAppointment(String appointmentId, List<Appointment> appointmentList) {
+		int status = 0;
 		Iterator<Appointment> appointmentListIterator = appointmentList.iterator();
 		Appointment appointment;
 		while (appointmentListIterator.hasNext()) {
 			appointment = appointmentListIterator.next();
-			if (appointment.getAppointmentId().equals(appointmentId)) {
-				status = appointment.setApproved(true);
+			if (appointment.getAppointmentid().equals(appointmentId)) {
+				status = appointment.setApproved(1);
 			}
 		}
 		return status;
-	}
+	}*/
 
 	public String validatePassword(String userPassword) throws UserDefinedException {
 		if(userPassword.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})")) {
@@ -141,20 +141,16 @@ public class UserServiceImpl implements UserService {
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidCenterId);
 	}
 
-	public BigInteger validateTestId(BigInteger removeTestId, BigInteger centerId, List<DiagnosticCenter> centerList)
-			throws UserDefinedException {
-		DiagnosticCenter diagnosticCenter;
-		Test test;
-		for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
-			diagnosticCenter = iterator.next();
-			if (diagnosticCenter.getCenterId().equals(centerId)) {
-				/*for (Iterator<Test> iteratorTestList = diagnosticCenter.getListOfTests().iterator(); iteratorTestList
-						.hasNext();) {
-					test = iteratorTestList.next();
-					if (test.getTestId().compareTo(removeTestId)==0) {
-						return removeTestId;
-					}
-				}*/
+	public BigInteger validateTestId(BigInteger testId,BigInteger centerId) throws UserDefinedException 
+	{
+		List<Test> listOfTests=userDao.getListOfTests(centerId);
+		Iterator<Test> testIterator=listOfTests.iterator();
+		while(testIterator.hasNext())
+		{
+			Test test=testIterator.next();
+			if(test.getTestId().compareTo(testId)==0)
+			{
+				return test.getTestId();
 			}
 		}
 		 throw new UserDefinedException(UserErrorMessage.userErrorInvalidTestId);
@@ -218,15 +214,17 @@ public class UserServiceImpl implements UserService {
 //		return userInputTime;
 //	}
 
-	public User validateUserId(String userId) throws UserDefinedException {
-		User user = null;
-		List<User> userList = userDao.getUserList();
-		Iterator<User> userListIterator = userList.iterator();
-		while(userListIterator.hasNext()) {
-			user = userListIterator.next();
-			if(user.getUserId().equals(userId)) {
+	public User validateUserId(BigInteger userId) throws UserDefinedException {
+		List<User> listOfUser=userDao.getUserList();
+		Iterator<User> userIterator=listOfUser.iterator();
+		while(userIterator.hasNext())
+		{
+			User user=userIterator.next();
+			if(user.getUserId().compareTo(userId)==0)
+			{
 				return user;
 			}
+		
 		}
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidUserId);
 	}
@@ -237,57 +235,33 @@ public class UserServiceImpl implements UserService {
 		Iterator<Appointment> appointmentListIterator = listOfAppointment.iterator();
 		while (appointmentListIterator.hasNext()) {
 			appointment = appointmentListIterator.next();
-			if (appointment.getAppointmentId().equals(appointmentId)) {
+			if (appointment.getAppointmentid().equals(appointmentId)) {
 				return appointmentId;
 			}
 		}
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidAppointmentId);
 	}
 
-	public Appointment addAppointment(Appointment appointment, BigInteger centerId, List<DiagnosticCenter> centerList) {
-		DiagnosticCenter diagnosticCenter = null;
-		Iterator<DiagnosticCenter> diagnosticCenterIterator = centerList.iterator();
-		while(diagnosticCenterIterator.hasNext()) {
-			diagnosticCenter = diagnosticCenterIterator.next();
-			if(diagnosticCenter.getCenterId().compareTo(centerId)==0) {
-				//diagnosticCenter.getListOfAppointments().add(appointment);
-			}
-		}
-		return appointment;
+	public Appointment addAppointment(Appointment appointment) {
+		return userDao.addAppointment(appointment);
 	}
 
-	public List<Appointment> getAppointmentList(User user) {
-		//Local Variables
-		DiagnosticCenter diagnosticCenter;
-		Appointment appointment=null;
-		Iterator<Appointment> appointmentIterator = null;
-		
-		//create a list to send to UI of user appointments
-		List<Appointment> userAppointmentList = new ArrayList<Appointment>();
-		
-		//get list of all centers
-		List<DiagnosticCenter> centerList = userDao.getCenterList();
-		
-		//Traverse through all centers and check each appointment inside the lists of all centers
-		//If User id matches, add that appointment object to the userAppointmentList to be sent to UI
-		Iterator<DiagnosticCenter> diagnosticCenterIterator = centerList.iterator();
-		while(diagnosticCenterIterator.hasNext()) {
-			diagnosticCenter = diagnosticCenterIterator.next();
-		//	appointmentIterator = diagnosticCenter.getListOfAppointments().iterator();
-			while(appointmentIterator.hasNext()) {
-				appointment = appointmentIterator.next();
-				if(appointment.getUser().equals(user)) {
-					userAppointmentList.add(appointment);
-				}
-			}
-		}
-		return userAppointmentList;
-	}
-
-	@Override
+		@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
 		// TODO Auto-generated method stub
 		return userDao.getListOfTests(centerId);
 	}
+
+		@Override
+		public List<Appointment> getAppointmentList(User user) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean approveAppointment(String appointmentId, List<Appointment> appointmentList) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 
 }
