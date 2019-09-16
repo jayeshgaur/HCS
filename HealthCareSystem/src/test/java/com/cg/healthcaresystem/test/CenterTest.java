@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -137,6 +138,7 @@ class CenterTest {
 		assertNotNull(userService.getAppointmentList(user));
 	}
 	
+	@Test
 	void failViewAppointment() throws UserDefinedException {
 		DiagnosticCenter diagnosticCenterA = new DiagnosticCenter("Center Name", "Center Address", BigInteger.valueOf(1234567890));
 		DiagnosticCenter diagnosticCenterE = userService.addCenter(diagnosticCenterA);
@@ -144,9 +146,13 @@ class CenterTest {
 		testE = userService.addTest(diagnosticCenterE.getCenterId(), testA);
 		User user = new User("Jayesh", "Jayesh@07",BigInteger.valueOf(1234567890),"jay@c.c",22,"M");
 		user.setUserId(userService.register(user));
-		assertNull(userService.getAppointmentList(user));
+		assertEquals(userService.getAppointmentList(user).size(), 0);
 	}
 	
+	@Test
+	void approveAppointment() {
+		
+	}
 	
 
 }

@@ -373,7 +373,7 @@ public class HealthCareSystem {
 										break;
 									}
 								}
-								if (testList == null) {
+								if (testList.size() == 0) {
 									System.out.println("Sorry....No test found");
 								} else {
 									System.out.println("Enter the test id you want to book an appointment for: ");
