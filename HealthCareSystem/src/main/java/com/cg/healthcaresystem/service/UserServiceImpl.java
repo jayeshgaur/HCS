@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 		return userDao.removeTest(removeCenterId, removeTestId);
 	}
 
-	public String register(User user) {
+	public BigInteger register(User user) {
 		return userDao.register(user);
 	}
 

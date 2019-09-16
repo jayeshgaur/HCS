@@ -16,7 +16,7 @@ public interface UserDao {
 
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId);
 
-	public String register(User user);
+	public BigInteger register(User user);
 
 	public List<DiagnosticCenter> getCenterList();
 
