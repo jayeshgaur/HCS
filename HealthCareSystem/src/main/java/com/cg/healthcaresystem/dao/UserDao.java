@@ -29,5 +29,7 @@ public interface UserDao {
 
 	public List<Test> getListOfTests(BigInteger centerId);
 
+	public List<Appointment> getAppointmentList(User user);
+
 	//public boolean setCenterList(List<DiagnosticCenter> centerList);
 }

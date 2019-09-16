@@ -134,7 +134,7 @@ public class UserServiceImpl implements UserService {
 	public BigInteger validateCenterId(String centerId, List<DiagnosticCenter> centerList) throws UserDefinedException {
 		for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
 			DiagnosticCenter diagnosticCenter = iterator.next();
-			if (diagnosticCenter.getCenterId().compareTo(new BigInteger(centerId))==0);
+			if (diagnosticCenter.getCenterId().compareTo(new BigInteger(centerId))==0)
 				return new BigInteger(centerId);
 
 		}
@@ -255,7 +255,7 @@ public class UserServiceImpl implements UserService {
 		@Override
 		public List<Appointment> getAppointmentList(User user) {
 			// TODO Auto-generated method stub
-			return null;
+			return userDao.getAppointmentList(user);
 		}
 
 		@Override

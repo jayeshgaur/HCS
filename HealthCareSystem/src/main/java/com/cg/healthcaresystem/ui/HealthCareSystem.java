@@ -387,6 +387,7 @@ public class HealthCareSystem {
 
 						try {
 								// Get Center Id to make an appointment in
+							scanner.nextLine();
 								centerId = userService.validateCenterId(scanner.nextLine(), centerList);
 
 								// Get List of tests
@@ -450,7 +451,7 @@ public class HealthCareSystem {
 
 						}
 						break;
-					/*case 3:
+					case 3:
 						//Get Center List
 						centerList = userService.getCenterList();
 						
@@ -463,7 +464,7 @@ public class HealthCareSystem {
 								//Enter user id
 								System.out.println("Enter your user ID: ");
 								scanner.nextLine();
-								User user = userService.validateUserId(scanner.nextLine());
+								User user = userService.validateUserId(new BigInteger(scanner.nextLine()));
 								List<Appointment> userAppointmentList = userService.getAppointmentList(user);
 								if(null != userAppointmentList) {
 									Iterator<Appointment> appointmentIterator = userAppointmentList.iterator();
@@ -478,7 +479,7 @@ public class HealthCareSystem {
 								System.out.println(e.getMessage());
 							}
 						}
-						break;*/
+						break;
 					case 4:
 						break;
 					default:

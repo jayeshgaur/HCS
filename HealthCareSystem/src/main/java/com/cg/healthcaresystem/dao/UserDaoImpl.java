@@ -212,7 +212,7 @@ public class UserDaoImpl implements UserDao {
 			}
 
 		} catch (Exception exception) {
-			myLogger.error("Error at listCenter Dao method: " + exception.getMessage());
+			myLogger.error("Error at listCenter Dao method, GETcENTERLIST: " + exception.getMessage());
 		} finally {
 			if (ps != null) {
 				try {
@@ -397,6 +397,23 @@ public class UserDaoImpl implements UserDao {
 			}
 		}
 		return appointment;
+	}
+
+	@Override
+	public List<Appointment> getAppointmentList(User user) {
+		// TODO Auto-generated method stub
+		List<Appointment> listOfAppointment=new ArrayList<Appointment>();
+		String sql="Select * from Appointment where user_id=?";
+		try
+		{
+			ps=connection.prepareStatement(sql);
+			ps.setLong(1,user.getUserId().longValue());
+			
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
 	}
 
 }
