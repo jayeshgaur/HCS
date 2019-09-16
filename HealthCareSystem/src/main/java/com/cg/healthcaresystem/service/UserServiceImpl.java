@@ -244,12 +244,12 @@ public class UserServiceImpl implements UserService {
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidAppointmentId);
 	}
 
-	public Appointment addAppointment(Appointment appointment, String centerId, List<DiagnosticCenter> centerList) {
+	public Appointment addAppointment(Appointment appointment, BigInteger centerId, List<DiagnosticCenter> centerList) {
 		DiagnosticCenter diagnosticCenter = null;
 		Iterator<DiagnosticCenter> diagnosticCenterIterator = centerList.iterator();
 		while(diagnosticCenterIterator.hasNext()) {
 			diagnosticCenter = diagnosticCenterIterator.next();
-			if(diagnosticCenter.getCenterId().equals(centerId)) {
+			if(diagnosticCenter.getCenterId().compareTo(centerId)==0) {
 				//diagnosticCenter.getListOfAppointments().add(appointment);
 			}
 		}

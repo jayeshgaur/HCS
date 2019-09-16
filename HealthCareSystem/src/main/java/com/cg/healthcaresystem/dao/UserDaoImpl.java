@@ -49,6 +49,7 @@ public class UserDaoImpl implements UserDao {
 
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
 		
+		DiagnosticCenter newcenter=null;
 		String sql="insert into Center(center_name,center_address,center_contact_no,isEmpty) values(?,?,?,?)";
 		try
 		{
@@ -71,7 +72,7 @@ public class UserDaoImpl implements UserDao {
 			{
 				throw new UserDefinedException(UserErrorMessage.userErrorNoCenterAdded);
 			}
-			
+			newcenter=center;
 			
 		}
 		catch(Exception exception)
@@ -93,7 +94,7 @@ public class UserDaoImpl implements UserDao {
 		
 		
 		
-		return center;
+		return newcenter;
 	}
 
 	public boolean removeCenter(BigInteger centerId) {
@@ -136,6 +137,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public Test addTest(BigInteger centerId, Test test) {
+		Test newtest=null;
 		String sql="insert into Test(test_name,center_id,isEmpty) values(?,?,?)";
 		try
 		{
@@ -148,6 +150,7 @@ public class UserDaoImpl implements UserDao {
 			{
 				throw new UserDefinedException(UserErrorMessage.userErrorAddTestFailed);
 			}
+			newtest=test;
 		}
 		catch(Exception exception)
 		{
@@ -163,7 +166,7 @@ public class UserDaoImpl implements UserDao {
 				}
 			}
 		}
-	return test;
+	return newtest;
 	}
 
 //	public boolean removeTest(BigInteger removeCenterId, String removeTestId) {
