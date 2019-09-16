@@ -21,7 +21,7 @@ public interface UserService {
 
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId);
 
-	public String register(User user);
+	public BigInteger register(User user);
 
 	public List<DiagnosticCenter> getCenterList();
 
@@ -55,7 +55,7 @@ public interface UserService {
 
 //	public LocalTime validateTime(String next)throws UserDefinedException;
 
-	public Appointment addAppointment(Appointment appointment, String centerId, List<DiagnosticCenter> centerList);
+	public Appointment addAppointment(Appointment appointment, BigInteger centerId, List<DiagnosticCenter> centerList);
 
 	public List<Appointment> getAppointmentList(User user);
 

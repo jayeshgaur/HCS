@@ -382,18 +382,18 @@ public class HealthCareSystem {
 								System.out.println("CenterName: " + diagnosticCenter.getCenterName() + " CenterId: "
 										+ diagnosticCenter.getCenterId() + " Address: "
 										+ diagnosticCenter.getCenterAddress());
-							}}
+							}
 
-							/*try {
+						try {
 								// Get Center Id to make an appointment in
-								centerId = userService.validateCenterId(scanner.next(), centerList);
+								centerId = userService.validateCenterId(scanner.nextBigInteger(), centerList);
 
 								// Get List of tests
 								diagnosticCenterIterator = centerList.iterator();
 								while (diagnosticCenterIterator.hasNext()) {
 									diagnosticCenter = diagnosticCenterIterator.next();
 									if (diagnosticCenter.getCenterId().equals(centerId)) {
-										testList = diagnosticCenter.getListOfTests();
+										testList = userService.getListOfTests(centerId);
 										// break the loop to preserve the selected center object
 										break;
 									}
@@ -408,7 +408,7 @@ public class HealthCareSystem {
 											"TestName: " + test.getTestName() + " TestID: " + test.getTestId());
 								}
 
-								String testId = userService.validateTestId(scanner.next(), centerId, centerList);
+								BigInteger testId = userService.validateTestId(scanner.nextBigInteger(), centerId, centerList);
 
 								// Get the test object corresponding to the testId
 								testListIterator = testList.iterator();
@@ -443,7 +443,7 @@ public class HealthCareSystem {
 							}
 
 						}
-						break;*/
+						break;
 					case 3:
 						//Get Center List
 						centerList = userService.getCenterList();

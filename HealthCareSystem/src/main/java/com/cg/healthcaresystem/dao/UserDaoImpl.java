@@ -49,6 +49,7 @@ public class UserDaoImpl implements UserDao {
 
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
 		
+		DiagnosticCenter newcenter=null;
 		String sql="insert into Center(center_name,center_address,center_contact_no,isEmpty) values(?,?,?,?)";
 		try
 		{
@@ -59,11 +60,19 @@ public class UserDaoImpl implements UserDao {
 			ps.setInt(4, 1);
 			
 			int noOfRecords=ps.executeUpdate();
+			rs=ps.getGeneratedKeys();
+			BigInteger centerid=null;
+			if(rs!=null && rs.next())
+			{
+				centerid=BigInteger.valueOf(rs.getLong(1));
+			}
+			center.setCenterId(centerid);
+			
 			if(noOfRecords<=0)
 			{
 				throw new UserDefinedException(UserErrorMessage.userErrorNoCenterAdded);
 			}
-			
+			newcenter=center;
 			
 		}
 		catch(Exception exception)
@@ -85,7 +94,7 @@ public class UserDaoImpl implements UserDao {
 		
 		
 		
-		return center;
+		return newcenter;
 	}
 
 	public boolean removeCenter(BigInteger centerId) {
@@ -128,6 +137,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public Test addTest(BigInteger centerId, Test test) {
+		Test newtest=null;
 		String sql="insert into Test(test_name,center_id,isEmpty) values(?,?,?)";
 		try
 		{
@@ -140,6 +150,7 @@ public class UserDaoImpl implements UserDao {
 			{
 				throw new UserDefinedException(UserErrorMessage.userErrorAddTestFailed);
 			}
+			newtest=test;
 		}
 		catch(Exception exception)
 		{
@@ -155,7 +166,7 @@ public class UserDaoImpl implements UserDao {
 				}
 			}
 		}
-	return test;
+	return newtest;
 	}
 
 //	public boolean removeTest(BigInteger removeCenterId, String removeTestId) {
@@ -255,9 +266,46 @@ public class UserDaoImpl implements UserDao {
 		return true;
 	}
 
-	public String register(User user) {
-		userList.add(user);
-		return user.getUserId();
+	public BigInteger register(User user) {
+		String sql="insert into User(user_name,user_password,user_contact_no,user_role,user_email,user_age,user_gender,isEmpty)"
+				+ "values(?,?,?,?,?,?,?,?)";
+		BigInteger userid = null;
+		try
+		{
+			
+			ps=connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1,user.getUserName());
+			ps.setString(2,user.getUserPassword());
+			ps.setLong(3, user.getContactNo().longValue());
+			ps.setString(4,"User");
+			ps.setString(5, user.getUserEmail());
+			ps.setInt(6, user.getAge());
+			ps.setString(7, user.getGender());
+			ps.setInt(8, 1);
+			int status=ps.executeUpdate();
+			rs=ps.getGeneratedKeys();
+			if(rs!=null && rs.next())
+			{
+				userid=BigInteger.valueOf(rs.getLong(1));
+			}
+			
+			
+		}
+		catch(Exception exception)
+		{
+			myLogger.error("Error at register Dao method: "+exception.getMessage());
+		}
+		finally {
+			if(ps!=null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					myLogger.error("Error at register Dao method:"+e.getMessage());
+				}
+			}
+		}
+		return userid;
 	}
 
 	@Override
