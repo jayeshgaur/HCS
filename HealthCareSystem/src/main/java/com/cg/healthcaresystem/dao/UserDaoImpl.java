@@ -293,7 +293,7 @@ public class UserDaoImpl implements UserDao {
 		}
 		return true;
 	}
-
+//
 	@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
 		// TODO Auto-generated method stub
