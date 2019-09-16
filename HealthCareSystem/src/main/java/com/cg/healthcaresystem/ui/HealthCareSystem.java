@@ -114,12 +114,14 @@ public class HealthCareSystem {
 							System.out.println("Enter the id of center which you want to remove");
 							
 							//2. handle the InputMismatchException here
-							
-							centerId = scanner.nextBigInteger();
-
-							// validate ID and remove
 							try {
-								if (userService.removeCenter(userService.validateCenterId(centerId, centerList))) {
+							//validate center id
+								scanner.nextLine();
+							centerId = userService.validateCenterId(scanner.nextLine(),centerList);
+							
+							// remove
+							
+								if (userService.removeCenter(centerId)) {
 									System.out.println("Center deleted successfully");
 								} else {
 									System.out.println("No diagnostic center found with centerid " + centerId);
@@ -152,19 +154,17 @@ public class HealthCareSystem {
 										+ diagnosticCenter.getCenterId() + " Address: "
 										+ diagnosticCenter.getCenterAddress());
 							}
-
+							try {
 							// Select Center Id
 							System.out.println("Enter the Center Id of the Center in which you want to add test");
 
-							centerId = scanner.nextBigInteger();
-
+							centerId = userService.validateCenterId(scanner.nextLine(), centerList);
 							// Create Test object to add
 							test = new Test(testName);
 
 							// validate center id and add to center
-							try {
-								if (null != userService.addTest(userService.validateCenterId(centerId, centerList),
-										test)) {
+							
+								if (null != userService.addTest(centerId,test)) {
 									System.out.println("Test addedd successfully");
 								} else {
 									System.out.println("Not added. Please try again");
@@ -387,7 +387,7 @@ public class HealthCareSystem {
 
 						try {
 								// Get Center Id to make an appointment in
-								centerId = userService.validateCenterId(scanner.nextBigInteger(), centerList);
+								centerId = userService.validateCenterId(scanner.nextLine(), centerList);
 
 								// Get List of tests
 								diagnosticCenterIterator = centerList.iterator();

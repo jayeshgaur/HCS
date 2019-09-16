@@ -131,11 +131,11 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	public BigInteger validateCenterId(BigInteger centerId, List<DiagnosticCenter> centerList) throws UserDefinedException {
+	public BigInteger validateCenterId(String centerId, List<DiagnosticCenter> centerList) throws UserDefinedException {
 		for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
 			DiagnosticCenter diagnosticCenter = iterator.next();
-			if (diagnosticCenter.getCenterId().compareTo(centerId)==0)
-				return centerId;
+			if (diagnosticCenter.getCenterId().compareTo(new BigInteger(centerId))==0);
+				return new BigInteger(centerId);
 
 		}
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidCenterId);

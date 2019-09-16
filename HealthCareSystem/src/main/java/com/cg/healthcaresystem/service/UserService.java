@@ -31,7 +31,7 @@ public interface UserService {
 	
 	public String validateContactNo(String userContactNo) throws UserDefinedException;
 	
-	public BigInteger validateCenterId(BigInteger centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
+	public BigInteger validateCenterId(String centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
 	
 	public BigInteger validateTestId(BigInteger TestId,BigInteger CenterId )throws UserDefinedException;
 	

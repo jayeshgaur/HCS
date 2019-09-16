@@ -48,38 +48,33 @@ public class UserDaoImpl implements UserDao {
 
 	public DiagnosticCenter addCenter(DiagnosticCenter center) 
 	{
-		DiagnosticCenter newcenter = null;
-		
-		String sql="insert into Center(center_name,center_address,center_contact_no,isEmpty) values(?,?,?,?)";
-		try
-		{
-			ps=connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-			ps.setLong(3,center.getCenterContactNo().longValue());
-			ps.setString(1,center.getCenterName());
-			ps.setString(2,center.getCenterAddress());
+
+		DiagnosticCenter newCenter = null;
+
+		String sql = "insert into Center(center_name,center_address,center_contact_no,isEmpty) values(?,?,?,?)";
+		try {
+			newCenter = new DiagnosticCenter(center.getCenterName(), center.getCenterAddress(),
+					center.getCenterContactNo());
+			ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps.setLong(3, center.getCenterContactNo().longValue());
+			ps.setString(1, center.getCenterName());
+			ps.setString(2, center.getCenterAddress());
 			ps.setInt(4, 1);
+
 			int noOfRecords = ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
-			BigInteger centerid = null;
 			if (rs != null && rs.next()) {
-				centerid = BigInteger.valueOf(rs.getLong(1));
+				newCenter.setCenterId(BigInteger.valueOf(rs.getLong(1)));
+				
+				System.out.println(newCenter.getCenterId());
 			}
-			center.setCenterId(centerid);
-
 			if (noOfRecords <= 0) {
-				throw new UserDefinedException(UserErrorMessage.userErrorNoCenterAdded);
+				
 			}
-
-		} 
-		catch(Exception exception)
-		{
-			
-			//1. Insert appropriate error messages
-			myLogger.error("Error at addCenter Dao method: "+exception.getMessage());
-		}
-		finally {
-			if(ps!=null) {
-
+		} catch (Exception exception) {
+			myLogger.error("Error at addCenter Dao method: " + exception.getMessage());
+		} finally {
+			if (ps != null) {
 				try {
 					ps.close();
 				} catch (SQLException e) {
@@ -89,7 +84,7 @@ public class UserDaoImpl implements UserDao {
 			}
 		}
 
-		return newcenter;
+		return newCenter;
 
 	}
 
