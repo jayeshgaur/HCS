@@ -3,9 +3,7 @@ package com.cg.healthcaresystem.dto;
 import java.math.BigInteger;
 
 public class User {
-	private final String prefix = "HSC-Customer:";
-	private static Integer counter=0;
-	
+
 	private BigInteger userId;
 	private String userPassword;
 	private String userName;

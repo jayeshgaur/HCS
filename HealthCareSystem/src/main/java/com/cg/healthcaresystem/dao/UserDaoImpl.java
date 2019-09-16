@@ -41,7 +41,6 @@ public class UserDaoImpl implements UserDao {
 			connection = DbUtil.getConnection();
 			myLogger.info("connection obtained.....");
 		} catch (UserDefinedException e) {
-			// TODO Auto-generated catch block
 			myLogger.error("connection not established at EmployeeDao: " + e);
 		}
 	}
@@ -75,7 +74,6 @@ public class UserDaoImpl implements UserDao {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					myLogger.error("Error at addCenter Dao method:" + e.getMessage());
 				}
 			}
@@ -92,7 +90,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setLong(1, centerId.longValue());
-			int changedTestRecords = ps.executeUpdate();
+			ps.executeUpdate();
 			ps = connection.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
 			ps.setLong(1, centerId.longValue());
 			int changedCenterRecords = ps.executeUpdate();
@@ -109,7 +107,6 @@ public class UserDaoImpl implements UserDao {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					myLogger.error("Error at removeCenter Dao method:" + e.getMessage());
 				}
 			}
@@ -143,7 +140,6 @@ public class UserDaoImpl implements UserDao {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					myLogger.error("Error at addTest Dao method:" + e.getMessage());
 				}
 			}
@@ -220,7 +216,6 @@ public class UserDaoImpl implements UserDao {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					myLogger.error("Error at istCenterr Dao method:" + e.getMessage());
 				}
 			}
@@ -259,7 +254,6 @@ public class UserDaoImpl implements UserDao {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					myLogger.error("Error at listUser Dao method:" + e.getMessage());
 				}
 			}
@@ -287,7 +281,7 @@ public class UserDaoImpl implements UserDao {
 			ps.setInt(6, user.getAge());
 			ps.setString(7, user.getGender());
 			ps.setInt(8, 1);
-			int status = ps.executeUpdate();
+			ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
 			if (rs != null && rs.next()) {
 				userId = BigInteger.valueOf(rs.getLong(1));
@@ -300,7 +294,6 @@ public class UserDaoImpl implements UserDao {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					myLogger.error("Error at register Dao method:" + e.getMessage());
 				}
 			}
@@ -310,7 +303,6 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws UserDefinedException {
-		boolean status = false;
 		String sql = "update Test set isEmpty=0  where test_id=? AND center_id=?";
 
 		try {
@@ -328,7 +320,6 @@ public class UserDaoImpl implements UserDao {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					myLogger.error("Error at remove Test Dao method: closing connection" + e.getMessage());
 				}
 			}
@@ -336,11 +327,8 @@ public class UserDaoImpl implements UserDao {
 		throw new UserDefinedException(UserErrorMessage.userErrorNoTestDeleted);
 	}
 
-///
 	@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
-		// TODO Auto-generated method stub
-///
 		List<Test> testList = new ArrayList<Test>();
 		String sql = "select * from Test where center_id=? AND isEmpty=?";
 		try {
@@ -361,7 +349,6 @@ public class UserDaoImpl implements UserDao {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					myLogger.error("Error at listTest Dao method:" + e.getMessage());
 				}
 			}
@@ -393,7 +380,6 @@ public class UserDaoImpl implements UserDao {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					myLogger.error("Error at addAppointment Dao method:" + e.getMessage());
 				}
 			}
@@ -435,7 +421,6 @@ public class UserDaoImpl implements UserDao {
 
 //	@Override
 //	public List<Appointment> getAppointmentList(User user) {
-//		// TODO Auto-generated method stub
 //		List<Appointment> listOfAppointment = new ArrayList<Appointment>();
 //		String sql = "Select * from Appointment where user_id=?";
 //		try {
@@ -448,7 +433,6 @@ public class UserDaoImpl implements UserDao {
 //			}
 //
 //		} catch (Exception e) {
-//			// TODO: handle exception
 //		}
 //		return null;
 //	}
