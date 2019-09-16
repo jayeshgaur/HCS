@@ -89,20 +89,22 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public boolean removeCenter(BigInteger centerId) {
+		boolean check = false;
 		String sql = "update Test SET isEmpty=0 where center_id=?";
 		String sql1 = "update Center set isEmpty=0 where center_id=?";
-		System.out.println("888888888");
 		try {
 			System.out.println("1");
 			ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setLong(1, centerId.longValue());
-			int a = ps.executeUpdate();
+			int changedTestRecords = ps.executeUpdate();
 			ps = connection.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
 			ps.setLong(1, centerId.longValue());
 			System.out.println("2");
-			int noOfRecords = ps.executeUpdate();
-			if (noOfRecords <= 0) {
+			int changedCenterRecords = ps.executeUpdate();
+			if (changedCenterRecords < 1) {
 				throw new UserDefinedException(UserErrorMessage.userErrorNoCenterDeleted);
+			} else {
+				check = true;
 			}
 
 		} catch (Exception exception) {
@@ -117,7 +119,7 @@ public class UserDaoImpl implements UserDao {
 				}
 			}
 		}
-		return true;
+		return check;
 
 	}
 
@@ -408,6 +410,12 @@ public class UserDaoImpl implements UserDao {
 		{
 			ps=connection.prepareStatement(sql);
 			ps.setLong(1,user.getUserId().longValue());
+			rs=ps.executeQuery();
+			while(rs.next())
+			{
+				Appointment appointment=new Appointment();
+		//		appointment.getAppointmentid(BigInteger.valueOf(rs.getLong(1)));
+			}
 			
 		}
 		catch (Exception e) {
