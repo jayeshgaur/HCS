@@ -207,12 +207,14 @@ public class HealthCareSystem {
 									System.out.println("Choose test which you want to delete");
 									Iterator<Test> testIterator = testList.iterator();
 									while (testIterator.hasNext()) {
-										Test test2 = testIterator.next();
-										System.out.println(test2.getTestId() + " " + test2.getTestName());
+										test = testIterator.next();
+										System.out.println(test.getTestId() + " " + test.getTestName());
 
 									}
 									System.out.println("Select testid which you want to delete");
-									BigInteger removeTestId = scanner.nextBigInteger();
+									
+									
+									BigInteger removeTestId = userService.validateTestId(scanner.nextLine(), testList);
 									if (userService.removeTest(removeCenterId, removeTestId)) {
 										System.out.println("deleted successfully");
 
@@ -395,16 +397,16 @@ public class HealthCareSystem {
 												"TestName: " + test.getTestName() + " TestID: " + test.getTestId());
 									}
 
-									BigInteger testId = userService.validateTestId(scanner.nextBigInteger(), centerId);
+									BigInteger testId = userService.validateTestId(scanner.nextLine(), testList);
 
 									// Get the test object corresponding to the testId
-									testListIterator = testList.iterator();
-									while (testListIterator.hasNext()) {
-										test = testListIterator.next();
-										if (test.getTestId().equals(testId)) {
-											break;
-										}
-									}
+//									testListIterator = testList.iterator();
+//									while (testListIterator.hasNext()) {
+//										test = testListIterator.next();
+//										if (test.getTestId().equals(testId)) {
+//											break;
+//										}
+//									}
 
 									System.out.println("Enter your user id: ");
 									// Get user Id

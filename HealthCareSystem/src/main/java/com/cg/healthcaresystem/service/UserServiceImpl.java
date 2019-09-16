@@ -31,18 +31,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public Test addTest(BigInteger centerId, Test test) throws UserDefinedException {
-		/*List<DiagnosticCenter> centerList = userDao.getCenterList();
-		DiagnosticCenter diagnosticCenter = null;
-	    Iterator<DiagnosticCenter> centerListIterator = centerList.iterator();
-		while (centerListIterator.hasNext()) {
-			diagnosticCenter = centerListIterator.next();
-			if (diagnosticCenter.getCenterId().equals(centerId)) {
-				diagnosticCenter.getListOfTests().add(test);
-				return test;
-			}
-		}
-		throw new UserDefinedException(UserErrorMessage.userErrorAddTestFailed);
-		*/
+		/*
+		 * List<DiagnosticCenter> centerList = userDao.getCenterList(); DiagnosticCenter
+		 * diagnosticCenter = null; Iterator<DiagnosticCenter> centerListIterator =
+		 * centerList.iterator(); while (centerListIterator.hasNext()) {
+		 * diagnosticCenter = centerListIterator.next(); if
+		 * (diagnosticCenter.getCenterId().equals(centerId)) {
+		 * diagnosticCenter.getListOfTests().add(test); return test; } } throw new
+		 * UserDefinedException(UserErrorMessage.userErrorAddTestFailed);
+		 */
 		return userDao.addTest(centerId, test);
 	}
 
@@ -59,7 +56,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 //	public boolean setCenterList(List<DiagnosticCenter> centerList) {
-	//	return userDao.setCenterList(centerList);
+	// return userDao.setCenterList(centerList);
 //	}
 
 	public List<User> getUserList() {
@@ -70,22 +67,19 @@ public class UserServiceImpl implements UserService {
 		return userDao.setUserList(li);
 	}
 
-	/*public boolean approveAppointment(String appointmentId, List<Appointment> appointmentList) {
-		int status = 0;
-		Iterator<Appointment> appointmentListIterator = appointmentList.iterator();
-		Appointment appointment;
-		while (appointmentListIterator.hasNext()) {
-			appointment = appointmentListIterator.next();
-			if (appointment.getAppointmentid().equals(appointmentId)) {
-				status = appointment.setApproved(1);
-			}
-		}
-		return status;
-	}*/
+	/*
+	 * public boolean approveAppointment(String appointmentId, List<Appointment>
+	 * appointmentList) { int status = 0; Iterator<Appointment>
+	 * appointmentListIterator = appointmentList.iterator(); Appointment
+	 * appointment; while (appointmentListIterator.hasNext()) { appointment =
+	 * appointmentListIterator.next(); if
+	 * (appointment.getAppointmentid().equals(appointmentId)) { status =
+	 * appointment.setApproved(1); } } return status; }
+	 */
 
 	public String validatePassword(String userPassword) throws UserDefinedException {
-		if(userPassword.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})")) {
-			return userPassword;			
+		if (userPassword.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})")) {
+			return userPassword;
 		}
 		throw new UserDefinedException(UserErrorMessage.userErrorPassword);
 	}
@@ -99,10 +93,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public String validateContactNo(String userContactNo) throws UserDefinedException {
-		if(userContactNo.matches("^[0-9]+")) {
-			if(userContactNo.length() != 10) {
+		if (userContactNo.matches("^[0-9]+")) {
+			if (userContactNo.length() != 10) {
 				throw new UserDefinedException(UserErrorMessage.userErrorContactNoLength);
-			}else {
+			} else {
 				return userContactNo;
 			}
 		}
@@ -110,7 +104,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public String validateEmail(String userEmail) throws UserDefinedException {
-		if(userEmail.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+		if (userEmail.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
 			return userEmail;
 		}
 		throw new UserDefinedException(UserErrorMessage.userErrorEmailId);
@@ -132,30 +126,28 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public BigInteger validateCenterId(String centerId, List<DiagnosticCenter> centerList) throws UserDefinedException {
-		if(centerId.matches("^[0-9]+")) {
-		for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
-			DiagnosticCenter diagnosticCenter = iterator.next();
-			if (diagnosticCenter.getCenterId().compareTo(new BigInteger(centerId))==0)
-				return new BigInteger(centerId);
+		if (centerId.matches("^[0-9]+")) {
+			for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
+				DiagnosticCenter diagnosticCenter = iterator.next();
+				if (diagnosticCenter.getCenterId().compareTo(new BigInteger(centerId)) == 0)
+					return new BigInteger(centerId);
 
-		}
+			}
 		}
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidCenterId);
 	}
 
-	public BigInteger validateTestId(BigInteger testId,BigInteger centerId) throws UserDefinedException 
-	{
-		List<Test> listOfTests=userDao.getListOfTests(centerId);
-		Iterator<Test> testIterator=listOfTests.iterator();
-		while(testIterator.hasNext())
-		{
-			Test test=testIterator.next();
-			if(test.getTestId().compareTo(testId)==0)
-			{
-				return test.getTestId();
+	public BigInteger validateTestId(String testId, List<Test> testList) throws UserDefinedException {
+		if (testId.matches("^[0-9]+")) {
+			Iterator<Test> testIterator = testList.iterator();
+			while (testIterator.hasNext()) {
+				Test test = testIterator.next();
+				if (test.getTestId().compareTo(new BigInteger(testId)) == 0) {
+					return test.getTestId();
+				}
 			}
 		}
-		 throw new UserDefinedException(UserErrorMessage.userErrorInvalidTestId);
+		throw new UserDefinedException(UserErrorMessage.userErrorInvalidTestId);
 	}
 
 //	public static void validateTestIndex(String selectTestIndex, int selectCenterIndex, List<Test> testList)
@@ -175,30 +167,28 @@ public class UserServiceImpl implements UserService {
 	public LocalDateTime validateDateTime(String dateString) throws UserDefinedException {
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
-		LocalDateTime userDateTime=null;
+		LocalDateTime userDateTime = null;
 		LocalDate userDate = null;
 		LocalTime userTime = null;
 		LocalTime closeTime = LocalTime.parse("20:00", timeFormat);
 		LocalTime openTime = LocalTime.parse("10:00", timeFormat);
 
 		userDateTime = LocalDateTime.parse(dateString, dateFormat);
-		System.out.println("userInputDateTime"+userDateTime);
+		System.out.println("userInputDateTime" + userDateTime);
 		userDate = userDateTime.toLocalDate();
 		userTime = userDateTime.toLocalTime();
-			
+
 		LocalDate currentDate = LocalDate.now();
-		if(userDate.isBefore(currentDate)) {
+		if (userDate.isBefore(currentDate)) {
 			throw new UserDefinedException(UserErrorMessage.userErrorPastDate);
-		}
-		else if(userTime.isAfter(closeTime) || userTime.isBefore(openTime)) {
+		} else if (userTime.isAfter(closeTime) || userTime.isBefore(openTime)) {
 			throw new UserDefinedException(UserErrorMessage.userErrorNonWorkingHours);
-		}
-		else if(null == (userDateTime=LocalDateTime.parse(dateString, dateFormat))){
+		} else if (null == (userDateTime = LocalDateTime.parse(dateString, dateFormat))) {
 			throw new UserDefinedException(UserErrorMessage.userErrorInvalidDateFormat);
 		}
 		return userDateTime;
 	}
-	
+
 //	public LocalTime validateTime(String timeString) throws UserDefinedException {
 //		LocalTime userInputTime=null;
 //		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
@@ -217,16 +207,14 @@ public class UserServiceImpl implements UserService {
 //	}
 
 	public User validateUserId(BigInteger userId) throws UserDefinedException {
-		List<User> listOfUser=userDao.getUserList();
-		Iterator<User> userIterator=listOfUser.iterator();
-		while(userIterator.hasNext())
-		{
-			User user=userIterator.next();
-			if(user.getUserId().compareTo(userId)==0)
-			{
+		List<User> listOfUser = userDao.getUserList();
+		Iterator<User> userIterator = listOfUser.iterator();
+		while (userIterator.hasNext()) {
+			User user = userIterator.next();
+			if (user.getUserId().compareTo(userId) == 0) {
 				return user;
 			}
-		
+
 		}
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidUserId);
 	}
@@ -248,22 +236,22 @@ public class UserServiceImpl implements UserService {
 		return userDao.addAppointment(appointment);
 	}
 
-		@Override
+	@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
 		// TODO Auto-generated method stub
 		return userDao.getListOfTests(centerId);
 	}
 
-		@Override
-		public List<Appointment> getAppointmentList(User user) {
-			// TODO Auto-generated method stub
-			return userDao.getAppointmentList(user);
-		}
+	@Override
+	public List<Appointment> getAppointmentList(User user) {
+		// TODO Auto-generated method stub
+		return userDao.getAppointmentList(user);
+	}
 
-		@Override
-		public boolean approveAppointment(String appointmentId, List<Appointment> appointmentList) {
-			// TODO Auto-generated method stub
-			return false;
-		}
+	@Override
+	public boolean approveAppointment(String appointmentId, List<Appointment> appointmentList) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }
