@@ -19,7 +19,7 @@ public interface UserService {
 
 	public Test addTest(BigInteger centerid, Test test) throws UserDefinedException;
 
-	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId);
+	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws UserDefinedException;
 
 	public BigInteger register(User user);
 
@@ -57,7 +57,7 @@ public interface UserService {
 
 	public Appointment addAppointment(Appointment appointment);
 
-	public List<Appointment> getAppointmentList(User user);
+	public List getAppointmentList(User user);
 
 	public List<Test> getListOfTests(BigInteger centerId);
 

@@ -46,8 +46,7 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 
-	public DiagnosticCenter addCenter(DiagnosticCenter center) 
-	{
+	public DiagnosticCenter addCenter(DiagnosticCenter center) {
 
 		DiagnosticCenter newCenter = null;
 
@@ -65,11 +64,9 @@ public class UserDaoImpl implements UserDao {
 			rs = ps.getGeneratedKeys();
 			if (rs != null && rs.next()) {
 				newCenter.setCenterId(BigInteger.valueOf(rs.getLong(1)));
-				
-				System.out.println(newCenter.getCenterId());
 			}
 			if (noOfRecords <= 0) {
-				
+
 			}
 		} catch (Exception exception) {
 			myLogger.error("Error at addCenter Dao method: " + exception.getMessage());
@@ -93,13 +90,11 @@ public class UserDaoImpl implements UserDao {
 		String sql = "update Test SET isEmpty=0 where center_id=?";
 		String sql1 = "update Center set isEmpty=0 where center_id=?";
 		try {
-			System.out.println("1");
 			ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setLong(1, centerId.longValue());
 			int changedTestRecords = ps.executeUpdate();
 			ps = connection.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
 			ps.setLong(1, centerId.longValue());
-			System.out.println("2");
 			int changedCenterRecords = ps.executeUpdate();
 			if (changedCenterRecords < 1) {
 				throw new UserDefinedException(UserErrorMessage.userErrorNoCenterDeleted);
@@ -124,7 +119,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public Test addTest(BigInteger centerId, Test test) {
-		Test newtest = null;
+		Test newTest = null;
 		String sql = "insert into Test(test_name,center_id,isEmpty) values(?,?,?)";
 		try {
 			ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -135,7 +130,12 @@ public class UserDaoImpl implements UserDao {
 			if (noOfRecords <= 0) {
 				throw new UserDefinedException(UserErrorMessage.userErrorAddTestFailed);
 			}
-			newtest = test;
+			newTest = new Test(test.getTestName());
+			rs = ps.getGeneratedKeys();
+			if (rs != null) {
+				rs.next();
+			}
+			newTest.setTestId(BigInteger.valueOf(rs.getLong(1)));
 		} catch (Exception exception) {
 			myLogger.error("Error at addTest Dao method: " + exception.getMessage());
 		} finally {
@@ -148,7 +148,7 @@ public class UserDaoImpl implements UserDao {
 				}
 			}
 		}
-		return newtest;
+		return newTest;
 	}
 
 //	public boolean removeTest(BigInteger removeCenterId, String removeTestId) {
@@ -275,7 +275,7 @@ public class UserDaoImpl implements UserDao {
 	public BigInteger register(User user) {
 		String sql = "insert into User(user_name,user_password,user_contact_no,user_role,user_email,user_age,user_gender,isEmpty)"
 				+ "values(?,?,?,?,?,?,?,?)";
-		BigInteger userid = null;
+		BigInteger userId = null;
 		try {
 
 			ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -290,7 +290,7 @@ public class UserDaoImpl implements UserDao {
 			int status = ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
 			if (rs != null && rs.next()) {
-				userid = BigInteger.valueOf(rs.getLong(1));
+				userId = BigInteger.valueOf(rs.getLong(1));
 			}
 
 		} catch (Exception exception) {
@@ -305,37 +305,35 @@ public class UserDaoImpl implements UserDao {
 				}
 			}
 		}
-		return userid;
+		return userId;
 	}
 
 	@Override
-	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) {
-		// TODO Auto-generated method stub
+	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws UserDefinedException {
+		boolean status = false;
 		String sql = "update Test set isEmpty=0  where test_id=? AND center_id=?";
 
 		try {
 			ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setLong(1, removeTestId.longValue());
 			ps.setLong(2, removeCenterId.longValue());
-			;
 			int noOfRecords = ps.executeUpdate();
-			System.out.println(noOfRecords);
-			if (noOfRecords <= 0) {
-				throw new UserDefinedException(UserErrorMessage.userErrorNoTestDeleted);
+			if (noOfRecords > 0) {
+				return true;
 			}
-		} catch (Exception exception) {
-			myLogger.error("Error at addTest Dao method: " + exception.getMessage());
+		} catch (SQLException exception) {
+			myLogger.error("Error at remove Test Dao SQL Exception" + exception.getMessage());
 		} finally {
 			if (ps != null) {
 				try {
 					ps.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					myLogger.error("Error at addTest Dao method:" + e.getMessage());
+					myLogger.error("Error at remove Test Dao method: closing connection" + e.getMessage());
 				}
 			}
 		}
-		return true;
+		throw new UserDefinedException(UserErrorMessage.userErrorNoTestDeleted);
 	}
 
 ///
@@ -373,19 +371,21 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public Appointment addAppointment(Appointment appointment) {
-		// TODO Auto-generated method stub
 		String sql = "insert into Appointment(center_id,test_id,user_id,appointment_status,appointment_date_time,isEmpty) values(?,?,?,?,?,?)";
 		try {
 			ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setLong(1, appointment.getCenterid().longValue());
-			ps.setLong(2, appointment.getTestid().longValue());
-			ps.setLong(3, appointment.getUserid().longValue());
+			ps.setLong(2, appointment.getTestId().longValue());
+			ps.setLong(3, appointment.getUserId().longValue());
 			ps.setInt(4, 0);
-			System.out.println(Timestamp.valueOf(appointment.getDateTime()));
 			ps.setTimestamp(5, Timestamp.valueOf(appointment.getDateTime()));
 			ps.setInt(6, 1);
 			int status = ps.executeUpdate();
-
+			rs = ps.getGeneratedKeys();
+			rs.next();
+			System.out.println(status);
+			if(status>0)
+			appointment.setAppointmentId(BigInteger.valueOf(rs.getLong(1)));
 		} catch (Exception exception) {
 			myLogger.error("Error at addAppointment Dao method: " + exception.getMessage());
 		} finally {
@@ -401,27 +401,56 @@ public class UserDaoImpl implements UserDao {
 		return appointment;
 	}
 
-	@Override
-	public List<Appointment> getAppointmentList(User user) {
-		// TODO Auto-generated method stub
-		List<Appointment> listOfAppointment=new ArrayList<Appointment>();
-		String sql="Select * from Appointment where user_id=?";
-		try
-		{
-			ps=connection.prepareStatement(sql);
-			ps.setLong(1,user.getUserId().longValue());
-			rs=ps.executeQuery();
-			while(rs.next())
-			{
-				Appointment appointment=new Appointment();
-		//		appointment.getAppointmentid(BigInteger.valueOf(rs.getLong(1)));
+	public List getAppointmentList(User user) {
+		List listOfAppointment = new ArrayList();
+		String sql = "Select a.appointmenmt_id,a.center_id,c.center_name,a.test_id,t.test_name, a.appointment_status,a.appointment_date_time from Appointment a join Test t ON a.test_id=t.test_id join Center c ON  a.center_id=c.center_id where a.user_id=?";
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setLong(1, user.getUserId().longValue());
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				listOfAppointment.add(BigInteger.valueOf(rs.getLong(1)));
+				listOfAppointment.add(BigInteger.valueOf(rs.getLong(2)));
+				listOfAppointment.add(rs.getString(3));
+				listOfAppointment.add(BigInteger.valueOf(rs.getLong(4)));
+				listOfAppointment.add(rs.getString(5));
+				listOfAppointment.add(rs.getInt(6));
+				listOfAppointment.add(rs.getTimestamp(7).toLocalDateTime());
 			}
-			
+
+		} catch (Exception exception) {
+			myLogger.error("Error at getAppointment Dao method: " + exception.getMessage());
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					myLogger.error("Error at getAppointment Dao method:" + e.getMessage());
+				}
+			}
 		}
-		catch (Exception e) {
-			// TODO: handle exception
-		}
-		return null;
+		return listOfAppointment;
 	}
+
+//	@Override
+//	public List<Appointment> getAppointmentList(User user) {
+//		// TODO Auto-generated method stub
+//		List<Appointment> listOfAppointment = new ArrayList<Appointment>();
+//		String sql = "Select * from Appointment where user_id=?";
+//		try {
+//			ps = connection.prepareStatement(sql);
+//			ps.setLong(1, user.getUserId().longValue());
+//			rs = ps.executeQuery();
+//			while (rs.next()) {
+//				Appointment appointment = new Appointment();
+//				// appointment.getAppointmentid(BigInteger.valueOf(rs.getLong(1)));
+//			}
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		return null;
+//	}
 
 }

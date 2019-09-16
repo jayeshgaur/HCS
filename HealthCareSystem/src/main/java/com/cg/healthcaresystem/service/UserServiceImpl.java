@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		return userDao.addTest(centerId, test);
 	}
 
-	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) {
+	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws UserDefinedException {
 		return userDao.removeTest(removeCenterId, removeTestId);
 	}
 
@@ -174,7 +174,6 @@ public class UserServiceImpl implements UserService {
 		LocalTime openTime = LocalTime.parse("10:00", timeFormat);
 
 		userDateTime = LocalDateTime.parse(dateString, dateFormat);
-		System.out.println("userInputDateTime" + userDateTime);
 		userDate = userDateTime.toLocalDate();
 		userTime = userDateTime.toLocalTime();
 
@@ -225,7 +224,7 @@ public class UserServiceImpl implements UserService {
 		Iterator<Appointment> appointmentListIterator = listOfAppointment.iterator();
 		while (appointmentListIterator.hasNext()) {
 			appointment = appointmentListIterator.next();
-			if (appointment.getAppointmentid().equals(appointmentId)) {
+			if (appointment.getAppointmentId().equals(appointmentId)) {
 				return appointmentId;
 			}
 		}
@@ -243,7 +242,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Appointment> getAppointmentList(User user) {
+	public List getAppointmentList(User user) {
 		// TODO Auto-generated method stub
 		return userDao.getAppointmentList(user);
 	}

@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 
 public class Appointment {
 
-	private BigInteger appointmentid;
-	private BigInteger centerid;
-	private BigInteger testid;
-	private BigInteger userid;
+	private BigInteger appointmentId;
+	private BigInteger centerId;
+	private BigInteger testId;
+	private BigInteger userId;
 	private int appointmentstatus;
 	private LocalDateTime dateTime;
 	private int isEmpty;
@@ -20,42 +20,42 @@ public class Appointment {
 
 	public Appointment( BigInteger centerid, BigInteger testid, BigInteger userid,LocalDateTime dateTime) {
 		super();
-		this.centerid = centerid;
-		this.testid = testid;
-		this.userid = userid;
+		this.centerId = centerid;
+		this.testId = testid;
+		this.userId = userid;
 		this.dateTime = dateTime;
 	}
 
-	public BigInteger getAppointmentid() {
-		return appointmentid;
+	public BigInteger getAppointmentId() {
+		return appointmentId;
 	}
 
-	public void setAppointmentid(BigInteger appointmentid) {
-		this.appointmentid = appointmentid;
+	public void setAppointmentId(BigInteger appointmentid) {
+		this.appointmentId = appointmentid;
 	}
 
 	public BigInteger getCenterid() {
-		return centerid;
+		return centerId;
 	}
 
-	public void setCenterid(BigInteger centerid) {
-		this.centerid = centerid;
+	public void setCenterId(BigInteger centerid) {
+		this.centerId = centerid;
 	}
 
-	public BigInteger getTestid() {
-		return testid;
+	public BigInteger getTestId() {
+		return testId;
 	}
 
-	public void setTestid(BigInteger testid) {
-		this.testid = testid;
+	public void setTestid(BigInteger testId) {
+		this.testId = testId;
 	}
 
-	public BigInteger getUserid() {
-		return userid;
+	public BigInteger getUserId() {
+		return userId;
 	}
 
-	public void setUserid(BigInteger userid) {
-		this.userid = userid;
+	public void setUserId(BigInteger userid) {
+		this.userId = userid;
 	}
 
 	public int getAppointmentstatus() {
@@ -86,13 +86,13 @@ public class Appointment {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((appointmentid == null) ? 0 : appointmentid.hashCode());
+		result = prime * result + ((appointmentId == null) ? 0 : appointmentId.hashCode());
 		result = prime * result + appointmentstatus;
-		result = prime * result + ((centerid == null) ? 0 : centerid.hashCode());
+		result = prime * result + ((centerId == null) ? 0 : centerId.hashCode());
 		result = prime * result + ((dateTime == null) ? 0 : dateTime.hashCode());
 		result = prime * result + isEmpty;
-		result = prime * result + ((testid == null) ? 0 : testid.hashCode());
-		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
+		result = prime * result + ((testId == null) ? 0 : testId.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 
@@ -105,17 +105,17 @@ public class Appointment {
 		if (getClass() != obj.getClass())
 			return false;
 		Appointment other = (Appointment) obj;
-		if (appointmentid == null) {
-			if (other.appointmentid != null)
+		if (appointmentId == null) {
+			if (other.appointmentId != null)
 				return false;
-		} else if (!appointmentid.equals(other.appointmentid))
+		} else if (!appointmentId.equals(other.appointmentId))
 			return false;
 		if (appointmentstatus != other.appointmentstatus)
 			return false;
-		if (centerid == null) {
-			if (other.centerid != null)
+		if (centerId == null) {
+			if (other.centerId != null)
 				return false;
-		} else if (!centerid.equals(other.centerid))
+		} else if (!centerId.equals(other.centerId))
 			return false;
 		if (dateTime == null) {
 			if (other.dateTime != null)
@@ -124,23 +124,23 @@ public class Appointment {
 			return false;
 		if (isEmpty != other.isEmpty)
 			return false;
-		if (testid == null) {
-			if (other.testid != null)
+		if (testId == null) {
+			if (other.testId != null)
 				return false;
-		} else if (!testid.equals(other.testid))
+		} else if (!testId.equals(other.testId))
 			return false;
-		if (userid == null) {
-			if (other.userid != null)
+		if (userId == null) {
+			if (other.userId != null)
 				return false;
-		} else if (!userid.equals(other.userid))
+		} else if (!userId.equals(other.userId))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Appointment [appointmentid=" + appointmentid + ", centerid=" + centerid + ", testid=" + testid
-				+ ", userid=" + userid + ", appointmentstatus=" + appointmentstatus + ", dateTime=" + dateTime
+		return "Appointment [appointmentid=" + appointmentId + ", centerid=" + centerId + ", testid=" + testId
+				+ ", userid=" + userId + ", appointmentstatus=" + appointmentstatus + ", dateTime=" + dateTime
 				+ ", isEmpty=" + isEmpty + "]";
 	}
 	

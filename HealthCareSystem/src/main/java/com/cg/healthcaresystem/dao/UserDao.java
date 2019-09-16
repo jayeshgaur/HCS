@@ -7,6 +7,7 @@ import com.cg.healthcaresystem.dto.Appointment;
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
 import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
+import com.cg.healthcaresystem.exception.UserDefinedException;
 
 public interface UserDao {
 	public DiagnosticCenter addCenter(DiagnosticCenter center);
@@ -15,7 +16,7 @@ public interface UserDao {
 
 	public Test addTest(BigInteger name, Test test);
 
-	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId);
+	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws UserDefinedException;
 	
 	public Appointment addAppointment(Appointment appointment);
 
