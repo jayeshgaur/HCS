@@ -443,7 +443,6 @@ public class HealthCareSystem {
 									BigInteger userId = userService.validateUserId(scanner.nextLine());
 									// DateTime
 									System.out.println("Enter date in the format: dd-MM-yyyy HH:mm:ss");
-									scanner.nextLine();
 									LocalDateTime dateTime = userService.validateDateTime(scanner.nextLine());
 
 									appointment = new Appointment(centerId, testId, userId, dateTime);

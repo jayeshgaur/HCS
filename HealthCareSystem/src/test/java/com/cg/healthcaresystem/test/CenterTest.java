@@ -157,6 +157,8 @@ class CenterTest {
 		testE = userService.addTest(diagnosticCenterE.getCenterId(), testA);
 		User user = new User("Jayesh", "Jayesh@07",BigInteger.valueOf(1234567890),"jay@c.c",22,"M");
 		user.setUserId(userService.register(user));
+		Appointment appointment = new Appointment(diagnosticCenterE.getCenterId(),testE.getTestId(),user.getUserId(),LocalDateTime.now().plusDays(1));
+		assertNotNull(userService.approveAppointment(appointment.getAppointmentId()));
 	}
 	
 
