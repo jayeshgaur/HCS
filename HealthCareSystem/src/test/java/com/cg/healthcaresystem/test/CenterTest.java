@@ -3,9 +3,7 @@ package com.cg.healthcaresystem.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigInteger;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -19,7 +17,6 @@ import com.cg.healthcaresystem.dto.User;
 import com.cg.healthcaresystem.exception.UserDefinedException;
 import com.cg.healthcaresystem.service.UserService;
 import com.cg.healthcaresystem.service.UserServiceImpl;
-import com.mysql.cj.result.LocalDateTimeValueFactory;
 
 class CenterTest {
 	UserService userService;

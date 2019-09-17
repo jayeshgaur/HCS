@@ -474,7 +474,6 @@ public class HealthCareSystem {
 								scanner.nextLine();
 								BigInteger userId = userService.validateUserId(scanner.nextLine());
 								List userAppointmentList = userService.getAppointmentList(userId);
-								int size = userAppointmentList.size();
 
 								if (null != userAppointmentList) {
 									int i = 0;

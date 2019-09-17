@@ -33,7 +33,7 @@ public class UserDaoImpl implements UserDao {
 
 		Properties props = System.getProperties();
 		String userDir = props.getProperty("user.dir") + "\\src\\main\\resources\\" + "";
-		System.out.println("Current working directory is " + userDir);
+	//	System.out.println("Current working directory is " + userDir);
 		PropertyConfigurator.configure(userDir + "log4j.properties");
 		myLogger = Logger.getLogger("DBUtil.class");
 
@@ -370,7 +370,6 @@ public class UserDaoImpl implements UserDao {
 			int status = ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
 			rs.next();
-			System.out.println(status);
 			if (status > 0)
 				appointment.setAppointmentId(BigInteger.valueOf(rs.getLong(1)));
 		} catch (Exception exception) {

@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
 		if (userPassword.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})")) {
 			return userPassword;
 		}
-		throw new UserDefinedException(UserErrorMessage.userErrorPassword);
+		throw new UserDefinedException(UserErrorMessage.userErrorSecret);
 	}
 
 	public String validateName(String userName) throws UserDefinedException {
@@ -247,7 +247,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List getAppointmentList(BigInteger userId) {
-		// TODO Auto-generated method stub
 		return userDao.getAppointmentList(userId);
 	}
 
