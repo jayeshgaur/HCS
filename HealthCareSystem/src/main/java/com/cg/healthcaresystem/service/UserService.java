@@ -35,9 +35,9 @@ public interface UserService {
 	
 	public BigInteger validateTestId(String testId,List<Test> testList)throws UserDefinedException;
 	
-	public String validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)throws UserDefinedException;
+	public BigInteger validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)throws UserDefinedException;
 	
-	public boolean approveAppointment(String appointmentId, List<Appointment> appointmentList);
+	public boolean approveAppointment(BigInteger appointmentId);
 
 	public String validateName(String nextLine) throws UserDefinedException;
 	
@@ -49,7 +49,7 @@ public interface UserService {
 	
 	public String validateGender(String gender) throws UserDefinedException;
 	
-	public User validateUserId(BigInteger userId) throws UserDefinedException;
+	public BigInteger validateUserId(String userId) throws UserDefinedException;
 
 	public LocalDateTime validateDateTime(String dateString) throws UserDefinedException;
 
@@ -57,8 +57,9 @@ public interface UserService {
 
 	public Appointment addAppointment(Appointment appointment);
 
-	public List getAppointmentList(User user);
+	public List getAppointmentList(BigInteger userId);
 
 	public List<Test> getListOfTests(BigInteger centerId);
 
+	public List<Appointment> getListOfAppointments();
 }

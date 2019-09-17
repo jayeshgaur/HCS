@@ -204,28 +204,33 @@ public class UserServiceImpl implements UserService {
 //		return userInputTime;
 //	}
 
-	public User validateUserId(BigInteger userId) throws UserDefinedException {
+	public BigInteger validateUserId(String userId) throws UserDefinedException {
+		if(userId.matches("^[0-9]+")) {
 		List<User> listOfUser = userDao.getUserList();
 		Iterator<User> userIterator = listOfUser.iterator();
 		while (userIterator.hasNext()) {
 			User user = userIterator.next();
-			if (user.getUserId().compareTo(userId) == 0) {
-				return user;
+			if (user.getUserId().compareTo(new BigInteger(userId))== 0) {
+				return new BigInteger(userId);
 			}
 
+		}
 		}
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidUserId);
 	}
 
-	public String validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)
+	public BigInteger validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)
 			throws UserDefinedException {
+		if(appointmentId.matches("^[0-9]+"))
+		{
 		Appointment appointment = null;
 		Iterator<Appointment> appointmentListIterator = listOfAppointment.iterator();
 		while (appointmentListIterator.hasNext()) {
 			appointment = appointmentListIterator.next();
-			if (appointment.getAppointmentId().equals(appointmentId)) {
-				return appointmentId;
+			if ((appointment.getAppointmentId().compareTo(new BigInteger(appointmentId))==0) && (appointment.getAppointmentstatus()==0)) {
+				return new BigInteger(appointmentId);
 			}
+		}
 		}
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidAppointmentId);
 	}
@@ -241,15 +246,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List getAppointmentList(User user) {
+	public List getAppointmentList(BigInteger userId) {
 		// TODO Auto-generated method stub
-		return userDao.getAppointmentList(user);
+		return userDao.getAppointmentList(userId);
 	}
 
 	@Override
-	public boolean approveAppointment(String appointmentId, List<Appointment> appointmentList) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean approveAppointment(BigInteger appointmentId) {
+		return userDao.approveAppointment(appointmentId);
+	}
+	
+	@Override
+	public List<Appointment> getListOfAppointments(){
+		return userDao.getListOfAppointments();
 	}
 
 }

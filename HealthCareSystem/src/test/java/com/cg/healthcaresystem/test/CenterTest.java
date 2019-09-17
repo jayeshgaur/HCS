@@ -135,7 +135,7 @@ class CenterTest {
 		user.setUserId(userService.register(user));
 		Appointment appointment = new Appointment(diagnosticCenterE.getCenterId(),testE.getTestId(),user.getUserId(),LocalDateTime.now().plusDays(1));
 		assertNotNull(userService.addAppointment(appointment).getAppointmentId());
-		assertNotNull(userService.getAppointmentList(user));
+		assertNotNull(userService.getAppointmentList(user.getUserId()));
 	}
 	
 	@Test
@@ -146,12 +146,17 @@ class CenterTest {
 		testE = userService.addTest(diagnosticCenterE.getCenterId(), testA);
 		User user = new User("Jayesh", "Jayesh@07",BigInteger.valueOf(1234567890),"jay@c.c",22,"M");
 		user.setUserId(userService.register(user));
-		assertEquals(userService.getAppointmentList(user).size(), 0);
+		assertEquals(userService.getAppointmentList(user.getUserId()).size(), 0);
 	}
 	
 	@Test
-	void approveAppointment() {
-		
+	void approveAppointment() throws UserDefinedException {
+		DiagnosticCenter diagnosticCenterA = new DiagnosticCenter("Center Name", "Center Address", BigInteger.valueOf(1234567890));
+		DiagnosticCenter diagnosticCenterE = userService.addCenter(diagnosticCenterA);
+		testA = (com.cg.healthcaresystem.dto.Test) new com.cg.healthcaresystem.dto.Test("Junit Test");
+		testE = userService.addTest(diagnosticCenterE.getCenterId(), testA);
+		User user = new User("Jayesh", "Jayesh@07",BigInteger.valueOf(1234567890),"jay@c.c",22,"M");
+		user.setUserId(userService.register(user));
 	}
 	
 

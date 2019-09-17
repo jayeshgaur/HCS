@@ -371,8 +371,8 @@ public class UserDaoImpl implements UserDao {
 			rs = ps.getGeneratedKeys();
 			rs.next();
 			System.out.println(status);
-			if(status>0)
-			appointment.setAppointmentId(BigInteger.valueOf(rs.getLong(1)));
+			if (status > 0)
+				appointment.setAppointmentId(BigInteger.valueOf(rs.getLong(1)));
 		} catch (Exception exception) {
 			myLogger.error("Error at addAppointment Dao method: " + exception.getMessage());
 		} finally {
@@ -387,12 +387,12 @@ public class UserDaoImpl implements UserDao {
 		return appointment;
 	}
 
-	public List getAppointmentList(User user) {
+	public List getAppointmentList(BigInteger userId) {
 		List listOfAppointment = new ArrayList();
 		String sql = "Select a.appointmenmt_id,a.center_id,c.center_name,a.test_id,t.test_name, a.appointment_status,a.appointment_date_time from Appointment a join Test t ON a.test_id=t.test_id join Center c ON  a.center_id=c.center_id where a.user_id=?";
 		try {
 			ps = connection.prepareStatement(sql);
-			ps.setLong(1, user.getUserId().longValue());
+			ps.setLong(1, userId.longValue());
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				listOfAppointment.add(BigInteger.valueOf(rs.getLong(1)));
@@ -417,6 +417,53 @@ public class UserDaoImpl implements UserDao {
 			}
 		}
 		return listOfAppointment;
+	}
+
+	public boolean approveAppointment(BigInteger appointmentId) {
+		boolean flag = false;
+		String sql = "Update  Appointment set appointment_status=1 where appointmenmt_id=?;";
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setLong(1, appointmentId.longValue());
+			if (ps.executeUpdate() == 1)
+				flag = true;
+		} catch (Exception exception) {
+			myLogger.error("Error at approve appointment Dao method: " + exception.getMessage());
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					myLogger.error("Error at approve appointment Dao method:" + e.getMessage());
+				}
+			}
+		}
+		return flag;
+	}
+	
+	@Override
+	public List<Appointment> getListOfAppointments(){
+		List<Appointment> listOfAllAppointments = new ArrayList<Appointment>();
+		String sql = "SELECT * FROM Appointment";
+		try {
+			ps = connection.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Appointment appointment = new Appointment();
+				appointment.setAppointmentId(BigInteger.valueOf(rs.getLong(1)));
+				appointment.setCenterId(BigInteger.valueOf(rs.getLong(2)));
+				appointment.setTestid(BigInteger.valueOf(rs.getLong(3)));
+				appointment.setUserId(BigInteger.valueOf(rs.getLong(4)));
+				appointment.setAppointmentstatus(rs.getInt(5));
+				appointment.setDateTime(rs.getTimestamp(6).toLocalDateTime());
+				appointment.setIsEmpty(rs.getInt(7));
+				listOfAllAppointments.add(appointment);
+			}
+		}catch(SQLException sqlException) {
+			myLogger.error("Error in getListOfAppointments"+sqlException.getMessage());
+		}
+		return listOfAllAppointments;
 	}
 
 //	@Override

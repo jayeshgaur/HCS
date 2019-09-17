@@ -30,7 +30,11 @@ public interface UserDao {
 
 	public List<Test> getListOfTests(BigInteger centerId);
 
-	public List<Appointment> getAppointmentList(User user);
+	public List<Appointment> getAppointmentList(BigInteger userId);
+	
+	public boolean approveAppointment(BigInteger appointmentId);
+	
+	public List<Appointment> getListOfAppointments();
 
 	//public boolean setCenterList(List<DiagnosticCenter> centerList);
 }

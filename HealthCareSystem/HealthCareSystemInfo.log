@@ -133,3 +133,83 @@
 2019-09-16-main-INFO -UserDaoImpl.class:Property File loaded : 
 2019-09-16-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
 2019-09-16-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@70beb599
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-ERROR-DBUtil.class:Error at register Dao method: Unknown column 'isEmpty' in 'field list'
+2019-09-17-main-ERROR-DBUtil.class:Error at addAppointment Dao method: null
+2019-09-17-main-ERROR-DBUtil.class:Error at register Dao method: Unknown column 'isEmpty' in 'field list'
+2019-09-17-main-ERROR-DBUtil.class:Error at addAppointment Dao method: null
+2019-09-17-main-ERROR-DBUtil.class:Error at register Dao method: Unknown column 'isEmpty' in 'field list'
+2019-09-17-main-ERROR-DBUtil.class:Error at addAppointment Dao method: Unknown column 'isEmpty' in 'field list'
+2019-09-17-main-ERROR-DBUtil.class:Error at removeCenter Dao method: null
+2019-09-17-main-ERROR-DBUtil.class:Error at register Dao method: Unknown column 'isEmpty' in 'field list'
+2019-09-17-main-ERROR-DBUtil.class:Error at getAppointment Dao method: null
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@70beb599
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-ERROR-DBUtil.class:Error at addAppointment Dao method: Unknown column 'isEmpty' in 'field list'
+2019-09-17-main-ERROR-DBUtil.class:Error at addAppointment Dao method: Unknown column 'isEmpty' in 'field list'
+2019-09-17-main-ERROR-DBUtil.class:Error at addAppointment Dao method: Unknown column 'isEmpty' in 'field list'
+2019-09-17-main-ERROR-DBUtil.class:Error at removeCenter Dao method: null
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@70beb599
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-ERROR-DBUtil.class:Error at addAppointment Dao method: Unknown column 'isEmpty' in 'field list'
+2019-09-17-main-ERROR-DBUtil.class:Error at addAppointment Dao method: Unknown column 'isEmpty' in 'field list'
+2019-09-17-main-ERROR-DBUtil.class:Error at addAppointment Dao method: Unknown column 'isEmpty' in 'field list'
+2019-09-17-main-ERROR-DBUtil.class:Error at removeCenter Dao method: null
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@70beb599
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-ERROR-DBUtil.class:Error at addAppointment Dao method: Cannot add or update a child row: a foreign key constraint fails (`healthcaresystem`.`appointment`, CONSTRAINT `appointment_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2019-09-17-main-ERROR-DBUtil.class:Error at removeCenter Dao method: null
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@70beb599
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-ERROR-DBUtil.class:Error at addAppointment Dao method: Cannot add or update a child row: a foreign key constraint fails (`healthcaresystem`.`appointment`, CONSTRAINT `appointment_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2019-09-17-main-ERROR-DBUtil.class:Error at removeCenter Dao method: null
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@70beb599
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-ERROR-DBUtil.class:Error at addAppointment Dao method: Cannot add or update a child row: a foreign key constraint fails (`healthcaresystem`.`appointment`, CONSTRAINT `appointment_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2019-09-17-main-ERROR-DBUtil.class:Error at removeCenter Dao method: null
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
+2019-09-17-main-INFO -UserDaoImpl.class:Property File loaded : 
+2019-09-17-main-INFO -UserDaoImpl.class:connection Obtained! : com.mysql.cj.jdbc.ConnectionImpl@4439f31e
+2019-09-17-main-INFO -DBUtil.class:connection obtained.....
