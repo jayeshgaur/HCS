@@ -45,7 +45,7 @@ class CenterTest {
 	}
 
 	@Test
-	void addCenter() {
+	void addCenter() throws UserDefinedException {
 		diagnosticCenterA = new DiagnosticCenter("Center Name", "Center Address", BigInteger.valueOf(1234567890));
 		diagnosticCenterE = userService.addCenter(diagnosticCenterA);
 		assertNull(diagnosticCenterA.getCenterId());
@@ -54,14 +54,14 @@ class CenterTest {
 	}
 	
 	@Test
-	void removeCenter() {
+	void removeCenter() throws UserDefinedException {
 		diagnosticCenterA = new DiagnosticCenter("Center Name", "Center Address", BigInteger.valueOf(1234567890));
 		diagnosticCenterE = userService.addCenter(diagnosticCenterA);
 		assertTrue(userService.removeCenter(diagnosticCenterE.getCenterId()));
 	}
 
 	@Test
-	void failRemoveCenter() {
+	void failRemoveCenter() throws UserDefinedException {
 		diagnosticCenterA = new DiagnosticCenter("Center Name", "Center Address", BigInteger.valueOf(1234567890));
 		diagnosticCenterE = userService.addCenter(diagnosticCenterA);
 		assertFalse(userService.removeCenter(diagnosticCenterA.getCenterId()));

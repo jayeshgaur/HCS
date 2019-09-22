@@ -1,53 +1,80 @@
 package com.cg.healthcaresystem.dto;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "hcs_center")
 public class DiagnosticCenter {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "center_id")
 	private BigInteger centerId;
-//	private static Integer centerCounter=0;
-//	private Integer testCounter=0;
-//	private Integer appointmentCounter=0;
-	//private static final String prefix = "HSC";
+
+	@Column(name = "center_name")
 	private String centerName;
+
+	@Column(name = "center_contact_no")
 	private BigInteger centerContactNo;
-	private String centerAddress;	
-	//private List<Test> listOfTests = new ArrayList<Test>();
-	//private List<Appointment> listOfAppointments = new ArrayList<Appointment>();
+
+	@Column(name = "center_address")
+	private String centerAddress;
 	
-	public DiagnosticCenter()
-	{
-		
+	@OneToMany
+	private List<Test> listOfTests = new ArrayList<Test>();
+
+	public DiagnosticCenter() {
 	}
-	public DiagnosticCenter(String centerName, String centerAddress ,BigInteger centerContactNo) {
+
+	public DiagnosticCenter(String centerName, String centerAddress, BigInteger centerContactNo) {
 		super();
 		this.centerName = centerName;
 		this.centerContactNo = centerContactNo;
 		this.centerAddress = centerAddress;
 	}
+
 	public BigInteger getCenterId() {
 		return centerId;
 	}
+
 	public void setCenterId(BigInteger centerId) {
 		this.centerId = centerId;
 	}
+
 	public String getCenterName() {
 		return centerName;
 	}
+
 	public void setCenterName(String centerName) {
 		this.centerName = centerName;
 	}
+
 	public BigInteger getCenterContactNo() {
 		return centerContactNo;
 	}
+
 	public void setCenterContactNo(BigInteger centerContactNo) {
 		this.centerContactNo = centerContactNo;
 	}
+
 	public String getCenterAddress() {
 		return centerAddress;
 	}
+
 	public void setCenterAddress(String centerAddress) {
 		this.centerAddress = centerAddress;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,6 +85,7 @@ public class DiagnosticCenter {
 		result = prime * result + ((centerName == null) ? 0 : centerName.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -89,12 +117,11 @@ public class DiagnosticCenter {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "DiagnosticCenter [centerId=" + centerId + ", centerName=" + centerName + ", centerContactNo="
 				+ centerContactNo + ", centerAddress=" + centerAddress + "]";
 	}
-	
-	
-	
+
 }
