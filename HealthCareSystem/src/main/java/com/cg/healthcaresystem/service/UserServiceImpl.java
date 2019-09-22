@@ -30,15 +30,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public Test addTest(BigInteger centerId, Test test) throws UserDefinedException {
-		/*
-		 * List<DiagnosticCenter> centerList = userDao.getCenterList(); DiagnosticCenter
-		 * diagnosticCenter = null; Iterator<DiagnosticCenter> centerListIterator =
-		 * centerList.iterator(); while (centerListIterator.hasNext()) {
-		 * diagnosticCenter = centerListIterator.next(); if
-		 * (diagnosticCenter.getCenterId().equals(centerId)) {
-		 * diagnosticCenter.getListOfTests().add(test); return test; } } throw new
-		 * UserDefinedException(UserErrorMessage.userErrorAddTestFailed);
-		 */
 		return userDao.addTest(centerId, test);
 	}
 

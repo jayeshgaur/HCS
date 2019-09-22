@@ -14,7 +14,7 @@ public interface UserDao {
 
 	public boolean removeCenter(BigInteger centerid);
 
-	public Test addTest(BigInteger name, Test test);
+	public Test addTest(BigInteger centerId, Test test);
 
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws UserDefinedException;
 	

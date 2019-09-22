@@ -44,21 +44,28 @@ public class UserDaoImpl implements UserDao {
 	public boolean removeCenter(BigInteger centerId) {
 		entityTransaction.begin();
 		DiagnosticCenter center = EntityManagerUtil.getEntityManager().find(DiagnosticCenter.class, centerId);
-		if(null!=center)
+		EntityManagerUtil.getEntityManager().remove(center);
 		entityTransaction.commit();
 		return true;
 	}
 
 	@Override
-	public Test addTest(BigInteger name, Test test) {
-		// TODO Auto-generated method stub
-		return null;
+	public Test addTest(BigInteger centerId, Test test) {
+		entityTransaction.begin();
+		DiagnosticCenter center = EntityManagerUtil.getEntityManager().find(DiagnosticCenter.class, centerId);
+		center.getListOfTests().add(test);
+		EntityManagerUtil.getEntityManager().persist(test);
+		entityTransaction.commit();
+		return test;
 	}
 
 	@Override
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws UserDefinedException {
-		// TODO Auto-generated method stub
-		return false;
+		entityTransaction.begin();
+		Test test = EntityManagerUtil.getEntityManager().find(Test.class, removeTestId);
+		EntityManagerUtil.getEntityManager().remove(test);
+		entityTransaction.commit();
+		return true;
 	}
 
 	@Override
@@ -95,8 +102,11 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = EntityManagerUtil.getEntityManager().createQuery("FROM Test WHERE center_id_fk = :centerId");
+		query.setParameter("centerId", centerId);
+		@SuppressWarnings("unchecked")
+		List<Test> listOfTests = query.getResultList();
+		return listOfTests;
 	}
 
 	@Override

@@ -95,7 +95,6 @@ public class HealthCareSystem {
 					case 2: // Remove Center
 
 						// Get list of centers to check if center(s) exists or not!
-						// a
 						centerList = userService.getCenterList();
 						if (centerList.size() < 1) {
 							System.out.println("No center in the system");
@@ -113,7 +112,6 @@ public class HealthCareSystem {
 							// Get CenterId from admin to delete center
 							System.out.println("Enter the id of center which you want to remove");
 
-							// 2. handle the InputMismatchException here
 							try {
 								// validate center id
 								scanner.nextLine();

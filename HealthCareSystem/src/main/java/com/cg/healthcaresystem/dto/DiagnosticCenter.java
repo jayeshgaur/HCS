@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,6 +32,7 @@ public class DiagnosticCenter {
 	private String centerAddress;
 	
 	@OneToMany
+	@JoinColumn(name="center_id_fk")
 	private List<Test> listOfTests = new ArrayList<Test>();
 
 	public DiagnosticCenter() {
@@ -122,6 +124,14 @@ public class DiagnosticCenter {
 	public String toString() {
 		return "DiagnosticCenter [centerId=" + centerId + ", centerName=" + centerName + ", centerContactNo="
 				+ centerContactNo + ", centerAddress=" + centerAddress + "]";
+	}
+
+	public List<Test> getListOfTests() {
+		return listOfTests;
+	}
+
+	public void setListOfTests(List<Test> listOfTests) {
+		this.listOfTests = listOfTests;
 	}
 
 }
