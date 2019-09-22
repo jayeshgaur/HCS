@@ -34,6 +34,9 @@ public class DiagnosticCenter {
 	@OneToMany
 	@JoinColumn(name="center_id_fk")
 	private List<Test> listOfTests = new ArrayList<Test>();
+	
+	@OneToMany(mappedBy = "center")
+	List<Appointment> userAppointmentList = new ArrayList<Appointment>();
 
 	public DiagnosticCenter() {
 	}

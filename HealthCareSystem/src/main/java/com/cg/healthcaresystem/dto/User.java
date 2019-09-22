@@ -1,17 +1,50 @@
 package com.cg.healthcaresystem.dto;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name="hcs_user")
 public class User {
 
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="user_id")
 	private BigInteger userId;
+	
+	@Column(name="user_password")
 	private String userPassword;
+	
+	@Column(name="user_name")
 	private String userName;
+	
+	@Column(name="user_contact_no")
 	private BigInteger contactNo;
+	
+	@Transient //Becuse default value is Customer, which will be set by the database automatically, so we don't need to map this.
+	@Column(name="user_role")
 	private String userRole;
+	
+	@Column(name="user_email")
 	private String userEmail;
+	
+	@Column(name="user_age")
 	private Integer age;
+	
+	@Column(name="user_gender")
 	private String gender;
+	
+	@OneToMany(mappedBy = "user")
+	List<Appointment> userAppointmentList = new ArrayList<Appointment>();
 	
 	public User()
 	{
