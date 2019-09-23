@@ -28,7 +28,6 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public DiagnosticCenter addCenter(DiagnosticCenter center){
-
 		entityTransaction.begin();
 		entityManager.persist(center);
 		entityTransaction.commit();

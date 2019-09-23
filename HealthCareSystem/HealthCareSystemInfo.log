@@ -1641,3 +1641,71 @@
 2019-09-23-main-INFO -org.hibernate.tool.hbm2ddl.TableMetadata:HHH000108: Foreign keys: []
 2019-09-23-main-INFO -org.hibernate.tool.hbm2ddl.TableMetadata:HHH000126: Indexes: [primary]
 2019-09-23-main-INFO -org.hibernate.tool.hbm2ddl.SchemaUpdate:HHH000232: Schema update complete
+2019-09-23-main-WARN -org.hibernate.ejb.HibernatePersistence:HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+2019-09-23-main-WARN -org.hibernate.ejb.HibernatePersistence:HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+2019-09-23-main-WARN -org.hibernate.ejb.HibernatePersistence:HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+2019-09-23-main-INFO -org.hibernate.jpa.internal.util.LogHelper:HHH000204: Processing PersistenceUnitInfo [
+	name: healthcaresystem
+	...]
+2019-09-23-main-INFO -org.hibernate.Version:HHH000412: Hibernate Core {4.3.10.Final}
+2019-09-23-main-INFO -org.hibernate.cfg.Environment:HHH000206: hibernate.properties not found
+2019-09-23-main-INFO -org.hibernate.cfg.Environment:HHH000021: Bytecode provider name : javassist
+2019-09-23-main-INFO -org.hibernate.annotations.common.Version:HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2019-09-23-main-WARN -org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl:HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2019-09-23-main-INFO -org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl:HHH000401: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost/healthcaresystem]
+2019-09-23-main-INFO -org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl:HHH000046: Connection properties: {user=root, password=****}
+2019-09-23-main-INFO -org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl:HHH000006: Autocommit mode: false
+2019-09-23-main-INFO -org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl:HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-09-23-main-WARN -org.hibernate.ejb.HibernatePersistence:HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+2019-09-23-main-WARN -org.hibernate.ejb.HibernatePersistence:HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+2019-09-23-main-WARN -org.hibernate.ejb.HibernatePersistence:HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+2019-09-23-main-INFO -org.hibernate.jpa.internal.util.LogHelper:HHH000204: Processing PersistenceUnitInfo [
+	name: healthcaresystem
+	...]
+2019-09-23-main-INFO -org.hibernate.Version:HHH000412: Hibernate Core {4.3.10.Final}
+2019-09-23-main-INFO -org.hibernate.cfg.Environment:HHH000206: hibernate.properties not found
+2019-09-23-main-INFO -org.hibernate.cfg.Environment:HHH000021: Bytecode provider name : javassist
+2019-09-23-main-INFO -org.hibernate.annotations.common.Version:HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2019-09-23-main-WARN -org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl:HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2019-09-23-main-INFO -org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl:HHH000401: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost/healthcaresystem]
+2019-09-23-main-INFO -org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl:HHH000046: Connection properties: {user=root}
+2019-09-23-main-INFO -org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl:HHH000006: Autocommit mode: false
+2019-09-23-main-INFO -org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl:HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-09-23-main-INFO -org.hibernate.dialect.Dialect:HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-09-23-main-INFO -org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory:HHH000397: Using ASTQueryTranslatorFactory
+2019-09-23-main-INFO -org.hibernate.tool.hbm2ddl.SchemaUpdate:HHH000228: Running hbm2ddl schema update
+2019-09-23-main-INFO -org.hibernate.tool.hbm2ddl.SchemaUpdate:HHH000102: Fetching database metadata
+2019-09-23-main-INFO -org.hibernate.tool.hbm2ddl.SchemaUpdate:HHH000396: Updating schema
+2019-09-23-main-INFO -java.sql.DatabaseMetaData:HHH000262: Table not found: hcs_appointment
+2019-09-23-main-INFO -java.sql.DatabaseMetaData:HHH000262: Table not found: hcs_center
+2019-09-23-main-INFO -java.sql.DatabaseMetaData:HHH000262: Table not found: hcs_test
+2019-09-23-main-INFO -java.sql.DatabaseMetaData:HHH000262: Table not found: hcs_user
+2019-09-23-main-INFO -java.sql.DatabaseMetaData:HHH000262: Table not found: hcs_appointment
+2019-09-23-main-INFO -java.sql.DatabaseMetaData:HHH000262: Table not found: hcs_center
+2019-09-23-main-INFO -java.sql.DatabaseMetaData:HHH000262: Table not found: hcs_test
+2019-09-23-main-INFO -java.sql.DatabaseMetaData:HHH000262: Table not found: hcs_user
+2019-09-23-main-INFO -java.sql.DatabaseMetaData:HHH000262: Table not found: hcs_appointment
+2019-09-23-main-INFO -java.sql.DatabaseMetaData:HHH000262: Table not found: hcs_center
+2019-09-23-main-INFO -java.sql.DatabaseMetaData:HHH000262: Table not found: hcs_test
+2019-09-23-main-INFO -java.sql.DatabaseMetaData:HHH000262: Table not found: hcs_user
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:HHH000388: Unsuccessful: create table hcs_appointment (appointment_id decimal(19,2) not null auto_increment, appointment_status integer, appointment_date_time datetime, center_id_fk decimal(19,2), test_id_fk decimal(19,2), user_id_fk decimal(19,2), primary key (appointment_id))
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:Incorrect column specifier for column 'appointment_id'
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:HHH000388: Unsuccessful: create table hcs_center (center_id decimal(19,2) not null auto_increment, center_address varchar(255), center_contact_no decimal(19,2), center_name varchar(255), is_deleted bit, primary key (center_id))
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:Incorrect column specifier for column 'center_id'
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:HHH000388: Unsuccessful: create table hcs_test (test_id decimal(19,2) not null auto_increment, is_deleted bit, test_name varchar(255), center_id_fk decimal(19,2), primary key (test_id))
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:Incorrect column specifier for column 'test_id'
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:HHH000388: Unsuccessful: create table hcs_user (user_id decimal(19,2) not null auto_increment, user_age integer, user_contact_no decimal(19,2), user_gender varchar(255), user_email varchar(255), user_name varchar(255), user_password varchar(255), primary key (user_id))
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:Incorrect column specifier for column 'user_id'
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:HHH000388: Unsuccessful: alter table hcs_appointment add constraint FK_myrgh157o1mxuq7wyk2dye5fl foreign key (center_id_fk) references hcs_center (center_id)
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:Table 'healthcaresystem.hcs_appointment' doesn't exist
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:HHH000388: Unsuccessful: alter table hcs_appointment add constraint FK_a2xht19jg1l37svmm90he638o foreign key (test_id_fk) references hcs_test (test_id)
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:Table 'healthcaresystem.hcs_appointment' doesn't exist
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:HHH000388: Unsuccessful: alter table hcs_appointment add constraint FK_l2ea3h9nhh21r9uun10yn8sxu foreign key (user_id_fk) references hcs_user (user_id)
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:Table 'healthcaresystem.hcs_appointment' doesn't exist
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:HHH000388: Unsuccessful: alter table hcs_test add constraint FK_dr0erp7g6h79yau1v6elo8an9 foreign key (center_id_fk) references hcs_center (center_id)
+2019-09-23-main-ERROR-org.hibernate.tool.hbm2ddl.SchemaUpdate:Table 'healthcaresystem.hcs_test' doesn't exist
+2019-09-23-main-INFO -org.hibernate.tool.hbm2ddl.SchemaUpdate:HHH000232: Schema update complete
+2019-09-23-main-WARN -org.hibernate.engine.jdbc.spi.SqlExceptionHelper:SQL Error: 1146, SQLState: 42S02
+2019-09-23-main-ERROR-org.hibernate.engine.jdbc.spi.SqlExceptionHelper:Table 'healthcaresystem.hcs_center' doesn't exist
+2019-09-23-main-WARN -org.hibernate.engine.jdbc.spi.SqlExceptionHelper:SQL Warning Code: 1146, SQLState: 42S02
+2019-09-23-main-WARN -org.hibernate.engine.jdbc.spi.SqlExceptionHelper:Table 'healthcaresystem.hcs_center' doesn't exist
