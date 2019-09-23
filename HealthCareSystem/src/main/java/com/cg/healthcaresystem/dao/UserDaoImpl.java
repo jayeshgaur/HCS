@@ -10,6 +10,7 @@ import com.cg.healthcaresystem.util.EntityManagerUtil;
 import java.math.BigInteger;
 import java.util.*;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -17,18 +18,19 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 public class UserDaoImpl implements UserDao {
-	private static EntityTransaction entityTransaction;
-
+	
+	private EntityManager entityManager = EntityManagerUtil.getEntityManager();
+	private EntityTransaction entityTransaction = entityManager.getTransaction();
+	
 	static {
 		EntityManagerUtil.initialize();
-		entityTransaction = EntityManagerUtil.getEntityManager().getTransaction();
 	}
 
 	@Override
 	public DiagnosticCenter addCenter(DiagnosticCenter center){
 
 		entityTransaction.begin();
-		EntityManagerUtil.getEntityManager().persist(center);
+		entityManager.persist(center);
 		entityTransaction.commit();
 		return center;
 	}
@@ -36,7 +38,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public boolean removeCenter(BigInteger centerId) {
 		entityTransaction.begin();
-		DiagnosticCenter center = EntityManagerUtil.getEntityManager().find(DiagnosticCenter.class, centerId);
+		DiagnosticCenter center = entityManager.find(DiagnosticCenter.class, centerId);
 		center.setDeleted(true);
 		entityTransaction.commit();
 		return true;
@@ -45,9 +47,9 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public Test addTest(BigInteger centerId, Test test) {
 		entityTransaction.begin();
-		DiagnosticCenter center = EntityManagerUtil.getEntityManager().find(DiagnosticCenter.class, centerId);
+		DiagnosticCenter center = entityManager.find(DiagnosticCenter.class, centerId);
 		center.getListOfTests().add(test);
-		EntityManagerUtil.getEntityManager().persist(test);
+		entityManager.persist(test);
 		entityTransaction.commit();
 		return test;
 	}
@@ -55,7 +57,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws UserDefinedException {
 		entityTransaction.begin();
-		Test test = EntityManagerUtil.getEntityManager().find(Test.class, removeTestId);
+		Test test = entityManager.find(Test.class, removeTestId);
 		test.setDeleted(true);
 		entityTransaction.commit();
 		return true;
@@ -64,7 +66,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public Appointment addAppointment(Appointment appointment) {
 		entityTransaction.begin();
-		EntityManagerUtil.getEntityManager().persist(appointment);
+		entityManager.persist(appointment);
 		entityTransaction.commit();
 		return appointment;
 	}
@@ -72,14 +74,14 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public BigInteger register(User user) {
 		entityTransaction.begin();
-		EntityManagerUtil.getEntityManager().persist(user);
+		entityManager.persist(user);
 		entityTransaction.commit();
 		return user.getUserId();
 	}
 
 	@Override
 	public List<DiagnosticCenter> getCenterList() {
-		Query query = EntityManagerUtil.getEntityManager().createQuery("FROM DiagnosticCenter WHERE isDeleted = :false");
+		Query query = entityManager.createQuery("FROM DiagnosticCenter WHERE isDeleted = :false");
 		query.setParameter("false", false);
 		@SuppressWarnings("unchecked")
 		List<DiagnosticCenter> centerList =  query.getResultList();
@@ -89,14 +91,14 @@ public class UserDaoImpl implements UserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getUserList() {
-		Query query = EntityManagerUtil.getEntityManager().createQuery("FROM User");
+		Query query = entityManager.createQuery("FROM User");
 		List<User> userList = query.getResultList();
 		return userList;
 	}
 
 	@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
-		Query query = EntityManagerUtil.getEntityManager().createQuery("FROM Test WHERE center_id_fk = :centerId AND isDeleted = :false");
+		Query query = entityManager.createQuery("FROM Test WHERE center_id_fk = :centerId AND isDeleted = :false");
 		query.setParameter("false", false);
 		query.setParameter("centerId", centerId);
 		@SuppressWarnings("unchecked")
@@ -106,8 +108,8 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<Appointment> getAppointmentList(BigInteger userId) {
-		User user = EntityManagerUtil.getEntityManager().find(User.class, userId);
-		Query query = EntityManagerUtil.getEntityManager().createQuery("FROM Appointment WHERE user = :userObject");
+		User user = entityManager.find(User.class, userId);
+		Query query = entityManager.createQuery("FROM Appointment WHERE user = :userObject");
 		query.setParameter("userObject", user);
 		@SuppressWarnings("unchecked")
 		List<Appointment> userAppointmentList = query.getResultList();
@@ -117,7 +119,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public boolean approveAppointment(BigInteger appointmentId) {
 		entityTransaction.begin();
-		Appointment appointment = EntityManagerUtil.getEntityManager().find(Appointment.class, appointmentId);
+		Appointment appointment = entityManager.find(Appointment.class, appointmentId);
 		appointment.setAppointmentstatus(1);
 		entityTransaction.commit();
 		return true;
@@ -127,26 +129,26 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public DiagnosticCenter findCenter(BigInteger centerId) {
-		DiagnosticCenter center = EntityManagerUtil.getEntityManager().find(DiagnosticCenter.class, centerId);
+		DiagnosticCenter center = entityManager.find(DiagnosticCenter.class, centerId);
 				return center;
 	}
 
 	@Override
 	public User findUser(BigInteger userId) {
-		User user = EntityManagerUtil.getEntityManager().find(User.class, userId);
+		User user = entityManager.find(User.class, userId);
 		return user;
 	}
 
 	@Override
 	public Test findTest(BigInteger testId) {
-		Test test = EntityManagerUtil.getEntityManager().find(Test.class, testId);
+		Test test = entityManager.find(Test.class, testId);
 				return test;
 	}
 
 	@Override
 	public List<Appointment> getCenterAppointmentList(BigInteger centerId) {
-		DiagnosticCenter center = EntityManagerUtil.getEntityManager().find(DiagnosticCenter.class, centerId);
-		Query query = EntityManagerUtil.getEntityManager().createQuery("FROM Appointment WHERE center = :ID AND appointmentStatus = :status");
+		DiagnosticCenter center = entityManager.find(DiagnosticCenter.class, centerId);
+		Query query = entityManager.createQuery("FROM Appointment WHERE center = :ID AND appointmentStatus = :status");
 		query.setParameter("ID",center);
 		query.setParameter("status",0);
 		@SuppressWarnings("unchecked")

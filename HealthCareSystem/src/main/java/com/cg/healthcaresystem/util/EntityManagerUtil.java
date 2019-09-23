@@ -6,20 +6,16 @@ import javax.persistence.Persistence;
 
 public class EntityManagerUtil {
 	private static EntityManagerFactory entityManagerFactory;
-	private static EntityManager entityManager;
+
 	
 	public static void initialize() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("healthcaresystem");
-		entityManager = entityManagerFactory.createEntityManager();
 	}
 
 	public static EntityManager getEntityManager() {
-		return entityManager;
+		return entityManagerFactory.createEntityManager();
 	}
 
-	public static void setEntityManager(EntityManager entityManager) {
-		EntityManagerUtil.entityManager = entityManager;
-	}
 	
 	
 
