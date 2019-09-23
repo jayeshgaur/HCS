@@ -30,7 +30,7 @@ public class User {
 	@Column(name="user_contact_no")
 	private BigInteger contactNo;
 	
-	@Transient //Becuse default value is Customer, which will be set by the database automatically, so we don't need to map this.
+	@Transient //Because default value is Customer, which will be set by the database automatically, so we don't need to map this.
 	@Column(name="user_role")
 	private String userRole;
 	

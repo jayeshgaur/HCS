@@ -26,15 +26,19 @@ public interface UserDao {
 
 	public List<User> getUserList();
 
-	public boolean setUserList(List<User> li);
-
 	public List<Test> getListOfTests(BigInteger centerId);
 
 	public List<Appointment> getAppointmentList(BigInteger userId);
 	
 	public boolean approveAppointment(BigInteger appointmentId);
 	
-	public List<Appointment> getListOfAppointments();
+	public DiagnosticCenter findCenter(BigInteger centerId);
+	
+	public User findUser(BigInteger userId);
+	
+	public Test findTest(BigInteger testId);
+
+	public List<Appointment> getCenterAppointmentList(BigInteger centerId);
 
 	//public boolean setCenterList(List<DiagnosticCenter> centerList);
 }

@@ -55,11 +55,11 @@ public interface UserService {
 
 //	public LocalTime validateTime(String next)throws UserDefinedException;
 
-	public Appointment addAppointment(Appointment appointment);
+	public Appointment addAppointment(Appointment appointment, BigInteger centerId,BigInteger testId,BigInteger userId,LocalDateTime dateTime);
 
-	public List getAppointmentList(BigInteger userId);
+	public List<Appointment> getAppointmentList(BigInteger userId);
 
 	public List<Test> getListOfTests(BigInteger centerId);
 
-	public List<Appointment> getListOfAppointments();
+	public List<Appointment> getCenterAppointmentList(BigInteger centerId);
 }

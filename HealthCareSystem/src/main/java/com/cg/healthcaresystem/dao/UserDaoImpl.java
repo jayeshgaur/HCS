@@ -11,6 +11,7 @@ import com.cg.healthcaresystem.util.EntityManagerUtil;
 import java.math.BigInteger;
 import java.util.*;
 
+import javax.persistence.Entity;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -64,8 +65,10 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public Appointment addAppointment(Appointment appointment) {
-		// TODO Auto-generated method stub
-		return null;
+		entityTransaction.begin();
+		EntityManagerUtil.getEntityManager().persist(appointment);
+		entityTransaction.commit();
+		return appointment;
 	}
 
 	@Override
@@ -84,16 +87,12 @@ public class UserDaoImpl implements UserDao {
 		return centerList;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getUserList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean setUserList(List<User> li) {
-		// TODO Auto-generated method stub
-		return false;
+		Query query = EntityManagerUtil.getEntityManager().createQuery("FROM User");
+		List<User> userList = query.getResultList();
+		return userList;
 	}
 
 	@Override
@@ -107,20 +106,52 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<Appointment> getAppointmentList(BigInteger userId) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = EntityManagerUtil.getEntityManager().find(User.class, userId);
+		Query query = EntityManagerUtil.getEntityManager().createQuery("FROM Appointment WHERE user = :userObject");
+		query.setParameter("userObject", user);
+		@SuppressWarnings("unchecked")
+		List<Appointment> userAppointmentList = query.getResultList();
+		return userAppointmentList;
 	}
 
 	@Override
 	public boolean approveAppointment(BigInteger appointmentId) {
-		// TODO Auto-generated method stub
-		return false;
+		entityTransaction.begin();
+		Appointment appointment = EntityManagerUtil.getEntityManager().find(Appointment.class, appointmentId);
+		appointment.setAppointmentstatus(1);
+		entityTransaction.commit();
+		return true;
+	}
+
+
+
+	@Override
+	public DiagnosticCenter findCenter(BigInteger centerId) {
+		DiagnosticCenter center = EntityManagerUtil.getEntityManager().find(DiagnosticCenter.class, centerId);
+				return center;
 	}
 
 	@Override
-	public List<Appointment> getListOfAppointments() {
-		// TODO Auto-generated method stub
-		return null;
+	public User findUser(BigInteger userId) {
+		User user = EntityManagerUtil.getEntityManager().find(User.class, userId);
+		return user;
+	}
+
+	@Override
+	public Test findTest(BigInteger testId) {
+		Test test = EntityManagerUtil.getEntityManager().find(Test.class, testId);
+				return test;
+	}
+
+	@Override
+	public List<Appointment> getCenterAppointmentList(BigInteger centerId) {
+		DiagnosticCenter center = EntityManagerUtil.getEntityManager().find(DiagnosticCenter.class, centerId);
+		Query query = EntityManagerUtil.getEntityManager().createQuery("FROM Appointment WHERE center = :ID AND appointmentStatus = :status");
+		query.setParameter("ID",center);
+		query.setParameter("status",0);
+		@SuppressWarnings("unchecked")
+		List<Appointment> appointmentList = query.getResultList();
+		return appointmentList;
 	}
 
 }

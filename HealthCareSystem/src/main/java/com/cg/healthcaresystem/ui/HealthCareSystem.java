@@ -224,90 +224,101 @@ public class HealthCareSystem {
 
 					case 5: // ApproveAppointment
 
-						// getListofAllAppointments
-						List<Appointment> listOfAllAppointments = userService.getListOfAppointments();
-						// check if empty
-						if (listOfAllAppointments.size() < 1) {
-							System.out.println("We don't have any customers using our services!");
+//						// getListofAllAppointments
+//						List<Appointment> listOfAllAppointments = userService.getListOfAppointments();
+//						// check if empty
+//						if (listOfAllAppointments.size() < 1) {
+//							System.out.println("We don't have any customers using our services!");
+//						} else {
+//							//Print all appointments
+//							Iterator<Appointment> appointmentIterator = listOfAllAppointments.iterator();
+//							while (appointmentIterator.hasNext()) {
+//								appointment = appointmentIterator.next();
+//								if (appointment.isEmpty() == 0) {
+//									if(appointment.getAppointmentstatus()==0) {
+//									System.out.println("AppointmentId: " + appointment.getAppointmentId()
+//											+ " Appointment Center: " + appointment.getCenterid() + " TestId: "
+//											+ appointment.getTestId() + " DateAndTime: " + appointment.getDateTime());
+//									
+//										System.out.println(" Status: "+appointment.getAppointmentstatus());
+//									}
+//								}
+//							}
+//							
+//							System.out.println("Select AppointmentId to approve!");
+//							try {
+//								scanner.nextLine();
+//							BigInteger appointmentId = userService.validateAppointmentId(scanner.nextLine(), listOfAllAppointments);
+//							if(userService.approveAppointment(appointmentId)) {
+//								System.out.println("Status updated");
+//							}
+//							
+//							
+//							
+//							}catch(UserDefinedException userDefinedException) {
+//								System.out.println(userDefinedException.getMessage());
+//							}
+//						}
+//						break;
+
+						// Print list of diagnostic centers List<Appointment> appointmentList = null;
+						appointment = null;
+						System.out.println("====List of diagnostic center=====");
+						centerList = userService.getCenterList();
+
+						// Check if there's a center present
+						if (centerList.size() < 1) {
+							System.out.println("Create a new center first");
 						} else {
-							Iterator<Appointment> appointmentIterator = listOfAllAppointments.iterator();
-							while (appointmentIterator.hasNext()) {
-								appointment = appointmentIterator.next();
-								if (appointment.getIsEmpty() == 1) {
-									if(appointment.getAppointmentstatus()==0) {
-									System.out.println("AppointmentId: " + appointment.getAppointmentId()
-											+ " Appointment Center: " + appointment.getCenterid() + " TestId: "
-											+ appointment.getTestId() + " DateAndTime: " + appointment.getDateTime());
-									
-										System.out.println(" Status: "+appointment.getAppointmentstatus());
-									}
-								}
+							// print all centers
+							Iterator<DiagnosticCenter> diagnosticCenterIterator = centerList.iterator();
+							while (diagnosticCenterIterator.hasNext()) {
+								diagnosticCenter = diagnosticCenterIterator.next();
+								System.out.println("CenterName: " + diagnosticCenter.getCenterName() + " CenterId: "
+										+ diagnosticCenter.getCenterId() + " Address: "
+										+ diagnosticCenter.getCenterAddress());
 							}
-							
-							System.out.println("Select AppointmentId to approve!");
+
+							System.out.println("Enter Diagnostic Center Id");
 							try {
 								scanner.nextLine();
-							BigInteger appointmentId = userService.validateAppointmentId(scanner.nextLine(), listOfAllAppointments);
-							if(userService.approveAppointment(appointmentId)) {
-								System.out.println("Status updated");
-							}
-							
-							
-							
-							}catch(UserDefinedException userDefinedException) {
-								System.out.println(userDefinedException.getMessage());
+								// Accept center id
+								centerId = userService.validateCenterId(scanner.nextLine(), centerList);
+
+								// get list of appointments in the center
+								System.out.println("=====List of appointments======");
+								List<Appointment> appointmentList = userService.getCenterAppointmentList(centerId);
+
+								// Check if there are any appointments in it
+								if (appointmentList.size() < 1) {
+									System.out.println("There are no appointments yet in this center");
+
+								} else {
+									Iterator<Appointment> appointmentListIterator = appointmentList.iterator();
+									// print list of appointments
+									while (appointmentListIterator.hasNext()) {
+										appointment = appointmentListIterator.next();
+										System.out.println("Appointment ID: " + appointment.getAppointmentId()
+												+ " Center Name: " + appointment.getCenter().getCenterName()
+												+ " Test Name: " + appointment.getTest().getTestName()
+												+ " Date and Time: " + appointment.getDateTime() + " Status: "
+												+ appointment.getAppointmentstatus());
+									}
+									System.out.println("Enter the appointment ID to approve");
+									BigInteger appointmentId = userService.validateAppointmentId(scanner.next(),
+											appointmentList);
+									if (userService.approveAppointment(appointmentId)) {
+										System.out.println("Status updated successfully!");
+									} else {
+										System.out.println("Status update failed, try again.");
+									}
+								}
+							} catch (UserDefinedException e) {
+								System.out.println(e.getMessage());
 							}
 						}
+
 						break;
-//					  // Print list of diagnostic centers List<Appointment> appointmentList = null;
-//					  appointment = null; System.out.println("====List of diagnostic center=====");
-//					  centerList = userService.getCenterList();
-//					  
-//					  // Check if there's a center present 
-//					  if (centerList.size() < 1) {
-//					  System.out.println("Create a new center first"); 
-//					  } 
-//					  else {
-//						  //print all centers
-//					  Iterator<DiagnosticCenter> diagnosticCenterIterator = centerList.iterator();
-//					  while (diagnosticCenterIterator.hasNext()) 
-//					  { 
-//						  diagnosticCenter = diagnosticCenterIterator.next(); 
-//						  System.out.println("CenterName: " +  diagnosticCenter.getCenterName() + " CenterId: " +
-//					  diagnosticCenter.getCenterId() + " Address: " +
-//					  diagnosticCenter.getCenterAddress()); 
-//					  }
-//					  
-//					  System.out.println("Enter Diagnostic Center Id"); try {
-//					  
-//					  // Accept center id 
-//					  centerId = userService.validateCenterId(scanner.nextLine(), centerList);
-//					  
-//					  // get list of appointments in the center
-//					  System.out.println("=====List of appointments======");
-//					  diagnosticCenterIterator = centerList.iterator(); while
-//					  (diagnosticCenterIterator.hasNext()) { diagnosticCenter =
-//					  diagnosticCenterIterator.next(); if
-//					  (diagnosticCenter.getCenterId().equals(centerId)) { // appointmentList =
-//					  diagnosticCenter.getListOfAppointments(); break; } }
-//					  
-//					  // Check if there are any appointments in it if (appointmentList.size() < 1)
-//					  { System.out.println("There are no appointments yet in this center"); } else
-//					  { Iterator<Appointment> appointmentListIterator = appointmentList.iterator();
-//					  // print list of appointments while (appointmentListIterator.hasNext()) {
-//					  appointment = appointmentListIterator.next();
-//					  System.out.println("Appointment ID: " + appointment.getAppointmentId() +
-//					  " Center Name: " + appointment.getCenter().getCenterName() + " Test Name: " +
-//					  appointment.getTest().getTestName() + " Date and Time: " +
-//					  appointment.getDateTime() + " Status: " + appointment.isApproved()); }
-//					  System.out.println("Enter the appointment ID to approve"); String
-//					  appointmentId = userService.validateAppointmentId(scanner.next(),
-//					  appointmentList); if (userService.approveAppointment(appointmentId,
-//					  appointmentList)) { System.out.println("Status updated successfully!"); }
-//					  else { System.out.println("Status update failed, try again."); } } } catch
-//					  (UserDefinedException e) { System.out.println(e.getMessage()); } }
-//					  
-//					  break;
 
 					case 6:
 						break;
@@ -443,8 +454,9 @@ public class HealthCareSystem {
 									System.out.println("Enter date in the format: dd-MM-yyyy HH:mm:ss");
 									LocalDateTime dateTime = userService.validateDateTime(scanner.nextLine());
 
-									appointment = new Appointment(centerId, testId, userId, dateTime);
-									if (null != userService.addAppointment(appointment)) {
+									appointment = new Appointment();
+									if (null != userService.addAppointment(appointment, centerId, testId, userId,
+											dateTime)) {
 										System.out.println("Added successfully. Your appointment ID is: "
 												+ appointment.getAppointmentId());
 									}
@@ -466,28 +478,27 @@ public class HealthCareSystem {
 							System.out.println("We are not functional yet!");
 						else {
 							try {
-
 								// Enter user id
 								System.out.println("Enter your user ID: ");
 								scanner.nextLine();
 								BigInteger userId = userService.validateUserId(scanner.nextLine());
-								List userAppointmentList = userService.getAppointmentList(userId);
+								List<Appointment> userAppointmentList = userService.getAppointmentList(userId);
 
 								if (null != userAppointmentList) {
 									int i = 0;
-									Iterator iterator = userAppointmentList.iterator();
-									System.out.println("appointment_id" + " " + "center_id" + " " + "center_name" + " "
-											+ "test_id" + " " + "test_name" + " " + "appointment_status" + " "
+									Iterator<Appointment> iterator = userAppointmentList.iterator();
+									System.out.println("appointment_id" + " " + "center_name" + " "
+											+ "test_name" + " " + "appointment_status" + " "
 											+ "appointment_date_time");
 									while (iterator.hasNext()) {
-										System.out.print(iterator.next() + " " + iterator.next() + " " + iterator.next()
-												+ " " + iterator.next() + " " + iterator.next());
-										if (iterator.next().equals(0)) {
+										appointment = iterator.next();
+										System.out.print("AppointmentID: "+appointment.getAppointmentId()+" CenterName: "+appointment.getCenter().getCenterName()+" TestName: "+appointment.getTest().getTestName());
+										if (appointment.getAppointmentstatus() == 0) {
 											System.out.print(" pending");
 										} else {
-											System.out.print("approved");
+											System.out.print(" approved");
 										}
-										System.out.print(" " + iterator.next());
+										System.out.print(" " +appointment.getDateTime());
 										System.out.println();
 									}
 

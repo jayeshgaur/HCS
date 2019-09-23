@@ -16,6 +16,7 @@ import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
 import com.cg.healthcaresystem.exception.UserDefinedException;
 import com.cg.healthcaresystem.exception.UserErrorMessage;
+import com.cg.healthcaresystem.util.EntityManagerUtil;
 
 public class UserServiceImpl implements UserService {
 
@@ -51,10 +52,6 @@ public class UserServiceImpl implements UserService {
 
 	public List<User> getUserList() {
 		return userDao.getUserList();
-	}
-
-	public boolean setUserList(List<User> li) {
-		return userDao.setUserList(li);
 	}
 
 	/*
@@ -196,48 +193,53 @@ public class UserServiceImpl implements UserService {
 //	}
 
 	public BigInteger validateUserId(String userId) throws UserDefinedException {
-		if(userId.matches("^[0-9]+")) {
-		List<User> listOfUser = userDao.getUserList();
-		Iterator<User> userIterator = listOfUser.iterator();
-		while (userIterator.hasNext()) {
-			User user = userIterator.next();
-			if (user.getUserId().compareTo(new BigInteger(userId))== 0) {
-				return new BigInteger(userId);
-			}
+		if (userId.matches("^[0-9]+")) {
+			List<User> listOfUser = userDao.getUserList();
+			Iterator<User> userIterator = listOfUser.iterator();
+			while (userIterator.hasNext()) {
+				User user = userIterator.next();
+				if (user.getUserId().compareTo(new BigInteger(userId)) == 0) {
+					return new BigInteger(userId);
+				}
 
-		}
+			}
 		}
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidUserId);
 	}
 
 	public BigInteger validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)
 			throws UserDefinedException {
-		if(appointmentId.matches("^[0-9]+"))
-		{
-		Appointment appointment = null;
-		Iterator<Appointment> appointmentListIterator = listOfAppointment.iterator();
-		while (appointmentListIterator.hasNext()) {
-			appointment = appointmentListIterator.next();
-			if ((appointment.getAppointmentId().compareTo(new BigInteger(appointmentId))==0) && (appointment.getAppointmentstatus()==0)) {
-				return new BigInteger(appointmentId);
+		if (appointmentId.matches("^[0-9]+")) {
+			Appointment appointment = null;
+			Iterator<Appointment> appointmentListIterator = listOfAppointment.iterator();
+			while (appointmentListIterator.hasNext()) {
+				appointment = appointmentListIterator.next();
+				if ((appointment.getAppointmentId().compareTo(new BigInteger(appointmentId)) == 0)
+						&& (appointment.getAppointmentstatus() == 0)) {
+					return new BigInteger(appointmentId);
+				}
 			}
-		}
 		}
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidAppointmentId);
 	}
 
-	public Appointment addAppointment(Appointment appointment) {
+	public Appointment addAppointment(Appointment appointment, BigInteger centerId, BigInteger testId,
+			BigInteger userId, LocalDateTime dateTime) {
+		appointment.setCenter(userDao.findCenter(centerId));
+		appointment.setTest(userDao.findTest(testId));
+		appointment.setUser(userDao.findUser(userId));
+		appointment.setDateTime(dateTime);
+		appointment.setAppointmentstatus(0);
 		return userDao.addAppointment(appointment);
 	}
 
 	@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
-		// TODO Auto-generated method stub
 		return userDao.getListOfTests(centerId);
 	}
 
 	@Override
-	public List getAppointmentList(BigInteger userId) {
+	public List<Appointment> getAppointmentList(BigInteger userId) {
 		return userDao.getAppointmentList(userId);
 	}
 
@@ -245,10 +247,10 @@ public class UserServiceImpl implements UserService {
 	public boolean approveAppointment(BigInteger appointmentId) {
 		return userDao.approveAppointment(appointmentId);
 	}
-	
+
 	@Override
-	public List<Appointment> getListOfAppointments(){
-		return userDao.getListOfAppointments();
+	public List<Appointment> getCenterAppointmentList(BigInteger centerId) {
+		return userDao.getCenterAppointmentList(centerId);
 	}
 
 }
