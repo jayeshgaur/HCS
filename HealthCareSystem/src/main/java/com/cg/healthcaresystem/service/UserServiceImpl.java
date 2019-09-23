@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
 	private UserDao userDao = new UserDaoImpl();
 
-	public DiagnosticCenter addCenter(DiagnosticCenter center) throws UserDefinedException {
+	public DiagnosticCenter addCenter(DiagnosticCenter center){
 		return userDao.addCenter(center);
 	}
 

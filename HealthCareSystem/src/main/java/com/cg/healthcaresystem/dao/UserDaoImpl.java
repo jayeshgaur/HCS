@@ -5,13 +5,11 @@ import com.cg.healthcaresystem.dto.DiagnosticCenter;
 import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
 import com.cg.healthcaresystem.exception.UserDefinedException;
-import com.cg.healthcaresystem.exception.UserErrorMessage;
 import com.cg.healthcaresystem.util.EntityManagerUtil;
 
 import java.math.BigInteger;
 import java.util.*;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -27,7 +25,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public DiagnosticCenter addCenter(DiagnosticCenter center) throws UserDefinedException {
+	public DiagnosticCenter addCenter(DiagnosticCenter center){
 
 		entityTransaction.begin();
 		EntityManagerUtil.getEntityManager().persist(center);
@@ -39,7 +37,7 @@ public class UserDaoImpl implements UserDao {
 	public boolean removeCenter(BigInteger centerId) {
 		entityTransaction.begin();
 		DiagnosticCenter center = EntityManagerUtil.getEntityManager().find(DiagnosticCenter.class, centerId);
-		EntityManagerUtil.getEntityManager().remove(center);
+		center.setDeleted(true);
 		entityTransaction.commit();
 		return true;
 	}
@@ -58,7 +56,7 @@ public class UserDaoImpl implements UserDao {
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws UserDefinedException {
 		entityTransaction.begin();
 		Test test = EntityManagerUtil.getEntityManager().find(Test.class, removeTestId);
-		EntityManagerUtil.getEntityManager().remove(test);
+		test.setDeleted(true);
 		entityTransaction.commit();
 		return true;
 	}
@@ -81,7 +79,8 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<DiagnosticCenter> getCenterList() {
-		Query query = EntityManagerUtil.getEntityManager().createQuery("FROM DiagnosticCenter");
+		Query query = EntityManagerUtil.getEntityManager().createQuery("FROM DiagnosticCenter WHERE isDeleted = :false");
+		query.setParameter("false", false);
 		@SuppressWarnings("unchecked")
 		List<DiagnosticCenter> centerList =  query.getResultList();
 		return centerList;
@@ -97,7 +96,8 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
-		Query query = EntityManagerUtil.getEntityManager().createQuery("FROM Test WHERE center_id_fk = :centerId");
+		Query query = EntityManagerUtil.getEntityManager().createQuery("FROM Test WHERE center_id_fk = :centerId AND isDeleted = :false");
+		query.setParameter("false", false);
 		query.setParameter("centerId", centerId);
 		@SuppressWarnings("unchecked")
 		List<Test> listOfTests = query.getResultList();

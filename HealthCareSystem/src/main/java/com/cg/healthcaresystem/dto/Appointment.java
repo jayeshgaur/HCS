@@ -21,6 +21,17 @@ public class Appointment {
 	@Column(name="appointment_id")
 	private BigInteger appointmentId;
 	
+	public Appointment(BigInteger appointmentId, DiagnosticCenter center, Test test, User user, int appointmentStatus,
+			LocalDateTime dateTime) {
+		super();
+		this.appointmentId = appointmentId;
+		this.center = center;
+		this.test = test;
+		this.user = user;
+		this.appointmentStatus = appointmentStatus;
+		this.dateTime = dateTime;
+	}
+
 	@ManyToOne
 	@JoinColumn(name="center_id_fk")
 	private DiagnosticCenter center;  	
@@ -42,6 +53,8 @@ public class Appointment {
 	public Appointment() {
 
 	}
+	
+	
 
 	public DiagnosticCenter getCenter() {
 		return center;

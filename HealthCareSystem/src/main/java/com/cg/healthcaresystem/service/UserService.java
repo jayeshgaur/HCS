@@ -13,7 +13,7 @@ import com.cg.healthcaresystem.dto.User;
 import com.cg.healthcaresystem.exception.UserDefinedException;
 
 public interface UserService {
-	public DiagnosticCenter addCenter(DiagnosticCenter center) throws UserDefinedException;
+	public DiagnosticCenter addCenter(DiagnosticCenter center);
 
 	public boolean removeCenter(BigInteger centerId);
 

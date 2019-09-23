@@ -14,4 +14,8 @@ center_id_fk bigint(20),FOREIGN KEY(center_id_fk) REFERENCES hcs_center(center_i
  FOREIGN KEY(center_id_fk) REFERENCES hcs_center(center_id),test_id_fk bigint,
  FOREIGN KEY(test_id_fk) REFERENCES hcs_test(test_id),user_id_fk bigint ,
  FOREIGN KEY(user_id_fk) REFERENCES hcs_user(user_id),appointment_status int(2),
- appointment_date_time timestamp);healthcaresystem
+ appointment_date_time timestamp);
+
+ alter table hcs_test add column is_deleted boolean;
+ 
+ alter table hcs_center add column is_deleted boolean;

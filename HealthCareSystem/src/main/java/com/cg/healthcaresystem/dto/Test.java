@@ -21,6 +21,9 @@ public class Test {
 	@Column(name="test_name")
 	private String testName;
 	
+	@Column(name="is_deleted")
+	private boolean isDeleted;
+	
 	public Test()
 	{
 		
@@ -32,6 +35,14 @@ public class Test {
 		super();
 		this.setTestName(testName);
 		
+	}
+	
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 	

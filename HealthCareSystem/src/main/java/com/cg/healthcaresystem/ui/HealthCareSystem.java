@@ -73,11 +73,18 @@ public class HealthCareSystem {
 						System.out.println("Enter the address of the center:");
 						String centerAddress = scanner.nextLine();
 						System.out.println("Enter the contact number of the center:");
-						String centerContactNo = scanner.nextLine();
-						try {
+						BigInteger centerContact;
+						
 							// validate contact number and add
-							BigInteger centerContact = new BigInteger(userService.validateContactNo(centerContactNo));
-
+							
+							while(true) {
+								try {
+								centerContact = new BigInteger(userService.validateContactNo(scanner.nextLine()));
+								break;
+								}catch(UserDefinedException userDefinedException) {
+									System.out.println(userDefinedException.getMessage());
+								}
+							}
 							// create center object to add to centerlist
 							diagnosticCenter = new DiagnosticCenter(centerName, centerAddress, centerContact);
 
@@ -87,9 +94,7 @@ public class HealthCareSystem {
 							} else {
 								System.out.println("Could not add center. Try again!");
 							}
-						} catch (UserDefinedException e) {
-							System.out.println(e.getMessage());
-						}
+						
 						break;
 
 					case 2: // Remove Center

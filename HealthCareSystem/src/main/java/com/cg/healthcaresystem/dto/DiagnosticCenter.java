@@ -37,6 +37,9 @@ public class DiagnosticCenter {
 	
 	@OneToMany(mappedBy = "center")
 	List<Appointment> userAppointmentList = new ArrayList<Appointment>();
+	
+	@Column(name="is_deleted")
+	private boolean isDeleted;
 
 	public DiagnosticCenter() {
 	}
@@ -46,6 +49,14 @@ public class DiagnosticCenter {
 		this.centerName = centerName;
 		this.centerContactNo = centerContactNo;
 		this.centerAddress = centerAddress;
+	}
+	
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 	public BigInteger getCenterId() {
