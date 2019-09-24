@@ -11,6 +11,7 @@ import com.cg.healthcaresystem.dto.DiagnosticCenter;
 import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
 import com.cg.healthcaresystem.exception.UserDefinedException;
+import com.cg.healthcaresystem.exception.ValidationException;
 
 public interface UserService {
 	public DiagnosticCenter addCenter(DiagnosticCenter center);
@@ -29,7 +30,7 @@ public interface UserService {
 
 	//public boolean setCenterList(List<DiagnosticCenter> centerList);
 	
-	public String validateContactNo(String userContactNo) throws UserDefinedException;
+	public String validateContactNo(String userContactNo) throws ValidationException;
 	
 	public BigInteger validateCenterId(String centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
 	
@@ -39,15 +40,15 @@ public interface UserService {
 	
 	public boolean approveAppointment(BigInteger appointmentId);
 
-	public String validateName(String nextLine) throws UserDefinedException;
+	public String validateName(String nextLine) throws ValidationException;
 	
-	public String validatePassword(String userPassword) throws UserDefinedException;
+	public String validatePassword(String userPassword) throws  ValidationException;
 	
-	public String validateEmail(String userEmail) throws UserDefinedException;
+	public String validateEmail(String userEmail) throws ValidationException;
 	
-	public Integer validateAge(Integer age) throws UserDefinedException;
+	public Integer validateAge(Integer age) throws ValidationException;
 	
-	public String validateGender(String gender) throws UserDefinedException;
+	public String validateGender(String gender) throws ValidationException;
 	
 	public BigInteger validateUserId(String userId) throws UserDefinedException;
 

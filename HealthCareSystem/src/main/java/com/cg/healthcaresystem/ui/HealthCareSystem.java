@@ -11,6 +11,7 @@ import com.cg.healthcaresystem.dto.DiagnosticCenter;
 import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
 import com.cg.healthcaresystem.exception.UserDefinedException;
+import com.cg.healthcaresystem.exception.ValidationException;
 import com.cg.healthcaresystem.service.UserService;
 import com.cg.healthcaresystem.service.UserServiceImpl;
 
@@ -81,7 +82,7 @@ public class HealthCareSystem {
 								try {
 								centerContact = new BigInteger(userService.validateContactNo(scanner.nextLine()));
 								break;
-								}catch(UserDefinedException userDefinedException) {
+								}catch(ValidationException userDefinedException) {
 									System.out.println(userDefinedException.getMessage());
 								}
 							}
@@ -359,6 +360,7 @@ public class HealthCareSystem {
 						scanner.nextLine();
 
 						try {
+							
 							String userName = userService.validateName(scanner.nextLine());
 
 							System.out.println("Enter your password");
@@ -387,9 +389,19 @@ public class HealthCareSystem {
 							}
 							/* add user to userList */
 							System.out.println("Your userID is: " + userService.register(user));
-						} catch (UserDefinedException e) {
+						
+						}
+						catch(ValidationException  e)
+						{
 							System.out.println(e.getMessage());
 						}
+						
+						//catch(ValidatePasswordException ex)
+						//{
+						//	System.out.println(ex.getMessage());
+						//}
+						
+						
 						break;
 
 					case 2: // Make Appointment
@@ -470,6 +482,7 @@ public class HealthCareSystem {
 							} catch (UserDefinedException e) {
 								System.out.println(e.getMessage());
 							}
+							
 
 						}
 						break;

@@ -16,6 +16,7 @@ import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
 import com.cg.healthcaresystem.exception.UserDefinedException;
 import com.cg.healthcaresystem.exception.UserErrorMessage;
+import com.cg.healthcaresystem.exception.ValidationException;
 import com.cg.healthcaresystem.util.EntityManagerUtil;
 
 public class UserServiceImpl implements UserService {
@@ -64,49 +65,49 @@ public class UserServiceImpl implements UserService {
 	 * appointment.setApproved(1); } } return status; }
 	 */
 
-	public String validatePassword(String userPassword) throws UserDefinedException {
+	public String validatePassword(String userPassword) throws ValidationException  {
 		if (userPassword.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})")) {
 			return userPassword;
 		}
-		throw new UserDefinedException(UserErrorMessage.userErrorSecret);
+		throw new ValidationException (UserErrorMessage.userErrorSecret);
 	}
 
-	public String validateName(String userName) throws UserDefinedException {
+	public String validateName(String userName) throws ValidationException{
 
 		if (userName.matches("^[A-Z].*")) {
 			return userName;
 		}
-		throw new UserDefinedException(UserErrorMessage.userErrorUserName);
+		throw new ValidationException(UserErrorMessage.userErrorUserName);
 	}
 
-	public String validateContactNo(String userContactNo) throws UserDefinedException {
+	public String validateContactNo(String userContactNo) throws ValidationException {
 		if (userContactNo.matches("^[0-9]+")) {
 			if (userContactNo.length() != 10) {
-				throw new UserDefinedException(UserErrorMessage.userErrorContactNoLength);
+				throw new ValidationException(UserErrorMessage.userErrorContactNoLength);
 			} else {
 				return userContactNo;
 			}
 		}
-		throw new UserDefinedException(UserErrorMessage.userErrorStringContactNo);
+		throw new ValidationException(UserErrorMessage.userErrorStringContactNo);
 	}
 
-	public String validateEmail(String userEmail) throws UserDefinedException {
+	public String validateEmail(String userEmail) throws ValidationException {
 		if (userEmail.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
 			return userEmail;
 		}
-		throw new UserDefinedException(UserErrorMessage.userErrorEmailId);
+		throw new ValidationException(UserErrorMessage.userErrorEmailId);
 	}
 
-	public Integer validateAge(Integer age) throws UserDefinedException {
+	public Integer validateAge(Integer age) throws ValidationException {
 		if (age <= 0 && age > 110) {
-			throw new UserDefinedException(UserErrorMessage.userErrorUserAge);
+			throw new ValidationException(UserErrorMessage.userErrorUserAge);
 		}
 		return age;
 	}
 
-	public String validateGender(String gender) throws UserDefinedException {
+	public String validateGender(String gender) throws ValidationException {
 		if (!(gender.equals("M") || gender.equals("F") || gender.equals("O"))) {
-			throw new UserDefinedException(UserErrorMessage.userErrorUserGender);
+			throw new ValidationException(UserErrorMessage.userErrorUserGender);
 		}
 		return gender;
 
