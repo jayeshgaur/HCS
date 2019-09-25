@@ -6,7 +6,6 @@ import javax.persistence.Persistence;
 
 public class EntityManagerUtil {
 	private static EntityManagerFactory entityManagerFactory;
-
 	
 	public static void initialize() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("healthcaresystem");
@@ -18,8 +17,4 @@ public class EntityManagerUtil {
 		}
 		return entityManagerFactory.createEntityManager();
 	}
-
-	
-	
-
 }
