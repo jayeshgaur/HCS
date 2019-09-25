@@ -503,7 +503,6 @@ public class HealthCareSystem {
 								List<Appointment> userAppointmentList = userService.getAppointmentList(userId);
 
 								if (null != userAppointmentList) {
-									int i = 0;
 									Iterator<Appointment> iterator = userAppointmentList.iterator();
 									System.out.println("appointment_id" + " " + "center_name" + " "
 											+ "test_name" + " " + "appointment_status" + " "

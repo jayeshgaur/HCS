@@ -18,16 +18,16 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 public class UserDaoImpl implements UserDao {
-	
+
 	private EntityManager entityManager = EntityManagerUtil.getEntityManager();
 	private EntityTransaction entityTransaction = entityManager.getTransaction();
-	
+
 	static {
 		EntityManagerUtil.initialize();
 	}
 
 	@Override
-	public DiagnosticCenter addCenter(DiagnosticCenter center){
+	public DiagnosticCenter addCenter(DiagnosticCenter center) {
 		entityTransaction.begin();
 		entityManager.persist(center);
 		entityTransaction.commit();
@@ -83,7 +83,7 @@ public class UserDaoImpl implements UserDao {
 		Query query = entityManager.createQuery("FROM DiagnosticCenter WHERE isDeleted = :false");
 		query.setParameter("false", false);
 		@SuppressWarnings("unchecked")
-		List<DiagnosticCenter> centerList =  query.getResultList();
+		List<DiagnosticCenter> centerList = query.getResultList();
 		return centerList;
 	}
 
@@ -124,12 +124,10 @@ public class UserDaoImpl implements UserDao {
 		return true;
 	}
 
-
-
 	@Override
 	public DiagnosticCenter findCenter(BigInteger centerId) {
 		DiagnosticCenter center = entityManager.find(DiagnosticCenter.class, centerId);
-				return center;
+		return center;
 	}
 
 	@Override
@@ -141,15 +139,15 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public Test findTest(BigInteger testId) {
 		Test test = entityManager.find(Test.class, testId);
-				return test;
+		return test;
 	}
 
 	@Override
 	public List<Appointment> getCenterAppointmentList(BigInteger centerId) {
 		DiagnosticCenter center = entityManager.find(DiagnosticCenter.class, centerId);
 		Query query = entityManager.createQuery("FROM Appointment WHERE center = :ID AND appointmentStatus = :status");
-		query.setParameter("ID",center);
-		query.setParameter("status",0);
+		query.setParameter("ID", center);
+		query.setParameter("status", 0);
 		@SuppressWarnings("unchecked")
 		List<Appointment> appointmentList = query.getResultList();
 		return appointmentList;

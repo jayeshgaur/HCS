@@ -13,6 +13,9 @@ public class EntityManagerUtil {
 	}
 
 	public static EntityManager getEntityManager() {
+		if(null==entityManagerFactory) {
+			entityManagerFactory = Persistence.createEntityManagerFactory("healthcaresystem");
+		}
 		return entityManagerFactory.createEntityManager();
 	}
 

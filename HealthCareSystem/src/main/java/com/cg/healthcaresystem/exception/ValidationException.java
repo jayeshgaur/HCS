@@ -1,15 +1,18 @@
 package com.cg.healthcaresystem.exception;
 
 public class ValidationException extends Exception {
-	
-	public ValidationException()
-	{
-		
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public ValidationException() {
+
 	}
-	 public ValidationException(String string)
-	 {
-		 super(string);
-	 }
-	 
+
+	public ValidationException(String string) {
+		super(string);
+	}
 
 }
