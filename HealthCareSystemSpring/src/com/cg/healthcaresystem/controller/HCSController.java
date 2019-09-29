@@ -43,7 +43,7 @@ public class HCSController {
 			}
 			else {
 				model.put("errormessage", "Invalid credentials");
-				return "Home";
+				return "Login";
 			}
 		}
 	}

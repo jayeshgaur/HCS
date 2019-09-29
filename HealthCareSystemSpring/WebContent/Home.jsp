@@ -81,7 +81,6 @@ $(document).ready(function(){
   });
 })
 </script>
-Please Login to proceed
 
 </body>
 </html>
