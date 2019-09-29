@@ -8,18 +8,18 @@
 </head>
 <body>
 Please Login to proceed
-<form action="Home" method="POST">
+<form action="login" method="POST">
 		<table>
 			<tr>
 				<td>Enter your Email-Id: </td>
 				<td>
-					<input type="text" name="UserEmailId" />
+					<input type="text" name="email" />
 				</td>
 			</tr>
 			<tr>
 				<td>Enter your Password: </td>
 				<td>
-					<input type="password" name="Password" />
+					<input type="password" name="password" />
 				</td>
 			</tr>
 			<tr>
