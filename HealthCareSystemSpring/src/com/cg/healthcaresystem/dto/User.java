@@ -12,6 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="hcs_user")
@@ -21,12 +29,20 @@ public class User {
 	@Column(name="user_id")
 	private BigInteger userId;
 	
+	@NotBlank(message = "Password cannot be empty!")
+	@Size(min = 8, message = "Passwould length should be greated than 8 characters")
+	@Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})", message = "Password must have an uppercase, a lower case, a number and a special character")
 	@Column(name="user_password")
 	private String userPassword;
 	
+	@NotBlank(message = "Name cannot be empty")
+	@Pattern(regexp = "^[A-Z].*", message = "Name must start with a capital letter")
 	@Column(name="user_name")
 	private String userName;
 	
+	@NotNull(message = "Phone number cannot be empty")
+	@Min(value = 1000000000)
+	@Digits(integer = 10, message = "Phone number cannot be more than 10 characters", fraction = 0)
 	@Column(name="user_contact_no")
 	private BigInteger contactNo;
 	
@@ -34,14 +50,20 @@ public class User {
 	@Column(name="user_role")
 	private String userRole;
 	
+	@NotEmpty(message = "Email cannot be empty")
+	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Enter a valid email id! Example: abc@gmail.com")
 	@Column(name="user_email")
 	private String userEmail;
 	
+	@NotNull(message = "Age cannot be empty")
+	@Min(value = 15)
 	@Column(name="user_age")
 	private Integer age;
 	
+	@NotBlank
 	@Column(name="user_gender")
 	private String gender;
+	
 	
 	@OneToMany(mappedBy = "user")
 	List<Appointment> userAppointmentList = new ArrayList<Appointment>();

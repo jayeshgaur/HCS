@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -52,13 +51,21 @@ public class HCSController {
 	}
 
 	@RequestMapping(value = "/registerPage", method = RequestMethod.GET)
-	public String register() {
+	public String registerPage(@ModelAttribute("customer") User user) {
 		return "Registration";
 	}
-	
+
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public String register(@ModelAttribute("customer") User user, BindingResult bindingResult) {
-		return "Registration";
+	public String register(@Valid@ModelAttribute("customer") User user, BindingResult bindingResult,
+			Map<String, Object> model) {
+		if(bindingResult.hasErrors()) {
+			return "Registration";
+		}
+		else {
+			BigInteger userId = userService.register(user);
+			model.put("userId", userId);
+			return "Login";
+		}
 	}
 
 	@RequestMapping(value = "/addCenterPage", method = RequestMethod.GET)

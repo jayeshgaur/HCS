@@ -9,8 +9,7 @@
 </head>
 <body>
 	<table border="1">
-		<tag:form action="registration" method="POST"
-			modelAttribute="customer">
+		<tag:form action="registration" method="POST" modelAttribute="customer">
 			<tr>
 				<td>Password</td>
 				<td><tag:input path="userPassword" /></td>
@@ -43,8 +42,11 @@
 			</tr>
 			<tr>
 				<td>Gender</td>
-				<td><tag:radiobutton path="gender" value="Male" /></td>
-				<td><tag:radiobutton path="gender" value="Female" /></td>
+				<td><tag:radiobutton path="gender" value="Male" />Male
+				<tag:radiobutton path="gender" value="Female" />Female
+				<tag:radiobutton path="gender" value="Other" />Other</td>
+				<td><span><tag:errors path="gender">
+						</tag:errors></span></td>
 			</tr>
 
 			<tr>

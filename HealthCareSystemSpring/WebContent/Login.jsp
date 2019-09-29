@@ -28,7 +28,7 @@
 			</tr>
 			<tr>
 				<td>
-					<a href="registrationPage">Registration</a>
+					<a href="registerPage">Registration</a>
 				</td>
 			</tr>
 		</table>
