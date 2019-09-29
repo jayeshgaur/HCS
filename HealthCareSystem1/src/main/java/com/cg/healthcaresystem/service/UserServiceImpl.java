@@ -17,7 +17,6 @@ import com.cg.healthcaresystem.dto.User;
 import com.cg.healthcaresystem.exception.UserDefinedException;
 import com.cg.healthcaresystem.exception.UserErrorMessage;
 import com.cg.healthcaresystem.exception.ValidationException;
-import com.cg.healthcaresystem.util.EntityManagerUtil;
 
 public class UserServiceImpl implements UserService {
 
