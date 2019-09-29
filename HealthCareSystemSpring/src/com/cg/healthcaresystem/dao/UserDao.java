@@ -39,6 +39,8 @@ public interface UserDao {
 	public Test findTest(BigInteger testId);
 
 	public List<Appointment> getCenterAppointmentList(BigInteger centerId);
+	
+	public BigInteger getUserLogin(String email, String password);
 
 	//public boolean setCenterList(List<DiagnosticCenter> centerList);
 }

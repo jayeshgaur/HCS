@@ -4,7 +4,9 @@ import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -128,6 +130,20 @@ public class UserDaoImpl implements UserDao {
 		typedQuery.setParameter("status", 0);
 		List<Appointment> appointmentList = typedQuery.getResultList();
 		return appointmentList;
+	}
+	
+	@Override
+	public BigInteger getUserLogin(String email, String password) {
+		Query query = entityManager.createQuery("FROM User WHERE user_email = :EMAIL AND user_password = :PASSWORD");
+		query.setParameter("EMAIL", email);
+		query.setParameter("PASSWORD", password);
+		User user;
+		try {
+		user = (User) query.getSingleResult();
+		}catch(NoResultException noResultException) {
+			return null;
+		}
+		return user.getUserId();		
 	}
 
 }

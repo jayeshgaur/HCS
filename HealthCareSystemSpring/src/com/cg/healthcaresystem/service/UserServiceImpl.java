@@ -61,6 +61,11 @@ public class UserServiceImpl implements UserService {
 	public List<User> getUserList() {
 		return userDao.getUserList();
 	}
+	
+	public BigInteger userLogin(String email, String password) {
+		BigInteger userId = userDao.getUserLogin(email, password);
+		return userId;
+	}
 
 	/*
 	 * public boolean approveAppointment(String appointmentId, List<Appointment>
