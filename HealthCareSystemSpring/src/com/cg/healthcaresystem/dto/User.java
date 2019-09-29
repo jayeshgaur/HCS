@@ -41,7 +41,7 @@ public class User {
 	private String userName;
 	
 	@NotNull(message = "Phone number cannot be empty")
-	@Min(value = 1000000000)
+	@Min(value = 1000000000, message = "Should not be less than 10 digits")
 	@Digits(integer = 10, message = "Phone number cannot be more than 10 characters", fraction = 0)
 	@Column(name="user_contact_no")
 	private BigInteger contactNo;

@@ -41,7 +41,7 @@ public class HCSController {
 		} else {
 			BigInteger userId = userService.userLogin(email, password);
 			if (null != userId) {
-
+				model.put("userId", userId);
 				return "UserHome";
 			} else {
 				model.put("errormessage", "Invalid credentials");
@@ -64,7 +64,7 @@ public class HCSController {
 		else {
 			BigInteger userId = userService.register(user);
 			model.put("userId", userId);
-			return "Login";
+			return "UserHome";
 		}
 	}
 
