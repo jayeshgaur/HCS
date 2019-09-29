@@ -1,6 +1,9 @@
 package com.cg.healthcaresystem.controller;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
 import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.exception.UserDefinedException;
@@ -22,10 +27,18 @@ public class HCSController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value="loginPage", method=RequestMethod.GET)
-	public String loginpage() {
-		return "Login";
-	}
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String loginpage(@RequestParam(name = "email") String email,
+			@RequestParam(name = "password") String password, Map<String, Object> model) {
+		if(email.equals("admin@hcs.com") && password.equals("hcsadmin")) {
+			return "AdminHome";
+		}
+			else {
+				model.put("errormessage", "Invalid credentials");
+				return "Login";
+			}
+		}
+	
 	
 	
 	@RequestMapping(value="registerPage", method = RequestMethod.POST)
@@ -49,41 +62,69 @@ public class HCSController {
 		else
 		{
 			userService.addCenter(center);
-			return "AdminHome";
+			return "redirect:/showAllCenter";
 		}
 	}
-	
-	@RequestMapping(value="/addTestPage", method=RequestMethod.GET)
-	public String addTestRequest(@ModelAttribute("mytest") Test test)
+	@RequestMapping(value="/showAllCenter",method=RequestMethod.GET)
+	public ModelAndView getAllData()
 	{
+		List<DiagnosticCenter> myList=userService.getCenterList();
+		return new ModelAndView("showCenterList","data",myList);
+	}
+	@RequestMapping(value="/addTestPage",method=RequestMethod.GET)
+	public String addTestRequest(@ModelAttribute("mycenter")DiagnosticCenter center,Map<String,Object> model)
+	{
+		List<DiagnosticCenter> centerList=userService.getCenterList();
+		List<String> centerName=new ArrayList<String>();
+		for(int i=0;i<centerList.size();i++)
+		{
+			centerName.add(centerList.get(i).getCenterName());
+		}
+		model.put("centerName",centerName);
+		return "chooseCenter";
+	}
+	
+	/*@RequestMapping(value="/addTestPage", method=RequestMethod.GET)
+	public String addTestRequest(@ModelAttribute("test") Test test,Map<String,Object> model)
+	{ 
+		List<DiagnosticCenter> centerList=userService.getCenterList();
+		List<String> centerName=new ArrayList<String>();
+		for(int i=0;i<centerList.size();i++)
+		{
+			centerName.add(centerList.get(i).getCenterName());
+		}
+		model.put("centerName",centerName);
 		return "addTest";
 	}
 	@RequestMapping(value="/addTestSubmit",method=RequestMethod.POST)
-	public String addTest(@Valid@ModelAttribute("mytest") Test test,@RequestParam("centerId") BigInteger centerId,
-			BindingResult result) throws UserDefinedException
+	public String addTest(@Valid@ModelAttribute("test") Test test,@RequestParam("centerId") BigInteger centerId,
+			BindingResult result,Map<String,Object> model) throws UserDefinedException
 	{
 		if(result.hasErrors())
 		{
-			return "addCenter";
+			return "addTest";
 		}
 		else
 		{
 			userService.addTest(centerId, test);
-			return "adminHome";
+			//model.put("centerList",userService.getListOfTests(centerId));
+			
+			return "AdminHome";
 		}
 	}
+*/
 	
-	@RequestMapping(value="/deleteCenterPage",method=RequestMethod.GET)
+	@RequestMapping(value="/removeCenterPage",method=RequestMethod.GET)
 	public String deleteCenterRequest()
 	{
 		return "deleteCenter";
 	}
 	
 	@RequestMapping(value="/deleteCenterSubmit",method=RequestMethod.POST)
-	public String deleteCenter(@RequestParam("centerid") BigInteger centerId)
+	public String deleteCenter(@RequestParam("centerId") BigInteger centerId)
 	{
 		userService.removeCenter(centerId);
-		return "adminHome";
+		return "redirect:/showAllCenter";
 	}
 
 	
