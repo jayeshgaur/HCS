@@ -7,32 +7,6 @@
 <title>Health Care System</title>
 </head>
 <body>
-Please Login to proceed
-<form action="login" method="POST">
-		<table>
-			<tr>
-				<td>Enter your Email-Id: </td>
-				<td>
-					<input type="text" name="email" />
-				</td>
-			</tr>
-			<tr>
-				<td>Enter your Password: </td>
-				<td>
-					<input type="password" name="password" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="submit" value="Log In">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<a href="registrationPage">Registration</a>
-				</td>
-			</tr>
-		</table>
-	</form>form>
+
 </body>
 </html>
