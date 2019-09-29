@@ -18,7 +18,7 @@ import com.cg.healthcaresystem.service.UserService;
 
 @Controller
 public class HCSController {
-	//
+	
 	@Autowired
 	private UserService userService;
 	
