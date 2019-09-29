@@ -33,5 +33,7 @@
 			</tr>
 		</table>
 	</form>
+	<span> ${errormessage} </span>
+
 </body>
 </html>
