@@ -34,12 +34,12 @@ public class HCSController {
 	}
 	
 	@RequestMapping(value="/addCenterPage", method=RequestMethod.GET)
-	public String addCenterRequest(@ModelAttribute("mycenter") DiagnosticCenter center)
+	public String addCenterRequest(@ModelAttribute("Center") DiagnosticCenter center)
 	{
 		return "addCenter";
 	}
 	@RequestMapping(value="/addCenterSubmit",method=RequestMethod.POST)
-	public String addCenter(@Valid@ModelAttribute("mycenter") DiagnosticCenter center,
+	public String addCenter(@Valid@ModelAttribute("Center") DiagnosticCenter center,
 			BindingResult result)
 	{
 		if(result.hasErrors())
@@ -49,7 +49,7 @@ public class HCSController {
 		else
 		{
 			userService.addCenter(center);
-			return "adminHome";
+			return "AdminHome";
 		}
 	}
 	
