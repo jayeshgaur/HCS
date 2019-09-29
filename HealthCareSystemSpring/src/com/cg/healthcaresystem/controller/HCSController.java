@@ -1,3 +1,4 @@
+
 package com.cg.healthcaresystem.controller;
 
 import java.math.BigInteger;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
 import com.cg.healthcaresystem.dto.Test;
+import com.cg.healthcaresystem.dto.User;
 import com.cg.healthcaresystem.exception.UserDefinedException;
 import com.cg.healthcaresystem.service.UserService;
 
@@ -27,25 +29,44 @@ public class HCSController {
 	@Autowired
 	private UserService userService;
 	
+	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
+	public String loginpage() {
+		return "Login";
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginpage(@RequestParam(name = "email") String email,
-			@RequestParam(name = "password") String password, Map<String, Object> model) {
-		if(email.equals("admin@hcs.com") && password.equals("hcsadmin")) {
+	public String login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password,
+			Map<String, Object> model) {
+		if (email.equals("admin@hcs.com") && password.equals("hcsadmin")) {
 			return "AdminHome";
-		}
-			else {
+		} else {
+			BigInteger userId = userService.userLogin(email, password);
+			if (null != userId) {
+				model.put("userId", userId);
+				return "UserHome";
+			} else {
 				model.put("errormessage", "Invalid credentials");
 				return "Login";
 			}
 		}
-	
-	
-	
-	@RequestMapping(value="registerPage", method = RequestMethod.POST)
-	public String register() {
-		return "AA";
 	}
-	
+	@RequestMapping(value = "/registerPage", method = RequestMethod.GET)
+	public String registerPage(@ModelAttribute("customer") User user) {
+		return "Registration";
+	}
+
+	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	public String register(@Valid@ModelAttribute("customer") User user, BindingResult bindingResult,
+			Map<String, Object> model) {
+		if(bindingResult.hasErrors()) {
+			return "Registration";
+		}
+		else {
+			BigInteger userId = userService.register(user);
+			model.put("userId", userId);
+			return "UserHome";
+		}
+	}
 	@RequestMapping(value="/addCenterPage", method=RequestMethod.GET)
 	public String addCenterRequest(@ModelAttribute("Center") DiagnosticCenter center)
 	{

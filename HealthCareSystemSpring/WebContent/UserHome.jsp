@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="tag" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 <title>Health Care System</title>
 </head>
 <body>
-<h2></h2>
+<h2>Welcome, user Id: ${userId }</h2>
 <table>
 	<tr>
 		<td>Pick your Operation.</td>

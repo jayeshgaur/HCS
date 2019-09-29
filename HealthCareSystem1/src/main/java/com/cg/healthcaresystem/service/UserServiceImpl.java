@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 
+
 import com.cg.healthcaresystem.dao.UserDao;
 import com.cg.healthcaresystem.dao.UserDaoImpl;
 import com.cg.healthcaresystem.dto.Appointment;
@@ -17,7 +18,6 @@ import com.cg.healthcaresystem.dto.User;
 import com.cg.healthcaresystem.exception.UserDefinedException;
 import com.cg.healthcaresystem.exception.UserErrorMessage;
 import com.cg.healthcaresystem.exception.ValidationException;
-import com.cg.healthcaresystem.util.EntityManagerUtil;
 
 public class UserServiceImpl implements UserService {
 
