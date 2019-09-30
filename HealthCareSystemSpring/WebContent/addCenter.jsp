@@ -34,5 +34,7 @@
 			</tr>
 		</table>
 	</fo:form>
+<span> ${error }</span>
+<span> ${message }</span>
 </body>
 </html>

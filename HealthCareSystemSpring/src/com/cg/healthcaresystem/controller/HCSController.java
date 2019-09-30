@@ -78,12 +78,14 @@ public class HCSController {
 	{
 		if(result.hasErrors())
 		{
+			model.put("error", "Please try again..");
 			return "addCenter";
 		}
 		else
 		{
 			userService.addCenter(center);
-			return "redirect:/showAllCenter";
+			model.put("message", "Added successfully");
+			return "addCenter";
 		}
 	}
 	@RequestMapping(value="/showAllCenter",method=RequestMethod.GET)

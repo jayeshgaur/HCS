@@ -12,6 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "hcs_center")
@@ -22,12 +28,18 @@ public class DiagnosticCenter {
 	@Column(name = "center_id")
 	private BigInteger centerId;
 
+	@NotBlank(message="centerName cannot be empty")
+	@Size(max = 50, message = "Center name cannot be this big. Max 50 characters allowed.")
 	@Column(name = "center_name")
 	private String centerName;
 
+	@NotNull(message = "Phone number cannot be empty")
+	@Min(value = 1000000000, message = "Should not be less than 10 digits")
+	@Digits(integer = 10, message = "Phone number cannot be more than 10 characters", fraction = 0)
 	@Column(name = "center_contact_no")
 	private BigInteger centerContactNo;
 
+	@NotBlank(message="Center address cannot be blank")
 	@Column(name = "center_address")
 	private String centerAddress;
 	

@@ -29,6 +29,6 @@
 		</a:forEach>
 
 	</table>
-	<span>Center Added Successfully!!</span>
+	<span> ${message }</span>
 </body>
 </html>
