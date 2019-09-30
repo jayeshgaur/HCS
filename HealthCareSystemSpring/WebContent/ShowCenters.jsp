@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 	<table border="1">
 		<tr>
 			<td>Diagnostic Center Id</td>

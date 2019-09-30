@@ -2,6 +2,15 @@
     pageEncoding="ISO-8859-1"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+<%
+	if(null != session.getAttribute("userId")){
+		response.sendRedirect("UserHome.jsp");
+	}
+	else if(("admin".equals(session.getAttribute("userRole")))){
+		response.sendRedirect("AdminHome.jsp");
+	}
+
+%>
 <html>
 <head>
 <meta charset="ISO-8859-1">

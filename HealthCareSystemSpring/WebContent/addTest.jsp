@@ -3,11 +3,18 @@
 
 <!DOCTYPE html>
 <html>
+<%
+	if (!("admin".equals(session.getAttribute("userRole")))) {
+		response.sendRedirect("loginPage");
+	} else {
+		
+%>
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
+<a href="logout">Logout</a>
 CenterList: 
 <jsp:include page="ShowCenters.jsp"></jsp:include>
 
@@ -28,4 +35,5 @@ CenterList:
 		</table>
 	</form>
 </body>
+<% } %>
 </html>

@@ -2,11 +2,18 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<%
+	if (!("admin".equals(session.getAttribute("userRole")))) {
+		response.sendRedirect("loginPage");
+	} else {
+		
+%>
 <head>
 <meta charset="ISO-8859-1">
 <title>Delete Center</title>
 </head>
 <body>
+<a href="logout">Logout</a>
 
 	<jsp:include page="ShowCenters.jsp"></jsp:include>
 	<br> Enter the center Id to be deleted:
@@ -39,4 +46,5 @@
 	</form>
 	<span> ${deleteMessage }</span>
 </body>
+<% } %>
 </html>
