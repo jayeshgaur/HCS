@@ -16,13 +16,13 @@
 		<td><a href="addCenterPage">Add Center</a></td>
 	</tr>
 	<tr>
-		<td><a href="removeCenterPage">Add Center</a></td>
+		<td><a href="removeCenterPage">Remove Center</a></td>
 	</tr>
 	<tr>
 		<td><a href="addTestPage">Add Test</a></td>
 	</tr>
 	<tr>
-		<td><a href="removeTestPage">Add Center</a></td>
+		<td><a href="removeTestPage">Remove Test</a></td>
 	</tr>
 	<tr>
 		<td><a href="approveAppointmentPage">Approve Appointment</a></td>

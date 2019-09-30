@@ -96,12 +96,12 @@ public class HCSController {
 	public String addTestRequest(@ModelAttribute("mycenter")DiagnosticCenter center,Map<String,Object> model)
 	{
 		List<DiagnosticCenter> centerList=userService.getCenterList();
-		List<String> centerName=new ArrayList<String>();
+		/*List<String> centerName=new ArrayList<String>();
 		for(int i=0;i<centerList.size();i++)
 		{
 			centerName.add(centerList.get(i).getCenterName());
-		}
-		model.put("centerName",centerName);
+		}*/
+		model.put("centerName",centerList);
 		return "chooseCenter";
 	}
 	
