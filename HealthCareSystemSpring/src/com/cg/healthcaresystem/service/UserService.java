@@ -63,4 +63,6 @@ public interface UserService {
 	public List<Test> getListOfTests(BigInteger centerId);
 
 	public List<Appointment> getCenterAppointmentList(BigInteger centerId);
+
+	public DiagnosticCenter findCenter(BigInteger centerId);
 }

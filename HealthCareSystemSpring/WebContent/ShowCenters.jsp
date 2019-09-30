@@ -16,7 +16,7 @@
 			<td>Diagnostic Center Phone No</td>
 			<td>Diagnostic Center Address</td>
 		</tr>
-		<a:forEach var="center" items="${data}">
+		<a:forEach var="center" items="${centerList}">
 			<tr>
 				<td>${center.centerId}</td>
 				<td>${center.centerName}</td>

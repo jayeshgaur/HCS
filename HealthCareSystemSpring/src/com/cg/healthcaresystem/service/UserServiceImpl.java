@@ -266,4 +266,9 @@ public class UserServiceImpl implements UserService {
 		return userDao.getCenterAppointmentList(centerId);
 	}
 
+	@Override
+	public DiagnosticCenter findCenter(BigInteger centerId) {
+		return userDao.findCenter(centerId);
+	}
+
 }

@@ -16,7 +16,7 @@
 		<td><a href="addCenterPage">Add Center</a></td>
 	</tr>
 	<tr>
-		<td><a href="removeCenterPage">Remove Center</a></td>
+		<td><a href="deleteCenterPage">Remove Center</a></td>
 	</tr>
 	<tr>
 		<td><a href="addTestPage">Add Test</a></td>
