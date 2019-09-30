@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+<%
+	if(null != session.getAttribute("userId")){
+		response.sendRedirect("UserHome.jsp");
+	}
+	else if(("admin".equals(session.getAttribute("userRole")))){
+		response.sendRedirect("AdminHome.jsp");
+	}
+
+%>
 <head>
   <title>HealthCareSystem</title>
   <meta charset="utf-8">

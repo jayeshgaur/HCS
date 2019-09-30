@@ -2,6 +2,13 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<%
+	if (!("admin".equals(session.getAttribute("userRole")))) {
+		response.sendRedirect("loginPage");
+	} else {
+		
+%>
+
 <head>
 <meta charset="ISO-8859-1">
 <title>Admin Home</title>
@@ -29,5 +36,8 @@
 	</tr>
 	
 </table>
+<a href="logout">Logout</a>
 </body>
+
+<% } %>
 </html>

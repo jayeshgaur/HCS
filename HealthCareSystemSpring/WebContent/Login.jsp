@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
+<%
+	if(null != session.getAttribute("userId")){
+		response.sendRedirect("UserHome.jsp");
+	}
+	else if(("admin".equals(session.getAttribute("userRole")))){
+		response.sendRedirect("AdminHome.jsp");
+	}
+
+%>
 <html>
 <head>
 <meta charset="ISO-8859-1">

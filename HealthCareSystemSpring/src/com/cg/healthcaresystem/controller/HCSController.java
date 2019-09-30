@@ -2,10 +2,11 @@
 package com.cg.healthcaresystem.controller;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,10 @@ import com.cg.healthcaresystem.service.UserService;
 
 @Controller
 public class HCSController {
-
+	
+	@Autowired
+	HttpSession session;
+	
 	@Autowired
 	private UserService userService;
 
@@ -36,13 +40,15 @@ public class HCSController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password,
-			Map<String, Object> model) {
+			Map<String, Object> model, HttpSession session) {
 		if (email.equals("admin@hcs.com") && password.equals("hcsadmin")) {
+			session.setAttribute("userRole", "admin");
 			return "AdminHome";
 		} else {
 			BigInteger userId = userService.userLogin(email, password);
 			if (null != userId) {
-				model.put("userId", userId);
+				session.setAttribute("userId", userId);
+			//	model.put("userId", session.getAttribute("userId"));
 				return "UserHome";
 			} else {
 				model.put("errormessage", "Invalid credentials");
@@ -102,9 +108,9 @@ public class HCSController {
 	public String addTestRequest(@RequestParam("centerId") BigInteger centerId,
 			@RequestParam("testName") String testName, Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
-		if(null != userService.addTest(centerId, new Test(testName))) {
-			model.put("message","Added successfully");
-		}else {
+		if (null != userService.addTest(centerId, new Test(testName))) {
+			model.put("message", "Added successfully");
+		} else {
 			model.put("message", "Please try again..");
 		}
 		return "addTest";
@@ -175,6 +181,13 @@ public class HCSController {
 			throws UserDefinedException {
 		userService.approveAppointment(appointmentId);
 		return "adminHome";
+	}
+	
+	@RequestMapping(value="/logout", method =RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.setAttribute("userRole", null);
+		session.setAttribute("userId", null);
+		return "Login";
 	}
 
 }

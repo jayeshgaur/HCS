@@ -3,12 +3,19 @@
 <%@ taglib prefix="fo" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
+<%
+	if (!("admin".equals(session.getAttribute("userRole")))) {
+		response.sendRedirect("loginPage");
+	} else {
+		
+%>
 <head>
 <meta charset="ISO-8859-1">
 <title>Add Center</title>
 </head>
 
 <body>
+<a href="logout">Logout</a>
 	<h2>Add New Center:</h2>
 	<fo:form action="addCenterSubmit" method="POST" modelAttribute="Center">
 		<table>
@@ -37,4 +44,5 @@
 <span> ${error }</span>
 <span> ${message }</span>
 </body>
+<% } %>
 </html>
