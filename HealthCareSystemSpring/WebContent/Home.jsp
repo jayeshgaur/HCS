@@ -16,6 +16,30 @@
    background-color: black;
    color: white;
 }
+#myCarousel
+{
+	height:"50%";
+	width:"100%";
+
+}
+.container
+{
+position:relative;
+text-align:center;
+color:white;
+
+
+
+
+}
+.centered
+{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+
+}
 </style>
 </head>
 <body>
@@ -34,42 +58,13 @@
     </ul>
   </div>
 </nav>
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-      <div class="item active">
-        <img src="<c:url value="/resources/Images/head-pathology.jpg"/>" alt="Picture1" style="width:100%"/>
-      </div>
-
-      <div class="item">
-        <img src="chicago.jpg" alt="Chicago" style="width:100%;">
-      </div>
-  
-      <div class="item">
-        <img src="ny.jpg" alt="New york" style="width:100%;">
-      </div>
-    </div>
-
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
+ 
+        
+      
  <div class="container">
-  <h3>Right Aligned Navbar</h3>
-  <p>The .navbar-right class is used to right-align navigation bar buttons.</p>
+ 
+  <img src="<c:url value="/resources/Images/Digital-pathology.jpg"/>" alt="Picture1" style="width:100%" style="height:10%"/>
+  <div class="centered"> <h3>Book Test on the Go with HCS</h3></div>
 </div>
 <div class="footer">
 <p></p>
