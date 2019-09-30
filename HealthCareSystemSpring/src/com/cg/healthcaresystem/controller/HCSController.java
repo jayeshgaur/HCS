@@ -93,15 +93,21 @@ public class HCSController {
 	}
 
 	@RequestMapping(value = "/addTestPage", method = RequestMethod.GET)
-	public String addTestRequest(@ModelAttribute("mycenter") DiagnosticCenter center, Map<String, Object> model) {
-		List<DiagnosticCenter> centerList = userService.getCenterList();
-		/*
-		 * List<String> centerName=new ArrayList<String>(); for(int
-		 * i=0;i<centerList.size();i++) {
-		 * centerName.add(centerList.get(i).getCenterName()); }
-		 */
-		model.put("centerName", centerList);
-		return "chooseCenter";
+	public String addTestRequest(Map<String, Object> model) {
+		model.put("centerList", userService.getCenterList());
+		return "addTest";
+	}
+
+	@RequestMapping(value = "/addTestSubmit", method = RequestMethod.POST)
+	public String addTestRequest(@RequestParam("centerId") BigInteger centerId,
+			@RequestParam("testName") String testName, Map<String, Object> model) {
+		model.put("centerList", userService.getCenterList());
+		if(null != userService.addTest(centerId, new Test(testName))) {
+			model.put("message","Added successfully");
+		}else {
+			model.put("message", "Please try again..");
+		}
+		return "addTest";
 	}
 
 	/*
@@ -137,13 +143,11 @@ public class HCSController {
 		return "deleteCenter";
 	}
 
-	
-	@RequestMapping(value="/confirmDeleteCenter", method = RequestMethod.POST) 
+	@RequestMapping(value = "/confirmDeleteCenter", method = RequestMethod.POST)
 	public String confirmDeleteCenter(@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
-		if(userService.removeCenter(centerId)) {
+		if (userService.removeCenter(centerId)) {
 			model.put("deleteMessage", "Deleted successfully");
-		}
-		else {
+		} else {
 			model.put("deleteMessage", "Could not delete, please try again");
 		}
 		return "deleteCenter";

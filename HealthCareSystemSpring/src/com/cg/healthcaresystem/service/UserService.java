@@ -16,7 +16,7 @@ public interface UserService {
 
 	public boolean removeCenter(BigInteger centerId);
 
-	public Test addTest(BigInteger centerId, Test test) throws UserDefinedException;
+	public Test addTest(BigInteger centerId, Test test);
 
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws UserDefinedException;
 
