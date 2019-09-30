@@ -104,8 +104,14 @@ public class HCSController {
 	}
 
 	@RequestMapping(value = "/addTestSubmit", method = RequestMethod.POST)
-	public String addTestRequest(@RequestParam("centerId") BigInteger centerId,
+	public String addTestRequest(@RequestParam("centerId") String sCenterId,
 			@RequestParam("testName") String testName, Map<String, Object> model) {
+		BigInteger centerId = null;
+		try{
+			centerId = new BigInteger(sCenterId);
+		}catch(Exception exception) {
+			centerId = null;
+		}
 		model.put("centerList", userService.getCenterList());
 		if (null != userService.addTest(centerId, new Test(testName))) {
 			model.put("message", "Added successfully");
@@ -147,12 +153,12 @@ public class HCSController {
 		try {
 			centerId = new BigInteger(sCenterId);
 		} catch (Exception exception) {
-
+			centerId = null;
 		}
 		if (centerId != null) {
 			center = userService.findCenter(centerId);
 		}
-		if (null != center) {
+		if (!center.isDeleted()) {
 			model.put("center", center);
 		} else {
 			model.put("centerList", userService.getCenterList());
