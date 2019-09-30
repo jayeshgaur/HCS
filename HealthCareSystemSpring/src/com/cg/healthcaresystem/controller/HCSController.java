@@ -90,7 +90,7 @@ public class HCSController {
 	public ModelAndView getAllData()
 	{
 		List<DiagnosticCenter> myList=userService.getCenterList();
-		return new ModelAndView("showCenterList","data",myList);
+		return new ModelAndView("ShowCenters","data",myList);
 	}
 	@RequestMapping(value="/addTestPage",method=RequestMethod.GET)
 	public String addTestRequest(@ModelAttribute("mycenter")DiagnosticCenter center,Map<String,Object> model)
