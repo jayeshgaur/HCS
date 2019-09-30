@@ -74,7 +74,7 @@ public class HCSController {
 	}
 	@RequestMapping(value="/addCenterSubmit",method=RequestMethod.POST)
 	public String addCenter(@Valid@ModelAttribute("Center") DiagnosticCenter center,
-			BindingResult result)
+			BindingResult result, Map<String, Object> model)
 	{
 		if(result.hasErrors())
 		{

@@ -19,8 +19,8 @@
       <li class="active"><a href="#">Home</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="Register.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="Login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="registerPage"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="loginPage"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
   </div>
 </nav>
