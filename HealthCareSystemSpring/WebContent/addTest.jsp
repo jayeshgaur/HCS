@@ -27,7 +27,7 @@ CenterList:
 			</tr>
 			<tr>
 				<td>Test Name</td>
-				<td><input name="testName" /></td>
+				<td><input name="testName" required="required"/></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="Add Test"></input></td>

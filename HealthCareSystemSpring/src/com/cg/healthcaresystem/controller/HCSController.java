@@ -64,11 +64,12 @@ public class HCSController {
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("customer") User user, BindingResult bindingResult,
-			Map<String, Object> model) {
+			Map<String, Object> model, HttpSession session) {
 		if (bindingResult.hasErrors()) {
 			return "Registration";
 		} else {
 			BigInteger userId = userService.register(user);
+			session.setAttribute("userId", userId);
 			model.put("userId", userId);
 			return "UserHome";
 		}
@@ -99,67 +100,25 @@ public class HCSController {
 	}
 
 	@RequestMapping(value = "/addTestPage", method = RequestMethod.GET)
-	public String addTestRequest(Map<String, Object> model) {
+	public String addTestPage(Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
 		return "addTest";
 	}
 
 	@RequestMapping(value = "/addTestSubmit", method = RequestMethod.POST)
-	public String addTestRequest(@RequestParam("centerId") String sCenterId, @RequestParam("testName") String testName,
+	public String addTestSubmit(@RequestParam("centerId") String sCenterId, @RequestParam("testName") String testName,
 			Map<String, Object> model) {
-//		DiagnosticCenter center = null;
 		BigInteger centerId = null;
-//		try {
-//			centerId = new BigInteger(sCenterId);
-//		} catch (Exception exception) {
-//			centerId = null;
-//			model.put("message", "Invalid center Id");
-//		}
 		try {
 			centerId = userService.validateCenterId(sCenterId, userService.getCenterList());
 			if (null != userService.addTest(centerId, new Test(testName)))
 				model.put("message", "Added successfully");
-
 		} catch (ValidationException exception) {
-			model.put("message", "Invalid center Id");
+			model.put("message", exception.getMessage());
 		}
-//		if (null != centerId) {
-//			center = userService.findCenter(centerId);
-//			if (!center.isDeleted()) {
-//				if(!testName.equals("")) {
-//				} else {
-//					model.put("message", "Please try again..");
-//				}
-//			}
-//				else {
-//					model.put("message", "Test Name cannot be blank");
-//				}
-//		}else {
-//			model.put("message", "Invalid center Id");
-//		}
-//			}
 		model.put("centerList", userService.getCenterList());
 		return "addTest";
 	}
-
-	/*
-	 * @RequestMapping(value="/addTestPage", method=RequestMethod.GET) public String
-	 * addTestRequest(@ModelAttribute("test") Test test,Map<String,Object> model) {
-	 * List<DiagnosticCenter> centerList=userService.getCenterList(); List<String>
-	 * centerName=new ArrayList<String>(); for(int i=0;i<centerList.size();i++) {
-	 * centerName.add(centerList.get(i).getCenterName()); }
-	 * model.put("centerName",centerName); return "addTest"; }
-	 * 
-	 * @RequestMapping(value="/addTestSubmit",method=RequestMethod.POST) public
-	 * String addTest(@Valid@ModelAttribute("test") Test
-	 * test,@RequestParam("centerId") BigInteger centerId, BindingResult
-	 * result,Map<String,Object> model) throws UserDefinedException {
-	 * if(result.hasErrors()) { return "addTest"; } else {
-	 * userService.addTest(centerId, test);
-	 * //model.put("centerList",userService.getListOfTests(centerId));
-	 * 
-	 * return "AdminHome"; } }
-	 */
 
 	@RequestMapping(value = "/deleteCenterPage", method = RequestMethod.GET)
 	public String deleteCenterRequest(Map<String, Object> model) {
@@ -172,23 +131,12 @@ public class HCSController {
 		BigInteger centerId = null;
 		DiagnosticCenter center = null;
 		try {
-			centerId = new BigInteger(sCenterId);
-		} catch (Exception exception) {
-			centerId = null;
-		}
-		if (centerId != null) {
+			centerId = userService.validateCenterId(sCenterId, userService.getCenterList());
 			center = userService.findCenter(centerId);
-		}
-		if (null != center) {
-			if (!center.isDeleted()) {
-				model.put("center", center);
-			} else {
-				model.put("centerList", userService.getCenterList());
-				model.put("deleteMessage", "Invalid Center Id");
-			}
-		} else {
+			model.put("center", center);
+		} catch (ValidationException exception) {
 			model.put("centerList", userService.getCenterList());
-			model.put("deleteMessage", "Invalid Center Id");
+			model.put("deleteMessage", exception.getMessage());
 		}
 		return "deleteCenter";
 
@@ -196,11 +144,13 @@ public class HCSController {
 
 	@RequestMapping(value = "/confirmDeleteCenter", method = RequestMethod.POST)
 	public String confirmDeleteCenter(@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
+
 		if (userService.removeCenter(centerId)) {
 			model.put("deleteMessage", "Deleted successfully");
 		} else {
 			model.put("deleteMessage", "Could not delete, please try again");
 		}
+		model.put("centerList", userService.getCenterList());
 		return "deleteCenter";
 	}
 
