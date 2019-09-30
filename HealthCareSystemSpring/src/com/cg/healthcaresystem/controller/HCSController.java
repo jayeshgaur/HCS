@@ -200,6 +200,7 @@ public class HCSController {
 	@RequestMapping(value="/ChooseCenterSubmit",method=RequestMethod.POST)
     public String chooseTestRequest(@RequestParam("centerId") BigInteger centerId,Map<String,Object> model,HttpSession session)
     {
+		
 		model.put("testList",userService.getListOfTests(centerId));
 	    session.setAttribute("centerId",centerId);
 		return "ChooseTest";
