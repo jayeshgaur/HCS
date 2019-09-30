@@ -104,23 +104,23 @@ public class HCSController {
 	}
 
 	@RequestMapping(value = "/addTestSubmit", method = RequestMethod.POST)
-	public String addTestRequest(@RequestParam("centerId") String sCenterId,
-			@RequestParam("testName") String testName, Map<String, Object> model) {
+	public String addTestRequest(@RequestParam("centerId") String sCenterId, @RequestParam("testName") String testName,
+			Map<String, Object> model) {
 		BigInteger centerId = null;
-		try{
+		try {
 			centerId = new BigInteger(sCenterId);
-		}catch(Exception exception) {
+		} catch (Exception exception) {
 			centerId = null;
 			model.put("message", "Please try again..");
 		}
-		
-		if(null!=centerId) {
-		model.put("centerList", userService.getCenterList());
-		if (null != userService.addTest(centerId, new Test(testName))) {
-			model.put("message", "Added successfully");
-		} else {
-			model.put("message", "Please try again..");
-		}
+
+		if (null != centerId) {
+			model.put("centerList", userService.getCenterList());
+			if (null != userService.addTest(centerId, new Test(testName))) {
+				model.put("message", "Added successfully");
+			} else {
+				model.put("message", "Please try again..");
+			}
 		}
 		return "addTest";
 	}
@@ -153,7 +153,7 @@ public class HCSController {
 	@RequestMapping(value = "/deleteCenterSubmit", method = RequestMethod.POST)
 	public String deleteCenter(@RequestParam("centerId") String sCenterId, Map<String, Object> model) {
 		BigInteger centerId = null;
-		DiagnosticCenter center=null;
+		DiagnosticCenter center = null;
 		try {
 			centerId = new BigInteger(sCenterId);
 		} catch (Exception exception) {
@@ -162,9 +162,14 @@ public class HCSController {
 		if (centerId != null) {
 			center = userService.findCenter(centerId);
 		}
-		if (!center.isDeleted()) {
-			model.put("center", center);
-		} else {
+		if (null != center) {
+			if (!center.isDeleted()) {
+				model.put("center", center);
+			}
+		 else {
+			model.put("centerList", userService.getCenterList());
+			model.put("deleteMessage", "Invalid Center Id");
+		}}else {
 			model.put("centerList", userService.getCenterList());
 			model.put("deleteMessage", "Invalid Center Id");
 		}
