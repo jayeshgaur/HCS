@@ -1,39 +1,55 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-
-<title>Insert title here</title>
-
-<title>Health Care System</title>
+  <title>HealthCareSystem</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
 <body>
-<form action="login" method="POST">
-		<table>
-			<tr>
-				<td>Enter your Email-Id: </td>
-				<td>
-					<input type="text" name="email" />
-				</td>
-			</tr>
-			<tr>
-				<td>Enter your Password: </td>
-				<td>
-					<input type="password" name="password" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="submit" value="Log In">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<a href="registerPage">Registration</a>
-				</td>
-			</tr>
-		</table>
-	</form>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">HealthCareSystem</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="Register.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="Login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+  
+<div class="container">
+  <h3>Right Aligned Navbar</h3>
+  <p>The .navbar-right class is used to right-align navigation bar buttons.</p>
+</div>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
