@@ -111,12 +111,16 @@ public class HCSController {
 			centerId = new BigInteger(sCenterId);
 		}catch(Exception exception) {
 			centerId = null;
+			model.put("message", "Please try again..");
 		}
+		
+		if(null!=centerId) {
 		model.put("centerList", userService.getCenterList());
 		if (null != userService.addTest(centerId, new Test(testName))) {
 			model.put("message", "Added successfully");
 		} else {
 			model.put("message", "Please try again..");
+		}
 		}
 		return "addTest";
 	}

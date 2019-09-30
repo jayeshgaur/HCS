@@ -34,6 +34,7 @@ CenterList:
 			</tr>
 		</table>
 	</form>
+		<span> ${message }</span>
 </body>
 <% } %>
 </html>
