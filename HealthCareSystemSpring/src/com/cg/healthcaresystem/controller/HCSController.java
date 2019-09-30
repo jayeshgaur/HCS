@@ -63,7 +63,7 @@ public class HCSController {
 	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public String register(@Valid @ModelAttribute("customer") User user, BindingResult bindingResult,
+	public String register(@Valid@ModelAttribute("customer") User user, BindingResult bindingResult,
 			Map<String, Object> model) {
 		if (bindingResult.hasErrors()) {
 			return "Registration";
@@ -189,5 +189,20 @@ public class HCSController {
 		session.setAttribute("userId", null);
 		return "Login";
 	}
+	@RequestMapping(value="/addAppointmentPage",method=RequestMethod.GET)
+	public String addAppointmentRequest(Map<String,Object> model)
+	{
+		
+		model.put("centerList", userService.getCenterList());
+		return "ChooseCenter";
+	}
+	
+	@RequestMapping(value="/ChooseCenterSubmit",method=RequestMethod.POST)
+    public String chooseTestRequest(@RequestParam("centerId") BigInteger centerId,Map<String,Object> model,HttpSession session)
+    {
+		model.put("testList",userService.getListOfTests(centerId));
+	    session.setAttribute("centerId",centerId);
+		return "ChooseTest";
+    }
 
 }

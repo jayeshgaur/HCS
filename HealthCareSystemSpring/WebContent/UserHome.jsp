@@ -30,7 +30,7 @@
 			<td>Pick your Operation.</td>
 		</tr>
 		<tr>
-			<td><a href="addAppointmrntPage">Add Appointment</a></td>
+			<td><a href="addAppointmentPage">Add Appointment</a></td>
 		</tr>
 		<tr>
 			<td><a href="viewAppointmentPage">View Appointment</a></td>
