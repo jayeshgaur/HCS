@@ -47,11 +47,13 @@
           </property>
       </bean>
       
+      
 	<!-- This bean will handle all transaction within an application -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory"/>
 	</bean>
-	
+	<mvc:resources mapping="/resources/**" location="/resources/"/>
+	<mvc:resources mapping="/webjars/**" location="/webjars/"/>
 	<!-- This is required to handle transactions via Annotations like @Transactional -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
     
