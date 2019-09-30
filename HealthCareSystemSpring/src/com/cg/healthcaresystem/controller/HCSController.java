@@ -22,6 +22,7 @@ import com.cg.healthcaresystem.dto.DiagnosticCenter;
 import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
 import com.cg.healthcaresystem.exception.UserDefinedException;
+import com.cg.healthcaresystem.exception.ValidationException;
 import com.cg.healthcaresystem.service.UserService;
 
 @Controller
@@ -106,32 +107,37 @@ public class HCSController {
 	@RequestMapping(value = "/addTestSubmit", method = RequestMethod.POST)
 	public String addTestRequest(@RequestParam("centerId") String sCenterId, @RequestParam("testName") String testName,
 			Map<String, Object> model) {
-		DiagnosticCenter center = null;
+//		DiagnosticCenter center = null;
 		BigInteger centerId = null;
+//		try {
+//			centerId = new BigInteger(sCenterId);
+//		} catch (Exception exception) {
+//			centerId = null;
+//			model.put("message", "Invalid center Id");
+//		}
 		try {
-			centerId = new BigInteger(sCenterId);
-		} catch (Exception exception) {
-			centerId = null;
-			model.put("message", "Invalid center Id");
-		}
+			centerId = userService.validateCenterId(sCenterId, userService.getCenterList());
+			if (null != userService.addTest(centerId, new Test(testName)))
+				model.put("message", "Added successfully");
 
-		if (null != centerId) {
-			center = userService.findCenter(centerId);
-			if (!center.isDeleted()) {
-				if(!testName.equals("")) {
-				if (null != userService.addTest(centerId, new Test(testName))) {
-					model.put("message", "Added successfully");
-				} else {
-					model.put("message", "Please try again..");
-				}
-			}
-				else {
-					model.put("message", "Test Name cannot be blank");
-				}
-		}else {
+		} catch (ValidationException exception) {
 			model.put("message", "Invalid center Id");
 		}
-			}
+//		if (null != centerId) {
+//			center = userService.findCenter(centerId);
+//			if (!center.isDeleted()) {
+//				if(!testName.equals("")) {
+//				} else {
+//					model.put("message", "Please try again..");
+//				}
+//			}
+//				else {
+//					model.put("message", "Test Name cannot be blank");
+//				}
+//		}else {
+//			model.put("message", "Invalid center Id");
+//		}
+//			}
 		model.put("centerList", userService.getCenterList());
 		return "addTest";
 	}

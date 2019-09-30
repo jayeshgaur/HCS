@@ -32,7 +32,7 @@ public interface UserService {
 	
 	public String validateContactNo(String userContactNo) throws ValidationException;
 	
-	public BigInteger validateCenterId(String centerId, List<DiagnosticCenter> centerList)throws UserDefinedException;
+	public BigInteger validateCenterId(String centerId, List<DiagnosticCenter> centerList)throws ValidationException;
 	
 	public BigInteger validateTestId(String testId,List<Test> testList)throws UserDefinedException;
 	
