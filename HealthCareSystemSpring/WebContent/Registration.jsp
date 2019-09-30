@@ -31,6 +31,7 @@
 </nav>
 	<table align="center">
 		<tag:form action="registration" method="POST" modelAttribute="customer">
+	
 			
 			<tr>
 				<td>Name</td>
@@ -71,11 +72,11 @@
 				<td><span><tag:errors path="gender">
 						</tag:errors></span></td>
 			</tr>
-
+			<tr><td><input type="submit" value="Register" /></td></tr>
 			
 		</tag:form>
 	</table>
-	<center><input type="submit" value="Register" /><center>
+	<center><center>
 	<div class="footer">
 <p></p>
  <p align="center">Mumbai &nbsp;&nbsp;&nbsp;&nbsp;Pune&nbsp;&nbsp;&nbsp;&nbsp;Hyderabad&nbsp;&nbsp;&nbsp;&nbsp;Delhi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="glyphicon glyphicon-phone"> 1800-123-4567 </span></p>
