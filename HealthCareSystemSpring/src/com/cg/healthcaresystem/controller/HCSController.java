@@ -106,22 +106,33 @@ public class HCSController {
 	@RequestMapping(value = "/addTestSubmit", method = RequestMethod.POST)
 	public String addTestRequest(@RequestParam("centerId") String sCenterId, @RequestParam("testName") String testName,
 			Map<String, Object> model) {
+		DiagnosticCenter center = null;
 		BigInteger centerId = null;
 		try {
 			centerId = new BigInteger(sCenterId);
 		} catch (Exception exception) {
 			centerId = null;
-			model.put("message", "Please try again..");
+			model.put("message", "Invalid center Id");
 		}
 
 		if (null != centerId) {
-			model.put("centerList", userService.getCenterList());
-			if (null != userService.addTest(centerId, new Test(testName))) {
-				model.put("message", "Added successfully");
-			} else {
-				model.put("message", "Please try again..");
+			center = userService.findCenter(centerId);
+			if (!center.isDeleted()) {
+				if(!testName.equals("")) {
+				if (null != userService.addTest(centerId, new Test(testName))) {
+					model.put("message", "Added successfully");
+				} else {
+					model.put("message", "Please try again..");
+				}
 			}
+				else {
+					model.put("message", "Test Name cannot be blank");
+				}
+		}else {
+			model.put("message", "Invalid center Id");
 		}
+			}
+		model.put("centerList", userService.getCenterList());
 		return "addTest";
 	}
 
@@ -165,11 +176,11 @@ public class HCSController {
 		if (null != center) {
 			if (!center.isDeleted()) {
 				model.put("center", center);
+			} else {
+				model.put("centerList", userService.getCenterList());
+				model.put("deleteMessage", "Invalid Center Id");
 			}
-		 else {
-			model.put("centerList", userService.getCenterList());
-			model.put("deleteMessage", "Invalid Center Id");
-		}}else {
+		} else {
 			model.put("centerList", userService.getCenterList());
 			model.put("deleteMessage", "Invalid Center Id");
 		}
