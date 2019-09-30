@@ -26,10 +26,10 @@ import com.cg.healthcaresystem.service.UserService;
 
 @Controller
 public class HCSController {
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -48,7 +48,6 @@ public class HCSController {
 			BigInteger userId = userService.userLogin(email, password);
 			if (null != userId) {
 				session.setAttribute("userId", userId);
-			//	model.put("userId", session.getAttribute("userId"));
 				return "UserHome";
 			} else {
 				model.put("errormessage", "Invalid credentials");
@@ -137,16 +136,30 @@ public class HCSController {
 
 	@RequestMapping(value = "/deleteCenterPage", method = RequestMethod.GET)
 	public String deleteCenterRequest(Map<String, Object> model) {
-		List<DiagnosticCenter> centerList = userService.getCenterList();
-		model.put("centerList", centerList);
+		model.put("centerList", userService.getCenterList());
 		return "deleteCenter";
 	}
 
 	@RequestMapping(value = "/deleteCenterSubmit", method = RequestMethod.POST)
-	public String deleteCenter(@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
-		DiagnosticCenter center = userService.findCenter(centerId);
-		model.put("center", center);
+	public String deleteCenter(@RequestParam("centerId") String sCenterId, Map<String, Object> model) {
+		BigInteger centerId = null;
+		DiagnosticCenter center=null;
+		try {
+			centerId = new BigInteger(sCenterId);
+		} catch (Exception exception) {
+
+		}
+		if (centerId != null) {
+			center = userService.findCenter(centerId);
+		}
+		if (null != center) {
+			model.put("center", center);
+		} else {
+			model.put("centerList", userService.getCenterList());
+			model.put("deleteMessage", "Invalid Center Id");
+		}
 		return "deleteCenter";
+
 	}
 
 	@RequestMapping(value = "/confirmDeleteCenter", method = RequestMethod.POST)
@@ -160,13 +173,13 @@ public class HCSController {
 	}
 
 	@RequestMapping(value = "/removeTestPage", method = RequestMethod.GET)
-	public String deleteTestRequest(Map<String,Object> model) {
+	public String deleteTestRequest(Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
 		return "removeTest";
 	}
-	
-	@RequestMapping(value="/removeTestSelectCenter", method = RequestMethod.POST)
-	public String deleteTestSelectCenter(@RequestParam("centerId") BigInteger centerId ,Map<String, Object> model) {
+
+	@RequestMapping(value = "/removeTestSelectCenter", method = RequestMethod.POST)
+	public String deleteTestSelectCenter(@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
 		model.put("testList", userService.getListOfTests(centerId));
 		return "removeTest";
@@ -190,8 +203,8 @@ public class HCSController {
 		userService.approveAppointment(appointmentId);
 		return "adminHome";
 	}
-	
-	@RequestMapping(value="/logout", method =RequestMethod.GET)
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		session.setAttribute("userRole", null);
 		session.setAttribute("userId", null);
