@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 		return userDao.removeCenter(centerId);
 	}
 
-	public Test addTest(BigInteger centerId, Test test) throws UserDefinedException {
+	public Test addTest(BigInteger centerId, Test test){
 		return userDao.addTest(centerId, test);
 	}
 
