@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="a" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="a" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,7 @@
 			<td>Diagnostic Center Phone No</td>
 			<td>Diagnostic Center Address</td>
 		</tr>
-		<a:forEach var="center" items="${data}">
+		<a:forEach var="center" items="${centerList}">
 			<tr>
 				<td>${center.centerId}</td>
 				<td>${center.centerName}</td>
@@ -28,6 +29,6 @@
 		</a:forEach>
 
 	</table>
-	<span>Center Added Successfully!!</span>
+	<span> ${message }</span>
 </body>
 </html>
