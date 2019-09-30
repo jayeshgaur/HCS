@@ -159,9 +159,17 @@ public class HCSController {
 		return "deleteCenter";
 	}
 
-	@RequestMapping(value = "/deleteTestPage", method = RequestMethod.GET)
-	public String deleteTestRequest() {
-		return "deleteTest";
+	@RequestMapping(value = "/removeTestPage", method = RequestMethod.GET)
+	public String deleteTestRequest(Map<String,Object> model) {
+		model.put("centerList", userService.getCenterList());
+		return "removeTest";
+	}
+	
+	@RequestMapping(value="/removeTestSelectCenter", method = RequestMethod.POST)
+	public String deleteTestSelectCenter(@RequestParam("centerId") BigInteger centerId ,Map<String, Object> model) {
+		model.put("centerList", userService.getCenterList());
+		model.put("testList", userService.getListOfTests(centerId));
+		return "removeTest";
 	}
 
 	@RequestMapping(value = "/deleteTestSubmit", method = RequestMethod.POST)
