@@ -49,12 +49,13 @@ public class HCSController {
 			Map<String, Object> model) {
 		if (email.equals("admin@hcs.com") && password.equals("hcsadmin")) {
 			session.setAttribute("userRole", "admin");
-			return "AdminHome";
+			return "redirect:/AdminHome.jsp";
+			//	return "AdminHome";
 		} else {
 			BigInteger userId = userService.userLogin(email, password);
 			if (null != userId) {
 				session.setAttribute("userId", userId);
-				return "UserHome";
+				return "redirect:/UserHome";
 			} else {
 				model.put("errormessage", "Invalid credentials");
 				return "Login";
