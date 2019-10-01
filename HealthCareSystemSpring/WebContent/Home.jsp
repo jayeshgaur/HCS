@@ -51,6 +51,7 @@ transform:translate(-50%,-50%);
 
 }
 </style>
+
 </head>
 <body>
 
@@ -68,14 +69,17 @@ transform:translate(-50%,-50%);
     </ul>
   </div>
 </nav>
- 
-        
-      
  <div class="container">
  
-  <img src="<c:url value="/resources/Images/Digital-pathology.jpg"/>" alt="Picture1" style="width:100%" style="height:10%"/>
-  <div class="centered"> <h3>Book Test on the Go with HCS</h3></div>
+  <img src="<c:url value="/resources/Images/chooseTest1.jpg"/>" alt="Picture1" style="width:100%" style="height:10%"/>
+  <div class="center"> <h2>Book Test on the Go with HCS</h2></div>
+<p class="bg-secondary text-white"><h2>Book Test on the Go with HCS</h2></p>
 </div>
+
+<blockquote>
+      When it comes to health, choose a brand India trusts.
+    </blockquote>
+    
 <div class="footer">
 <p></p>
   <p align="center">Mumbai &nbsp;&nbsp;&nbsp;&nbsp;Pune&nbsp;&nbsp;&nbsp;&nbsp;Hyderabad&nbsp;&nbsp;&nbsp;&nbsp;Delhi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="glyphicon glyphicon-phone"> 1800-123-4567 </span></p>

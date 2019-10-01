@@ -3,6 +3,7 @@ package com.cg.healthcaresystem.controller;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -233,7 +234,6 @@ public class HCSController {
 
 	@RequestMapping(value = "/addAppointmentPage", method = RequestMethod.GET)
 	public String addAppointmentRequest(Map<String, Object> model) {
-
 		model.put("centerList", userService.getCenterList());
 		return "ChooseCenter";
 	}
@@ -260,9 +260,9 @@ public class HCSController {
 	public String addAppointment(@RequestParam("testId") BigInteger testId,@RequestParam("dateAndTime") String sDateTime,
 			@RequestParam("userid") BigInteger userId,	@RequestParam("centerId") BigInteger centerId,Map<String,Object>model)
 	{
-			//2017-08-03T10:15:30
-		
-		//System.out.println("Before parse: "+dateTime);
+
+	//	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy'T'HH:mm");
+	//	LocalDateTime dateTime1 = LocalDateTime.parse(dateTime, formatter);
 		Appointment app=new Appointment();
 		DiagnosticCenter center=userService.findCenter(centerId);
 		Test test=userService.findTest(testId);
@@ -288,7 +288,7 @@ public class HCSController {
 		{
 			model.put("message", exception.getMessage());
 			
-			return "Choose Test";
+			return "ChooseTest";
 		}
 		return "UserHome";
 	}
