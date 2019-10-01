@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -235,7 +234,6 @@ public class HCSController {
 
 	@RequestMapping(value = "/addAppointmentPage", method = RequestMethod.GET)
 	public String addAppointmentRequest(Map<String, Object> model) {
-
 		model.put("centerList", userService.getCenterList());
 		return "ChooseCenter";
 	}
@@ -262,7 +260,6 @@ public class HCSController {
 	public String addAppointment(@RequestParam("testId") BigInteger testId,@RequestParam("dateAndTime")String dateTime,
 			@RequestParam("userid") BigInteger userId,	@RequestParam("centerId") BigInteger centerId)
 	{
-		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy'T'HH:mm");
 		LocalDateTime dateTime1 = LocalDateTime.parse(dateTime, formatter);
 		Appointment app=new Appointment();
