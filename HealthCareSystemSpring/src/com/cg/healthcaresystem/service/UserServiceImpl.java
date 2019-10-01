@@ -236,13 +236,13 @@ public class UserServiceImpl implements UserService {
 		throw new UserDefinedException(UserErrorMessage.userErrorInvalidAppointmentId);
 	}
 
-	public Appointment addAppointment(Appointment appointment, BigInteger centerId, BigInteger testId,
-			BigInteger userId, LocalDateTime dateTime) {
-		appointment.setCenter(userDao.findCenter(centerId));
+	public Appointment addAppointment(Appointment appointment) {
+	/*	appointment.setCenter(userDao.findCenter(centerId));
 		appointment.setTest(userDao.findTest(testId));
 		appointment.setUser(userDao.findUser(userId));
 		appointment.setDateTime(dateTime);
 		appointment.setAppointmentstatus(0);
+		*/
 		return userDao.addAppointment(appointment);
 	}
 
@@ -269,6 +269,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public DiagnosticCenter findCenter(BigInteger centerId) {
 		return userDao.findCenter(centerId);
+	}
+
+	@Override
+	public Test findTest(BigInteger testId) {
+		// TODO Auto-generated method stub
+		return userDao.findTest(testId);
+	}
+
+	@Override
+	public User findUser(BigInteger userId) {
+		// TODO Auto-generated method stub
+		return userDao.findUser(userId);
 	}
 
 }

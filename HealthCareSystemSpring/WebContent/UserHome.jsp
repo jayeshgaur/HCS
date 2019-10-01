@@ -23,7 +23,6 @@
 		<%
 		out.print(session.getAttribute("userId"));
 	%>
-		${userId }
 	</h2>
 	<table>
 		<tr>

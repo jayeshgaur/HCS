@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ taglib prefix="tag" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <%
@@ -14,8 +15,9 @@
 </head>
 <body>
 <a href="logout">Logout</a>
-
+	<tag:if test="${centerList!=null }">
 	<jsp:include page="ShowCenters.jsp"></jsp:include>
+	</tag:if>
 	<br> Enter the center Id to be deleted:
 	<br>
 	<form action="deleteCenterSubmit" method="POST">
@@ -23,7 +25,7 @@
 			type="submit" value="delete center">
 	</form>
 
-
+	<tag:if test="${center != null }">
 	<hr>
 	Are you sure you want to delete the following center? Enter the center Id again to confirm!
 	<form action="confirmDeleteCenter" method="POST">
@@ -36,7 +38,7 @@
 			</tr>
 
 			<tr>
-				<td><input type="text" name="centerId" value="${center.centerId}"></td>
+				<td><input type="text" name="centerId" value="${center.centerId}" readonly></td>
 				<td>${center.centerName}</td>
 				<td>${center.centerContactNo}</td>
 				<td>${center.centerAddress}</td>
@@ -44,6 +46,7 @@
 		</table>
 		<input type="submit" value="Confirm Delete">
 	</form>
+	</tag:if>
 	<span> ${deleteMessage }</span>
 </body>
 <% } %>

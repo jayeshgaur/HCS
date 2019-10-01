@@ -1,9 +1,11 @@
 table
 {
 
-align:center;
-
+align-content: center;
+margin-left:auto; 
+    margin-right:auto;
 }
+
 
 
 th, td {

@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="hcs_appointment")
 public class Appointment {
@@ -45,6 +47,7 @@ public class Appointment {
 	@Column(name="appointment_status")
 	private int appointmentStatus;
 	
+	@DateTimeFormat(pattern="dd-MM-yyyy hh:mm:ss")
 	@Column(name="appointment_date_time")
 	private LocalDateTime dateTime;
 	
