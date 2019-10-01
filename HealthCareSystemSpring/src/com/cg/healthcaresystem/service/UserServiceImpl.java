@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
 //	}
 
 	public LocalDateTime validateDateTime(String dateString) throws UserDefinedException {
-		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
 		LocalDateTime userDateTime = null;
 		LocalDate userDate = null;

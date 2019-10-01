@@ -3,7 +3,6 @@ package com.cg.healthcaresystem.controller;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -259,23 +257,40 @@ public class HCSController {
 	
 	
 	@RequestMapping(value="/confirmAppointment",method=RequestMethod.POST)
-	public String addAppointment(@RequestParam("testId") BigInteger testId,@RequestParam("dateAndTime")String dateTime,
-			@RequestParam("userid") BigInteger userId,	@RequestParam("centerId") BigInteger centerId)
+	public String addAppointment(@RequestParam("testId") BigInteger testId,@RequestParam("dateAndTime") String sDateTime,
+			@RequestParam("userid") BigInteger userId,	@RequestParam("centerId") BigInteger centerId,Map<String,Object>model)
 	{
+			//2017-08-03T10:15:30
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy'T'HH:mm");
-		LocalDateTime dateTime1 = LocalDateTime.parse(dateTime, formatter);
+		//System.out.println("Before parse: "+dateTime);
 		Appointment app=new Appointment();
 		DiagnosticCenter center=userService.findCenter(centerId);
 		Test test=userService.findTest(testId);
 		User user=userService.findUser(userId);
-		app.setAppointmentstatus(1);
+		app.setAppointmentstatus(0);
 		app.setCenter(center);
-		app.setDateTime(dateTime1);
-		app.setTest(test);
-		app.setUser(user);
-		userService.addAppointment(app);
-		return "userHome";
+		//app.setDateTime(dateTime1);
+		// DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+		//LocalDateTime dateTime1 = LocalDateTime.parse(dateTime, format);
+		LocalDateTime dateTime =null;
+		System.out.println(sDateTime);
+		//System.out.println("generated LocalDateTime: " + dateTime1);
+		try
+		{
+			dateTime=userService.validateDateTime(sDateTime);
+			app.setDateTime(dateTime);
+			app.setTest(test);
+			app.setUser(user);
+			userService.addAppointment(app);
+			model.put("message", "Appointment booked successfully");
+		}
+		catch(UserDefinedException exception)
+		{
+			model.put("message", exception.getMessage());
+			
+			return "Choose Test";
+		}
+		return "UserHome";
 	}
 
 }
