@@ -3,7 +3,6 @@ package com.cg.healthcaresystem.controller;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -91,7 +90,7 @@ public class HCSController {
 		} else {
 			userService.addCenter(center);
 			model.put("message", "Added successfully");
-			return "addCenter";
+			return "AdminHome";
 		}
 	}
 
@@ -239,57 +238,58 @@ public class HCSController {
 	}
 
 	@RequestMapping(value = "/ChooseCenterSubmit", method = RequestMethod.POST)
-	public String chooseTestRequest(@RequestParam("centerId") String id, Map<String, Object> model,
+	public String chooseTestRequest(@RequestParam("centerId") String sCenterId, Map<String, Object> model,
 			HttpSession session) {
 		BigInteger centerId = null;
+		List<Test> testList;
 		try {
-			centerId = new BigInteger(id);
-		} catch (Exception exception) {
-
+			centerId = userService.validateCenterId(sCenterId, userService.getCenterList());
+			testList = userService.getListOfTests(centerId);
+			if(testList.size() > 0){
+			model.put("testList", testList);
+			session.setAttribute("centerId", centerId);}
+			else {
+				model.put("centerList", userService.getCenterList());
+				model.put("message", "Sorry, no tests present in that center.");
+				return "ChooseCenter";
+			}
+		} catch (ValidationException exception) {
+			model.put("centerList", userService.getCenterList());
+			model.put("message", exception.getMessage());
+			return "ChooseCenter";
 		}
-
-		model.put("testList", userService.getListOfTests(centerId));
-		// model.put("center",centerId);
-		session.setAttribute("centerId", centerId);
-
 		return "ChooseTest";
-    }
-	
-	
-	@RequestMapping(value="/confirmAppointment",method=RequestMethod.POST)
-	public String addAppointment(@RequestParam("testId") BigInteger testId,@RequestParam("dateAndTime") String sDateTime,
-			@RequestParam("userid") BigInteger userId,	@RequestParam("centerId") BigInteger centerId,Map<String,Object>model)
-	{
+	}
 
-	//	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy'T'HH:mm");
-	//	LocalDateTime dateTime1 = LocalDateTime.parse(dateTime, formatter);
-		Appointment app=new Appointment();
-		DiagnosticCenter center=userService.findCenter(centerId);
-		Test test=userService.findTest(testId);
-		User user=userService.findUser(userId);
-		app.setAppointmentstatus(0);
-		app.setCenter(center);
-		//app.setDateTime(dateTime1);
-		// DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-		//LocalDateTime dateTime1 = LocalDateTime.parse(dateTime, format);
-		LocalDateTime dateTime =null;
-		System.out.println(sDateTime);
-		//System.out.println("generated LocalDateTime: " + dateTime1);
-		try
-		{
-			dateTime=userService.validateDateTime(sDateTime);
+	@RequestMapping(value = "/confirmAppointment", method = RequestMethod.POST)
+	public String addAppointment(@RequestParam("testId") String sTestId,
+			@RequestParam("dateAndTime") String sDateTime, @RequestParam("userId") BigInteger userId,
+			@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
+		Appointment app = new Appointment();
+		DiagnosticCenter center = userService.findCenter(centerId);
+		LocalDateTime dateTime;
+		BigInteger testId;	
+		List<Test> testList = userService.getListOfTests((BigInteger) session.getAttribute("centerId"));
+		try {
+			testId = userService.validateTestId(sTestId,
+					testList);
+			dateTime = userService.validateDateTime(sDateTime);
+			Test test = userService.findTest(testId);
+			User user = userService.findUser(userId);
+			app.setAppointmentstatus(0);
+			app.setCenter(center);
+			System.out.println(sDateTime);
 			app.setDateTime(dateTime);
 			app.setTest(test);
 			app.setUser(user);
 			userService.addAppointment(app);
 			model.put("message", "Appointment booked successfully");
-		}
-		catch(UserDefinedException exception)
-		{
+		} catch (ValidationException exception) {
+			model.put("testList", testList);
 			model.put("message", exception.getMessage());
-			
 			return "ChooseTest";
 		}
+		session.setAttribute("centerId", null);
 		return "UserHome";
 	}
 

@@ -1,6 +1,7 @@
 package com.cg.healthcaresystem.service;
 
 import java.math.BigInteger;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -164,7 +165,7 @@ public class UserServiceImpl implements UserService {
 //		}
 //	}
 
-	public LocalDateTime validateDateTime(String dateString) throws UserDefinedException {
+	public LocalDateTime validateDateTime(String dateString) throws ValidationException {
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
 		LocalDateTime userDateTime = null;
@@ -172,18 +173,20 @@ public class UserServiceImpl implements UserService {
 		LocalTime userTime = null;
 		LocalTime closeTime = LocalTime.parse("20:00", timeFormat);
 		LocalTime openTime = LocalTime.parse("10:00", timeFormat);
-
+		try {
 		userDateTime = LocalDateTime.parse(dateString, dateFormat);
 		userDate = userDateTime.toLocalDate();
 		userTime = userDateTime.toLocalTime();
-
+		}catch(Exception exception) {
+			throw new ValidationException(UserErrorMessage.userErrorInvalidDateFormat);
+		}
 		LocalDate currentDate = LocalDate.now();
 		if (userDate.isBefore(currentDate)) {
-			throw new UserDefinedException(UserErrorMessage.userErrorPastDate);
+			throw new ValidationException(UserErrorMessage.userErrorPastDate);
 		} else if (userTime.isAfter(closeTime) || userTime.isBefore(openTime)) {
-			throw new UserDefinedException(UserErrorMessage.userErrorNonWorkingHours);
+			throw new ValidationException(UserErrorMessage.userErrorNonWorkingHours);
 		} else if (null == (userDateTime = LocalDateTime.parse(dateString, dateFormat))) {
-			throw new UserDefinedException(UserErrorMessage.userErrorInvalidDateFormat);
+			throw new ValidationException(UserErrorMessage.userErrorInvalidDateFormat);
 		}
 		return userDateTime;
 	}

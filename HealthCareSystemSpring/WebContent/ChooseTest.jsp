@@ -30,9 +30,10 @@
 <form action="confirmAppointment" method="POST">
 Select Test Id:<input type="text" name="testId"><br>
 Select Date and Time:<input type="datetime-local" name="dateAndTime" /><br>
-User Id:<input type="text" value="<% out.print(session.getAttribute("userId")); %>" name="userid" readonly/><br>
+User Id:<input type="text" value="<% out.print(session.getAttribute("userId")); %>" name="userId" readonly/><br>
 Center Id:<input type="text" value="<% out.print(session.getAttribute("centerId")); %>" name="centerId" readonly><br>
 <input type="submit" value="Confirm Appointment" />
 </form>
+<span> ${message } </span>
 </body>
 </html>

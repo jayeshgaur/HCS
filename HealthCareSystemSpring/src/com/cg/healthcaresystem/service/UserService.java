@@ -52,7 +52,7 @@ public interface UserService {
 	
 	public BigInteger validateUserId(String userId) throws UserDefinedException;
 
-	public LocalDateTime validateDateTime(String dateString) throws UserDefinedException;
+	public LocalDateTime validateDateTime(String dateString) throws ValidationException;
 
 //	public LocalTime validateTime(String next)throws UserDefinedException;
 
