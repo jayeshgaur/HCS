@@ -104,7 +104,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public boolean approveAppointment(BigInteger appointmentId) {
 		Appointment appointment = entityManager.find(Appointment.class, appointmentId);
-		appointment.setAppointmentstatus(1);
+		appointment.setAppointmentStatus(1);
 		return true;
 	}
 

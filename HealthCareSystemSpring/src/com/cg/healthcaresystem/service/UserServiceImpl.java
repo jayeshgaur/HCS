@@ -223,19 +223,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public BigInteger validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)
-			throws UserDefinedException {
+			throws ValidationException {
 		if (appointmentId.matches("^[0-9]+")) {
 			Appointment appointment = null;
 			Iterator<Appointment> appointmentListIterator = listOfAppointment.iterator();
 			while (appointmentListIterator.hasNext()) {
 				appointment = appointmentListIterator.next();
 				if ((appointment.getAppointmentId().compareTo(new BigInteger(appointmentId)) == 0)
-						&& (appointment.getAppointmentstatus() == 0)) {
+						&& (appointment.getAppointmentStatus() == 0)) {
 					return new BigInteger(appointmentId);
 				}
 			}
 		}
-		throw new UserDefinedException(UserErrorMessage.userErrorInvalidAppointmentId);
+		throw new ValidationException(UserErrorMessage.userErrorInvalidAppointmentId);
 	}
 
 	public Appointment addAppointment(Appointment appointment) {

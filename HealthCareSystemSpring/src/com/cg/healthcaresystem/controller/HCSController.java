@@ -35,10 +35,10 @@ public class HCSController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/*", method = RequestMethod.GET)
-	public String defaultMapper() {
-		return "Home";
-	}
+//	@RequestMapping(value = "/*", method = RequestMethod.GET)
+//	public String defaultMapper() {
+//		return "Home";
+//	}
 	
 	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
 	public String loginpage() {
@@ -167,8 +167,7 @@ public class HCSController {
 	}
 
 	@RequestMapping(value = "/removeTestSelectCenter", method = RequestMethod.POST)
-	public String deleteTestSelectCenter(@RequestParam("centerId") String sCenterId, Map<String, Object> model,
-			HttpSession session) {
+	public String deleteTestSelectCenter(@RequestParam("centerId") String sCenterId, Map<String, Object> model) {
 		BigInteger centerId = null;
 		try {
 			centerId = userService.validateCenterId(sCenterId, userService.getCenterList());
@@ -206,7 +205,7 @@ public class HCSController {
 
 	@RequestMapping(value = "/removeTestConfirmTest", method = RequestMethod.POST)
 	public String deleteTestConfirm(@RequestParam("testId") BigInteger testId,
-			@RequestParam("centerId") BigInteger centerId, Map<String, Object> model, HttpSession session) {
+			@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
 		if (userService.removeTest(centerId, testId)) {
 			session.setAttribute("testId", null);
 			session.setAttribute("centerId", null);
@@ -217,20 +216,8 @@ public class HCSController {
 		return "AdminHome";
 	}
 
-	@RequestMapping(value = "/approveAppointmentPage", method = RequestMethod.GET)
-	public String approveAppointmentRequest() {
-		return "approveAppointment";
-	}
-
-	@RequestMapping(value = "/approveAppointmentSubmit", method = RequestMethod.POST)
-	public String approveAppointment(@RequestParam("appointmentId") BigInteger appointmentId)
-			throws UserDefinedException {
-		userService.approveAppointment(appointmentId);
-		return "adminHome";
-	}
-
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session) {
+	public String logout() {
 		session.setAttribute("userRole", null);
 		session.setAttribute("userId", null);
 		return "Login";
@@ -243,8 +230,7 @@ public class HCSController {
 	}
 
 	@RequestMapping(value = "/ChooseCenterSubmit", method = RequestMethod.POST)
-	public String chooseTestRequest(@RequestParam("centerId") String sCenterId, Map<String, Object> model,
-			HttpSession session) {
+	public String chooseTestRequest(@RequestParam("centerId") String sCenterId, Map<String, Object> model) {
 		BigInteger centerId = null;
 		List<Test> testList;
 		try {
@@ -281,7 +267,7 @@ public class HCSController {
 			dateTime = userService.validateDateTime(sDateTime);
 			Test test = userService.findTest(testId);
 			User user = userService.findUser(userId);
-			app.setAppointmentstatus(0);
+			app.setAppointmentStatus(0);
 			app.setCenter(center);
 			System.out.println(sDateTime);
 			app.setDateTime(dateTime);
@@ -296,6 +282,62 @@ public class HCSController {
 		}
 		session.setAttribute("centerId", null);
 		return "UserHome";
+	}
+	
+	@RequestMapping(value = "/approveAppointmentPage", method = RequestMethod.GET)
+	public String approveAppointment(Map<String, Object> model) {
+		model.put("centerList", userService.getCenterList());
+		return "ApproveAppointment";
+	}
+	
+	@RequestMapping(value = "/approveAppointmentSelectCenter", method = RequestMethod.POST)
+	public String approveAppointmentSelectCenter(@RequestParam("centerId") String sCenterId, Map<String, Object> model) {
+		BigInteger centerId = null;
+		try {
+			centerId = userService.validateCenterId(sCenterId, userService.getCenterList());
+			List<Appointment> appointmentList = userService.getCenterAppointmentList(centerId);
+			if (appointmentList.size() > 0) {
+				session.setAttribute("centerId", centerId);
+				model.put("appointmentList", appointmentList);
+			} else {
+				model.put("errorMessage", "No Appointments to be approved");
+			}
+		} catch (ValidationException exception) {
+			model.put("centerList", userService.getCenterList());
+			model.put("errorMessage", exception.getMessage());
+		}
+		model.put("centerList", userService.getCenterList());
+		return "ApproveAppointment";
+	}
+
+	@RequestMapping(value = "/approveAppointmentSelectAppointment", method = RequestMethod.POST)
+	public String approveAppointment(@RequestParam("appointmentId") String sAppointmentId, Map<String, Object> model) {
+		BigInteger appointmentId = null;
+		List<Appointment> appointmentList = userService.getCenterAppointmentList((BigInteger) session.getAttribute("centerId"));
+		try {
+			appointmentId = userService.validateAppointmentId(sAppointmentId,
+					appointmentList);
+			session.setAttribute("appointmentId", appointmentId);
+			model.put("appointmentId", appointmentId);
+		} catch (ValidationException exception) {
+			model.put("appointmentErrorMessage", exception.getMessage());
+		}
+		model.put("appointmentList", appointmentList);
+		model.put("centerList", userService.getCenterList());
+		return "ApproveAppointment";
+	}
+
+	@RequestMapping(value = "/approveAppointmentConfirmAppointment", method = RequestMethod.POST)
+	public String approveAppointmentConfirm(@RequestParam("appointmentId") BigInteger appointmentId,
+			@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
+		if (userService.approveAppointment(appointmentId)) {
+			session.setAttribute("appointmentId", null);
+			session.setAttribute("centerId", null);
+			model.put("message", "Approved Successfully");
+		} else {
+			model.put("message", "Error. Please try after some time.");
+		}
+		return "AdminHome";
 	}
 
 }

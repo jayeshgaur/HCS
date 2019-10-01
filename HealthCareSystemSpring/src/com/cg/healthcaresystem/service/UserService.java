@@ -36,7 +36,7 @@ public interface UserService {
 	
 	public BigInteger validateTestId(String testId,List<Test> testList)throws ValidationException;
 	
-	public BigInteger validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)throws UserDefinedException;
+	public BigInteger validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)throws ValidationException;
 	
 	public boolean approveAppointment(BigInteger appointmentId);
 

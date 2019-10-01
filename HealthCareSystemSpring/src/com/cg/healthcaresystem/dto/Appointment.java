@@ -80,11 +80,11 @@ public class Appointment {
 		this.user = user;
 	}
 
-	public int getAppointmentstatus() {
+	public int getAppointmentStatus() {
 		return appointmentStatus;
 	}
 
-	public void setAppointmentstatus(int appointmentstatus) {
+	public void setAppointmentStatus(int appointmentstatus) {
 		this.appointmentStatus = appointmentstatus;
 	}
 
