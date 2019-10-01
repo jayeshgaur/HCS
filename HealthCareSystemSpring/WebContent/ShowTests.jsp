@@ -19,10 +19,9 @@
 		</tr>
 		<tag:forEach var="test" items="${testList}">
 			<tr>
-				<td>${test.centerId}</td>
-				<td>${test.centerName}</td>
-				<td>${test.centerContactNo}</td>
-				<td>${test.centerAddress}</td>
+				<td>${test.testId}</td>
+				<td>${test.testrName}</td>
+				
 
 
 			</tr>

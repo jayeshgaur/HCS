@@ -3,6 +3,7 @@ package com.cg.healthcaresystem.controller;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -215,30 +216,29 @@ public class HCSController {
 			
 		}
 		model.put("testList",userService.getListOfTests(centerId));
-		//model.put("center",centerId);
-	    session.setAttribute("centerId",centerId);
+		model.put("center",centerId);
+	   // session.setAttribute("centerId",centerId);
 		return "ChooseTest";
     }
 	
 	
 	@RequestMapping(value="/confirmAppointment",method=RequestMethod.POST)
-	public String addAppointment(@RequestParam("testId") BigInteger testId,@DateTimeFormat(pattern="dd-MM-yyyy hh:mm:ss")@RequestParam("dateAndTime") LocalDateTime dateTime,
+	public String addAppointment(@RequestParam("testId") BigInteger testId,@RequestParam("dateAndTime")String dateTime,
 			@RequestParam("userid") BigInteger userId,	@RequestParam("centerId") BigInteger centerId)
 	{
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy'T'HH:mm");
+		LocalDateTime dateTime1 = LocalDateTime.parse(dateTime, formatter);
 		Appointment app=new Appointment();
 		DiagnosticCenter center=userService.findCenter(centerId);
 		Test test=userService.findTest(testId);
 		User user=userService.findUser(userId);
 		app.setAppointmentstatus(1);
 		app.setCenter(center);
-		app.setDateTime(dateTime);
+		app.setDateTime(dateTime1);
 		app.setTest(test);
 		app.setUser(user);
 		userService.addAppointment(app);
-		
-		
-		
-		
 		return "userHome";
 	}
 
