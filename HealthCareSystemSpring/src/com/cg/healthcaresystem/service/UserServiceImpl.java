@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	public BigInteger validateCenterId(String centerId, List<DiagnosticCenter> centerList) throws UserDefinedException {
+	public BigInteger validateCenterId(String centerId, List<DiagnosticCenter> centerList) throws ValidationException {
 		if (centerId.matches("^[0-9]+")) {
 			for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
 				DiagnosticCenter diagnosticCenter = iterator.next();
@@ -134,7 +134,7 @@ public class UserServiceImpl implements UserService {
 
 			}
 		}
-		throw new UserDefinedException(UserErrorMessage.userErrorInvalidCenterId);
+		throw new ValidationException(UserErrorMessage.userErrorInvalidCenterId);
 	}
 
 	public BigInteger validateTestId(String testId, List<Test> testList) throws UserDefinedException {

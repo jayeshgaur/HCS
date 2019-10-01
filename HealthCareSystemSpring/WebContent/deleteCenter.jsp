@@ -17,17 +17,17 @@
 <a href="logout">Logout</a>
 	<tag:if test="${centerList!=null }">
 	<jsp:include page="ShowCenters.jsp"></jsp:include>
-	</tag:if>
+	
 	<br> Enter the center Id to be deleted:
 	<br>
 	<form action="deleteCenterSubmit" method="POST">
 		Center Id:<input type="text" name="centerId"><br> <input
 			type="submit" value="delete center">
 	</form>
-
+	</tag:if>
 	<tag:if test="${center != null }">
 	<hr>
-	Are you sure you want to delete the following center? Enter the center Id again to confirm!
+	Are you sure you want to delete the following center?
 	<form action="confirmDeleteCenter" method="POST">
 		<table border="1">
 			<tr>

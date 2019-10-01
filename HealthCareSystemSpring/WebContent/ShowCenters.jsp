@@ -30,6 +30,6 @@
 		</a:forEach>
 
 	</table>
-	<span> ${message }</span>
+
 </body>
 </html>
