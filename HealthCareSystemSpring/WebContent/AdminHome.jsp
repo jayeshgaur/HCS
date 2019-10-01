@@ -47,6 +47,7 @@
 	</tr>
 	
 </table>
+<span>${message }</span>
 <a href="logout">Logout</a>
 </body>
 

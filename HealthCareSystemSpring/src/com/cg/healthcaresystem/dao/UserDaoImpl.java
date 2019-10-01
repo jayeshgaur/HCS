@@ -15,7 +15,7 @@ import com.cg.healthcaresystem.dto.Appointment;
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
 import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
-import com.cg.healthcaresystem.exception.UserDefinedException;
+
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -32,6 +32,10 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public boolean removeCenter(BigInteger centerId) {
 		DiagnosticCenter center = entityManager.find(DiagnosticCenter.class, centerId);
+//		Query query = entityManager.createQuery("UPDATE Test SET isDeleted = :status WHERE centerId = :centerId");
+//		query.setParameter("status", true);
+//		query.setParameter("centerId", centerId);
+//		
 		center.setDeleted(true);
 		return true;
 	}
@@ -45,7 +49,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws UserDefinedException {
+	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId){
 		Test test = entityManager.find(Test.class, removeTestId);
 		test.setDeleted(true);
 		return true;
