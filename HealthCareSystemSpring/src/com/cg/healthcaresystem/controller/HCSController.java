@@ -35,6 +35,11 @@ public class HCSController {
 	@Autowired
 	private UserService userService;
 
+	@RequestMapping(value = "/*", method = RequestMethod.GET)
+	public String defaultMapper() {
+		return "Home";
+	}
+	
 	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
 	public String loginpage() {
 		return "Login";
@@ -42,7 +47,7 @@ public class HCSController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password,
-			Map<String, Object> model, HttpSession session) {
+			Map<String, Object> model) {
 		if (email.equals("admin@hcs.com") && password.equals("hcsadmin")) {
 			session.setAttribute("userRole", "admin");
 			return "AdminHome";
@@ -65,7 +70,7 @@ public class HCSController {
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("customer") User user, BindingResult bindingResult,
-			Map<String, Object> model, HttpSession session) {
+			Map<String, Object> model) {
 		if (bindingResult.hasErrors()) {
 			return "Registration";
 		} else {
