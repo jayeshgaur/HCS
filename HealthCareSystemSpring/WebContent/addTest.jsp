@@ -58,6 +58,8 @@ CenterList:
 		</table>
 	</form>
 		<span> ${message }</span>
+		
+		
 		<div class="footer">
 		<p></p>
 		<p align="center">

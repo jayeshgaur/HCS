@@ -29,7 +29,7 @@
     </ul>
   </div>
 </nav>
-	<table align="center">
+	<table>
 		<tag:form action="registration" method="POST" modelAttribute="customer">
 	
 

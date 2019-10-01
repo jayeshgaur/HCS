@@ -28,8 +28,9 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/healthcaresystem" />
 		<property name="username" value="root" />
+
 		<property name="password" value="sql" />
-	</bean>
+</bean>
 	
 	<!-- Spring way of entity manager factory configuration -->
 	

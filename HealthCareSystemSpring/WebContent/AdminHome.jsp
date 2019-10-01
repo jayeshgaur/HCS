@@ -31,6 +31,7 @@
 </head>
 <body>
 
+
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -49,13 +50,7 @@
 	<h2>Welcome Admin</h2>
 	<h3>Pick Your Operation</h3>
 
-	<table>
-		<tr>
-			<td>Pick your Operation.</td>
-		</tr>
-		<tr>
-			<td><a href="addCenterPage">Add Center</a></td>
-		</tr>
+	
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-4">
@@ -77,52 +72,62 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-4">
-							<div class="card">
-								<img class="card-img-top"
-									src="<c:url value="/resources/Images/chooseTest.jpg"/>"
-									alt="Card image cap">
-								<div class="card-body">
-									<h4 class="card-title">Test</h4>
-									<p class="card-text">Choose to Add or Remove test in a
-										particular Diagnostic Center</p>
-								</div>
-								<a href="addTestPage" class="btn btn-primary">Add Test</a> <a
-									href="removeTestPage" class="btn btn-primary">Remove Test</a>
-
-								<div class="card-footer">
-									<small class="text-muted">These changes will update all
-										the data. Confirm before continuing</small>
-								</div>
-							</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="card">
+						<img class="card-img-top"
+							src="<c:url value="/resources/Images/chooseTest.jpg"/>"
+							alt="Card image cap">
+						<div class="card-body">
+							<h4 class="card-title">Test</h4>
+							<p class="card-text">Choose to Add or Remove test in a
+								particular Diagnostic Center</p>
 						</div>
-						<div class="col-lg-4">
-							<div class="card">
-								<img class="card-img-top"
-									src="<c:url value="/resources/Images/ApproveAppointment.jpg"/>"
-									alt="Card image cap">
-								<div class="card-body">
-									<h4 class="card-title">Appointment</h4>
-									<p class="card-text">Approve Customer's Appointment</p>
-								</div>
-								<a href="approveAppointmentPage" class="btn btn-primary">Approve
-									Appointment</a>
-								<div class="card-footer">
-									<small class="text-muted">Check availabilty before
-										Approving</small>
-								</div>
-							</div>
+						<a href="addTestPage" class="btn btn-primary">Add Test</a> <a
+							href="removeTestPage" class="btn btn-primary">Remove Test</a>
+
+						<div class="card-footer">
+							<small class="text-muted">These changes will update all
+								the data. Confirm before continuing</small>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="card">
+						<img class="card-img-top"
+							src="<c:url value="/resources/Images/ApproveAppointment.jpg"/>"
+							alt="Card image cap">
+						<div class="card-body">
+							<h4 class="card-title">Appointment</h4>
+							<p class="card-text">Approve Customer's Appointment</p>
+						</div>
+						<a href="approveAppointmentPage" class="btn btn-primary">Approve
+							Appointment</a>
+						<div class="card-footer">
+							<small class="text-muted">Check availabilty before
+								Approving</small>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+	
+		
+
+	<table>
+		<tr>
+			<td>Pick your Operation.</td>
+		</tr>
+		<tr>
+			<td><a href="addCenterPage">Add Center</a></td>
+		</tr>
 		<tr>
 			<td><a href="deleteCenterPage">Remove Center</a></td>
 		</tr>
 		<tr>
 			<td><a href="addTestPage">Add Test</a></td>
 		</tr>
-
 		<tr>
 			<td><a href="removeTestPage">Remove Test</a></td>
 		</tr>
@@ -131,6 +136,8 @@
 		</tr>
 
 	</table>
+	<span>${message }</span>
+
 </body>
 
 <div class="footer">

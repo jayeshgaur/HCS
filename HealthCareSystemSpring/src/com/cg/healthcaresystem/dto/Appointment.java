@@ -47,7 +47,7 @@ public class Appointment {
 	@Column(name="appointment_status")
 	private int appointmentStatus;
 	
-	@DateTimeFormat(pattern="dd-MM-yyyy hh:mm:ss")
+	//@DateTimeFormat(pattern="MM/dd/yyyy hh:mm a")
 	@Column(name="appointment_date_time")
 	private LocalDateTime dateTime;
 	

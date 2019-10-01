@@ -18,7 +18,7 @@ public interface UserService {
 
 	public Test addTest(BigInteger centerId, Test test);
 
-	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws UserDefinedException;
+	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId);
 
 	public BigInteger register(User user);
 
@@ -34,7 +34,7 @@ public interface UserService {
 	
 	public BigInteger validateCenterId(String centerId, List<DiagnosticCenter> centerList)throws ValidationException;
 	
-	public BigInteger validateTestId(String testId,List<Test> testList)throws UserDefinedException;
+	public BigInteger validateTestId(String testId,List<Test> testList)throws ValidationException;
 	
 	public BigInteger validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)throws UserDefinedException;
 	
