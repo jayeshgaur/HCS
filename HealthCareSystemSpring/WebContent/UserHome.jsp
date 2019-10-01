@@ -34,10 +34,10 @@
 		<tr>
 			<td><a href="viewAppointmentPage">View Appointment</a></td>
 		</tr>
-		<tr>
+	<!-- 	<tr>
 			<td><a href="viewProfilePage">View Profile</a></td>
 		</tr>
-
+ -->
 	</table>
 	<span> ${message }</span>
 </body>

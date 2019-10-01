@@ -4,6 +4,12 @@
     <%@taglib prefix="tag" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
+<%
+	if (null == session.getAttribute("userId")) {
+		response.sendRedirect("loginPage");
+	} else {
+		
+%>
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -36,4 +42,6 @@ Center Id:<input type="text" value="<% out.print(session.getAttribute("centerId"
 </form>
 <span> ${message } </span>
 </body>
+
+<% } %>
 </html>

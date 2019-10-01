@@ -22,7 +22,6 @@ import com.cg.healthcaresystem.dto.Appointment;
 import com.cg.healthcaresystem.dto.DiagnosticCenter;
 import com.cg.healthcaresystem.dto.Test;
 import com.cg.healthcaresystem.dto.User;
-import com.cg.healthcaresystem.exception.UserDefinedException;
 import com.cg.healthcaresystem.exception.ValidationException;
 import com.cg.healthcaresystem.service.UserService;
 
@@ -338,6 +337,13 @@ public class HCSController {
 			model.put("message", "Error. Please try after some time.");
 		}
 		return "AdminHome";
+	}
+	
+	@RequestMapping(value = "viewAppointmentPage", method = RequestMethod.GET)
+	public String viewUserAppointments(Map<String, Object> model) {
+		List<Appointment> userAppointmentList = userService.getAppointmentList((BigInteger) session.getAttribute("userId"));
+		model.put("appointmentList", userAppointmentList);
+		return "viewUserAppointments";
 	}
 
 }
