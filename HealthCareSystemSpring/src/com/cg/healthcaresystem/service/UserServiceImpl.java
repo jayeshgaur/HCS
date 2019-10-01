@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 		return userDao.addTest(centerId, test);
 	}
 
-	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws UserDefinedException {
+	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId){
 		return userDao.removeTest(removeCenterId, removeTestId);
 	}
 
@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService {
 		throw new ValidationException(UserErrorMessage.userErrorInvalidCenterId);
 	}
 
-	public BigInteger validateTestId(String testId, List<Test> testList) throws UserDefinedException {
+	public BigInteger validateTestId(String testId, List<Test> testList) throws ValidationException {
 		if (testId.matches("^[0-9]+")) {
 			Iterator<Test> testIterator = testList.iterator();
 			while (testIterator.hasNext()) {
@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
 				}
 			}
 		}
-		throw new UserDefinedException(UserErrorMessage.userErrorInvalidTestId);
+		throw new ValidationException(UserErrorMessage.userErrorInvalidTestId);
 	}
 
 //	public static void validateTestIndex(String selectTestIndex, int selectCenterIndex, List<Test> testList)

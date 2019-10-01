@@ -159,21 +159,58 @@ public class HCSController {
 	@RequestMapping(value = "/removeTestPage", method = RequestMethod.GET)
 	public String deleteTestRequest(Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
-		return "removeTest";
+		return "deleteTest";
 	}
 
 	@RequestMapping(value = "/removeTestSelectCenter", method = RequestMethod.POST)
-	public String deleteTestSelectCenter(@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
+	public String deleteTestSelectCenter(@RequestParam("centerId") String sCenterId, Map<String, Object> model,
+			HttpSession session) {
+		BigInteger centerId = null;
+		try {
+			centerId = userService.validateCenterId(sCenterId, userService.getCenterList());
+			List<Test> testList = userService.getListOfTests(centerId);
+			if (testList.size() > 0) {
+				session.setAttribute("centerId", centerId);
+				model.put("testList", userService.getListOfTests(centerId));
+			} else {
+				model.put("errorMessage", "No Tests present");
+			}
+		} catch (ValidationException exception) {
+			model.put("centerList", userService.getCenterList());
+			model.put("errorMessage", exception.getMessage());
+		}
 		model.put("centerList", userService.getCenterList());
-		model.put("testList", userService.getListOfTests(centerId));
-		return "removeTest";
+		return "deleteTest";
 	}
 
-	@RequestMapping(value = "/deleteTestSubmit", method = RequestMethod.POST)
-	public String deleteTest(@RequestParam("centerid") BigInteger centerId, @RequestParam("testid") BigInteger testId)
-			throws UserDefinedException {
-		userService.removeTest(centerId, testId);
-		return "adminHome";
+	@RequestMapping(value = "/removeTestSelectTest", method = RequestMethod.POST)
+	public String deleteTest(@RequestParam("testId") String sTestId, Map<String, Object> model) {
+		BigInteger testId = null;
+		try {
+			testId = userService.validateTestId(sTestId,
+					userService.getListOfTests((BigInteger) session.getAttribute("centerId")));
+			session.setAttribute("testId", testId);
+			model.put("testId", testId);
+		} catch (ValidationException exception) {
+			model.put("testErrorMessage", exception.getMessage());
+		}
+		// userService.removeTest(centerId, testId);
+		model.put("testList", userService.getListOfTests((BigInteger) session.getAttribute("centerId")));
+		model.put("centerList", userService.getCenterList());
+		return "deleteTest";
+	}
+
+	@RequestMapping(value = "/removeTestConfirmTest", method = RequestMethod.POST)
+	public String deleteTestConfirm(@RequestParam("testId") BigInteger testId,
+			@RequestParam("centerId") BigInteger centerId, Map<String, Object> model, HttpSession session) {
+		if (userService.removeTest(centerId, testId)) {
+			session.setAttribute("testId", null);
+			session.setAttribute("centerId", null);
+			model.put("message", "Deleted Successfully");
+		} else {
+			model.put("message", "Error. Please try after some time.");
+		}
+		return "AdminHome";
 	}
 
 	@RequestMapping(value = "/approveAppointmentPage", method = RequestMethod.GET)
@@ -194,51 +231,44 @@ public class HCSController {
 		session.setAttribute("userId", null);
 		return "Login";
 	}
-	@RequestMapping(value="/addAppointmentPage",method=RequestMethod.GET)
-	public String addAppointmentRequest(Map<String,Object> model)
-	{
-		
+
+	@RequestMapping(value = "/addAppointmentPage", method = RequestMethod.GET)
+	public String addAppointmentRequest(Map<String, Object> model) {
+
 		model.put("centerList", userService.getCenterList());
 		return "ChooseCenter";
 	}
-	
-	@RequestMapping(value="/ChooseCenterSubmit",method=RequestMethod.POST)
-    public String chooseTestRequest(@RequestParam("centerId") String id,Map<String,Object> model,HttpSession session)
-    {
-		BigInteger centerId=null;
-		try
-		{
-			centerId=new BigInteger(id);
+
+	@RequestMapping(value = "/ChooseCenterSubmit", method = RequestMethod.POST)
+	public String chooseTestRequest(@RequestParam("centerId") String id, Map<String, Object> model,
+			HttpSession session) {
+		BigInteger centerId = null;
+		try {
+			centerId = new BigInteger(id);
+		} catch (Exception exception) {
+
 		}
-		catch(Exception exception)
-		{
-			
-		}
-		model.put("testList",userService.getListOfTests(centerId));
-		//model.put("center",centerId);
-	    session.setAttribute("centerId",centerId);
+		model.put("testList", userService.getListOfTests(centerId));
+		// model.put("center",centerId);
+		session.setAttribute("centerId", centerId);
 		return "ChooseTest";
-    }
-	
-	
-	@RequestMapping(value="/confirmAppointment",method=RequestMethod.POST)
-	public String addAppointment(@RequestParam("testId") BigInteger testId,@DateTimeFormat(pattern="dd-MM-yyyy hh:mm:ss")@RequestParam("dateAndTime") LocalDateTime dateTime,
-			@RequestParam("userid") BigInteger userId,	@RequestParam("centerId") BigInteger centerId)
-	{
-		Appointment app=new Appointment();
-		DiagnosticCenter center=userService.findCenter(centerId);
-		Test test=userService.findTest(testId);
-		User user=userService.findUser(userId);
+	}
+
+	@RequestMapping(value = "/confirmAppointment", method = RequestMethod.POST)
+	public String addAppointment(@RequestParam("testId") BigInteger testId,
+			@DateTimeFormat(pattern = "dd-MM-yyyy hh:mm:ss") @RequestParam("dateAndTime") LocalDateTime dateTime,
+			@RequestParam("userid") BigInteger userId, @RequestParam("centerId") BigInteger centerId) {
+		Appointment app = new Appointment();
+		DiagnosticCenter center = userService.findCenter(centerId);
+		Test test = userService.findTest(testId);
+		User user = userService.findUser(userId);
 		app.setAppointmentstatus(1);
 		app.setCenter(center);
 		app.setDateTime(dateTime);
 		app.setTest(test);
 		app.setUser(user);
 		userService.addAppointment(app);
-		
-		
-		
-		
+
 		return "userHome";
 	}
 

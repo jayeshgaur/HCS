@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>List of Tests</title>
 </head>
 <body>
 
@@ -14,17 +14,11 @@
 		<tr>
 			<td>Test Id</td>
 			<td>Test Name</td>
-			<td>Test Phone No</td>
-			<td>Test Address</td>
 		</tr>
 		<tag:forEach var="test" items="${testList}">
 			<tr>
-				<td>${test.centerId}</td>
-				<td>${test.centerName}</td>
-				<td>${test.centerContactNo}</td>
-				<td>${test.centerAddress}</td>
-
-
+				<td>${test.testId}</td>
+				<td>${test.testName}</td>
 			</tr>
 
 		</tag:forEach>
