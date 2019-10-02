@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>HOME</title>
 <link rel="stylesheet"  type="text/css" href="<c:url value="/webjars/css/footer.css"/>">
 <link rel="stylesheet"  type="text/css" href="<c:url value="/webjars/css/header.css"/>">
 <!-- Latest compiled and minified CSS -->
@@ -86,9 +86,16 @@
 </div>
 <div class="container text-center">
   <h3>The HealthCare System</h3>
+  <p><em>We are here for your care!</em></p>
+  <p>HealthCareSystem </p>
   
    </div>
+   <div class="footer" style="background-color:lightblue; position=äbsolute">
+ <p align="center">Mumbai &nbsp;&nbsp;&nbsp;&nbsp;Pune&nbsp;&nbsp;&nbsp;&nbsp;Hyderabad&nbsp;&nbsp;&nbsp;&nbsp;Delhi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <span class="glyphicon glyphicon-phone"> 1800-123-4567 </span></p>
+</div>
 </header>
+
 
 </body>
 </html>
