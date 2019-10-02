@@ -55,7 +55,7 @@ public class HCSController {
 			BigInteger userId = userService.userLogin(email, password);
 			if (null != userId) {
 				session.setAttribute("userId", userId);
-				return "redirect:/UserHome";
+				return "redirect:/UserHome.jsp";
 			} else {
 				model.put("errormessage", "Invalid credentials");
 				return "Login";
