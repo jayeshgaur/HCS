@@ -43,7 +43,7 @@
 
 
 
-	<h2>Add New Center:</h2>
+	<h3>Add New Center:</h3>
 	<fo:form action="addCenterSubmit" method="POST" modelAttribute="Center">
 		<table>
 	         <tr>
