@@ -47,7 +47,7 @@
 				<td><input type="text" name="centerId"></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="Display Tests"></td>
+				<td><input type="submit" value="Display Appointments"></td>
 		</table>
 	</form>
 	<span>${errorMessage }</span>
@@ -58,7 +58,7 @@
 		<jsp:include page="ShowAppointments.jsp"></jsp:include>
 		<form action="approveAppointmentSelectAppointment" method="POST">
 		<table><tr>
-			<td>Test ID: <input type="text" name="appointmentId"><br> </td>
+			<td>Appointment ID: <input type="text" name="appointmentId"><br> </td>
 			<td><input type="submit" value="Submit Appointment Id to approve"></td>
 			</tr></table>
 		</form>

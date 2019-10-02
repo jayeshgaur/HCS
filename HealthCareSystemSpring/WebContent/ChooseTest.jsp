@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@taglib prefix="a" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@taglib prefix="tag" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
@@ -37,14 +37,15 @@
     </ul>
   </div>
 </nav>
-<a href="addAppointmentPage">Choose Other Center</a>
+
+<h3><a href="addAppointmentPage">Choose Other Center</a></h3>
 <table border=1>
 
 <tr><td>Test Id</td>
 <td>Test Name</td>
 </tr>
 
-<a:forEach var="test" items="${testList}">
+<c:forEach var="test" items="${testList}">
 			<tr>
 				
 				<td>${test.testId}</td>
@@ -53,14 +54,17 @@
 
 			</tr>
 
-		</a:forEach>
+		</c:forEach>
 </table>
 <form action="confirmAppointment" method="POST">
-Select Test Id:<input type="text" name="testId"><br>
-Select Date and Time:<input type="datetime-local" name="dateAndTime" /><br>
-User Id:<input type="text" value="<% out.print(session.getAttribute("userId")); %>" name="userId" readonly/><br>
-Center Id:<input type="text" value="<% out.print(session.getAttribute("centerId")); %>" name="centerId" readonly><br>
-<input type="submit" value="Confirm Appointment" />
+<table><tr>
+<td>Select Test Id:<input type="text" name="testId"><br>
+<td>Select Date and Time:<input type="datetime-local" name="dateAndTime" /><br></td>
+<td>User Id:<input type="text" value="<% out.print(session.getAttribute("userId")); %>" name="userId" readonly/><br></td>
+<td>Center Id:<input type="text" value="<% out.print(session.getAttribute("centerId")); %>" name="centerId" readonly><br></td>
+<td>><input type="submit" value="Confirm Appointment" /></td>
+</tr>
+</table>
 </form>
 <span> ${message } </span>
 <div class="footer">
