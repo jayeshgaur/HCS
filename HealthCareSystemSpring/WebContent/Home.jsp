@@ -84,13 +84,21 @@
 
 
 </div>
-<div class="container text-center">
-  <h3>The HealthCare System</h3>
-  <p><em>We are here for your care!</em></p>
-  <p>HealthCareSystem </p>
-  
+<div class="container text">
+  <h3 style="color:darkblue; text-align:center;">The HealthCare System</h3>
+  <p style="text-align:center;"><em>We are here for your care!</em></p>
+  <p>Spending hours in a queue at a diagnostic lab or a hospital is now a thing of the past. With HCS you can get your lab tests booking from the comfort of your home. 
+  Book your next lab test with HCS at the lowest price guaranteed!  </p>
+  <p>Book Diagnostic tests near you on HCS, your online lab test service provider for online diagnostic, medical tests and health checkup packages</p>
+  <p>Get all the benefits of diagnostic center right from the comfort of your home. With a certified phlebotomy team to ensure diagnostic services ranging from individual tests to complete health checkup packages for Men, Women, Senior Citizens & Corporates. HCS takes care of all your diagnostic needs.</p>
+   <h4 style="color:darkblue;">Wide Selection of Tests:</h4>
+   <p> Labs covers a wide array of tests like blood sugar tests, thyroid tests, pregnancy tests, allergy tests, lipid profile, liver profile, platelet count, Mantoux test, VDRL test, vitamin B12 deficiency test and more. Get details of all these tests which includes blood test cost, when to take the tests, why is it required, who should take the test and what to do before taking the blood tests.</p>
+   Keep your health and well being in check with exclusive Health Checkup Packages like Men's Health Package, Women's Health Package, Vitamin Package, Health Package for Corporates, Diabetes Packages, Packages for Senior Citizens &7 more. Get full details of all tests available in a package when booking online pathology tests</h4>
+   <p>Keep your health and well being in check with exclusive Health Checkup Packages like Men’s Health Package, Women's Health Package, Vitamin Package, Health Package for Corporates, Diabetes Packages, Packages for Senior Citizens &7 more. Get full details of all tests available in a package when booking online pathology tests</p>
+   <p></p>
+   <p></p>
    </div>
-   <div class="footer" style="background-color:lightblue; position=�bsolute">
+   <div class="footer" style="background-color:lightblue; position=äbsolute">
  <p align="center">Mumbai &nbsp;&nbsp;&nbsp;&nbsp;Pune&nbsp;&nbsp;&nbsp;&nbsp;Hyderabad&nbsp;&nbsp;&nbsp;&nbsp;Delhi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  <span class="glyphicon glyphicon-phone"> 1800-123-4567 </span></p>
 </div>
