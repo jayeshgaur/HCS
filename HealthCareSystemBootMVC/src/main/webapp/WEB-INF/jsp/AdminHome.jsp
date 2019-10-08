@@ -68,7 +68,7 @@
 								<p class="card-text">If you want to add or remove Diagnostic
 									Center,Click on the particular link given below</p>
 								<a href="/Center/Add" class="btn btn-primary">Add Center</a> <a
-									href="deleteCenterPage" class="btn btn-primary">Remove
+									href="/Center/Delete" class="btn btn-primary">Remove
 									Center</a>
 								<div class="card-footer">
 									<small class="text-muted">Information should be

@@ -1,4 +1,4 @@
-package com.cg.healthcaresystembootmvc.dao;
+package com.cg.healthcaresystembootmvc.repository;
 
 import java.math.BigInteger;
 import java.util.List;

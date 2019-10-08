@@ -13,9 +13,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.healthcaresystembootmvc.dao.CenterRepository;
-import com.cg.healthcaresystembootmvc.dao.TestRepository;
-import com.cg.healthcaresystembootmvc.dao.UserDao;
 import com.cg.healthcaresystembootmvc.dto.Appointment;
 import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
@@ -23,6 +20,9 @@ import com.cg.healthcaresystembootmvc.dto.User;
 import com.cg.healthcaresystembootmvc.exception.UserDefinedException;
 import com.cg.healthcaresystembootmvc.exception.UserErrorMessage;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
+import com.cg.healthcaresystembootmvc.repository.CenterRepository;
+import com.cg.healthcaresystembootmvc.repository.TestRepository;
+import com.cg.healthcaresystembootmvc.repository.UserDao;
 
 @Service
 @Transactional
@@ -43,7 +43,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean removeCenter(BigInteger centerId) {
-		return userDao.removeCenter(centerId);
+		DiagnosticCenter center=centerrepository.findById(centerId).get();
+		center.setDeleted(true);
+		return true;
 	}
 
     //Add Test
@@ -75,7 +77,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public List<DiagnosticCenter> getCenterList() {
-		return centerrepository.findAll();
+		return centerrepository.getCenterList();
 	}
 
 //	public boolean setCenterList(List<DiagnosticCenter> centerList) {
@@ -297,7 +299,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public DiagnosticCenter findCenter(BigInteger centerId) {
-		return userDao.findCenter(centerId);
+		return centerrepository.findById(centerId).get();
 	}
 
 	@Override
