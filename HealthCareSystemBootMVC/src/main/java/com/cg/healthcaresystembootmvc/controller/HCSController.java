@@ -90,25 +90,26 @@ public class HCSController {
 			return "UserHome";
 		}
 	}
-
-	@RequestMapping(value = "/addCenterPage", method = RequestMethod.GET)
+	
+	
+	@RequestMapping(value = "/Center/Add", method = RequestMethod.GET)
 	public String addCenterRequest(@ModelAttribute("Center") DiagnosticCenter center) {
 		return "addCenter";
 	}
 
-	@RequestMapping(value = "/addCenterSubmit", method = RequestMethod.POST)
-	public String addCenter(@Valid @ModelAttribute("Center") DiagnosticCenter center, BindingResult result,
-			Map<String, Object> model) {
-		if (result.hasErrors()) {
-			model.put("error", "Please try again..");
-			return "addCenter";
-		} else {
-			userService.addCenter(center);
-			model.put("message", "Added successfully");
-			return "AdminHome";
+	//Add Center
+		@RequestMapping(value = "/Center/Add", method = RequestMethod.POST)
+		public String addCenter(@Valid @ModelAttribute("Center") DiagnosticCenter center, BindingResult result,
+				Map<String, Object> model) {
+			if (result.hasErrors()) {
+				model.put("error", "Please try again..");
+				return "addCenter";
+			} else {
+				userService.addCenter(center);
+				model.put("message", "Added successfully");
+				return "AdminHome";
+			}
 		}
-	}
-
 	@RequestMapping(value = "/showAllCenter", method = RequestMethod.GET)
 	public ModelAndView getAllData() {
 		List<DiagnosticCenter> myList = userService.getCenterList();

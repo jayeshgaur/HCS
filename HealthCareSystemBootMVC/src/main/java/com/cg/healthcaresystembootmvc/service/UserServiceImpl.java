@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	
 
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
-		return userDao.addCenter(center);
+		return centerrepository.save(center);
 	}
 
 	public boolean removeCenter(BigInteger centerId) {
@@ -54,6 +54,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) {
+		
 		
 		    DiagnosticCenter center=centerrepository.findById(removeCenterId).get();
 		    Test test=testrepository.findById(removeTestId).get();
