@@ -1,0 +1,43 @@
+*{
+	margin:0;
+	padding:0;
+}
+
+.header
+{
+	height:100vh;
+}
+
+.navbar-style
+{
+	box-shadow:0 5px 10px #efefef
+	
+}
+
+.logo
+{
+	height:59px;
+	padding: 0px;
+	
+
+}
+.icon-bar
+{
+	background:orange;
+}
+.big-text
+{
+	font-size:52px;
+	margin:10px 0;
+	color:darkgreen;
+	font-family: "Times New Roman", Times, serif;
+	line-height: normal;
+}
+.responsive {
+  width: 100%;
+  height: auto;
+}
+.car {
+  width:640px;
+  height:360px;
+}

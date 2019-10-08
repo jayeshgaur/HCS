@@ -14,9 +14,9 @@
 <meta charset="ISO-8859-1">
 <title>HOME</title>
 <link rel="stylesheet" type="text/css"
-	href="<c:url value="/webjars/css/footer.css"/>">
+	href="<c:url value="css/footer.css"/>">
 <link rel="stylesheet" type="text/css"
-	href="<c:url value="/webjars/css/header.css"/>">
+	href="<c:url value="css/header.css"/>">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -39,8 +39,8 @@
 						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a href="Home.jsp"><img class="logo"
-						src="<c:url value="/resources/Images/logo.jpg"/>" alt="Picture1" /></a>
+					<a href="Home"><img class="logo"
+						src="<c:url value="images/logo.jpg"/>" alt="Picture1" /></a>
 				</div>
 				<div class="collapse navbar-collapse" id="micon">
 					<ul class="nav navbar-nav navbar-right">
@@ -66,17 +66,17 @@
 					<div class="carousel-inner"
 						style="width: 100%; height: 500px !important;">
 						<div class="item active">
-							<img src="<c:url value="/resources/Images/bg_1.jpg"/>"
+							<img src="<c:url value="images/bg_1.jpg"/>"
 								alt="Los Angeles" style="width: 100%;">
 						</div>
 
 						<div class="item">
-							<img src="<c:url value="/resources/Images/dept-1.jpg"/>"
+							<img src="<c:url value="images/dept-1.jpg"/>"
 								alt="Chicago" style="width: 100%;">
 						</div>
 
 						<div class="item">
-							<img src="<c:url value="/resources/Images/bg_4.jpg"/>"
+							<img src="<c:url value="images/bg_4.jpg"/>"
 								alt="New york" style="width: 100%;">
 						</div>
 					</div>
