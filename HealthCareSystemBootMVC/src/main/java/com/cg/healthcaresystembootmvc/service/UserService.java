@@ -19,7 +19,7 @@ public interface UserService {
 
 	public Test addTest(BigInteger centerId, Test test);
 
-	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId);
+	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws ValidationException;
 
 	public BigInteger register(User user);
 

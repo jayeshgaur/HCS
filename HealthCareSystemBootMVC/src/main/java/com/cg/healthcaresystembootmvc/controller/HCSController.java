@@ -216,7 +216,7 @@ public class HCSController {
 
 	@RequestMapping(value = "/Test/Remove/Confirm", method = RequestMethod.POST)
 	public String deleteTestConfirm(@RequestParam("testId") BigInteger testId,
-			@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
+			@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) throws ValidationException {
 		if (userService.removeTest(centerId, testId)) {
 			session.setAttribute("testId", null);
 			session.setAttribute("centerId", null);

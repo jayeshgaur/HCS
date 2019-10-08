@@ -53,13 +53,20 @@ public class UserServiceImpl implements UserService {
 		return testrepository.save(test);
 	}
 
-	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) {
-		
-		
+	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws ValidationException {
 		    DiagnosticCenter center=centerrepository.findById(removeCenterId).get();
+		    if(center==null)
+		    {
+		    	throw new ValidationException("center is not present");
+		    }
 		    Test test=testrepository.findById(removeTestId).get();
+		    if(test==null)
+		    {
+		    	throw new ValidationException("test not found");
+		    }
+		    test.setDeleted(true);
 		    center.getListOfTests().remove(test);
-			testrepository.deleteById(removeTestId);
+			//testrepository.deleteById(removeTestId);
 			return true;
 	}
 
