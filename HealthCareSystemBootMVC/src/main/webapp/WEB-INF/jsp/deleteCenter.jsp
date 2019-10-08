@@ -51,7 +51,7 @@
 
 		<h3><br> Enter the center Id to be deleted:</h3>
 	
-		<form action="deleteCenterSubmit" method="POST">
+		<form action="/Center/Delete" method="POST">
 			<table>
 				<tr>
 					<td>Center Id:<input type="text" name="centerId"></td>
@@ -65,7 +65,7 @@
 				</tr>
 			</table>
 			
-			<form action="confirmDeleteCenter" method="POST">
+			<form action="/Center/Delete/Confirm" method="POST">
 				<table border="1">
 					<tr>
 						<td>Diagnostic Center Id</td>

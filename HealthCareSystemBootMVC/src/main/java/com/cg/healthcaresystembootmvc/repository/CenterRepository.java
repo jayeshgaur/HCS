@@ -1,13 +1,17 @@
-package com.cg.healthcaresystembootmvc.dao;
+package com.cg.healthcaresystembootmvc.repository;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+
 
 import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 
-@Repository
+
 public interface CenterRepository extends JpaRepository<DiagnosticCenter,BigInteger> {
 
+	@Query("FROM DiagnosticCenter WHERE isDeleted = 'false'")
+	public List<DiagnosticCenter> getCenterList();
 }

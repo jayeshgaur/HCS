@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
-import com.cg.healthcaresystembootmvc.dao.CenterRepository;
-import com.cg.healthcaresystembootmvc.dao.TestRepository;
 import com.cg.healthcaresystembootmvc.dto.Appointment;
 import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
 import com.cg.healthcaresystembootmvc.dto.User;
 import com.cg.healthcaresystembootmvc.exceldownload.ExcelReportView;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
+import com.cg.healthcaresystembootmvc.repository.CenterRepository;
+import com.cg.healthcaresystembootmvc.repository.TestRepository;
 import com.cg.healthcaresystembootmvc.service.UserService;
 
 @Controller
@@ -137,18 +137,18 @@ public class HCSController {
 		return "addTest";
 	}
 
-	@RequestMapping(value = "/deleteCenterPage", method = RequestMethod.GET)
+	@RequestMapping(value = "/Center/Delete", method = RequestMethod.GET)
 	public String deleteCenterRequest(Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
 		return "deleteCenter";
 	}
 
-	@RequestMapping(value = "/deleteCenterSubmit", method = RequestMethod.POST)
-	public String deleteCenter(@RequestParam("centerId") String sCenterId, Map<String, Object> model) {
+	@RequestMapping(value = "/Center/Delete", method = RequestMethod.POST)
+	public String deleteCenter(@RequestParam("centerId") String stringCenterId, Map<String, Object> model) {
 		BigInteger centerId = null;
 		DiagnosticCenter center = null;
 		try {
-			centerId = userService.validateCenterId(sCenterId, userService.getCenterList());
+			centerId = userService.validateCenterId(stringCenterId, userService.getCenterList());
 			center = userService.findCenter(centerId);
 			model.put("center", center);
 		} catch (ValidationException exception) {
@@ -159,7 +159,7 @@ public class HCSController {
 
 	}
 
-	@RequestMapping(value = "/confirmDeleteCenter", method = RequestMethod.POST)
+	@RequestMapping(value = "/Center/Delete/Confirm", method = RequestMethod.POST)
 	public String confirmDeleteCenter(@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
 
 		if (userService.removeCenter(centerId)) {
@@ -352,7 +352,7 @@ public class HCSController {
 		return "AdminHome";
 	}
 
-	@RequestMapping(value = "viewAppointmentPage", method = RequestMethod.GET)
+	@RequestMapping(value = "/Appointment/View", method = RequestMethod.GET)
 	public String viewUserAppointments(Map<String, Object> model) {
 		List<Appointment> userAppointmentList = userService
 				.getAppointmentList((BigInteger) session.getAttribute("userId"));
