@@ -50,7 +50,7 @@
 <jsp:include page="ShowCenters.jsp"></jsp:include>
 
 	<h2>Add New Test:</h2>
-	<form action="/Test/Add" method="POST">
+	<form action="addTestSubmit" method="POST">
 		<table>
 			<tr>
 				<td>Center Id:</td>

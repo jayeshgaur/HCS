@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
+import com.cg.healthcaresystembootmvc.dao.CenterRepository;
+import com.cg.healthcaresystembootmvc.dao.TestRepository;
 import com.cg.healthcaresystembootmvc.dto.Appointment;
 import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
@@ -35,6 +37,13 @@ public class HCSController {
 
 	@Autowired
 	private UserService userService;
+	
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	   public String defaultMapper()
+	   {
+		   return "Home";
+		}
 
 //	@RequestMapping(value = "**", method = RequestMethod.GET)
 //	public String defaultMapper() {
@@ -51,12 +60,12 @@ public class HCSController {
 			Map<String, Object> model) {
 		if (email.equals("admin@hcs.com") && password.equals("hcsadmin")) {
 			session.setAttribute("userRole", "admin");
-			return "redirect:/AdminHome.jsp";
+			return "AdminHome";
 		} else {
 			BigInteger userId = userService.userLogin(email, password);
 			if (null != userId) {
 				session.setAttribute("userId", userId);
-				return "redirect:/UserHome.jsp";
+				return "UserHome";
 			} else {
 				model.put("errormessage", "Invalid credentials");
 				return "Login";
@@ -106,18 +115,18 @@ public class HCSController {
 		return new ModelAndView("ShowCenters", "data", myList);
 	}
 
-	@RequestMapping(value = "/addTestPage", method = RequestMethod.GET)
+	@RequestMapping(value = "/Test/Add", method = RequestMethod.GET)
 	public String addTestPage(Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
 		return "addTest";
 	}
 
-	@RequestMapping(value = "/addTestSubmit", method = RequestMethod.POST)
-	public String addTestSubmit(@RequestParam("centerId") String sCenterId, @RequestParam("testName") String testName,
+	@RequestMapping(value = "/Test/Add", method = RequestMethod.POST)
+	public String addTestSubmit(@RequestParam("centerId") String stringCenterId, @RequestParam("testName") String testName,
 			Map<String, Object> model) {
 		BigInteger centerId = null;
 		try {
-			centerId = userService.validateCenterId(sCenterId, userService.getCenterList());
+			centerId = userService.validateCenterId(stringCenterId, userService.getCenterList());
 			if (null != userService.addTest(centerId, new Test(testName)))
 				model.put("message", "Added successfully");
 		} catch (ValidationException exception) {
@@ -161,17 +170,17 @@ public class HCSController {
 		return "deleteCenter";
 	}
 
-	@RequestMapping(value = "/removeTestPage", method = RequestMethod.GET)
+	@RequestMapping(value = "/Test/Remove", method = RequestMethod.GET)
 	public String deleteTestRequest(Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
 		return "deleteTest";
 	}
 
-	@RequestMapping(value = "/removeTestSelectCenter", method = RequestMethod.POST)
-	public String deleteTestSelectCenter(@RequestParam("centerId") String sCenterId, Map<String, Object> model) {
+	@RequestMapping(value = "/Test/Remove/Select/Center", method = RequestMethod.POST)
+	public String deleteTestSelectCenter(@RequestParam("centerId") String stringCenterId, Map<String, Object> model) {
 		BigInteger centerId = null;
 		try {
-			centerId = userService.validateCenterId(sCenterId, userService.getCenterList());
+			centerId = userService.validateCenterId(stringCenterId, userService.getCenterList());
 			List<Test> testList = userService.getListOfTests(centerId);
 			if (testList.size() > 0) {
 				session.setAttribute("centerId", centerId);
@@ -187,7 +196,7 @@ public class HCSController {
 		return "deleteTest";
 	}
 
-	@RequestMapping(value = "/removeTestSelectTest", method = RequestMethod.POST)
+	@RequestMapping(value = "/Test/Remove/Select/Test", method = RequestMethod.POST)
 	public String deleteTest(@RequestParam("testId") String sTestId, Map<String, Object> model) {
 		BigInteger testId = null;
 		try {
@@ -204,7 +213,7 @@ public class HCSController {
 		return "deleteTest";
 	}
 
-	@RequestMapping(value = "/removeTestConfirmTest", method = RequestMethod.POST)
+	@RequestMapping(value = "/Test/Remove/Confirm", method = RequestMethod.POST)
 	public String deleteTestConfirm(@RequestParam("testId") BigInteger testId,
 			@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
 		if (userService.removeTest(centerId, testId)) {

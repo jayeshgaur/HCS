@@ -13,6 +13,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.healthcaresystembootmvc.dao.CenterRepository;
+import com.cg.healthcaresystembootmvc.dao.TestRepository;
 import com.cg.healthcaresystembootmvc.dao.UserDao;
 import com.cg.healthcaresystembootmvc.dto.Appointment;
 import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
@@ -28,6 +30,13 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private TestRepository testrepository;
+	
+	@Autowired
+	private CenterRepository centerrepository;
+	
 
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
 		return userDao.addCenter(center);
@@ -37,12 +46,20 @@ public class UserServiceImpl implements UserService {
 		return userDao.removeCenter(centerId);
 	}
 
+    //Add Test
 	public Test addTest(BigInteger centerId, Test test) {
-		return userDao.addTest(centerId, test);
+		DiagnosticCenter center=centerrepository.findById(centerId).get();
+		center.getListOfTests().add(test);
+		return testrepository.save(test);
 	}
 
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) {
-		return userDao.removeTest(removeCenterId, removeTestId);
+		
+		    DiagnosticCenter center=centerrepository.findById(removeCenterId).get();
+		    Test test=testrepository.findById(removeTestId).get();
+		    center.getListOfTests().remove(test);
+			testrepository.deleteById(removeTestId);
+			return true;
 	}
 
 	public BigInteger register(User user) {
@@ -50,7 +67,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public List<DiagnosticCenter> getCenterList() {
-		return userDao.getCenterList();
+		return centerrepository.findAll();
 	}
 
 //	public boolean setCenterList(List<DiagnosticCenter> centerList) {
@@ -247,9 +264,12 @@ public class UserServiceImpl implements UserService {
 		return userDao.addAppointment(appointment);
 	}
 
+	//Lists add the test of the given center
 	@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
-		return userDao.getListOfTests(centerId);
+		DiagnosticCenter center= centerrepository.findById(centerId).get();
+		List<Test> testList=center.getListOfTests();
+		return testList;
 	}
 
 	@Override
