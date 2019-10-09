@@ -1,5 +1,8 @@
-
 package com.cg.healthcaresystembootmvc.controller;
+
+/*
+ * author: Jayesh Gaur, Nidhi
+ */
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -37,19 +40,12 @@ public class HCSController {
 
 	@Autowired
 	private UserService userService;
-	
-	
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	   public String defaultMapper()
-	   {
-		   return "Home";
-		}
-
-//	@RequestMapping(value = "**", method = RequestMethod.GET)
-//	public String defaultMapper() {
-//		return "Home.jsp";
-//	}
-
+	public String defaultMapper() {
+		return "Home";
+	}
+	
 	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
 	public String loginpage() {
 		return "Login";
@@ -90,26 +86,26 @@ public class HCSController {
 			return "UserHome";
 		}
 	}
-	
-	
+
 	@RequestMapping(value = "/Center/Add", method = RequestMethod.GET)
 	public String addCenterRequest(@ModelAttribute("Center") DiagnosticCenter center) {
 		return "addCenter";
 	}
 
-	//Add Center
-		@RequestMapping(value = "/Center/Add", method = RequestMethod.POST)
-		public String addCenter(@Valid @ModelAttribute("Center") DiagnosticCenter center, BindingResult result,
-				Map<String, Object> model) {
-			if (result.hasErrors()) {
-				model.put("error", "Please try again..");
-				return "addCenter";
-			} else {
-				userService.addCenter(center);
-				model.put("message", "Added successfully");
-				return "AdminHome";
-			}
+	// Add Center
+	@RequestMapping(value = "/Center/Add", method = RequestMethod.POST)
+	public String addCenter(@Valid @ModelAttribute("Center") DiagnosticCenter center, BindingResult result,
+			Map<String, Object> model) {
+		if (result.hasErrors()) {
+			model.put("error", "Please try again..");
+			return "addCenter";
+		} else {
+			userService.addCenter(center);
+			model.put("message", "Added successfully");
+			return "AdminHome";
 		}
+	}
+
 	@RequestMapping(value = "/showAllCenter", method = RequestMethod.GET)
 	public ModelAndView getAllData() {
 		List<DiagnosticCenter> myList = userService.getCenterList();
@@ -123,8 +119,8 @@ public class HCSController {
 	}
 
 	@RequestMapping(value = "/Test/Add", method = RequestMethod.POST)
-	public String addTestSubmit(@RequestParam("centerId") String stringCenterId, @RequestParam("testName") String testName,
-			Map<String, Object> model) {
+	public String addTestSubmit(@RequestParam("centerId") String stringCenterId,
+			@RequestParam("testName") String testName, Map<String, Object> model) {
 		BigInteger centerId = null;
 		try {
 			centerId = userService.validateCenterId(stringCenterId, userService.getCenterList());
@@ -299,7 +295,6 @@ public class HCSController {
 		model.put("centerList", userService.getCenterList());
 		return "ApproveAppointment";
 	}
-	
 
 	@RequestMapping(value = "/approveAppointmentSelectCenter", method = RequestMethod.POST)
 	public String approveAppointmentSelectCenter(@RequestParam("centerId") String sCenterId,
