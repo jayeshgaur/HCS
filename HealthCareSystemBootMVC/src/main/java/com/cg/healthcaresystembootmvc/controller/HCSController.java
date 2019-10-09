@@ -483,8 +483,15 @@ public class HCSController {
 		return "AdminHome";
 	}
 
-	@RequestMapping(value = "/Appointment/View", method = RequestMethod.GET)
+	/*
+	 * Author: 		Jayesh Gaur 
+	 * Description: Get View Appointment Page which displays ALL appointments of the logged 
+	 * 				in user 
+	 * Created on: October 9, 2019
+	 */	
+	@RequestMapping(value = "viewAppointment", method = RequestMethod.GET)
 	public String viewUserAppointments(Map<String, Object> model) {
+		
 		List<Appointment> userAppointmentList = userService
 				.getAppointmentList((BigInteger) session.getAttribute("userId"));
 		model.put("appointmentList", userAppointmentList);

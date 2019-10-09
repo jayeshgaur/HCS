@@ -7,7 +7,7 @@
 <html>
 <%
 	if (!("admin".equals(session.getAttribute("userRole")))) {
-		response.sendRedirect("loginPage");
+		response.sendRedirect("login");
 	} else {
 		
 %>

@@ -24,6 +24,7 @@ import com.cg.healthcaresystembootmvc.dto.User;
 import com.cg.healthcaresystembootmvc.exception.UserDefinedException;
 import com.cg.healthcaresystembootmvc.exception.UserErrorMessage;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
+import com.cg.healthcaresystembootmvc.repository.AppointmentRepository;
 import com.cg.healthcaresystembootmvc.repository.CenterRepository;
 import com.cg.healthcaresystembootmvc.repository.TestRepository;
 import com.cg.healthcaresystembootmvc.repository.UserDao;
@@ -44,6 +45,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private CenterRepository centerRepository;
+	
+	@Autowired
+	private AppointmentRepository appointmentRepository;
 
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
 		return centerRepository.save(center);
@@ -278,14 +282,13 @@ public class UserServiceImpl implements UserService {
 		throw new ValidationException(UserErrorMessage.userErrorInvalidAppointmentId);
 	}
 
+	/*
+	 * Author:		 	Jayesh Gaur
+	 * Description:  	Calls appointmentRepository to persist the new appointment object
+	 * Created on: 		October 9, 2019
+	 */
 	public Appointment addAppointment(Appointment appointment) {
-		/*
-		 * appointment.setCenter(userDao.findCenter(centerId));
-		 * appointment.setTest(userDao.findTest(testId));
-		 * appointment.setUser(userDao.findUser(userId));
-		 * appointment.setDateTime(dateTime); appointment.setAppointmentstatus(0);
-		 */
-		return userDao.addAppointment(appointment);
+		return appointmentRepository.save(appointment);
 	}
 
 	// Lists add the test of the given center
@@ -318,8 +321,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Test findTest(BigInteger testId) {
-		// TODO Auto-generated method stub
-		return userDao.findTest(testId);
+		return testRepository.findById(testId).get();
 	}
 
 	@Override

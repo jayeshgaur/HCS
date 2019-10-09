@@ -7,7 +7,7 @@
 <html>
 <%
 	if (null == session.getAttribute("userId")) {
-		response.sendRedirect("loginPage");
+		response.sendRedirect("login");
 	} else {
 		
 %>
