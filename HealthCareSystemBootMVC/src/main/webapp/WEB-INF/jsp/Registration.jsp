@@ -30,17 +30,17 @@
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a href="Home"><img class="logo" src="<c:url value="images/logo.jpg"/>" alt="Picture1"  /></a>
+<a href="Home.jsp"><img class="logo" src="<c:url value="images/logo.jpg"/>" alt="Picture1"  /></a>
 </div>
 <div class="collapse navbar-collapse" id="micon">
 <ul class="nav navbar-nav navbar-right"> 
-<li><a href="Home">HOME</a></li>
+<li><a href="Home.jsp">HOME</a></li>
 </ul>
 </div>
 </div>
 </nav>
 	<table>
-		<tag:form action="register" method="POST" modelAttribute="customer">
+		<tag:form action="registration" method="POST" modelAttribute="customer">
 	
 
 			<tr>
