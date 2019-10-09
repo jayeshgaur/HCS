@@ -4,9 +4,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	if (null != session.getAttribute("userId")) {
-		response.sendRedirect("UserHome.jsp");
+		response.sendRedirect("UserHome");
 	} else if (("admin".equals(session.getAttribute("userRole")))) {
-		response.sendRedirect("AdminHome.jsp");
+		response.sendRedirect("AdminHome");
 	}
 %>
 <html>
@@ -40,13 +40,13 @@
 							class="icon-bar"></span>
 					</button>
 					<a href="Home"><img class="logo"
-						src="<c:url value="images/logo.jpg"/>" alt="Picture1" /></a>
+						src="<c:url value="images/logo.jpg"/>" alt="logo" /></a>
 				</div>
 				<div class="collapse navbar-collapse" id="micon">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="registerPage"><span
+						<li><a href="register"><span
 								class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-						<li><a href="loginPage"><span
+						<li><a href="login"><span
 								class="glyphicon glyphicon-log-in"></span> Login</a></li>
 					</ul>
 				</div>

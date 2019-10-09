@@ -1,5 +1,9 @@
 package com.cg.healthcaresystembootmvc.service;
-
+/*
+ * Author: Jayesh Gaur
+ * Description: Service Class
+ * Created on: October 9, 2019
+ */
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,6 +27,7 @@ import com.cg.healthcaresystembootmvc.exception.ValidationException;
 import com.cg.healthcaresystembootmvc.repository.CenterRepository;
 import com.cg.healthcaresystembootmvc.repository.TestRepository;
 import com.cg.healthcaresystembootmvc.repository.UserDao;
+import com.cg.healthcaresystembootmvc.repository.UserRepository;
 
 @Service
 @Transactional
@@ -30,23 +35,26 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Autowired
-	private TestRepository testrepository;
-	
+	private UserRepository userRepository;
+
 	@Autowired
-	private CenterRepository centerrepository;
-	
+	private TestRepository testRepository;
+
+	@Autowired
+	private CenterRepository centerRepository;
 
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
-		return centerrepository.save(center);
+		return centerRepository.save(center);
 	}
 
 	public boolean removeCenter(BigInteger centerId) {
-		DiagnosticCenter center=centerrepository.findById(centerId).get();
+		DiagnosticCenter center = centerRepository.findById(centerId).get();
 		center.setDeleted(true);
 		return true;
 	}
+
 
 	/*
 	 * Author : Nidhi
@@ -56,10 +64,11 @@ public class UserServiceImpl implements UserService {
 	 * Return Type : Test
 	 * 
 	 * */
+
 	public Test addTest(BigInteger centerId, Test test) {
-		DiagnosticCenter center=centerrepository.findById(centerId).get();
+		DiagnosticCenter center = centerRepository.findById(centerId).get();
 		center.getListOfTests().add(test);
-		return testrepository.save(test);
+		return testRepository.save(test);
 	}
 
 	/*
@@ -71,33 +80,33 @@ public class UserServiceImpl implements UserService {
 	 * 
 	 * */
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws ValidationException {
-		    DiagnosticCenter center=centerrepository.findById(removeCenterId).get();
-		    if(center==null)
-		    {
-		    	throw new ValidationException("center is not present");
-		    }
-		    Test test=testrepository.findById(removeTestId).get();
-		    if(test==null)
-		    {
-		    	throw new ValidationException("test not found");
-		    }
-		    test.setDeleted(true);
-		    center.getListOfTests().remove(test);
-			//testrepository.deleteById(removeTestId);
-			return true;
+		DiagnosticCenter center = centerRepository.findById(removeCenterId).get();
+		if (center == null) {
+			throw new ValidationException("center is not present");
+		}
+		Test test = testRepository.findById(removeTestId).get();
+		if (test == null) {
+			throw new ValidationException("test not found");
+		}
+		test.setDeleted(true);
+		center.getListOfTests().remove(test);
+		// testrepository.deleteById(removeTestId);
+		return true;
 	}
 
+	/*
+	 * Author: Jayesh Gaur 
+	 * Description: Service method for registration. calls the
+	 * 				Repository save method and returns the automatically generated new user Id.
+	 * Created on: October 9, 2019
+	 */
 	public BigInteger register(User user) {
-		return userDao.register(user);
+		return userRepository.save(user).getUserId();
 	}
 
 	public List<DiagnosticCenter> getCenterList() {
-		return centerrepository.getCenterList();
+		return centerRepository.getCenterList();
 	}
-
-//	public boolean setCenterList(List<DiagnosticCenter> centerList) {
-	// return userDao.setCenterList(centerList);
-//	}
 
 	public List<User> getUserList() {
 		return userDao.getUserList();
@@ -107,16 +116,6 @@ public class UserServiceImpl implements UserService {
 		BigInteger userId = userDao.getUserLogin(email, password);
 		return userId;
 	}
-
-	/*
-	 * public boolean approveAppointment(String appointmentId, List<Appointment>
-	 * appointmentList) { int status = 0; Iterator<Appointment>
-	 * appointmentListIterator = appointmentList.iterator(); Appointment
-	 * appointment; while (appointmentListIterator.hasNext()) { appointment =
-	 * appointmentListIterator.next(); if
-	 * (appointment.getAppointmentid().equals(appointmentId)) { status =
-	 * appointment.setApproved(1); } } return status; }
-	 */
 
 	public String validatePassword(String userPassword) throws ValidationException {
 		if (userPassword.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})")) {
@@ -289,11 +288,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.addAppointment(appointment);
 	}
 
-	//Lists add the test of the given center
+	// Lists add the test of the given center
 	@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
-		DiagnosticCenter center= centerrepository.findById(centerId).get();
-		List<Test> testList=center.getListOfTests();
+		DiagnosticCenter center = centerRepository.findById(centerId).get();
+		List<Test> testList = center.getListOfTests();
 		return testList;
 	}
 
@@ -314,7 +313,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public DiagnosticCenter findCenter(BigInteger centerId) {
-		return centerrepository.findById(centerId).get();
+		return centerRepository.findById(centerId).get();
 	}
 
 	@Override

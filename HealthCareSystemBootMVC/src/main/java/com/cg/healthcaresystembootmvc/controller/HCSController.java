@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,10 +29,8 @@ import com.cg.healthcaresystembootmvc.dto.Test;
 import com.cg.healthcaresystembootmvc.dto.User;
 import com.cg.healthcaresystembootmvc.exceldownload.ExcelReportView;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
-import com.cg.healthcaresystembootmvc.repository.CenterRepository;
-import com.cg.healthcaresystembootmvc.repository.TestRepository;
 import com.cg.healthcaresystembootmvc.service.UserService;
-
+@ComponentScan
 @Controller
 public class HCSController {
 
@@ -51,7 +50,22 @@ public class HCSController {
 		return "Home";
 	}
 	
-	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
+	/*
+	 * Author: Jayesh Gaur
+	 * Description: Map /Home to Home.jsp
+	 * Created: October 9, 2019
+	 */
+	@RequestMapping(value = "/Home", method = RequestMethod.GET)
+	public String HomeMapper() {
+		return "Home";
+	}
+	
+	/*
+	 * Author: Jayesh Gaur
+	 * Description: Get login page
+	 * Created: October 9, 2019
+	 */
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginpage() {
 		return "Login";
 	}
@@ -74,18 +88,38 @@ public class HCSController {
 		}
 	}
 
-	@RequestMapping(value = "/registerPage", method = RequestMethod.GET)
+	
+	/*
+	 * Author: Jayesh Gaur
+	 * Description: Get registration page
+	 * Created: October 9, 2019
+	 */
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String registerPage(@ModelAttribute("customer") User user) {
 		return "Registration";
 	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	
+	/*
+	 * Author: Jayesh Gaur
+	 * Description: Registers the new user into the system if all the validation tests are passed
+	 * Created: October 9, 2019
+	 * Input: User details in the form of User object
+	 * Output: Returns the newly registered user to his homepage and automatically logs him in
+	 */
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("customer") User user, BindingResult bindingResult,
 			Map<String, Object> model) {
+		
+		//Check if the validation tests are passed. Return the user back to registration page if any test fails
 		if (bindingResult.hasErrors()) {
 			return "Registration";
 		} else {
+			
+			//Register the user and get his automatically generated user Id
 			BigInteger userId = userService.register(user);
+			
+			//Log the user in and set his user ID into the session object
 			session.setAttribute("userId", userId);
 			model.put("userId", userId);
 			return "UserHome";
