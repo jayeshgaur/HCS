@@ -52,7 +52,7 @@
 <jsp:include page="ShowCenters.jsp"></jsp:include>
 
 	<h2>Choose Center:</h2>
-	<form action="BookTests" method="POST">
+	<form action="SelectTests" method="POST">
 		<table>
 			<tr>
 				<td>Center Id:</td>
@@ -101,7 +101,7 @@
 					</tr>
 				</table>
 			</form>
-			<span> ${message } </span>
+			<span> ${testmessage } </span>
 
 		</tag:if>
 	

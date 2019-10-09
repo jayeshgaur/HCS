@@ -41,11 +41,6 @@ public class HCSController {
 	@Autowired
 	private UserService userService;
 
-	
-	  @RequestMapping(value = "AdminHome", method = RequestMethod.GET) public
-	  String getAdminHome() { return "AdminHome"; }
-	
-	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String defaultMapper() {
 		return "Home";
@@ -97,7 +92,7 @@ public class HCSController {
 				return "UserHome";
 			} else {
 				model.put("errormessage", "Invalid credentials");
-				return "Login";
+				return "login";
 			}
 		}
 	}
@@ -343,7 +338,7 @@ public class HCSController {
 	 * Created on: October 9, 2019
 	 */
 	@RequestMapping(value = "/addAppointment", method = RequestMethod.GET)
-	public String addAppointmentRequest(Map<String, Object> model) {
+	public String addAppointment(Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
 		return "addAppointment";
 	}
@@ -355,8 +350,8 @@ public class HCSController {
 	 * 				corresponding to the center id received from the user 
 	 * Created on: October 9, 2019
 	 */
-	@RequestMapping(value = "/ChooseCenterSubmit", method = RequestMethod.POST)
-	public String chooseTestRequest(@RequestParam("centerId") String stringCenterId, Map<String, Object> model) {
+	@RequestMapping(value = "/SelectTests", method = RequestMethod.POST)
+	public String addAppointmentSelectTest(@RequestParam("centerId") String stringCenterId, Map<String, Object> model) {
 		BigInteger centerId = null;
 		List<Test> testList;
 		try {
@@ -373,22 +368,20 @@ public class HCSController {
 				session.setAttribute("centerId", centerId);
 			} else {
 				// Return the centerList again to the user and redirect to the previous page if no tests exist in the center
-				model.put("centerList", userService.getCenterList());
 				model.put("message", "Sorry, no tests present in that center.");
-				return "ChooseCenter";
 			}
 		} catch (ValidationException exception) {
 			// Redirect to the same page if the center Id is not valid and ask the user to select a different center or select a proper center Id
-			model.put("centerList", userService.getCenterList());
 			model.put("message", exception.getMessage());
-			return "ChooseCenter";
 		}
-		return "ChooseTest";
+		model.put("centerList", userService.getCenterList());
+		return "addAppointment";
 	}
 
 	/*
 	 * Author: Jayesh Gaur 
-	 * Description: 
+	 * Description: Validate the test id and datetime received 
+	 * 				from the user and book an appointment in the system
 	 * Created on: October 9, 2019
 	 */	
 	@RequestMapping(value = "/confirmAppointment", method = RequestMethod.POST)
@@ -396,15 +389,25 @@ public class HCSController {
 			@RequestParam("userId") BigInteger userId, @RequestParam("centerId") BigInteger centerId,
 			Map<String, Object> model) {
 		Appointment appointment = new Appointment();
+		//Get the center object corresponding to the center id
 		DiagnosticCenter center = userService.findCenter(centerId);
 		LocalDateTime dateTime;
 		BigInteger testId;
 		List<Test> testList = userService.getListOfTests((BigInteger) session.getAttribute("centerId"));
 		try {
+			//Validate test Id, return biginteger value of testId if passed
 			testId = userService.validateTestId(sTestId, testList);
+			
+			//Validate date and time, return LocalDateTime value of datetime if passed
 			dateTime = userService.validateDateTime(sDateTime);
+			
+			//Get the test object corresponding to the test id
 			Test test = userService.findTest(testId);
+			
+			//Get the user object corresponding to the user id
 			User user = userService.findUser(userId);
+			
+			//By default, all new appointments have "pending" status
 			appointment.setAppointmentStatus(0);
 			appointment.setCenter(center);
 			System.out.println(sDateTime);
@@ -414,9 +417,10 @@ public class HCSController {
 			userService.addAppointment(appointment);
 			model.put("message", "Appointment booked successfully");
 		} catch (ValidationException exception) {
+			model.put("centerList", userService.getCenterList());
 			model.put("testList", testList);
-			model.put("message", exception.getMessage());
-			return "ChooseTest";
+			model.put("testmessage", exception.getMessage());
+			return "addAppointment";
 		}
 		session.setAttribute("centerId", null);
 		return "UserHome";
