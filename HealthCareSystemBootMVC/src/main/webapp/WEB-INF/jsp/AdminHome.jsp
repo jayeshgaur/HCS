@@ -88,8 +88,8 @@
 							<p class="card-text">Choose to Add or Remove test in a
 								particular Diagnostic Center</p>
 						</div>
-						<a href="/Test/Add" class="btn btn-primary">Add Test</a> <a
-							href="/Test/Remove" class="btn btn-primary">Remove Test</a>
+						<a href="/AddTest" class="btn btn-primary">Add Test</a> <a
+							href="/RemoveTest" class="btn btn-primary">Remove Test</a>
 
 						<div class="card-footer">
 							<small class="text-muted">These changes will update all

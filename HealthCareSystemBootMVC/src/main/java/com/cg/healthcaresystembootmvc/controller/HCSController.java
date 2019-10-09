@@ -41,6 +41,11 @@ public class HCSController {
 	@Autowired
 	private UserService userService;
 
+	
+	  @RequestMapping(value = "AdminHome", method = RequestMethod.GET) public
+	  String getAdminHome() { return "AdminHome"; }
+	
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String defaultMapper() {
 		return "Home";
@@ -86,6 +91,8 @@ public class HCSController {
 			return "UserHome";
 		}
 	}
+	
+	
 
 	@RequestMapping(value = "/Center/Add", method = RequestMethod.GET)
 	public String addCenterRequest(@ModelAttribute("Center") DiagnosticCenter center) {
@@ -112,13 +119,31 @@ public class HCSController {
 		return new ModelAndView("ShowCenters", "data", myList);
 	}
 
-	@RequestMapping(value = "/Test/Add", method = RequestMethod.GET)
+	/*
+	 * Author : Nidhi
+	 * Description : This controller method maps the url /Test/Add and redirect the controller to addTest.jsp
+	 * Created Date : 9th October,2019
+	 * Input: Map<String,Object> model
+	 * Return Type : return addTest string
+	 * 
+	 * */
+	@RequestMapping(value = "/AddTest", method = RequestMethod.GET)
 	public String addTestPage(Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
 		return "addTest";
 	}
 
-	@RequestMapping(value = "/Test/Add", method = RequestMethod.POST)
+	/*
+	 * Author : Nidhi
+	 * Description : This controller method maps the url /Test/Add and calls the method 
+	 * of userService for server side validation for centerid and for adding test by calling the method of userService addTest
+	 * Created Date : 9th October,2019
+	 * Input: String stringCenterId,String testName,Map<String, Object> model
+	 * Return Type : return addTest string
+	 * 
+	 * */
+	
+	@RequestMapping(value = "/AddTest", method = RequestMethod.POST)
 	public String addTestSubmit(@RequestParam("centerId") String stringCenterId,
 			@RequestParam("testName") String testName, Map<String, Object> model) {
 		BigInteger centerId = null;
@@ -167,13 +192,32 @@ public class HCSController {
 		return "deleteCenter";
 	}
 
-	@RequestMapping(value = "/Test/Remove", method = RequestMethod.GET)
+
+	/*
+	 * Author : Nidhi
+	 * Description : This controller method maps the url /Test/Remove and redirect the controller to deleteTest.jsp
+	 * Created Date : 9th October,2019
+	 * Input: Map<String,Object> model
+	 * Return Type : return deleteTest string
+	 * 
+	 * */
+	
+	@RequestMapping(value = "/RemoveTest", method = RequestMethod.GET)
 	public String deleteTestRequest(Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
 		return "deleteTest";
 	}
+	/*
+	 * Author : Nidhi
+	 * Description : This controller method will first validate the centerid using the service method validateCenterId and put the list 
+	 * of tests of that particular center into the Map model.
+	 * Created Date : 9th October,2019
+	 * Input: String stringCenterId, Map<String,Object> model
+	 * Return Type : return deleteTest string
+	 * 
+	 * */
 
-	@RequestMapping(value = "/Test/Remove/Select/Center", method = RequestMethod.POST)
+	@RequestMapping(value = "/SelectCenter", method = RequestMethod.POST)
 	public String deleteTestSelectCenter(@RequestParam("centerId") String stringCenterId, Map<String, Object> model) {
 		BigInteger centerId = null;
 		try {
@@ -193,7 +237,16 @@ public class HCSController {
 		return "deleteTest";
 	}
 
-	@RequestMapping(value = "/Test/Remove/Select/Test", method = RequestMethod.POST)
+	/*
+	 * Author : Nidhi
+	 * Description : This controller method will validate the testid using the service method validateTestId and redirect the controller to deleteTest
+	 * Created Date : 9th October,2019
+	 * Input: String stringCenterId, Map<String,Object> model
+	 * Return Type : return deleteTest string
+	 * 
+	 * */
+	
+	@RequestMapping(value = "/SelectTest", method = RequestMethod.POST)
 	public String deleteTest(@RequestParam("testId") String sTestId, Map<String, Object> model) {
 		BigInteger testId = null;
 		try {
@@ -210,7 +263,17 @@ public class HCSController {
 		return "deleteTest";
 	}
 
-	@RequestMapping(value = "/Test/Remove/Confirm", method = RequestMethod.POST)
+	/*
+	 * Author : Nidhi
+	 * Description : This controller method will remove the test from the specified center.
+	 * of tests of that particular center into the Map model.
+	 * Created Date : 9th October,2019
+	 * Input: BigInteger testId,BigInteger centerId, Map<String,Object> model
+	 * Return Type : return AdminHome string
+	 * 
+	 * */
+	
+	@RequestMapping(value = "/TestConfirm", method = RequestMethod.POST)
 	public String deleteTestConfirm(@RequestParam("testId") BigInteger testId,
 			@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) throws ValidationException {
 		if (userService.removeTest(centerId, testId)) {

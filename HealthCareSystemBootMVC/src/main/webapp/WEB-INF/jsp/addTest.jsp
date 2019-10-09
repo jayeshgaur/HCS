@@ -39,7 +39,7 @@
 </div>
 <div class="collapse navbar-collapse" id="micon">
 <ul class="nav navbar-nav navbar-right"> 
-<li><a href="Home.jsp">HOME</a></li>
+<li><a href="AdminHome">HOME</a></li>
 <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
 </ul>
 </div>
@@ -50,7 +50,7 @@
 <jsp:include page="ShowCenters.jsp"></jsp:include>
 
 	<h2>Add New Test:</h2>
-	<form action="/Test/Add" method="POST" id="addtestform">
+	<form action="/AddTest" method="POST" id="addtestform">
 		<table>
 			<tr>
 				<td>Center Id:</td>
@@ -113,7 +113,7 @@ $(function(){
 	}
 	function check_testname()
 	{
-		var pattern=/^[A-Za-z]*$/;
+		var pattern=/^([a-zA-Z])+(\s)+[a-zA-Z]+$/;
 		var testname=$("#form_test_name").val();
 		if(pattern.test(testname) && testname!=='')
 			{

@@ -48,13 +48,28 @@ public class UserServiceImpl implements UserService {
 		return true;
 	}
 
-    //Add Test
+	/*
+	 * Author : Nidhi
+	 * Description : This service method is adding test to the list of tests of center and saving the test using the save method of Test Repository.
+	 * Created Date : 9th October,2019
+	 * Input: Test
+	 * Return Type : Test
+	 * 
+	 * */
 	public Test addTest(BigInteger centerId, Test test) {
 		DiagnosticCenter center=centerrepository.findById(centerId).get();
 		center.getListOfTests().add(test);
 		return testrepository.save(test);
 	}
 
+	/*
+	 * Author : Nidhi
+	 * Description : This service method is removing test from the list of tests of center and removing the test by setting isDeleted attribute of Test to true.
+	 * Created Date : 9th October,2019
+	 * Input: BigInteger removeCenterId, BigInteger removeTestId
+	 * Return Type : boolean
+	 * 
+	 * */
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws ValidationException {
 		    DiagnosticCenter center=centerrepository.findById(removeCenterId).get();
 		    if(center==null)
