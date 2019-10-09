@@ -30,6 +30,7 @@ import com.cg.healthcaresystembootmvc.dto.User;
 import com.cg.healthcaresystembootmvc.exceldownload.ExcelReportView;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
 import com.cg.healthcaresystembootmvc.service.UserService;
+
 @ComponentScan
 @Controller
 public class HCSController {
@@ -44,25 +45,38 @@ public class HCSController {
 	public String defaultMapper() {
 		return "Home";
 	}
-	
+
 	/*
-	 * Author: Jayesh Gaur
-	 * Description: Map /Home to Home.jsp
-	 * Created: October 9, 2019
+	 * Author: Jayesh Gaur Description: Map /Home to Home.jsp Created: October 9,
+	 * 2019
 	 */
 	@RequestMapping(value = "/Home", method = RequestMethod.GET)
 	public String HomeMapper() {
 		return "Home";
 	}
-	
+
 	/*
-	 * Author: Jayesh Gaur
-	 * Description: Get login page
-	 * Created: October 9, 2019
+	 * Author: Jayesh Gaur Description: Get login page Created: October 9, 2019
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginpage() {
 		return "Login";
+	}
+
+	/*
+	 * Author: Jayesh Gaur Description: Get Admin Home page Created: October 9, 2019
+	 */
+	@RequestMapping(value = "/AdminHome", method = RequestMethod.GET)
+	public String adminHomePage() {
+		return "AdminHome";
+	}
+
+	/*
+	 * Author: Jayesh Gaur Description: Get User Home page Created: October 9, 2019
+	 */
+	@RequestMapping(value = "/UserHome", method = RequestMethod.GET)
+	public String userHomePage() {
+		return "UserHome";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -83,38 +97,35 @@ public class HCSController {
 		}
 	}
 
-	
 	/*
-	 * Author: Jayesh Gaur
-	 * Description: Get registration page
-	 * Created: October 9, 2019
+	 * Author: Jayesh Gaur Description: Get registration page Created: October 9,
+	 * 2019
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String registerPage(@ModelAttribute("customer") User user) {
 		return "Registration";
 	}
 
-	
 	/*
-	 * Author: Jayesh Gaur
-	 * Description: Registers the new user into the system if all the validation tests are passed
-	 * Created: October 9, 2019
-	 * Input: User details in the form of User object
-	 * Output: Returns the newly registered user to his homepage and automatically logs him in
+	 * Author: Jayesh Gaur Description: Registers the new user into the system if
+	 * all the validation tests are passed Created: October 9, 2019 Input: User
+	 * details in the form of User object Output: Returns the newly registered user
+	 * to his homepage and automatically logs him in
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("customer") User user, BindingResult bindingResult,
 			Map<String, Object> model) {
-		
-		//Check if the validation tests are passed. Return the user back to registration page if any test fails
+
+		// Check if the validation tests are passed. Return the user back to
+		// registration page if any test fails
 		if (bindingResult.hasErrors()) {
 			return "Registration";
 		} else {
-			
-			//Register the user and get his automatically generated user Id
+
+			// Register the user and get his automatically generated user Id
 			BigInteger userId = userService.register(user);
-			
-			//Log the user in and set his user ID into the session object
+
+			// Log the user in and set his user ID into the session object
 			session.setAttribute("userId", userId);
 			model.put("userId", userId);
 			return "UserHome";
@@ -264,28 +275,47 @@ public class HCSController {
 		return "Login";
 	}
 
-	@RequestMapping(value = "/addAppointmentPage", method = RequestMethod.GET)
+	/*
+	 * Author: Jayesh Gaur Description: Get Add Appointment Page for the user
+	 * Created on: October 9, 2019
+	 */
+	@RequestMapping(value = "/addAppointment", method = RequestMethod.GET)
 	public String addAppointmentRequest(Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
-		return "ChooseCenter";
+		return "addAppointment";
 	}
 
+	/*
+	 * Author: Jayesh Gaur 
+	 * Description: Processes the center Id received by the
+	 * 				user, validates it, and returns a list of tests under the center
+	 * 				corresponding to the center id received from the user 
+	 * Created on: October 9, 2019
+	 */
 	@RequestMapping(value = "/ChooseCenterSubmit", method = RequestMethod.POST)
-	public String chooseTestRequest(@RequestParam("centerId") String sCenterId, Map<String, Object> model) {
+	public String chooseTestRequest(@RequestParam("centerId") String stringCenterId, Map<String, Object> model) {
 		BigInteger centerId = null;
 		List<Test> testList;
 		try {
-			centerId = userService.validateCenterId(sCenterId, userService.getCenterList());
+			// Validate the center id entered by the user and return it's BigInteger value if the ID is valid.
+			// Throws ValidationException if the centerId is not valid
+			centerId = userService.validateCenterId(stringCenterId, userService.getCenterList());
+
+			// Get list of tests under the center corresponding to the center Id.
 			testList = userService.getListOfTests(centerId);
+
+			// Return the test list if tests are present
 			if (testList.size() > 0) {
 				model.put("testList", testList);
 				session.setAttribute("centerId", centerId);
 			} else {
+				// Return the centerList again to the user and redirect to the previous page if no tests exist in the center
 				model.put("centerList", userService.getCenterList());
 				model.put("message", "Sorry, no tests present in that center.");
 				return "ChooseCenter";
 			}
 		} catch (ValidationException exception) {
+			// Redirect to the same page if the center Id is not valid and ask the user to select a different center or select a proper center Id
 			model.put("centerList", userService.getCenterList());
 			model.put("message", exception.getMessage());
 			return "ChooseCenter";
@@ -293,6 +323,11 @@ public class HCSController {
 		return "ChooseTest";
 	}
 
+	/*
+	 * Author: Jayesh Gaur 
+	 * Description: 
+	 * Created on: October 9, 2019
+	 */	
 	@RequestMapping(value = "/confirmAppointment", method = RequestMethod.POST)
 	public String addAppointment(@RequestParam("testId") String sTestId, @RequestParam("dateAndTime") String sDateTime,
 			@RequestParam("userId") BigInteger userId, @RequestParam("centerId") BigInteger centerId,
