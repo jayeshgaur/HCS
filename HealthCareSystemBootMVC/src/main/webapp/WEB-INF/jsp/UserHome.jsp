@@ -41,7 +41,7 @@
 <ul class="nav navbar-nav navbar-right"> 
 <li><a href="addAppointment">Add Appointment</a></li>
 <li><a href="viewAppointment">View Appointment</a></li>
-<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
 </ul>
 </div>
 </div>

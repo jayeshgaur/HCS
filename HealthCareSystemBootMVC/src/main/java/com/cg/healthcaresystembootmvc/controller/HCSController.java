@@ -426,18 +426,31 @@ public class HCSController {
 		return "UserHome";
 	}
 
-	@RequestMapping(value = "/approveAppointmentPage", method = RequestMethod.GET)
+	/*
+	 * author: 		Jayesh Gaur
+	 * Description: Get Approve Appointment Page
+	 * Created on: 	October 9, 2019
+	 */
+	@RequestMapping(value = "/approve", method = RequestMethod.GET)
 	public String approveAppointment(Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
 		return "ApproveAppointment";
 	}
 
-	@RequestMapping(value = "/approveAppointmentSelectCenter", method = RequestMethod.POST)
+	/*
+	 * Author:		Jayesh Gaur
+	 * Description: Validates the center Id entered by user and returns a list of all
+	 * 				appointments under the center corresponding to the center Id in the view
+	 * Created on: October 9, 2019
+	 */
+	@RequestMapping(value = "/approveCenter", method = RequestMethod.POST)
 	public String approveAppointmentSelectCenter(@RequestParam("centerId") String sCenterId,
 			Map<String, Object> model) {
 		BigInteger centerId = null;
 		try {
+			//Validate center Id
 			centerId = userService.validateCenterId(sCenterId, userService.getCenterList());
+
 			List<Appointment> appointmentList = userService.getCenterAppointmentList(centerId);
 			if (appointmentList.size() > 0) {
 				session.setAttribute("centerId", centerId);
@@ -453,7 +466,7 @@ public class HCSController {
 		return "ApproveAppointment";
 	}
 
-	@RequestMapping(value = "/approveAppointmentSelectAppointment", method = RequestMethod.POST)
+	@RequestMapping(value = "/approveAppointment", method = RequestMethod.POST)
 	public String approveAppointment(@RequestParam("appointmentId") String sAppointmentId, Map<String, Object> model) {
 		BigInteger appointmentId = null;
 		List<Appointment> appointmentList = userService
@@ -470,7 +483,7 @@ public class HCSController {
 		return "ApproveAppointment";
 	}
 
-	@RequestMapping(value = "/approveAppointmentConfirmAppointment", method = RequestMethod.POST)
+	@RequestMapping(value = "/approve", method = RequestMethod.POST)
 	public String approveAppointmentConfirm(@RequestParam("appointmentId") BigInteger appointmentId,
 			@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
 		if (userService.approveAppointment(appointmentId)) {
