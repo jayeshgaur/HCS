@@ -50,15 +50,17 @@
 <jsp:include page="ShowCenters.jsp"></jsp:include>
 
 	<h2>Add New Test:</h2>
-	<form action="/Test/Add" method="POST">
+	<form action="/Test/Add" method="POST" id="addtestform">
 		<table>
 			<tr>
 				<td>Center Id:</td>
-				<td><input name="centerId" /></td>
+				<td><input type="text" name="centerId" id="form_center_id" required=""/></td>
+				<td><span class="form_error" id="centerid_error_message" style="color:red;"></span></td>
 			</tr>
 			<tr>
 				<td>Test Name</td>
-				<td><input name="testName" required="required"/></td>
+				<td><input type="text" name="testName" id="form_test_name" required=""/></td>
+				<td><span class="form_error" id="testname_error_message" style="color:red;"></span></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="Add Test"></input></td>
@@ -72,4 +74,92 @@
 </header>
 </body>
 <% } %>
+<script type="text/javascript">
+$(function(){
+	$("#centerid_error_message").hide();
+	$("#testname_error_message").hide();
+	var error_centerid=false;
+	var error_testname=false;
+	$("#form_center_id").focusout(function(){
+		check_centerid();
+	});
+	$("#form_test_name").focusout(function(){
+		check_testname();
+	});
+	function check_centerid()
+	{
+		var pattern=/^[0-9]*$/;
+		var centerid=$("#form_center_id").val();
+		if(pattern.test(centerid) && centerid!=='')
+			{
+			$("#centerid_error_message").hide();
+			$("#form_center_id").css("border-bottom","2px solid #34FA58");
+			}
+		else if(centerid=='')
+			{
+			$("#centerid_error_message").html("should not be empty");
+			$("#centerid_error_message").show();
+			$("#form_center_id").css("border-bottom","2px solid #F90A0A");
+			error_centerid=true;
+			}
+		else
+			{
+			$("#centerid_error_message").html("should contain only numeric vaues");
+			$("#centerid_error_message").show();
+			$("#form_center_id").css("border-bottom","2px solid #F90A0A");
+			error_centerid=true;
+			
+			}
+	}
+	function check_testname()
+	{
+		var pattern=/^[A-Za-z]*$/;
+		var testname=$("#form_test_name").val();
+		if(pattern.test(testname) && testname!=='')
+			{
+			$("#testname_error_message").hide();
+			$("#form_test_name").css("border-bottom","2px solid #34FA58");
+			}
+		else if(testname=='')
+			{
+			$("#testname_error_message").html("should not be empty");
+			$("#testname_error_message").show();
+			$("#form_test_name").css("border-bottom","2px solid #F90A0A");
+			error_testname=true;
+			}
+		else
+			{
+			$("#testname_error_message").html("should contain string");
+			$("#testname_error_message").show();
+			$("#form_test_name").css("border-bottom","2px solid #F90A0A");
+			error_testname=true;
+			
+			}
+	}
+	$("#addtestform").submit(function(){
+		 error_centerid=false;
+		 error_testname=false;
+		 check_centerid();
+		 check_testname();
+		 if(error_centerid===false && error_testname===false)
+			 {
+			 	alert("Added center successfully");
+			 	return true;
+			 }
+		 else
+			 {
+			 alert("Please fill the form correctly");
+			 return false;
+			 }
+		
+	});
+	
+	
+	
+	
+	
+	
+});
+
+</script>
 </html>
