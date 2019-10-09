@@ -48,7 +48,7 @@
 	<div>
 		<jsp:include page="ShowCenters.jsp" />
 	</div>
-	<form action="removeTestSelectCenter" method="POST">
+	<form action="/Test/Remove/Select/Center" method="POST">
 		<table>
 			<tr>
 				<td>Center ID</td>
@@ -64,7 +64,7 @@
 		<div>Tests under the selected center:</div>
 
 		<jsp:include page="ShowTests.jsp"></jsp:include>
-		<form action="removeTestSelectTest" method="POST">
+		<form action="/Test/Remove/Select/Test" method="POST">
 			<table>
 				<tr>
 					<td>Test ID: <input type="text" name="testId"><br>
@@ -80,7 +80,7 @@
 		<br>
 		<tag:if test="${testId != null }">
 
-			<form action="removeTestConfirmTest" method="POST">
+			<form action="/Test/Remove/Confirm" method="POST">
 				<table>
 					<tr>
 						<td>Confirm Delete:</td>

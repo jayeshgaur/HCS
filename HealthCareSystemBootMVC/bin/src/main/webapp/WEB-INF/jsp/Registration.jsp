@@ -10,8 +10,8 @@
 <link rel="stylesheet"  type="text/css" href="<c:url value="/webjars/css/header.css"/>">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link href="<c:url value="/webjars/css/footer.css" />" rel="stylesheet">
-<link href="<c:url value="/webjars/css/table.css" />" rel="stylesheet">
+<link href="<c:url value="css/footer.css" />" rel="stylesheet">
+<link href="<c:url value="css/table.css" />" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
@@ -30,7 +30,7 @@
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a href="Home.jsp"><img class="logo" src="<c:url value="/resources/Images/logo.jpg"/>" alt="Picture1"  /></a>
+<a href="Home.jsp"><img class="logo" src="<c:url value="images/logo.jpg"/>" alt="Picture1"  /></a>
 </div>
 <div class="collapse navbar-collapse" id="micon">
 <ul class="nav navbar-nav navbar-right"> 
