@@ -23,6 +23,7 @@ import com.cg.healthcaresystembootmvc.exception.ValidationException;
 import com.cg.healthcaresystembootmvc.repository.CenterRepository;
 import com.cg.healthcaresystembootmvc.repository.TestRepository;
 import com.cg.healthcaresystembootmvc.repository.UserDao;
+import com.cg.healthcaresystembootmvc.repository.UserRepository;
 
 @Service
 @Transactional
@@ -30,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Autowired
 	private TestRepository testrepository;
@@ -73,7 +77,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public BigInteger register(User user) {
-		return userDao.register(user);
+		return userRepository.save(user).getUserId();
 	}
 
 	public List<DiagnosticCenter> getCenterList() {

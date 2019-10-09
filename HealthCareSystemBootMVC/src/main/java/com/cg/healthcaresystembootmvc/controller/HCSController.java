@@ -47,7 +47,22 @@ public class HCSController {
 		return "Home";
 	}
 	
-	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
+	/*
+	 * Author: Jayesh Gaur
+	 * Description: Map /Home to Home.jsp
+	 * Created: October 9, 2019
+	 */
+	@RequestMapping(value = "/Home", method = RequestMethod.GET)
+	public String HomeMapper() {
+		return "Home";
+	}
+	
+	/*
+	 * Author: Jayesh Gaur
+	 * Description: Get login page
+	 * Created: October 9, 2019
+	 */
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginpage() {
 		return "Login";
 	}
@@ -70,12 +85,12 @@ public class HCSController {
 		}
 	}
 
-	@RequestMapping(value = "/registerPage", method = RequestMethod.GET)
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String registerPage(@ModelAttribute("customer") User user) {
 		return "Registration";
 	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("customer") User user, BindingResult bindingResult,
 			Map<String, Object> model) {
 		if (bindingResult.hasErrors()) {
