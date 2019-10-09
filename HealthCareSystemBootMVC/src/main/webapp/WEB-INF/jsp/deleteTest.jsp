@@ -4,19 +4,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<%
-	if (!("admin".equals(session.getAttribute("userRole")))) {
-		response.sendRedirect("loginPage");
-	} else {
-%>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet"  type="text/css" href="<c:url value="/webjars/css/footer.css"/>">
-<link rel="stylesheet"  type="text/css" href="<c:url value="/webjars/css/header.css"/>">
+<link rel="stylesheet"  type="text/css" href="<c:url value="css/footer.css"/>">
+<link rel="stylesheet"  type="text/css" href="<c:url value="css/header.css"/>"> 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link href="<c:url value="/webjars/css/footer.css" />" rel="stylesheet">
-<link href="<c:url value="/webjars/css/table.css" />" rel="stylesheet">
+<link href="<c:url value="css/footer.css" />" rel="stylesheet">
+<link href="<c:url value="css/table.css" />" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
@@ -34,7 +29,7 @@
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a href="AdminHome.jsp"><img class="logo" src="<c:url value="/resources/Images/logo.jpg"/>" alt="Picture1"  /></a>
+<a href="AdminHome.jsp"><img class="logo" src="<c:url value="images/logo.jpg"/>" alt="Picture1"  /></a>
 </div>
 <div class="collapse navbar-collapse" id="micon">
 <ul class="nav navbar-nav navbar-right"> 
@@ -48,11 +43,12 @@
 	<div>
 		<jsp:include page="ShowCenters.jsp" />
 	</div>
-	<form action="/Test/Remove/Select/Center" method="POST">
+	<form action="/Test/Remove/Select/Center" method="POST" id="centerform">
 		<table>
 			<tr>
 				<td>Center ID</td>
-				<td><input type="text" name="centerId"></td>
+				<td><input type="text" name="centerId" id="form_center_id" required=""></td>
+				<td><span class="form_error" id="centerid_error_message" style="color:red;"></span></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="Display Tests">
@@ -64,11 +60,12 @@
 		<div>Tests under the selected center:</div>
 
 		<jsp:include page="ShowTests.jsp"></jsp:include>
-		<form action="/Test/Remove/Select/Test" method="POST">
+		<form action="/Test/Remove/Select/Test" method="POST" id="testform">
 			<table>
 				<tr>
-					<td>Test ID: <input type="text" name="testId"><br>
+					<td>Test ID: <input type="text" name="testId" id="form_test_id"><br>
 					</td>
+					<td><span class="form_error" id="testid_error_message" style="color:red;"></span></td>
 					<td><input type="submit" value="Submit Test Id to remove"></td>
 
 					<td><span>${testErrorMessage }</span></td>
@@ -104,7 +101,123 @@
 
 
 </body>
-<%
+<script type="text/javascript">
+$(function(){
+	$("#centerid_error_message").hide();
+	var error_centerid=false;
+	$("#form_center_id").focusout(function(){
+		check_centerid();
+	});
+	
+	
+	function check_centerid()
+	{
+		var pattern=/^[0-9]*$/;
+		var centerid=$("#form_center_id").val();
+		if(pattern.test(centerid) && centerid!=='')
+			{
+			$("#centerid_error_message").hide();
+			$("#form_center_id").css("border-bottom","2px solid #34FA58");
+			}
+		else if(centerid=='')
+			{
+			$("#centerid_error_message").html("should not be empty");
+			$("#centerid_error_message").show();
+			$("#form_center_id").css("border-bottom","2px solid #F90A0A");
+			error_centerid=true;
+			}
+		else
+			{
+			$("#centerid_error_message").html("should contain only numeric vaues");
+			$("#centerid_error_message").show();
+			$("#form_center_id").css("border-bottom","2px solid #F90A0A");
+			error_centerid=true;
+			
+			}
 	}
-%>
+	
+	
+	
+	$("#centerform").submit(function(){
+		 error_centerid=false;
+		 check_centerid();
+		 if(error_centerid===false)
+			 {
+			 	//alert("Added center successfully");
+			 	return true;
+			 }
+		 else
+			 {
+			// alert("Please fill the form correctly");
+			 return false;
+			 }
+		
+	});
+	
+	
+	
+});
+</script>
+<script type="text/javascript">
+$(function(){
+	$("#testid_error_message").hide();
+	var error_testid=false;
+	$("#form_test_id").focusout(function(){
+		check_testid();});
+	
+		function check_testid()
+		{
+			var pattern=new RegExp(/^[0-9]*$/i);
+			
+			 var testid=$("#form_test_id").val();
+			//var testid = document.getElementById("form_test_id");
+			//("Inside checkTestId"+testid);
+			if(pattern.test(testid) && testid!=='')
+				{
+				
+				$("#testid_error_message").hide();
+				$("#form_test_id").css("border-bottom","2px solid #34FA58");
+				//alert("error in testid");
+				}
+			else if(testid=='')
+				{
+				$("#testid_error_message").html("should not be empty");
+				$("#testid_error_message").show();
+				$("#form_test_id").css("border-bottom","2px solid #F90A0A");
+				error_testid=true;
+				//alert("error in testid1");
+				}
+			else
+				{
+				$("#testid_error_message").html("should contain only numeric vaues");
+				$("#testid_error_message").show();
+				$("#form_test_id").css("border-bottom","2px solid #F90A0A");
+				error_testid=true;
+				//alert("error in testid2");
+				
+				}
+		}	
+		
+	$("#testform").submit(function(){
+		 error_testid=false;
+		// console.log("inside submit fx");
+		 check_testid();
+		 if(error_testid===false)
+			 {
+			 	//alert("Added center successfully");
+			 	return true;
+			 }
+		 else
+			 {
+			// alert("Please fill the form correctly");
+			 return false;
+			 }
+		
+	});
+	
+	
+	
+});
+
+</script>
 </html>
