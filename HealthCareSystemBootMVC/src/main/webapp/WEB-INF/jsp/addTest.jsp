@@ -143,12 +143,12 @@ $(function(){
 		 check_testname();
 		 if(error_centerid===false && error_testname===false)
 			 {
-			 	alert("Added center successfully");
+			 	//alert("Added center successfully");
 			 	return true;
 			 }
 		 else
 			 {
-			 alert("Please fill the form correctly");
+			// alert("Please fill the form correctly");
 			 return false;
 			 }
 		
