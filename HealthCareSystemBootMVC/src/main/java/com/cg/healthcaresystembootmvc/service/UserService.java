@@ -49,8 +49,6 @@ public interface UserService {
 	
 	public String validateGender(String gender) throws ValidationException;
 	
-	public BigInteger validateUserId(String userId) throws UserDefinedException;
-
 	public LocalDateTime validateDateTime(String dateString) throws ValidationException;
 
 //	public LocalTime validateTime(String next)throws UserDefinedException;

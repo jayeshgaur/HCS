@@ -113,8 +113,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public BigInteger userLogin(String email, String password) {
-		BigInteger userId = userDao.getUserLogin(email, password);
-		return userId;
+		User user = userRepository.findByUserEmailAndUserPassword(email,password);
+		return user.getUserId();
 	}
 
 	public String validatePassword(String userPassword) throws ValidationException {
@@ -213,21 +213,6 @@ public class UserServiceImpl implements UserService {
 			throw new ValidationException(UserErrorMessage.userErrorInvalidDateFormat);
 		}
 		return userDateTime;
-	}
-	
-	public BigInteger validateUserId(String userId) throws UserDefinedException {
-		if (userId.matches("^[0-9]+")) {
-			List<User> listOfUser = userDao.getUserList();
-			Iterator<User> userIterator = listOfUser.iterator();
-			while (userIterator.hasNext()) {
-				User user = userIterator.next();
-				if (user.getUserId().compareTo(new BigInteger(userId)) == 0) {
-					return new BigInteger(userId);
-				}
-
-			}
-		}
-		throw new UserDefinedException(UserErrorMessage.userErrorInvalidUserId);
 	}
 
 	public BigInteger validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)

@@ -5,7 +5,11 @@ package com.cg.healthcaresystembootmvc.repository;
  */
 
 import java.math.BigInteger;
+
+import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
+
 import com.cg.healthcaresystembootmvc.dto.User;
 
 /*
@@ -14,5 +18,8 @@ import com.cg.healthcaresystembootmvc.dto.User;
  * Created on: October 9, 2019
  */
 public interface UserRepository extends JpaRepository<User, BigInteger> {
+	
+	@Query("FROM User WHERE userEmail = :email AND userPassword = :password")
+	public User findByUserEmailAndUserPassword(@Param("email")String email, @Param("password")String password);
 
 }
