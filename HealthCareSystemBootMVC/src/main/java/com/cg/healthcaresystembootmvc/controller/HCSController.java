@@ -466,6 +466,13 @@ public class HCSController {
 		return "ApproveAppointment";
 	}
 
+	/*
+	 * Author:		Jayesh Gaur
+	 * Description: Validates the appointment Id entered by user and returns the admin
+	 * 				to the same page and asks for confirmation before approving the 
+	 * 				appointment
+	 * Created on: October 9, 2019
+	 */
 	@RequestMapping(value = "/approveAppointment", method = RequestMethod.POST)
 	public String approveAppointment(@RequestParam("appointmentId") String sAppointmentId, Map<String, Object> model) {
 		BigInteger appointmentId = null;
@@ -483,6 +490,12 @@ public class HCSController {
 		return "ApproveAppointment";
 	}
 
+	/*
+	 * Author:		Jayesh Gaur
+	 * Description: Approves the appointment in the database and returns the admin to
+	 * 				admin home page.
+	 * Created on: 	October 9, 2019
+	 */
 	@RequestMapping(value = "/approve", method = RequestMethod.POST)
 	public String approveAppointmentConfirm(@RequestParam("appointmentId") BigInteger appointmentId,
 			@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
