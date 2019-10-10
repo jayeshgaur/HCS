@@ -12,12 +12,12 @@
 
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet"  type="text/css" href="<c:url value="/webjars/css/footer.css"/>">
-<link rel="stylesheet"  type="text/css" href="<c:url value="/webjars/css/header.css"/>">
+<link rel="stylesheet"  type="text/css" href="<c:url value="css/footer.css"/>">
+<link rel="stylesheet"  type="text/css" href="<c:url value="css/header.css"/>">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link href="<c:url value="/webjars/css/footer.css" />" rel="stylesheet">
-<link href="<c:url value="/webjars/css/table.css" />" rel="stylesheet">
+<link href="<c:url value="css/footer.css" />" rel="stylesheet">
+<link href="<c:url value="css/table.css" />" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
@@ -41,7 +41,7 @@
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a href="AdminHome.jsp"><img class="logo" src="<c:url value="/resources/Images/logo.jpg"/>" alt="Picture1"  /></a>
+<a href="AdminHome"><img class="logo" src="<c:url value="images/logo.jpg"/>" alt="Picture1"  /></a>
 </div>
 <div class="collapse navbar-collapse" id="micon">
 <ul class="nav navbar-nav navbar-right"> 
@@ -61,7 +61,7 @@
 					<div class="card-deck">
 						<div class="card">
 							<img class="card-img-top"
-								src="<c:url value="/resources/Images/center.jpg"/>"
+								src="<c:url value="images/center.jpg"/>"
 								alt="Card image cap">
 							<div class="card-body">
 								<h4 class="card-title">Diagnostic Center</h4>
@@ -81,15 +81,15 @@
 				<div class="col-lg-4">
 					<div class="card">
 						<img class="card-img-top"
-							src="<c:url value="/resources/Images/test.jpg"/>"
+							src="<c:url value="images/test.jpg"/>"
 							alt="Card image cap">
 						<div class="card-body">
 							<h4 class="card-title">Test</h4>
 							<p class="card-text">Choose to Add or Remove test in a
 								particular Diagnostic Center</p>
 						</div>
-						<a href="/Test/Add" class="btn btn-primary">Add Test</a> <a
-							href="/Test/Remove" class="btn btn-primary">Remove Test</a>
+						<a href="/AddTest" class="btn btn-primary">Add Test</a> <a
+							href="/RemoveTest" class="btn btn-primary">Remove Test</a>
 
 						<div class="card-footer">
 							<small class="text-muted">These changes will update all
@@ -100,13 +100,13 @@
 				<div class="col-lg-4">
 					<div class="card">
 						<img class="card-img-top"
-							src="<c:url value="/resources/Images/appointment.jpg"/>"
+							src="<c:url value="images/appointment.jpg"/>"
 							alt="Card image cap">
 						<div class="card-body">
 							<h4 class="card-title">Appointment</h4>
 							<p class="card-text">Approve Customer's Appointment</p>
 						</div>
-						<a href="approveAppointmentPage" class="btn btn-primary">Approve
+						<a href="approve" class="btn btn-primary">Approve
 							Appointment</a>
 						<div class="card-footer">
 							<small class="text-muted">Check availabilty before

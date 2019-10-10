@@ -13,6 +13,7 @@ import com.cg.healthcaresystembootmvc.dto.Test;
  * Created Date : 9th October,2019 
  * 
  * */
+
 public interface TestRepository extends JpaRepository<Test,BigInteger> {
 
 	

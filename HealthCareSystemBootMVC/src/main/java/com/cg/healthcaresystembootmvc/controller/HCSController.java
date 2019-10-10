@@ -133,12 +133,12 @@ public class HCSController {
 	}
 	
 	
-
+	
 	@RequestMapping(value = "/Center/Add", method = RequestMethod.GET)
 	public String addCenterRequest(@ModelAttribute("Center") DiagnosticCenter center) {
 		return "addCenter";
 	}
-
+	
 	// Add Center
 	@RequestMapping(value = "/Center/Add", method = RequestMethod.POST)
 	public String addCenter(@Valid @ModelAttribute("Center") DiagnosticCenter center, BindingResult result,
@@ -152,7 +152,7 @@ public class HCSController {
 			return "AdminHome";
 		}
 	}
-
+	
 	@RequestMapping(value = "/showAllCenter", method = RequestMethod.GET)
 	public ModelAndView getAllData() {
 		List<DiagnosticCenter> myList = userService.getCenterList();

@@ -25,8 +25,6 @@ public interface UserService {
 
 	public List<DiagnosticCenter> getCenterList();
 
-	public List<User> getUserList();
-	
 	public BigInteger userLogin(String email, String password);
 
 	//public boolean setCenterList(List<DiagnosticCenter> centerList);

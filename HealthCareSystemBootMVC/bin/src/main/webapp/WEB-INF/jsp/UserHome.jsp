@@ -13,8 +13,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Health Care System</title>
-<link rel="stylesheet"  type="text/css" href="<c:url value="/webjars/css/footer.css"/>">
-<link rel="stylesheet"  type="text/css" href="<c:url value="/webjars/css/header.css"/>">
+<link rel="stylesheet"  type="text/css" href="<c:url value="css/footer.css"/>">
+<link rel="stylesheet"  type="text/css" href="<c:url value="css/header.css"/>">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
@@ -35,13 +35,13 @@
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a href="UserHome.jsp"><img class="logo" src="<c:url value="/resources/Images/logo.jpg"/>" alt="Picture1"  /></a>
+<a href="UserHome"><img class="logo" src="<c:url value="images/logo.jpg"/>" alt="Picture1"  /></a>
 </div>
 <div class="collapse navbar-collapse" id="micon">
 <ul class="nav navbar-nav navbar-right"> 
-<li><a href="addAppointmentPage">Add Appointment</a></li>
-<li><a href="viewAppointmentPage">View Appointment</a></li>
-<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+<li><a href="addAppointment">Add Appointment</a></li>
+<li><a href="viewAppointment">View Appointment</a></li>
+<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
 </ul>
 </div>
 </div>
@@ -67,15 +67,15 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" style=" width:100%; height: 500px !important;">
       <div class="item active">
-        <img  src="<c:url value="/resources/Images/a.jpg"/>" alt="Los Angeles" style="width:100%;">
+        <img  src="<c:url value="images/a.jpg"/>" alt="Los Angeles" style="width:100%;">
       </div>
 
       <div class="item">
-        <img src="<c:url value="/resources/Images/d.jpg"/>" alt="Chicago" style="width:100%;">
+        <img src="<c:url value="images/d.jpg"/>" alt="Chicago" style="width:100%;">
       </div>
     
       <div class="item">
-        <img src="<c:url value="/resources/Images/c.jpg"/>" alt="New york" style="width:100%;">
+        <img src="<c:url value="images/c.jpg"/>" alt="New york" style="width:100%;">
       </div>
     </div>
 

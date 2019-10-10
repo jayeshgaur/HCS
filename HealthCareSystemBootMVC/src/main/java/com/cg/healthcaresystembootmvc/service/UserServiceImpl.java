@@ -112,10 +112,6 @@ public class UserServiceImpl implements UserService {
 		return centerRepository.getCenterList();
 	}
 
-	public List<User> getUserList() {
-		return userDao.getUserList();
-	}
-
 	public BigInteger userLogin(String email, String password) {
 		BigInteger userId = userDao.getUserLogin(email, password);
 		return userId;
@@ -175,7 +171,6 @@ public class UserServiceImpl implements UserService {
 				DiagnosticCenter diagnosticCenter = iterator.next();
 				if (diagnosticCenter.getCenterId().compareTo(new BigInteger(centerId)) == 0)
 					return new BigInteger(centerId);
-
 			}
 		}
 		throw new ValidationException(UserErrorMessage.userErrorInvalidCenterId);
@@ -193,20 +188,6 @@ public class UserServiceImpl implements UserService {
 		}
 		throw new ValidationException(UserErrorMessage.userErrorInvalidTestId);
 	}
-
-//	public static void validateTestIndex(String selectTestIndex, int selectCenterIndex, List<Test> testList)
-//			throws UserDefinedException {
-//		String regex = "^[0-9]*$";
-//		Pattern pattern = Pattern.compile(regex);
-//		Matcher matcher = pattern.matcher(selectTestIndex);
-//		if (!matcher.matches()) {
-//			throw new UserDefinedException("Enter a numeric choice!");
-//		} else {
-//			if (Integer.parseInt(selectTestIndex) >= testList.size() || (Integer.parseInt(selectTestIndex) < 0)) {
-//				throw new UserDefinedException("Enter a proper test choice");
-//			}
-//		}
-//	}
 
 	public LocalDateTime validateDateTime(String dateString) throws ValidationException {
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
@@ -233,24 +214,7 @@ public class UserServiceImpl implements UserService {
 		}
 		return userDateTime;
 	}
-
-//	public LocalTime validateTime(String timeString) throws UserDefinedException {
-//		LocalTime userInputTime=null;
-//		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
-//		LocalTime closeTime = LocalTime.parse("20:00", timeFormat);
-//		LocalTime openTime = LocalTime.parse("10:00", timeFormat);
-//		try {
-//			userInputTime = LocalTime.parse(timeString, timeFormat);
-//			if(userInputTime.isAfter(closeTime) || userInputTime.isBefore(openTime)) {
-//				throw new UserDefinedException(UserErrorMessage.userErrorNonWorkingHours);
-//			}
-//			
-//		}catch(Exception parseException) {
-//			throw new UserDefinedException(UserErrorMessage.userErrorInvalidTimeFormat);
-//		}
-//		return userInputTime;
-//	}
-
+	
 	public BigInteger validateUserId(String userId) throws UserDefinedException {
 		if (userId.matches("^[0-9]+")) {
 			List<User> listOfUser = userDao.getUserList();
@@ -291,43 +255,69 @@ public class UserServiceImpl implements UserService {
 		return appointmentRepository.save(appointment);
 	}
 
-	// Lists add the test of the given center
-	@Override
-	public List<Test> getListOfTests(BigInteger centerId) {
-		DiagnosticCenter center = centerRepository.findById(centerId).get();
-		List<Test> testList = center.getListOfTests();
-		return testList;
-	}
-
-	@Override
-	public List<Appointment> getAppointmentList(BigInteger userId) {
-		return userDao.getAppointmentList(userId);
-	}
-
+	/*
+	 * Author:		 	Jayesh Gaur
+	 * Description:  	Accepts the appointment Id to be approved and marks it in the database
+	 * 					Returns true on successful completion
+	 * Created on: 		October 9, 2019
+	 */
 	@Override
 	public boolean approveAppointment(BigInteger appointmentId) {
-		return userDao.approveAppointment(appointmentId);
+		Appointment appointment = appointmentRepository.findById(appointmentId).get();
+		appointment.setAppointmentStatus(1);
+		return true;
 	}
 
+	/*
+	 * Author:		 	Jayesh Gaur
+	 * Description:  	Returns the list of appointments which are not approved in the center
+	 * 					corresponding to the center id received in input
+	 * Created on: 		October 9, 2019
+	 */
 	@Override
 	public List<Appointment> getCenterAppointmentList(BigInteger centerId) {
-		return userDao.getCenterAppointmentList(centerId);
+		DiagnosticCenter center = centerRepository.findById(centerId).get();
+		return appointmentRepository.findByCenter(center);
 	}
 
+	/*
+	 * Author:		 	Jayesh Gaur
+	 * Description:  	Returns the center object corresponding to 
+	 * 					the center Id received in input
+	 * Created on: 		October 9, 2019
+	 */
 	@Override
 	public DiagnosticCenter findCenter(BigInteger centerId) {
 		return centerRepository.findById(centerId).get();
 	}
 
+	/*
+	 * Author:		 	Jayesh Gaur
+	 * Description:  	Returns the user object corresponding to 
+	 * 					the user Id received in input
+	 * Created on: 		October 9, 2019
+	 */
+	@Override
+	public User findUser(BigInteger userId) {
+		return userRepository.findById(userId).get();
+	}
+	
+
+	@Override
+	public List<Appointment> getAppointmentList(BigInteger userId) {
+		return userDao.getAppointmentList(userId);
+	}
+	
 	@Override
 	public Test findTest(BigInteger testId) {
 		return testRepository.findById(testId).get();
 	}
-
+	
 	@Override
-	public User findUser(BigInteger userId) {
-		// TODO Auto-generated method stub
-		return userDao.findUser(userId);
-	}
+	public List<Test> getListOfTests(BigInteger centerId) {
+			DiagnosticCenter center = centerRepository.findById(centerId).get();
+			List<Test> testList = center.getListOfTests();
+			return testList;
+		}
 
 }

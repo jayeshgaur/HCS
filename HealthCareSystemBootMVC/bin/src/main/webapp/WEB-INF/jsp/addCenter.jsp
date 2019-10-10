@@ -7,7 +7,7 @@
 <html>
 <%
 	if (!("admin".equals(session.getAttribute("userRole")))) {
-		response.sendRedirect("loginPage");
+		response.sendRedirect("login");
 	} else {
 		
 %>
@@ -52,7 +52,7 @@
 
 
 	<h3>Add New Center:</h3>
-	<fo:form action="addCenterSubmit" method="POST" modelAttribute="Center">
+	<fo:form action="/Center/Add" method="POST" modelAttribute="Center">
 		<table>
 	         <tr>
 				<td>Center Name:</td>
