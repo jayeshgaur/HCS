@@ -21,7 +21,6 @@ import com.cg.healthcaresystembootmvc.dto.Appointment;
 import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
 import com.cg.healthcaresystembootmvc.dto.User;
-import com.cg.healthcaresystembootmvc.exception.UserDefinedException;
 import com.cg.healthcaresystembootmvc.exception.UserErrorMessage;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
 import com.cg.healthcaresystembootmvc.repository.AppointmentRepository;
@@ -112,6 +111,11 @@ public class UserServiceImpl implements UserService {
 		return centerRepository.getCenterList();
 	}
 
+	/*
+	 * Author: 		Jayesh Gaur
+	 * Description: TO BE DONE (NOT VALIDATED)
+	 * Created on:  October 9, 2019
+	 */
 	public BigInteger userLogin(String email, String password) {
 		User user = userRepository.findByUserEmailAndUserPassword(email,password);
 		return user.getUserId();

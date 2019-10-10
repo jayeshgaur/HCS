@@ -8,7 +8,6 @@ import com.cg.healthcaresystembootmvc.dto.Appointment;
 import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
 import com.cg.healthcaresystembootmvc.dto.User;
-import com.cg.healthcaresystembootmvc.exception.UserDefinedException;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
 
 
@@ -27,8 +26,6 @@ public interface UserService {
 
 	public BigInteger userLogin(String email, String password);
 
-	//public boolean setCenterList(List<DiagnosticCenter> centerList);
-	
 	public String validateContactNo(String userContactNo) throws ValidationException;
 	
 	public BigInteger validateCenterId(String centerId, List<DiagnosticCenter> centerList)throws ValidationException;
@@ -50,8 +47,6 @@ public interface UserService {
 	public String validateGender(String gender) throws ValidationException;
 	
 	public LocalDateTime validateDateTime(String dateString) throws ValidationException;
-
-//	public LocalTime validateTime(String next)throws UserDefinedException;
 
 	public Appointment addAppointment(Appointment appointment);
 
