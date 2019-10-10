@@ -277,7 +277,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Appointment> getCenterAppointmentList(BigInteger centerId) {
 		DiagnosticCenter center = centerRepository.findById(centerId).get();
-		return appointmentRepository.findByCenter(center);
+		return appointmentRepository.findByCenterAndAppointmentStatus(center, 0);
 	}
 
 	/*

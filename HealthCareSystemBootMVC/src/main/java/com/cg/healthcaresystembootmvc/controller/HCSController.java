@@ -326,6 +326,12 @@ public class HCSController {
 		return "AdminHome";
 	}
 
+	/*
+	 * Author: 			Jayesh gaur
+	 * Description:		Ends the user session by setting null to the session objects
+	 * 					Redirects to the Login page
+	 * Created on: 		October 9, 2019 
+	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout() {
 		session.setAttribute("userRole", null);
