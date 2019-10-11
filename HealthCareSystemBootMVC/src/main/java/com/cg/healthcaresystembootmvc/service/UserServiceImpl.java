@@ -12,29 +12,32 @@ import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.healthcaresystembootmvc.controller.HCSController;
 import com.cg.healthcaresystembootmvc.dto.Appointment;
 import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
 import com.cg.healthcaresystembootmvc.dto.User;
+import com.cg.healthcaresystembootmvc.exception.ExistingUserCredentialException;
 import com.cg.healthcaresystembootmvc.exception.UserErrorMessage;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
 import com.cg.healthcaresystembootmvc.repository.AppointmentRepository;
 import com.cg.healthcaresystembootmvc.repository.CenterRepository;
 import com.cg.healthcaresystembootmvc.repository.TestRepository;
-import com.cg.healthcaresystembootmvc.repository.UserDao;
+
 import com.cg.healthcaresystembootmvc.repository.UserRepository;
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private UserDao userDao;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -47,6 +50,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private AppointmentRepository appointmentRepository;
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
 
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
 		return centerRepository.save(center);
@@ -98,12 +103,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/*
-	 * Author: Jayesh Gaur 
-	 * Description: Service method for registration. calls the
-	 * 				Repository save method and returns the automatically generated new user Id.
-	 * Created on: October 9, 2019
+	 * Author: 				Jayesh Gaur 
+	 * Description: 		Service method for registration. Calls the Repository save method 
+	 * 							and returns the automatically generated new user Id.
+	 * Exceptions thrown: 	If unique values like email or phone number already exist in
+	 * 							database, exception is thrown and user is notified.
+	 * Created on:			October 9, 2019
 	 */
-	public BigInteger register(User user) {
+	public BigInteger register(User user) throws ExistingUserCredentialException{
+		
+		//validating unique database columns
+		User checkUserCredentials = userRepository.findByUserEmail(user.getUserEmail());
+		if(null != checkUserCredentials) {
+			throw new ExistingUserCredentialException(UserErrorMessage.userErrorDuplicateEmail);
+		}else {
+			checkUserCredentials = null;
+			checkUserCredentials = userRepository.findByContactNo(user.getContactNo());
+			if(null != checkUserCredentials) {
+				throw new ExistingUserCredentialException(UserErrorMessage.userErrorDuplicatePhoneNumber);
+			}
+		}
+		//save if email and phone numbers are unique
 		return userRepository.save(user).getUserId();
 	}
 
@@ -151,6 +171,7 @@ public class UserServiceImpl implements UserService {
 		if (userEmail.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
 			return userEmail;
 		}
+		logger.error("Entered Email is not Correct");
 		throw new ValidationException(UserErrorMessage.userErrorEmailId);
 	}
 
@@ -177,6 +198,7 @@ public class UserServiceImpl implements UserService {
 					return new BigInteger(centerId);
 			}
 		}
+		logger.error("Entered CenterID is not Correct");
 		throw new ValidationException(UserErrorMessage.userErrorInvalidCenterId);
 	}
 
@@ -290,18 +312,37 @@ public class UserServiceImpl implements UserService {
 	public User findUser(BigInteger userId) {
 		return userRepository.findById(userId).get();
 	}
-	
+	/*
+	 * Author:		 	Nidhi
+	 * Description:  	Returns the list of appointment corresponding to 
+	 * 					the user Id received in input
+	 * Created on: 		October 11, 2019
+	 */
 
 	@Override
 	public List<Appointment> getAppointmentList(BigInteger userId) {
-		return userDao.getAppointmentList(userId);
+		User user = userRepository.findById(userId).get();
+		List<Appointment> appointmentList = appointmentRepository.findByUser(user);
+		return appointmentList;
 	}
+	/*
+	 * Author:		 	Nidhi
+	 * Description:  	Returns the test object corresponding to 
+	 * 					the test Id received in input
+	 * Created on: 		October 9, 2019
+	 */
 	
 	@Override
 	public Test findTest(BigInteger testId) {
 		return testRepository.findById(testId).get();
 	}
 	
+	/*
+	 * Author:		 	Nidhi
+	 * Description:  	Returns the list of test corresponding to 
+	 * 					the center Id received in input
+	 * Created on: 		October 9, 2019
+	 */
 	@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
 			DiagnosticCenter center = centerRepository.findById(centerId).get();

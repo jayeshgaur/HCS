@@ -29,11 +29,11 @@
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a href="AdminHome.jsp"><img class="logo" src="<c:url value="images/logo.jpg"/>" alt="Picture1"  /></a>
+<a href="AdminHome"><img class="logo" src="<c:url value="images/logo.jpg"/>" alt="Picture1"  /></a>
 </div>
 <div class="collapse navbar-collapse" id="micon">
 <ul class="nav navbar-nav navbar-right"> 
-<li><a href="Home.jsp">HOME</a></li>
+<li><a href="AdminHome">HOME</a></li>
 <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
 </ul>
 </div>
@@ -47,7 +47,7 @@
 		<table>
 			<tr>
 				<td>Center ID</td>
-				<td><input type="text" name="centerId" id="form_center_id" required=""></td>
+				<td><input type="text" name="centerId" id="form_center_id" ></td>
 				<td><span class="form_error" id="centerid_error_message" style="color:red;"></span></td>
 			</tr>
 			<tr>
@@ -105,7 +105,7 @@
 $(function(){
 	$("#centerid_error_message").hide();
 	var error_centerid=false;
-	$("#form_center_id").focusout(function(){
+	$("#form_center_id").keyup(function(){
 		check_centerid();
 	});
 	
@@ -162,7 +162,7 @@ $(function(){
 $(function(){
 	$("#testid_error_message").hide();
 	var error_testid=false;
-	$("#form_test_id").focusout(function(){
+	$("#form_test_id").keyup(function(){
 		check_testid();});
 	
 		function check_testid()

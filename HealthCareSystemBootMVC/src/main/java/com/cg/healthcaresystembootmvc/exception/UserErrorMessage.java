@@ -21,4 +21,6 @@ public class UserErrorMessage {
 	public static final String userErrorNoCenterDeleted="Delete center failed";
 	public static final String userErrorNoTestAdded="Add test failed";
 	public static final String userErrorNoTestDeleted="Delete test failed";
+	public static final String userErrorDuplicateEmail = "This email is already registered in the system";
+	public static final String userErrorDuplicatePhoneNumber = "This phone number is already linked with one of our accounts";
 }

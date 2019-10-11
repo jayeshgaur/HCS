@@ -53,7 +53,7 @@
 				<td>Email-Id</td>
 				<td><tag:input path="userEmail" /></td>
 				<td><span><tag:errors path="userEmail">
-						</tag:errors></span></td>
+						</tag:errors></span><span>${duplicate }</span></td>
 
 			</tr>
 			<tr>
@@ -66,7 +66,7 @@
 				<td>Contact Number</td>
 				<td><tag:input path="contactNo" /></td>
 				<td><span><tag:errors path="contactNo">
-						</tag:errors></span></td>
+						</tag:errors></span><span>${duplicate }</span></td>
 			</tr>
 			<tr>
 				<td>Age</td>

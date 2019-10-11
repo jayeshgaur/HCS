@@ -1,0 +1,26 @@
+2019-10-11 17:12:24,921 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Starting HealthCareSystemBootMvcApplication on DESKTOP-EAGBVI6 with PID 3360 (C:\Users\OSIS10\git\HCS\HealthCareSystemBootMVC\target\classes started by OSIS10 in C:\Users\OSIS10\git\HCS\HealthCareSystemBootMVC)
+2019-10-11 17:12:24,923 DEBUG com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-11 17:12:24,924 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] The following profiles are active: production
+2019-10-11 17:12:28,405 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Started HealthCareSystemBootMvcApplication in 3.922 seconds (JVM running for 4.641)
+2019-10-11 17:14:13,016 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Starting HealthCareSystemBootMvcApplication on DESKTOP-EAGBVI6 with PID 3264 (C:\Users\OSIS10\git\HCS\HealthCareSystemBootMVC\target\classes started by OSIS10 in C:\Users\OSIS10\git\HCS\HealthCareSystemBootMVC)
+2019-10-11 17:14:13,018 DEBUG com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-11 17:14:13,018 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] The following profiles are active: production
+2019-10-11 17:14:16,472 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Started HealthCareSystemBootMvcApplication in 3.811 seconds (JVM running for 4.657)
+2019-10-11 17:18:05,354 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Starting HealthCareSystemBootMvcApplication on DESKTOP-EAGBVI6 with PID 2292 (C:\Users\OSIS10\git\HCS\HealthCareSystemBootMVC\target\classes started by OSIS10 in C:\Users\OSIS10\git\HCS\HealthCareSystemBootMVC)
+2019-10-11 17:18:05,356 DEBUG com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-11 17:18:05,356 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] The following profiles are active: production
+2019-10-11 17:18:08,784 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Started HealthCareSystemBootMvcApplication in 3.78 seconds (JVM running for 4.411)
+2019-10-11 17:29:07,332 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Starting HealthCareSystemBootMvcApplication on DESKTOP-EAGBVI6 with PID 6436 (C:\Users\OSIS10\git\HCS\HealthCareSystemBootMVC\target\classes started by OSIS10 in C:\Users\OSIS10\git\HCS\HealthCareSystemBootMVC)
+2019-10-11 17:29:07,334 DEBUG com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-11 17:29:07,334 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] The following profiles are active: production
+2019-10-11 17:29:10,878 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Started HealthCareSystemBootMvcApplication in 3.912 seconds (JVM running for 4.564)
+2019-10-11 17:29:48,220 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Starting HealthCareSystemBootMvcApplication on DESKTOP-EAGBVI6 with PID 3160 (C:\Users\OSIS10\git\HCS\HealthCareSystemBootMVC\target\classes started by OSIS10 in C:\Users\OSIS10\git\HCS\HealthCareSystemBootMVC)
+2019-10-11 17:29:48,222 DEBUG com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-11 17:29:48,222 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] The following profiles are active: production
+2019-10-11 17:29:51,727 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Started HealthCareSystemBootMvcApplication in 3.849 seconds (JVM running for 4.644)
+2019-10-11 17:32:19,691 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Starting HealthCareSystemBootMvcApplication on DESKTOP-EAGBVI6 with PID 7512 (C:\Users\OSIS10\git\HCS\HealthCareSystemBootMVC\target\classes started by OSIS10 in C:\Users\OSIS10\git\HCS\HealthCareSystemBootMVC)
+2019-10-11 17:32:19,692 DEBUG com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-11 17:32:19,693 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] The following profiles are active: production
+2019-10-11 17:32:23,183 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [main] Started HealthCareSystemBootMvcApplication in 3.83 seconds (JVM running for 4.503)
+2019-10-11 17:33:23,539 DEBUG com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-1] In login controller
+2019-10-11 17:34:27,284 ERROR com.cg.healthcaresystembootmvc.service.UserServiceImpl [http-nio-9123-exec-9] Entered CenterID is not Correct

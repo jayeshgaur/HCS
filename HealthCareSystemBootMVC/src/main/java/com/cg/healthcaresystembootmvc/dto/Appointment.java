@@ -1,35 +1,36 @@
 package com.cg.healthcaresystembootmvc.dto;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name="hcs_appointment")
 public class Appointment {
 
 	@Id @GeneratedValue
 	@Column(name="appointment_id")
 	private BigInteger appointmentId;
-	
-	public Appointment(BigInteger appointmentId, DiagnosticCenter center, Test test, User user, int appointmentStatus,
-			LocalDateTime dateTime) {
-		super();
-		this.appointmentId = appointmentId;
-		this.center = center;
-		this.test = test;
-		this.user = user;
-		this.appointmentStatus = appointmentStatus;
-		this.dateTime = dateTime;
-	}
 
 	@ManyToOne
 	@JoinColumn(name="center_id_fk")
@@ -50,11 +51,33 @@ public class Appointment {
 	@Column(name="appointment_date_time")
 	private LocalDateTime dateTime;
 	
+	@CreatedBy
+	protected String createdBy;
+	
+	@CreatedDate	
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date creationDate;
+	
+	@LastModifiedBy
+	protected String lastModifiedBy;
+	
+	@LastModifiedDate
+	protected String lastModifiedDate;
+	
 	public Appointment() {
 
 	}
 	
-	
+	public Appointment(BigInteger appointmentId, DiagnosticCenter center, Test test, User user, int appointmentStatus,
+			LocalDateTime dateTime) {
+		super();
+		this.appointmentId = appointmentId;
+		this.center = center;
+		this.test = test;
+		this.user = user;
+		this.appointmentStatus = appointmentStatus;
+		this.dateTime = dateTime;
+	}
 
 	public DiagnosticCenter getCenter() {
 		return center;

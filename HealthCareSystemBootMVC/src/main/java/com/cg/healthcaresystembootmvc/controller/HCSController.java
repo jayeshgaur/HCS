@@ -12,6 +12,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -28,12 +30,16 @@ import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
 import com.cg.healthcaresystembootmvc.dto.User;
 import com.cg.healthcaresystembootmvc.exceldownload.ExcelReportView;
+import com.cg.healthcaresystembootmvc.exception.ExistingUserCredentialException;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
 import com.cg.healthcaresystembootmvc.service.UserService;
 
 @ComponentScan
 @Controller
 public class HCSController {
+	
+	
+	private static final Logger logger = LoggerFactory.getLogger(HCSController.class);
 
 	@Autowired
 	HttpSession session;
@@ -79,9 +85,12 @@ public class HCSController {
 		return "UserHome";
 	}
 
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password,
 			Map<String, Object> model) {
+		
+		logger.debug("In login controller");
 		if (email.equals("admin@hcs.com") && password.equals("hcsadmin")) {
 			session.setAttribute("userRole", "admin");
 			return "AdminHome";
@@ -107,40 +116,48 @@ public class HCSController {
 	}
 
 	/*
-	 * Author: Jayesh Gaur Description: Registers the new user into the system if
-	 * all the validation tests are passed Created: October 9, 2019 Input: User
-	 * details in the form of User object Output: Returns the newly registered user
-	 * to his homepage and automatically logs him in
+	 * Author: 		Jayesh Gaur 
+	 * Description: Registers the new user into the system if
+	 * 					all the validation tests are passed 
+	 * Created: 	October 9, 2019 
+	 * Input:		User details in the form of User object 
+	 * Output: 		Returns the newly registered user
+	 * 					to his homepage and automatically logs him in
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("customer") User user, BindingResult bindingResult,
 			Map<String, Object> model) {
-
+		BigInteger userId;
+		
 		// Check if the validation tests are passed. Return the user back to
 		// registration page if any test fails
 		if (bindingResult.hasErrors()) {
 			return "Registration";
 		} else {
-
-			// Register the user and get his automatically generated user Id
-			BigInteger userId = userService.register(user);
-
+		// Register the user and get his automatically generated user Id
+	
+			try {
+			userId = userService.register(user);
 			// Log the user in and set his user ID into the session object
 			session.setAttribute("userId", userId);
 			model.put("userId", userId);
+			}catch(ExistingUserCredentialException exception) {
+				model.put("duplicate",exception.getMessage());
+				return "Registration";
+			}			
 			return "UserHome";
 		}
 	}
 	
 	
 	
-	@RequestMapping(value = "/Center/Add", method = RequestMethod.GET)
+	@RequestMapping(value = "/AddCenter", method = RequestMethod.GET)
 	public String addCenterRequest(@ModelAttribute("Center") DiagnosticCenter center) {
 		return "addCenter";
 	}
 	
 	// Add Center
-	@RequestMapping(value = "/Center/Add", method = RequestMethod.POST)
+	@RequestMapping(value = "/AddCenter", method = RequestMethod.POST)
 	public String addCenter(@Valid @ModelAttribute("Center") DiagnosticCenter center, BindingResult result,
 			Map<String, Object> model) {
 		if (result.hasErrors()) {
@@ -198,13 +215,13 @@ public class HCSController {
 		return "addTest";
 	}
 
-	@RequestMapping(value = "/Center/Delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/DeleteCenter", method = RequestMethod.GET)
 	public String deleteCenterRequest(Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
 		return "deleteCenter";
 	}
 
-	@RequestMapping(value = "/Center/Delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/DeleteCenter", method = RequestMethod.POST)
 	public String deleteCenter(@RequestParam("centerId") String stringCenterId, Map<String, Object> model) {
 		BigInteger centerId = null;
 		DiagnosticCenter center = null;
@@ -220,7 +237,7 @@ public class HCSController {
 
 	}
 
-	@RequestMapping(value = "/Center/Delete/Confirm", method = RequestMethod.POST)
+	@RequestMapping(value = "/ConfirmDelete", method = RequestMethod.POST)
 	public String confirmDeleteCenter(@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
 
 		if (userService.removeCenter(centerId)) {
@@ -334,14 +351,16 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout() {
+		//remove session variables
 		session.setAttribute("userRole", null);
 		session.setAttribute("userId", null);
 		return "Login";
 	}
 
 	/*
-	 * Author: Jayesh Gaur Description: Get Add Appointment Page for the user
-	 * Created on: October 9, 2019
+	 * Author: 		Jayesh Gaur 
+	 * Description: Get Add Appointment Page for the user
+	 * Created on: 	October 9, 2019
 	 */
 	@RequestMapping(value = "/addAppointment", method = RequestMethod.GET)
 	public String addAppointment(Map<String, Object> model) {
@@ -530,6 +549,11 @@ public class HCSController {
 		return "viewUserAppointments";
 	}
 
+	/*
+	 * Author: 		Jayesh Gaur 
+	 * Description: Get Excel sheet consisting of appointment details for the user
+	 * Created on: October 9, 2019
+	 */	
 	@RequestMapping(value = "/downloadExcel", method = RequestMethod.GET)
 	public ModelAndView downloadExcel() {
 		List<Appointment> appointmentList = userService.getAppointmentList((BigInteger) session.getAttribute("userId"));
