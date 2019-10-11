@@ -67,8 +67,8 @@
 								<h4 class="card-title">Diagnostic Center</h4>
 								<p class="card-text">If you want to add or remove Diagnostic
 									Center,Click on the particular link given below</p>
-								<a href="/Center/Add" class="btn btn-primary">Add Center</a> <a
-									href="/Center/Delete" class="btn btn-primary">Remove
+								<a href="/AddCenter" class="btn btn-primary">Add Center</a> <a
+									href="/DeleteCenter" class="btn btn-primary">Remove
 									Center</a>
 								<div class="card-footer">
 									<small class="text-muted">Information should be
