@@ -2,6 +2,7 @@ package com.cg.healthcaresystembootmvc.dto;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,12 +12,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Table(name="hcs_user")
@@ -64,6 +72,21 @@ public class User {
 	
 	@OneToMany(mappedBy = "user")
 	List<Appointment> userAppointmentList = new ArrayList<Appointment>();
+	
+	
+	@CreatedBy
+	protected String createdBy;
+	
+	@CreatedDate	
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date creationDate;
+	
+	@LastModifiedBy
+	protected String lastModifiedBy;
+	
+	@LastModifiedDate
+	protected String lastModifiedDate;
+	
 	
 	public User()
 	{

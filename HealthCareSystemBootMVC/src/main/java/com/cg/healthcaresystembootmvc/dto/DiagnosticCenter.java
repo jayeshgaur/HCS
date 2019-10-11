@@ -2,7 +2,9 @@
 package com.cg.healthcaresystembootmvc.dto;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,12 +15,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Table(name = "hcs_center")
@@ -53,6 +61,21 @@ public class DiagnosticCenter {
 	
 	@Column(name="is_deleted")
 	private boolean isDeleted;
+	
+	
+	@CreatedBy
+	protected String createdBy;
+	
+	@CreatedDate	
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date creationDate;
+	
+	@LastModifiedBy
+	protected String lastModifiedBy;
+	
+	@LastModifiedDate
+	protected String lastModifiedDate;
+	
 
 	public DiagnosticCenter() {
 	}
