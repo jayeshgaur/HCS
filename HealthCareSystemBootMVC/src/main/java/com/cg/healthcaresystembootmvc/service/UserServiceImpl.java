@@ -25,6 +25,7 @@ import com.cg.healthcaresystembootmvc.dto.Appointment;
 import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
 import com.cg.healthcaresystembootmvc.dto.User;
+import com.cg.healthcaresystembootmvc.exception.ExistingUserCredentialException;
 import com.cg.healthcaresystembootmvc.exception.UserErrorMessage;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
 import com.cg.healthcaresystembootmvc.repository.AppointmentRepository;
@@ -102,12 +103,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/*
-	 * Author: Jayesh Gaur 
-	 * Description: Service method for registration. calls the
-	 * 				Repository save method and returns the automatically generated new user Id.
-	 * Created on: October 9, 2019
+	 * Author: 				Jayesh Gaur 
+	 * Description: 		Service method for registration. Calls the Repository save method 
+	 * 							and returns the automatically generated new user Id.
+	 * Exceptions thrown: 	If unique values like email or phone number already exist in
+	 * 							database, exception is thrown and user is notified.
+	 * Created on:			October 9, 2019
 	 */
-	public BigInteger register(User user) {
+	public BigInteger register(User user) throws ExistingUserCredentialException{
+		
+		//validating unique database columns
+		User checkUserCredentials = userRepository.findByUserEmail(user.getUserEmail());
+		if(null != checkUserCredentials) {
+			throw new ExistingUserCredentialException(UserErrorMessage.userErrorDuplicateEmail);
+		}else {
+			checkUserCredentials = null;
+			checkUserCredentials = userRepository.findByContactNo(user.getContactNo());
+			if(null != checkUserCredentials) {
+				throw new ExistingUserCredentialException(UserErrorMessage.userErrorDuplicatePhoneNumber);
+			}
+		}
+		//save if email and phone numbers are unique
 		return userRepository.save(user).getUserId();
 	}
 

@@ -2,6 +2,7 @@ package com.cg.healthcaresystembootmvc.dto;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -18,8 +21,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Table(name="hcs_user")
@@ -29,13 +34,13 @@ public class User {
 	@Column(name="user_id")
 	private BigInteger userId;
 	
-	@NotBlank(message = "Password cannot be empty!")
+
 	@Size(min = 8, message = "Passwould length should be greater than or equal to 8 characters")
 	@Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})", message = "Password must have an uppercase, a lower case, a number and a special character")
 	@Column(name="user_password")
 	private String userPassword;
 	
-	@NotBlank(message = "Name cannot be empty")
+
 	@Pattern(regexp = "^[A-Z].*", message = "Name must start with a capital letter")
 	@Column(name="user_name")
 	private String userName;
@@ -50,7 +55,7 @@ public class User {
 	@Column(name="user_role")
 	private String userRole;
 	
-	@NotEmpty(message = "Email cannot be empty")
+
 	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Enter a valid email id! Example: abc@gmail.com")
 	@Column(name="user_email")
 	private String userEmail;
@@ -60,13 +65,28 @@ public class User {
 	@Column(name="user_age")
 	private Integer age;
 	
-	@NotBlank
+
 	@Column(name="user_gender")
 	private String gender;
 	
 	
 	@OneToMany(mappedBy = "user")
 	List<Appointment> userAppointmentList = new ArrayList<Appointment>();
+	
+	
+	@CreatedBy
+	protected String createdBy;
+	
+	@CreatedDate	
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date creationDate;
+	
+	@LastModifiedBy
+	protected String lastModifiedBy;
+	
+	@LastModifiedDate
+	protected String lastModifiedDate;
+	
 	
 	public User()
 	{
