@@ -15,9 +15,12 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.healthcaresystembootmvc.controller.HCSController;
 import com.cg.healthcaresystembootmvc.dto.Appointment;
 import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
@@ -47,6 +50,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private AppointmentRepository appointmentRepository;
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
 
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
 		return centerRepository.save(center);
@@ -166,6 +171,7 @@ public class UserServiceImpl implements UserService {
 		if (userEmail.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
 			return userEmail;
 		}
+		logger.error("Entered Email is not Correct");
 		throw new ValidationException(UserErrorMessage.userErrorEmailId);
 	}
 
@@ -192,6 +198,7 @@ public class UserServiceImpl implements UserService {
 					return new BigInteger(centerId);
 			}
 		}
+		logger.error("Entered CenterID is not Correct");
 		throw new ValidationException(UserErrorMessage.userErrorInvalidCenterId);
 	}
 
