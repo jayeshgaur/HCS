@@ -12,6 +12,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -34,6 +36,9 @@ import com.cg.healthcaresystembootmvc.service.UserService;
 @ComponentScan
 @Controller
 public class HCSController {
+	
+	
+	private static final Logger logger = LoggerFactory.getLogger(HCSController.class);
 
 	@Autowired
 	HttpSession session;
@@ -82,6 +87,8 @@ public class HCSController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password,
 			Map<String, Object> model) {
+		
+		logger.debug("In login controller");
 		if (email.equals("admin@hcs.com") && password.equals("hcsadmin")) {
 			session.setAttribute("userRole", "admin");
 			return "AdminHome";

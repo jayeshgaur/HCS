@@ -12,12 +12,12 @@
 <head>
 
 <meta charset="ISO-8859-1">
-<link rel="stylesheet"  type="text/css" href="<c:url value="/webjars/css/footer.css"/>">
-<link rel="stylesheet"  type="text/css" href="<c:url value="/webjars/css/header.css"/>">
+<link rel="stylesheet"  type="text/css" href="<c:url value="css/footer.css"/>">
+<link rel="stylesheet"  type="text/css" href="<c:url value="css/header.css"/>"> 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link href="<c:url value="/webjars/css/footer.css" />" rel="stylesheet">
-<link href="<c:url value="/webjars/css/table.css" />" rel="stylesheet">
+<link href="<c:url value="css/footer.css" />" rel="stylesheet">
+<link href="<c:url value="css/table.css" />" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
@@ -36,11 +36,11 @@
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a href="AdminHome.jsp"><img class="logo" src="<c:url value="/resources/Images/logo.jpg"/>" alt="Picture1"  /></a>
+<a href="AdminHome"><img class="logo" src="<c:url value="images/logo.jpg"/>" alt="Picture1"  /></a>
 </div>
 <div class="collapse navbar-collapse" id="micon">
 <ul class="nav navbar-nav navbar-right"> 
-<li><a href="Home.jsp">HOME</a></li>
+<li><a href="AdminHome">HOME</a></li>
 <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
 </ul>
 </div>
@@ -51,10 +51,12 @@
 
 		<h3><br> Enter the center Id to be deleted:</h3>
 	
-		<form action="/Center/Delete" method="POST">
+		<form action="/DeleteCenter" method="POST">
 			<table>
 				<tr>
-					<td>Center Id:<input type="text" name="centerId"></td>
+					<td>Center Id:<input type="text" name="centerId" id="form_center_id"></td>
+					<td><span class="form_error" id="centerid_error_message"
+						style="color: red;"></span></td>
 					<br>
 					<td><input type="submit" value="delete center"></td>
 					</form>
@@ -65,7 +67,7 @@
 				</tr>
 			</table>
 			
-			<form action="/Center/Delete/Confirm" method="POST">
+			<form action="/ConfirmDelete" method="POST">
 				<table border="1">
 					<tr>
 						<td>Diagnostic Center Id</td>
@@ -95,4 +97,48 @@
 <%
 	}
 %>
+<script type="text/javascript">
+	$(function() {
+		$("#centerid_error_message").hide();
+		var error_centerid = false;
+		$("#form_center_id").keyup(function() {
+			check_centerid();
+		});
+
+		function check_centerid() {
+			var pattern = /^[0-9]*$/;
+			var centerid = $("#form_center_id").val();
+			if (pattern.test(centerid) && centerid !== '') {
+				$("#centerid_error_message").hide();
+				$("#form_center_id").css("border-bottom", "2px solid #34FA58");
+			} else if (centerid == '') {
+				$("#centerid_error_message").html("should not be empty");
+				$("#centerid_error_message").show();
+				$("#form_center_id").css("border-bottom", "2px solid #F90A0A");
+				error_centerid = true;
+			} else {
+				$("#centerid_error_message").html(
+						"should contain only numeric vaues");
+				$("#centerid_error_message").show();
+				$("#form_center_id").css("border-bottom", "2px solid #F90A0A");
+				error_centerid = true;
+
+			}
+		}
+
+		$("#centerform").submit(function() {
+			error_centerid = false;
+			check_centerid();
+			if (error_centerid === false) {
+				//alert("Added center successfully");
+				return true;
+			} else {
+				// alert("Please fill the form correctly");
+				return false;
+			}
+
+		});
+
+	});
+</script>
 </html>
