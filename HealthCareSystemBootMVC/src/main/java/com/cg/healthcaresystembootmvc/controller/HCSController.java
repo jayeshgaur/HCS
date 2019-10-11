@@ -28,6 +28,7 @@ import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
 import com.cg.healthcaresystembootmvc.dto.User;
 import com.cg.healthcaresystembootmvc.exceldownload.ExcelReportView;
+import com.cg.healthcaresystembootmvc.exception.ExistingUserCredentialException;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
 import com.cg.healthcaresystembootmvc.service.UserService;
 
@@ -115,7 +116,8 @@ public class HCSController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("customer") User user, BindingResult bindingResult,
 			Map<String, Object> model) {
-
+		BigInteger userId;
+		
 		// Check if the validation tests are passed. Return the user back to
 		// registration page if any test fails
 		if (bindingResult.hasErrors()) {
@@ -123,11 +125,15 @@ public class HCSController {
 		} else {
 
 			// Register the user and get his automatically generated user Id
-			BigInteger userId = userService.register(user);
-
+			try {
+			userId = userService.register(user);
 			// Log the user in and set his user ID into the session object
 			session.setAttribute("userId", userId);
 			model.put("userId", userId);
+			}catch(ExistingUserCredentialException exception) {
+				model.put("duplicate",exception.getMessage());
+				return "Registration";
+			}			
 			return "UserHome";
 		}
 	}
