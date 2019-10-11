@@ -81,10 +81,10 @@ $(function(){
 	$("#testname_error_message").hide();
 	var error_centerid=false;
 	var error_testname=false;
-	$("#form_center_id").focusout(function(){
+	$("#form_center_id").keyup(function(){
 		check_centerid();
 	});
-	$("#form_test_name").focusout(function(){
+	$("#form_test_name").keyup(function(){
 		check_testname();
 	});
 	function check_centerid()

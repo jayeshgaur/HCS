@@ -134,13 +134,13 @@ public class HCSController {
 	
 	
 	
-	@RequestMapping(value = "/Center/Add", method = RequestMethod.GET)
+	@RequestMapping(value = "/AddCenter", method = RequestMethod.GET)
 	public String addCenterRequest(@ModelAttribute("Center") DiagnosticCenter center) {
 		return "addCenter";
 	}
 	
 	// Add Center
-	@RequestMapping(value = "/Center/Add", method = RequestMethod.POST)
+	@RequestMapping(value = "/AddCenter", method = RequestMethod.POST)
 	public String addCenter(@Valid @ModelAttribute("Center") DiagnosticCenter center, BindingResult result,
 			Map<String, Object> model) {
 		if (result.hasErrors()) {
@@ -198,13 +198,13 @@ public class HCSController {
 		return "addTest";
 	}
 
-	@RequestMapping(value = "/Center/Delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/DeleteCenter", method = RequestMethod.GET)
 	public String deleteCenterRequest(Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
 		return "deleteCenter";
 	}
 
-	@RequestMapping(value = "/Center/Delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/DeleteCenter", method = RequestMethod.POST)
 	public String deleteCenter(@RequestParam("centerId") String stringCenterId, Map<String, Object> model) {
 		BigInteger centerId = null;
 		DiagnosticCenter center = null;
@@ -220,7 +220,7 @@ public class HCSController {
 
 	}
 
-	@RequestMapping(value = "/Center/Delete/Confirm", method = RequestMethod.POST)
+	@RequestMapping(value = "/ConfirmDelete", method = RequestMethod.POST)
 	public String confirmDeleteCenter(@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
 
 		if (userService.removeCenter(centerId)) {
