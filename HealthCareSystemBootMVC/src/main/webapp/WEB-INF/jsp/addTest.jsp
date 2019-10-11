@@ -12,12 +12,12 @@
 %>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet"  type="text/css" href="<c:url value="/webjars/css/footer.css"/>">
-<link rel="stylesheet"  type="text/css" href="<c:url value="/webjars/css/header.css"/>">
+<link rel="stylesheet"  type="text/css" href="<c:url value="css/footer.css"/>">
+<link rel="stylesheet"  type="text/css" href="<c:url value="css/header.css"/>">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link href="<c:url value="/webjars/css/footer.css" />" rel="stylesheet">
-<link href="<c:url value="/webjars/css/table.css" />" rel="stylesheet">
+<link href="<c:url value="css/footer.css" />" rel="stylesheet">
+<link href="<c:url value="css/table.css" />" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
@@ -35,7 +35,8 @@
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a href="AdminHome.jsp"><img class="logo" src="<c:url value="/resources/Images/logo.jpg"/>" alt="Picture1"  /></a>
+
+<a href="AdminHome"><img class="logo" src="<c:url value="images/logo.jpg"/>" alt="Picture1"  /></a>
 </div>
 <div class="collapse navbar-collapse" id="micon">
 <ul class="nav navbar-nav navbar-right"> 
@@ -54,12 +55,12 @@
 		<table>
 			<tr>
 				<td>Center Id:</td>
-				<td><input type="text" name="centerId" id="form_center_id" required=""/></td>
+				<td><input type="text" name="centerId" id="form_center_id" /></td>
 				<td><span class="form_error" id="centerid_error_message" style="color:red;"></span></td>
 			</tr>
 			<tr>
 				<td>Test Name</td>
-				<td><input type="text" name="testName" id="form_test_name" required=""/></td>
+				<td><input type="text" name="testName" id="form_test_name" /></td>
 				<td><span class="form_error" id="testname_error_message" style="color:red;"></span></td>
 			</tr>
 			<tr>
@@ -113,7 +114,7 @@ $(function(){
 	}
 	function check_testname()
 	{
-		var pattern=/^([a-zA-Z])+(\s)+[a-zA-Z]+$/;
+		var pattern=/^[a-zA-Z0-9_ ]*$/;
 		var testname=$("#form_test_name").val();
 		if(pattern.test(testname) && testname!=='')
 			{
