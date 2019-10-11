@@ -108,10 +108,13 @@ public class HCSController {
 	}
 
 	/*
-	 * Author: Jayesh Gaur Description: Registers the new user into the system if
-	 * all the validation tests are passed Created: October 9, 2019 Input: User
-	 * details in the form of User object Output: Returns the newly registered user
-	 * to his homepage and automatically logs him in
+	 * Author: 		Jayesh Gaur 
+	 * Description: Registers the new user into the system if
+	 * 					all the validation tests are passed 
+	 * Created: 	October 9, 2019 
+	 * Input:		User details in the form of User object 
+	 * Output: 		Returns the newly registered user
+	 * 					to his homepage and automatically logs him in
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("customer") User user, BindingResult bindingResult,
@@ -123,8 +126,8 @@ public class HCSController {
 		if (bindingResult.hasErrors()) {
 			return "Registration";
 		} else {
-
-			// Register the user and get his automatically generated user Id
+		// Register the user and get his automatically generated user Id
+	
 			try {
 			userId = userService.register(user);
 			// Log the user in and set his user ID into the session object

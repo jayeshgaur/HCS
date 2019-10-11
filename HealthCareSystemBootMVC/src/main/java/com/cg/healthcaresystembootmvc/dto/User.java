@@ -27,19 +27,19 @@ public class User {
 	private BigInteger userId;
 	
 
-//	@Size(min = 8, message = "Passwould length should be greater than or equal to 8 characters")
-//	@Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})", message = "Password must have an uppercase, a lower case, a number and a special character")
+	@Size(min = 8, message = "Passwould length should be greater than or equal to 8 characters")
+	@Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})", message = "Password must have an uppercase, a lower case, a number and a special character")
 	@Column(name="user_password")
 	private String userPassword;
 	
 
-//	@Pattern(regexp = "^[A-Z].*", message = "Name must start with a capital letter")
+	@Pattern(regexp = "^[A-Z].*", message = "Name must start with a capital letter")
 	@Column(name="user_name")
 	private String userName;
 	
-//	@NotNull(message = "Phone number cannot be empty")
-//	@Min(value = 1000000000, message = "Should not be less than 10 digits")
-//	@Digits(integer = 10, message = "Phone number cannot be more than 10 characters", fraction = 0)
+	@NotNull(message = "Phone number cannot be empty")
+	@Min(value = 1000000000, message = "Should not be less than 10 digits")
+	@Digits(integer = 10, message = "Phone number cannot be more than 10 characters", fraction = 0)
 	@Column(name="user_contact_no")
 	private BigInteger contactNo;
 	
@@ -48,12 +48,12 @@ public class User {
 	private String userRole;
 	
 
-//	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Enter a valid email id! Example: abc@gmail.com")
+	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Enter a valid email id! Example: abc@gmail.com")
 	@Column(name="user_email")
 	private String userEmail;
 	
-//	@NotNull(message = "Age cannot be empty")
-//	@Min(value = 15)
+	@NotNull(message = "Age cannot be empty")
+	@Min(value = 15)
 	@Column(name="user_age")
 	private Integer age;
 	
