@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +28,13 @@ import com.cg.healthcaresystembootmvc.exception.ValidationException;
 import com.cg.healthcaresystembootmvc.repository.AppointmentRepository;
 import com.cg.healthcaresystembootmvc.repository.CenterRepository;
 import com.cg.healthcaresystembootmvc.repository.TestRepository;
-import com.cg.healthcaresystembootmvc.repository.UserDao;
+
 import com.cg.healthcaresystembootmvc.repository.UserRepository;
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private UserDao userDao;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -306,18 +305,37 @@ public class UserServiceImpl implements UserService {
 	public User findUser(BigInteger userId) {
 		return userRepository.findById(userId).get();
 	}
-	
+	/*
+	 * Author:		 	Nidhi
+	 * Description:  	Returns the list of appointment corresponding to 
+	 * 					the user Id received in input
+	 * Created on: 		October 11, 2019
+	 */
 
 	@Override
 	public List<Appointment> getAppointmentList(BigInteger userId) {
-		return userDao.getAppointmentList(userId);
+		User user = userRepository.findById(userId).get();
+		List<Appointment> appointmentList = appointmentRepository.findByUser(user);
+		return appointmentList;
 	}
+	/*
+	 * Author:		 	Nidhi
+	 * Description:  	Returns the test object corresponding to 
+	 * 					the test Id received in input
+	 * Created on: 		October 9, 2019
+	 */
 	
 	@Override
 	public Test findTest(BigInteger testId) {
 		return testRepository.findById(testId).get();
 	}
 	
+	/*
+	 * Author:		 	Nidhi
+	 * Description:  	Returns the list of test corresponding to 
+	 * 					the center Id received in input
+	 * Created on: 		October 9, 2019
+	 */
 	@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
 			DiagnosticCenter center = centerRepository.findById(centerId).get();

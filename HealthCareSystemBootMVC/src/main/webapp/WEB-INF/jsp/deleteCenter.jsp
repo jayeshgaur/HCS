@@ -36,11 +36,11 @@
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a href="AdminHome.jsp"><img class="logo" src="<c:url value="/resources/Images/logo.jpg"/>" alt="Picture1"  /></a>
+<a href="AdminHome"><img class="logo" src="<c:url value="/resources/Images/logo.jpg"/>" alt="Picture1"  /></a>
 </div>
 <div class="collapse navbar-collapse" id="micon">
 <ul class="nav navbar-nav navbar-right"> 
-<li><a href="Home.jsp">HOME</a></li>
+<li><a href="AdminHome">HOME</a></li>
 <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
 </ul>
 </div>
