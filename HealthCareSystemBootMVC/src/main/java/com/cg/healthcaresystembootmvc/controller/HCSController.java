@@ -80,6 +80,7 @@ public class HCSController {
 		return "UserHome";
 	}
 
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password,
 			Map<String, Object> model) {
@@ -343,14 +344,16 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout() {
+		//remove session variables
 		session.setAttribute("userRole", null);
 		session.setAttribute("userId", null);
 		return "Login";
 	}
 
 	/*
-	 * Author: Jayesh Gaur Description: Get Add Appointment Page for the user
-	 * Created on: October 9, 2019
+	 * Author: 		Jayesh Gaur 
+	 * Description: Get Add Appointment Page for the user
+	 * Created on: 	October 9, 2019
 	 */
 	@RequestMapping(value = "/addAppointment", method = RequestMethod.GET)
 	public String addAppointment(Map<String, Object> model) {
@@ -539,6 +542,11 @@ public class HCSController {
 		return "viewUserAppointments";
 	}
 
+	/*
+	 * Author: 		Jayesh Gaur 
+	 * Description: Get Excel sheet consisting of appointment details for the user
+	 * Created on: October 9, 2019
+	 */	
 	@RequestMapping(value = "/downloadExcel", method = RequestMethod.GET)
 	public ModelAndView downloadExcel() {
 		List<Appointment> appointmentList = userService.getAppointmentList((BigInteger) session.getAttribute("userId"));
