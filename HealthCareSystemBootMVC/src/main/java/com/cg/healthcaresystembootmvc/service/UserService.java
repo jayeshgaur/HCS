@@ -55,7 +55,7 @@ public interface UserService {
 
 	public List<Test> getListOfTests(BigInteger centerId);
 
-	public List<Appointment> getCenterAppointmentList(BigInteger centerId);
+	public List<Appointment> getCenterAppointmentList(BigInteger centerId) throws ValidationException;
 
 	public DiagnosticCenter findCenter(BigInteger centerId);
 	public Test findTest(BigInteger testId);

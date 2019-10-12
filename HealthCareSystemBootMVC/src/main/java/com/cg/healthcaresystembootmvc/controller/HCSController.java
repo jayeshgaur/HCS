@@ -74,9 +74,7 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginpage() {
-
 		logger.info("Returning Login.jsp..");
-
 		return "Login";
 	}
 
@@ -96,9 +94,7 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/UserHome", method = RequestMethod.GET)
 	public String userHomePage() {
-
 		logger.info("Returning UserHome.jsp..");
-
 		return "UserHome";
 	}
 
@@ -415,7 +411,6 @@ public class HCSController {
 	 * Map<String,Object> model Return Type : return deleteTest string
 	 * 
 	 */
-
 	@RequestMapping(value = "/SelectTest", method = RequestMethod.POST)
 	//now we are selecting Test using Test Id
 	public String deleteTest(@RequestParam("testId") String sTestId, Map<String, Object> model) {
@@ -525,6 +520,7 @@ public class HCSController {
 			if (testList.size() > 0) {
 				logger.info("Test list not empty. adding test list model to the view");
 				model.put("testList", testList);
+				//store the centerId in session for future use
 				session.setAttribute("centerId", centerId);
 			} else {
 				// Return the centerList again to the user and redirect to the previous page if
@@ -547,43 +543,56 @@ public class HCSController {
 	 * 2019
 	 */
 	@RequestMapping(value = "/confirmAppointment", method = RequestMethod.POST)
-	public String addAppointment(@RequestParam("testId") String sTestId, @RequestParam("dateAndTime") String sDateTime,
-			@RequestParam("userId") BigInteger userId, @RequestParam("centerId") BigInteger centerId,
+	public String addAppointment(@RequestParam("testId") String stringTestId, @RequestParam("dateAndTime") String stringDateTime,
 			Map<String, Object> model) {
-		Appointment appointment = new Appointment();
 		// Get the center object corresponding to the center id
-		DiagnosticCenter center = userService.findCenter(centerId);
+		logger.info("Getting the center object corresponding to the centerId");
+		DiagnosticCenter center = userService.findCenter((BigInteger) session.getAttribute("centerId"));
 		LocalDateTime dateTime;
 		BigInteger testId;
+		logger.info("Getting the testList of the selected center again for validation..");
 		List<Test> testList = userService.getListOfTests((BigInteger) session.getAttribute("centerId"));
 		try {
 			// Validate test Id, return biginteger value of testId if passed
-			testId = userService.validateTestId(sTestId, testList);
+			logger.info("Validating the test id entered by the user...");
+			testId = userService.validateTestId(stringTestId, testList);
 
 			// Validate date and time, return LocalDateTime value of datetime if passed
-			dateTime = userService.validateDateTime(sDateTime);
+			logger.info("Validating the date and time entered by the user...");
+			dateTime = userService.validateDateTime(stringDateTime);
 
 			// Get the test object corresponding to the test id
+			logger.info("Getting the test object corresponding to the test Id selected..");
 			Test test = userService.findTest(testId);
 
 			// Get the user object corresponding to the user id
-			User user = userService.findUser(userId);
+			logger.info("Getting the user object corresponding to the user id of the logged in customer");
+			User user = userService.findUser((BigInteger) session.getAttribute("userId"));
 
 			// By default, all new appointments have "pending" status
+			logger.info("Creating new Appointment object..");
+			Appointment appointment = new Appointment();
+			
+			logger.info("Initializing the appointment object created..");
 			appointment.setAppointmentStatus(0);
 			appointment.setCenter(center);
-			System.out.println(sDateTime);
 			appointment.setDateTime(dateTime);
 			appointment.setTest(test);
 			appointment.setUser(user);
+			
+			logger.info("Calling Service method to add the appointment..");
 			userService.addAppointment(appointment);
+			
+			logger.info("Appointment booked successfully");
 			model.put("message", "Appointment booked successfully");
 		} catch (ValidationException exception) {
+			logger.error("Caught validation exception in add appointment in controller..");
 			model.put("centerList", userService.getCenterList());
 			model.put("testList", testList);
 			model.put("testmessage", exception.getMessage());
 			return "addAppointment";
 		}
+		logger.info("Clearing the center Id session variable.. and returning to UserHome page");
 		session.setAttribute("centerId", null);
 		return "UserHome";
 	}
@@ -611,19 +620,25 @@ public class HCSController {
 		BigInteger centerId = null;
 		try {
 			// Validate center Id
+			logger.info("Validating the center Id entered by the admin");
 			centerId = userService.validateCenterId(sCenterId, userService.getCenterList());
 
+			logger.info("Getting list of pending appointments in that center");
 			List<Appointment> appointmentList = userService.getCenterAppointmentList(centerId);
 			if (appointmentList.size() > 0) {
+				logger.info("Appointment list not empty.. setting center Id into session for future use");
 				session.setAttribute("centerId", centerId);
 				model.put("appointmentList", appointmentList);
 			} else {
+				logger.error("Empty appointment list...");
 				model.put("errorMessage", "No Appointments to be approved");
 			}
 		} catch (ValidationException exception) {
+			logger.error("Caught validation exception in /approveCenter in controller");
 			model.put("centerList", userService.getCenterList());
 			model.put("errorMessage", exception.getMessage());
 		}
+		logger.error("returning to ApproveAppointment page..");
 		model.put("centerList", userService.getCenterList());
 		return "ApproveAppointment";
 	}
@@ -634,17 +649,24 @@ public class HCSController {
 	 * approving the appointment Created on: October 9, 2019
 	 */
 	@RequestMapping(value = "/approveAppointment", method = RequestMethod.POST)
-	public String approveAppointment(@RequestParam("appointmentId") String sAppointmentId, Map<String, Object> model) {
+	public String approveAppointment(@RequestParam("appointmentId") String stringAppointmentId, Map<String, Object> model) {
 		BigInteger appointmentId = null;
-		List<Appointment> appointmentList = userService
-				.getCenterAppointmentList((BigInteger) session.getAttribute("centerId"));
+		List<Appointment> appointmentList =null;
 		try {
-			appointmentId = userService.validateAppointmentId(sAppointmentId, appointmentList);
+			logger.info("Getting appointment list from the previously selected center id for appointment id validation");
+			appointmentList = userService
+					.getCenterAppointmentList((BigInteger) session.getAttribute("centerId"));
+			
+			logger.info("Validating the appointment id entered by the user..");
+			appointmentId = userService.validateAppointmentId(stringAppointmentId, appointmentList);
+			logger.info("Set appointment Id into session for future use..");
 			session.setAttribute("appointmentId", appointmentId);
 			model.put("appointmentId", appointmentId);
 		} catch (ValidationException exception) {
+			logger.error("Caught validation exception in /approveAppointment controller method");
 			model.put("appointmentErrorMessage", exception.getMessage());
 		}
+		logger.info("Returning to approveAppointment page..");
 		model.put("appointmentList", appointmentList);
 		model.put("centerList", userService.getCenterList());
 		return "ApproveAppointment";
@@ -655,19 +677,26 @@ public class HCSController {
 	 * returns the admin to admin home page. Created on: October 9, 2019
 	 */
 	@RequestMapping(value = "/approve", method = RequestMethod.POST)
-	public String approveAppointmentConfirm(@RequestParam("appointmentId") BigInteger appointmentId,
-			@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
+	public String approveAppointmentConfirm(Map<String, Object> model) {
+		List<DiagnosticCenter> centerList = null;
 		try {
-		if (userService.approveAppointment(appointmentId)) {
+			centerList = userService.getCenterList();
+			model.put("appointmentList", userService
+					.getCenterAppointmentList((BigInteger) session.getAttribute("centerId")));
+			model.put("centerList", centerList);
+			logger.info("calling service method to approve appointment");
+		if (userService.approveAppointment((BigInteger) session.getAttribute("appointmentId"))) {
+			logger.info("Approved successfully.. released temporary session variables..");
 			session.setAttribute("appointmentId", null);
 			session.setAttribute("centerId", null);
 			model.put("message", "Approved Successfully");
-		} else {
-			model.put("message", "Error. Please try after some time.");
 		}
 		}catch(ValidationException exception) {
-			model.put("message", exception.getMessage());
+			logger.error("Caught ValidationException in /approve in controller.. returning the user back to the same page..");
+			model.put("appointmentErrorMessage", exception.getMessage());			
+			return "ApproveAppointment";
 		}
+		logger.info("Approved successfully.. returning to admin page");
 		return "AdminHome";
 	}
 

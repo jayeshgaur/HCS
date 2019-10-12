@@ -220,7 +220,10 @@ public class UserServiceImpl implements UserService {
 			for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
 				DiagnosticCenter diagnosticCenter = iterator.next();
 				if (diagnosticCenter.getCenterId().compareTo(new BigInteger(centerId)) == 0)
-					return new BigInteger(centerId);
+					{
+					logger.info("Center Id is proper... returning BigInteger value of the entered Id..");
+					return new BigInteger(centerId);	
+					}
 			}
 		}
 		logger.error("Invalid Center Id... throwing ValidationException in UserService.validateCenterId");
@@ -241,6 +244,7 @@ public class UserServiceImpl implements UserService {
 			while (testIterator.hasNext()) {
 				Test test = testIterator.next();
 				if (test.getTestId().compareTo(new BigInteger(testId)) == 0) {
+					logger.info("Test Id is proper... returning BigInteger value of the entered Id..");	
 					return test.getTestId();
 				}
 			}
@@ -287,7 +291,9 @@ public class UserServiceImpl implements UserService {
 
 	/*
 	 * Author: 			Jayesh Gaur
-	 * Description: 	
+	 * Description: 	Validates the appointment Id selected by admin to approve
+	 * Created on: 		October 9, 2019
+	 * Input/Output: 	Returns BigInteger value of the appointmentId if correct, else throws ValidationException
 	 */
 	public BigInteger validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)
 			throws ValidationException {
@@ -298,10 +304,12 @@ public class UserServiceImpl implements UserService {
 				appointment = appointmentListIterator.next();
 				if ((appointment.getAppointmentId().compareTo(new BigInteger(appointmentId)) == 0)
 						&& (appointment.getAppointmentStatus() == 0)) {
+					logger.info("Correct appointment id... returning BigInteger value of the appointment Id");
 					return new BigInteger(appointmentId);
 				}
 			}
 		}
+		logger.error("Invalid Appointment Id.... throwing ValidationException");
 		throw new ValidationException(UserErrorMessage.userErrorInvalidAppointmentId);
 	}
 
@@ -311,6 +319,7 @@ public class UserServiceImpl implements UserService {
 	 * Created on: 		October 9, 2019
 	 */
 	public Appointment addAppointment(Appointment appointment) {
+		logger.info("Calling repository save method to save the appointment in service layer..");
 		return appointmentRepository.save(appointment);
 	}
 
@@ -322,11 +331,14 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public boolean approveAppointment(BigInteger appointmentId) throws ValidationException{
-		Appointment appointment = appointmentRepository.findById(appointmentId).get();
-		if(null!=appointment) {
-			appointment.setAppointmentStatus(1);
+		logger.info("Getting the appointment object corresponding to the appointment Id...");
+		Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+		if(appointment.isPresent()) {
+			logger.info("Appointment object found.. setting status to 1 (Approved)");
+			appointment.get().setAppointmentStatus(1);
 		}
 		else {
+			logger.info("Manipulated appointment id... throwing ValidationException in service approve appointment");
 			throw new ValidationException(UserErrorMessage.userErrorInvalidAppointmentId);
 		}
 		return true;
@@ -339,9 +351,14 @@ public class UserServiceImpl implements UserService {
 	 * Created on: 		October 9, 2019
 	 */
 	@Override
-	public List<Appointment> getCenterAppointmentList(BigInteger centerId) {
-		DiagnosticCenter center = centerRepository.findById(centerId).get();
-		return appointmentRepository.findByCenterAndAppointmentStatus(center, 0);
+	public List<Appointment> getCenterAppointmentList(BigInteger centerId) throws ValidationException {
+		Optional<DiagnosticCenter> center = centerRepository.findById(centerId);
+		if(center.isPresent()) {
+		return appointmentRepository.findByCenterAndAppointmentStatus(center.get(), 0);
+		}
+		else {
+			throw new ValidationException(UserErrorMessage.userErrorInvalidCenterId);
+		}
 	}
 
 	/*
