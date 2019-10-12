@@ -15,7 +15,7 @@ import com.cg.healthcaresystembootmvc.exception.ValidationException;
 public interface UserService {
 	public DiagnosticCenter addCenter(DiagnosticCenter center);
 
-	public boolean removeCenter(BigInteger centerId);
+	public boolean removeCenter(BigInteger centerId) throws ValidationException;
 
 	public Test addTest(BigInteger centerId, Test test);
 

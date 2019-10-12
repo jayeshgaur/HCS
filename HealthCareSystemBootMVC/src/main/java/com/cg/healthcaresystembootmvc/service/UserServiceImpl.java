@@ -55,8 +55,11 @@ public class UserServiceImpl implements UserService {
 		return centerRepository.save(center);
 	}
 
-	public boolean removeCenter(BigInteger centerId) {
+	public boolean removeCenter(BigInteger centerId) throws ValidationException {
 		DiagnosticCenter center = centerRepository.findById(centerId).get();
+		if(null==center) {
+			throw new ValidationException(UserErrorMessage.userErrorInvalidCenterId);
+		}
 		center.setDeleted(true);
 		return true;
 	}

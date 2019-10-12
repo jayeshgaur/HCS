@@ -202,6 +202,7 @@ public class HCSController {
 	public String addCenter(@Valid @ModelAttribute("Center") DiagnosticCenter center, BindingResult result,
 			Map<String, Object> model) {
 		logger.info("Checking Center inputs.");
+		
 
 		if (result.hasErrors()) {
 			// If inputs are not according to validations, will ask to try again.
@@ -326,6 +327,8 @@ public class HCSController {
 	public String confirmDeleteCenter(@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
 		// Confirmation before Deleting a Center from the Database
 		logger.info("Delete Center confirmation");
+		try {
+			
 		if (userService.removeCenter(centerId)) {
 			logger.info("Center Id matched with Database, Deleting Center from the datbase");
 			model.put("deleteMessage", "Deleted successfully");
@@ -333,6 +336,12 @@ public class HCSController {
 			// Error Message to try again
 			model.put("deleteMessage", "Could not delete, please try again");
 		}
+		}
+		catch(ValidationException exception){
+			model.put("Invalid center Id", exception.getMessage());
+			
+		}
+		
 		// showing Updated center List
 		logger.info("Updated Center List Displayed on the same Page");
 		model.put("centerList", userService.getCenterList());
