@@ -19,7 +19,6 @@ import com.cg.healthcaresystembootmvc.dto.User;
  */
 public interface UserRepository extends JpaRepository<User, BigInteger> {
 	
-//	@Query("FROM User WHERE userEmail = :email AND userPassword = :password")
 	public User findByUserEmailAndUserPassword(@Param("email")String email, @Param("password")String password);
 
 	public User findByUserEmail(String userEmail);
