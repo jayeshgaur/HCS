@@ -1,7 +1,7 @@
 package com.cg.healthcaresystembootmvc.controller;
 
 /*
- * author: Jayesh Gaur, Nidhi
+ * author: Jayesh Gaur, Nidhi, Kushal Khurana
  */
 
 import java.math.BigInteger;
@@ -38,7 +38,10 @@ import com.cg.healthcaresystembootmvc.service.UserService;
 @Controller
 public class HCSController {
 	
-	
+	/*
+	 * Author: Kushal Khurana
+	 * Created on: October 11, 2019
+	 */
 	private static final Logger logger = LoggerFactory.getLogger(HCSController.class);
 
 	@Autowired
@@ -55,6 +58,7 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String defaultMapper() {
+		logger.info("returning to home page");
 		return "Home";
 	}
 
@@ -64,6 +68,7 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/Home", method = RequestMethod.GET)
 	public String HomeMapper() {
+		logger.info("returning to Home.jsp");
 		return "Home";
 	}
 
@@ -165,7 +170,7 @@ public class HCSController {
 			try {
 			logger.info("Calling Service to register the user");
 			userId = userService.register(user);
-			// Log the user in and set his user ID into the session object and send him to user home pagee
+			// Log the user in and set his user ID into the session object and send him to user home page
 			logger.info("Registration successful.. logging the user in");
 			session.setAttribute("userId", userId);
 			model.put("userId", userId);
@@ -209,6 +214,7 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/showAllCenter", method = RequestMethod.GET)
 	public ModelAndView getAllData() {
+		logger.info("Calling service to get center list");
 		List<DiagnosticCenter> myList = userService.getCenterList();
 		return new ModelAndView("ShowCenters", "data", myList);
 	}
@@ -381,7 +387,7 @@ public class HCSController {
 	}
 
 	/*
-	 * Author: 			Jayesh gaur
+	 * Author: 			Jayesh Gaur
 	 * Description:		Ends the user session by setting null to the session objects
 	 * 					Redirects to the Login page
 	 * Created on: 		October 9, 2019 
