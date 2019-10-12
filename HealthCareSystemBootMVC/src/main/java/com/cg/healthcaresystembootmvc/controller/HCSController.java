@@ -409,16 +409,24 @@ public class HCSController {
 		
 		try {
 			//validating if the test Id is present or not and getting list of Test
+			logger.info("Validating test ID for Removing Test");
 			testId = userService.validateTestId(sTestId,
 					userService.getListOfTests((BigInteger) session.getAttribute("centerId")));
 			session.setAttribute("testId", testId);
 			model.put("testId", testId);
 		} catch (ValidationException exception) {
+			
+			//validating Test id
+			logger.error("Error Message for providing improper TestId");
 			model.put("testErrorMessage", exception.getMessage());
 		}
 		// userService.removeTest(centerId, testId);
+		
+		//showing Center List and test List through Center and test Ids
+		logger.info("shown Center and Test List for Deleting a particular test");
 		model.put("testList", userService.getListOfTests((BigInteger) session.getAttribute("centerId")));
 		model.put("centerList", userService.getCenterList());
+		logger.info("Returning back to Delete Test page");
 		return "deleteTest";
 	}
 
@@ -431,15 +439,23 @@ public class HCSController {
 	 */
 
 	@RequestMapping(value = "/TestConfirm", method = RequestMethod.POST)
+	//Confirmation for deleting Test from the database
 	public String deleteTestConfirm(@RequestParam("testId") BigInteger testId,
 			@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) throws ValidationException {
 		if (userService.removeTest(centerId, testId)) {
+			
+			logger.info("Releasing session variable details");
 			session.setAttribute("testId", null);
 			session.setAttribute("centerId", null);
+			//message for successfully deleting a test
+			logger.info("Succesfully deleted test from a center ");
 			model.put("message", "Deleted Successfully");
 		} else {
+			//error message for trying again to delete test
 			model.put("message", "Error. Please try after some time.");
 		}
+		//back to Admin home
+		logger.info("Returning back to Admin Home after Removing test from the database");
 		return "AdminHome";
 	}
 
