@@ -22,10 +22,10 @@
 	<dependencies>
 
 		<!-- Spring Data JDBC -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<!-- Spring Data JPA -->
 		<dependency>

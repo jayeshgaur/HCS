@@ -1,0 +1,26 @@
+2019-10-12 14:29:47,290 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-1] returning to home page
+2019-10-12 14:29:48,785 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-2] Returning Register page..
+2019-10-12 14:29:51,703 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-8] returning to Home.jsp
+2019-10-12 14:29:52,336 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-6] Returning Login.jsp page
+2019-10-12 14:29:55,835 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-10] Checking login credentials..
+2019-10-12 14:29:55,835 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-10] User is not an admin.. checking customer credentials..
+2019-10-12 14:29:55,874 ERROR com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-10] Invalid user credentials.. retuning back to Login.jsp
+2019-10-12 14:30:01,761 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-6] Checking login credentials..
+2019-10-12 14:30:01,762 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-6] Admin Authenticated.. setting userRole as admin and returning AdminHome.jsp
+2019-10-12 14:30:15,513 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-5] Releasing session variable details..
+2019-10-12 14:30:15,513 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-5] User logged out successfully... return to Login page
+2019-10-12 14:30:36,737 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-7] Checking login credentials..
+2019-10-12 14:30:36,737 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-7] User is not an admin.. checking customer credentials..
+2019-10-12 14:30:36,757 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-7] User authenticated... User id: 1. Returning to UserHome.jsp
+2019-10-12 14:30:43,040 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-8] Retrieving center List to send to add appointment page
+2019-10-12 14:30:43,050 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-8] Returning to add appointment page
+2019-10-12 14:30:44,472 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-1] Releasing session variable details..
+2019-10-12 14:30:44,473 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-1] User logged out successfully... return to Login page
+2019-10-12 14:33:40,729 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] Starting HealthCareSystemBootMvcApplication on DESKTOP-S9SRJSK with PID 5236 (C:\Users\Admin\git\HCS\HealthCareSystemBootMVC\target\classes started by Admin in C:\Users\Admin\git\HCS\HealthCareSystemBootMVC)
+2019-10-12 14:33:40,729 DEBUG com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-12 14:33:40,729 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] The following profiles are active: production
+2019-10-12 14:33:41,483 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] Started HealthCareSystemBootMvcApplication in 0.778 seconds (JVM running for 274.135)
+2019-10-12 14:33:43,098 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] Starting HealthCareSystemBootMvcApplication on DESKTOP-S9SRJSK with PID 5236 (C:\Users\Admin\git\HCS\HealthCareSystemBootMVC\target\classes started by Admin in C:\Users\Admin\git\HCS\HealthCareSystemBootMVC)
+2019-10-12 14:33:43,099 DEBUG com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-12 14:33:43,099 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] The following profiles are active: production
+2019-10-12 14:33:43,745 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] Started HealthCareSystemBootMvcApplication in 0.669 seconds (JVM running for 276.398)
