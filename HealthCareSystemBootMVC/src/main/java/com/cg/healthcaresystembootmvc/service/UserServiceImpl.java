@@ -11,6 +11,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -56,11 +57,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean removeCenter(BigInteger centerId) throws ValidationException {
-		DiagnosticCenter center = centerRepository.findById(centerId).get();
-		if(null==center) {
+		Optional<DiagnosticCenter> center = centerRepository.findById(centerId);
+		if(!center.isPresent()) {
 			throw new ValidationException(UserErrorMessage.userErrorInvalidCenterId);
 		}
-		center.setDeleted(true);
+		center.get().setDeleted(true);
 		return true;
 	}
 
