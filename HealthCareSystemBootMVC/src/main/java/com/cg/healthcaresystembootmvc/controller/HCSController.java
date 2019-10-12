@@ -58,6 +58,7 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/Home", method = RequestMethod.GET)
 	public String HomeMapper() {
+		logger.info("Returning Home.jsp..");
 		return "Home";
 	}
 
@@ -66,6 +67,7 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginpage() {
+		logger.info("Returning Login.jsp..");
 		return "Login";
 	}
 
@@ -74,6 +76,7 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/AdminHome", method = RequestMethod.GET)
 	public String adminHomePage() {
+		logger.info("Returning AdminHome.jsp..");
 		return "AdminHome";
 	}
 
@@ -82,6 +85,7 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/UserHome", method = RequestMethod.GET)
 	public String userHomePage() {
+		logger.info("Returning UserHome.jsp..");
 		return "UserHome";
 	}
 
@@ -89,8 +93,6 @@ public class HCSController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password,
 			Map<String, Object> model) {
-		
-		logger.debug("In login controller");
 		if (email.equals("admin@hcs.com") && password.equals("hcsadmin")) {
 			session.setAttribute("userRole", "admin");
 			return "AdminHome";
