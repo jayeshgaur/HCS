@@ -130,7 +130,7 @@ public class HCSController {
 				//if credentials don't match, redirect user back to login page with error message
 				logger.error("Invalid user credentials.. retuning back to Login.jsp");
 				model.put("errormessage", "Invalid credentials");
-				return "login";
+				return "Login";
 			}
 		}
 	}
@@ -162,10 +162,10 @@ public class HCSController {
 		// Check if the validation tests are passed. Return the user back to registration page if any test fails
 		logger.info("Checking user details entered for registration...");
 		if (bindingResult.hasErrors()) {
-			logger.error("Errors in registration details... retuning back to registration.jsp");
+			logger.error("Improper registration details... retuning back to registration.jsp");
 			return "Registration";
 		} else {
-			logger.info("No errors in user details...proceeding");
+			logger.info("Center details passed validation... proceeding");
 			// Register the user and get his automatically generated user Id
 			try {
 			logger.info("Calling Service to register the user");
@@ -176,7 +176,7 @@ public class HCSController {
 			model.put("userId", userId);
 			}catch(ExistingCredentialException exception) {
 				//if registration failed, return back to registration page with proper error message
-				logger.error("Error in registraton, returning to Registration page");
+				logger.error("Caught ExistingCredentialException in register post, returning to Registration page");
 				model.put("duplicate",exception.getMessage());
 				return "Registration";
 			}
@@ -484,24 +484,30 @@ public class HCSController {
 		try {
 			// Validate the center id entered by the user and return it's BigInteger value if the ID is valid.
 			// Throws ValidationException if the centerId is not valid
+			logger.info("validating center id received");
 			centerId = userService.validateCenterId(stringCenterId, userService.getCenterList());
 
 			// Get list of tests under the center corresponding to the center Id.
+			logger.info("Center Id Validated. Getting list of tests under that center");
 			testList = userService.getListOfTests(centerId);
 
 			// Return the test list if tests are present
+			logger.info("Checking if test list is empty..");
 			if (testList.size() > 0) {
+				logger.info("Test list not empty. adding test list model to the view");
 				model.put("testList", testList);
 				session.setAttribute("centerId", centerId);
 			} else {
 				// Return the centerList again to the user and redirect to the previous page if no tests exist in the center
+				logger.info("No test list present");
 				model.put("message", "Sorry, no tests present in that center.");
 			}
 		} catch (ValidationException exception) {
-			// Redirect to the same page if the center Id is not valid and ask the user to select a different center or select a proper center Id
+			logger.error("Caught validation exception in select tests add appointment");
 			model.put("message", exception.getMessage());
 		}
 		model.put("centerList", userService.getCenterList());
+		logger.info("Returning to addAppointment with test list in the selected center..");
 		return "addAppointment";
 	}
 
