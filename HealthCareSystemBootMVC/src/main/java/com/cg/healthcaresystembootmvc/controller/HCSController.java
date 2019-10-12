@@ -186,22 +186,42 @@ public class HCSController {
 	}
 	
 	
+	/*
+	 * Author:			Kushal Khurana
+	 * Description: 	Get AddCenter Page	 
+	 * Created on: 		October 11, 2019
+	 */
 	
 	@RequestMapping(value = "/AddCenter", method = RequestMethod.GET)
 	public String addCenterRequest(@ModelAttribute("Center") DiagnosticCenter center) {
+		logger.info("Returning Admin to Add Center Page");
 		return "addCenter";
 	}
 	
-	// Add Center
+	/*
+	 * Author:			Kushal Khurana
+	 * Description: 	Adding new Center	 
+	 * Input: 			Center Details: Name, Contact Number and Address
+	 * Output: 			Inputs will be saved in the data					
+	 * Created on: 		October 11, 2019
+	 */
+	
 	@RequestMapping(value = "/AddCenter", method = RequestMethod.POST)
 	public String addCenter(@Valid @ModelAttribute("Center") DiagnosticCenter center, BindingResult result,
 			Map<String, Object> model) {
+		logger.info("Checking Center inputs.");
+		
+	
 		if (result.hasErrors()) {
-			model.put("error", "Please try again..");
+			//If inputs are not according to validations, will ask to try again.
+			logger.info("ImProper Details, returning back to Add Center Page");
+			model.put("error", "Please enter details according to the given messages");
 			return "addCenter";
 		} else {
+			//Showing message after adding new center details in the data. and returning to Admin Home Page.
+			logger.info("Proper Center Details Added, Returning to AdminHome Page. ");
 			userService.addCenter(center);
-			model.put("message", "Added successfully");
+			model.put("message", "New Center with details added successfully");
 			return "AdminHome";
 		}
 	}
