@@ -12,7 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -20,7 +19,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.healthcaresystembootmvc.controller.HCSController;
 import com.cg.healthcaresystembootmvc.dto.Appointment;
 import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
@@ -111,19 +109,23 @@ public class UserServiceImpl implements UserService {
 	 * Created on:			October 9, 2019
 	 */
 	public BigInteger register(User user) throws ExistingCredentialException{
-		
-		//validating unique database columns
+		logger.info("Checking if the email is already registered..");
+		//Validating unique database columns
 		User checkUserCredentials = userRepository.findByUserEmail(user.getUserEmail());
 		if(null != checkUserCredentials) {
+			logger.error("An existing account with this email found... throwing ExistingCredentialException");
 			throw new ExistingCredentialException(UserErrorMessage.userErrorDuplicateEmail);
 		}else {
 			checkUserCredentials = null;
+			logger.info("Email is unique. Checking if the phone number is already registered..");
 			checkUserCredentials = userRepository.findByContactNo(user.getContactNo());
 			if(null != checkUserCredentials) {
+				logger.error("An existing account with this contact found... throwing ExistingCredentialException");
 				throw new ExistingCredentialException(UserErrorMessage.userErrorDuplicatePhoneNumber);
 			}
 		}
 		//save if email and phone numbers are unique
+		logger.info("Phone number is also unique. Registering the user..");
 		return userRepository.save(user).getUserId();
 	}
 
@@ -152,55 +154,63 @@ public class UserServiceImpl implements UserService {
 		return userId;
 	}
 
-	public String validatePassword(String userPassword) throws ValidationException {
-		if (userPassword.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})")) {
-			return userPassword;
-		}
-		throw new ValidationException(UserErrorMessage.userErrorSecret);
-	}
+//	public String validatePassword(String userPassword) throws ValidationException {
+//		if (userPassword.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})")) {
+//			return userPassword;
+//		}
+//		throw new ValidationException(UserErrorMessage.userErrorSecret);
+//	}
 
-	public String validateName(String userName) throws ValidationException {
+//	public String validateName(String userName) throws ValidationException {
+//
+//		if (userName.matches("^[A-Z].*")) {
+//			return userName;
+//		}
+//		throw new ValidationException(UserErrorMessage.userErrorUserName);
+//	}
 
-		if (userName.matches("^[A-Z].*")) {
-			return userName;
-		}
-		throw new ValidationException(UserErrorMessage.userErrorUserName);
-	}
+//	public String validateContactNo(String userContactNo) throws ValidationException {
+//		if (userContactNo.matches("^[0-9]+")) {
+//			if (userContactNo.length() != 10) {
+//				throw new ValidationException(UserErrorMessage.userErrorContactNoLength);
+//			} else {
+//				return userContactNo;
+//			}
+//		}
+//		throw new ValidationException(UserErrorMessage.userErrorStringContactNo);
+//	}
 
-	public String validateContactNo(String userContactNo) throws ValidationException {
-		if (userContactNo.matches("^[0-9]+")) {
-			if (userContactNo.length() != 10) {
-				throw new ValidationException(UserErrorMessage.userErrorContactNoLength);
-			} else {
-				return userContactNo;
-			}
-		}
-		throw new ValidationException(UserErrorMessage.userErrorStringContactNo);
-	}
+//	public String validateEmail(String userEmail) throws ValidationException {
+//		if (userEmail.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+//			return userEmail;
+//		}
+//		logger.error("Entered Email is not Correct");
+//		throw new ValidationException(UserErrorMessage.userErrorEmailId);
+//	}
 
-	public String validateEmail(String userEmail) throws ValidationException {
-		if (userEmail.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-			return userEmail;
-		}
-		logger.error("Entered Email is not Correct");
-		throw new ValidationException(UserErrorMessage.userErrorEmailId);
-	}
+//	public Integer validateAge(Integer age) throws ValidationException {
+//		if (age < 5 && age > 110) {
+//			throw new ValidationException(UserErrorMessage.userErrorUserAge);
+//		}
+//		return age;
+//	}
 
-	public Integer validateAge(Integer age) throws ValidationException {
-		if (age < 5 && age > 110) {
-			throw new ValidationException(UserErrorMessage.userErrorUserAge);
-		}
-		return age;
-	}
+//	public String validateGender(String gender) throws ValidationException {
+//		if (!(gender.equals("M") || gender.equals("F") || gender.equals("O"))) {
+//			throw new ValidationException(UserErrorMessage.userErrorUserGender);
+//		}
+//		return gender;
+//
+//	}
 
-	public String validateGender(String gender) throws ValidationException {
-		if (!(gender.equals("M") || gender.equals("F") || gender.equals("O"))) {
-			throw new ValidationException(UserErrorMessage.userErrorUserGender);
-		}
-		return gender;
-
-	}
-
+	/*
+	 * Author: 			Jayesh Gaur
+	 * Description: 	Checks if the center Id in parameter 1 is present in the list of all centers present in parameter 2
+	 * Input: 			String Center Id and List<DiagnosticCenter>
+	 * Output:			throws ValidationException if invalid center Id
+	 * 					Returns BigInteger value of the center ID if centerID is valid
+	 * Created on: 		October 9, 2019
+	 */			
 	public BigInteger validateCenterId(String centerId, List<DiagnosticCenter> centerList) throws ValidationException {
 		if (centerId.matches("^[0-9]+")) {
 			for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
@@ -209,10 +219,18 @@ public class UserServiceImpl implements UserService {
 					return new BigInteger(centerId);
 			}
 		}
-		logger.error("Entered CenterID is not Correct");
+		logger.error("Invalid Center Id... throwing ValidationException in UserService.validateCenterId");
 		throw new ValidationException(UserErrorMessage.userErrorInvalidCenterId);
 	}
 
+	/*
+	 * Author: 			Jayesh Gaur
+	 * Description: 	Checks if the test Id in parameter 1 is present in the list of all tests present in parameter 2
+	 * Input: 			String Test Id and List<Test> testList
+	 * Output:			throws ValidationException if invalid test Id
+	 * 					Returns BigInteger value of the test ID if the testId is valid 
+	 * Created on: 		October 9, 2019
+	 */			
 	public BigInteger validateTestId(String testId, List<Test> testList) throws ValidationException {
 		if (testId.matches("^[0-9]+")) {
 			Iterator<Test> testIterator = testList.iterator();
@@ -223,6 +241,7 @@ public class UserServiceImpl implements UserService {
 				}
 			}
 		}
+		logger.error("Invalid Test Id... throwing ValidationException in UserService.validateTestId");		
 		throw new ValidationException(UserErrorMessage.userErrorInvalidTestId);
 	}
 
@@ -284,9 +303,14 @@ public class UserServiceImpl implements UserService {
 	 * Created on: 		October 9, 2019
 	 */
 	@Override
-	public boolean approveAppointment(BigInteger appointmentId) {
+	public boolean approveAppointment(BigInteger appointmentId) throws ValidationException{
 		Appointment appointment = appointmentRepository.findById(appointmentId).get();
-		appointment.setAppointmentStatus(1);
+		if(null!=appointment) {
+			appointment.setAppointmentStatus(1);
+		}
+		else {
+			throw new ValidationException(UserErrorMessage.userErrorInvalidAppointmentId);
+		}
 		return true;
 	}
 

@@ -531,7 +531,9 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/approve", method = RequestMethod.GET)
 	public String approveAppointment(Map<String, Object> model) {
+		logger.info("Retrieving center List to send to approve appointment page");
 		model.put("centerList", userService.getCenterList());
+		logger.info("Returning to ApproveAppointment page");
 		return "ApproveAppointment";
 	}
 
@@ -597,12 +599,16 @@ public class HCSController {
 	@RequestMapping(value = "/approve", method = RequestMethod.POST)
 	public String approveAppointmentConfirm(@RequestParam("appointmentId") BigInteger appointmentId,
 			@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
+		try {
 		if (userService.approveAppointment(appointmentId)) {
 			session.setAttribute("appointmentId", null);
 			session.setAttribute("centerId", null);
 			model.put("message", "Approved Successfully");
 		} else {
 			model.put("message", "Error. Please try after some time.");
+		}
+		}catch(ValidationException exception) {
+			model.put("message", exception.getMessage());
 		}
 		return "AdminHome";
 	}
