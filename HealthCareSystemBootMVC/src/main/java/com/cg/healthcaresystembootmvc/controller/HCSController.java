@@ -1,7 +1,7 @@
 package com.cg.healthcaresystembootmvc.controller;
 
 /*
- * author: Jayesh Gaur, Nidhi
+ * author: Jayesh Gaur, Nidhi, Kushal Khurana
  */
 
 import java.math.BigInteger;
@@ -30,7 +30,7 @@ import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
 import com.cg.healthcaresystembootmvc.dto.User;
 import com.cg.healthcaresystembootmvc.exceldownload.ExcelReportView;
-import com.cg.healthcaresystembootmvc.exception.ExistingUserCredentialException;
+import com.cg.healthcaresystembootmvc.exception.ExistingCredentialException;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
 import com.cg.healthcaresystembootmvc.service.UserService;
 
@@ -38,7 +38,10 @@ import com.cg.healthcaresystembootmvc.service.UserService;
 @Controller
 public class HCSController {
 	
-	
+	/*
+	 * Author: Kushal Khurana
+	 * Created on: October 11, 2019
+	 */
 	private static final Logger logger = LoggerFactory.getLogger(HCSController.class);
 
 	@Autowired
@@ -55,6 +58,7 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String defaultMapper() {
+		logger.info("returning to home page");
 		return "Home";
 	}
 
@@ -64,6 +68,7 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/Home", method = RequestMethod.GET)
 	public String HomeMapper() {
+		logger.info("returning to Home.jsp");
 		return "Home";
 	}
 
@@ -131,8 +136,9 @@ public class HCSController {
 	}
 
 	/*
-	 * Author: Jayesh Gaur Description: Get registration page Created: October 9,
-	 * 2019
+	 * Author: Jayesh Gaur 
+	 * Description: Get registration page 
+	 * Created: October 9, 2019
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String registerPage(@ModelAttribute("customer") User user) {
@@ -154,19 +160,27 @@ public class HCSController {
 			Map<String, Object> model) {
 		BigInteger userId;
 		// Check if the validation tests are passed. Return the user back to registration page if any test fails
+		logger.info("Checking user details entered for registration...");
 		if (bindingResult.hasErrors()) {
+			logger.error("Errors in registration details... retuning back to registration.jsp");
 			return "Registration";
 		} else {
-		// Register the user and get his automatically generated user Id
+			logger.info("No errors in user details...proceeding");
+			// Register the user and get his automatically generated user Id
 			try {
+			logger.info("Calling Service to register the user");
 			userId = userService.register(user);
-			// Log the user in and set his user ID into the session object
+			// Log the user in and set his user ID into the session object and send him to user home page
+			logger.info("Registration successful.. logging the user in");
 			session.setAttribute("userId", userId);
 			model.put("userId", userId);
-			}catch(ExistingUserCredentialException exception) {
+			}catch(ExistingCredentialException exception) {
+				//if registration failed, return back to registration page with proper error message
+				logger.error("Error in registraton, returning to Registration page");
 				model.put("duplicate",exception.getMessage());
 				return "Registration";
-			}			
+			}
+			logger.info("New registered user logged in, returning to user home page");
 			return "UserHome";
 		}
 	}
@@ -212,8 +226,15 @@ public class HCSController {
 		}
 	}
 	
+	/*
+	 * Author: 			Jayesh Gaur
+	 * Description: 	Retrieves a list of all centers from the database and returns the view
+	 * 					ShowCenters with the model of list of centers.
+	 * Created on: 		October 9, 2019
+	 */
 	@RequestMapping(value = "/showAllCenter", method = RequestMethod.GET)
 	public ModelAndView getAllData() {
+		logger.info("Calling service to get center list");
 		List<DiagnosticCenter> myList = userService.getCenterList();
 		return new ModelAndView("ShowCenters", "data", myList);
 	}
@@ -386,7 +407,7 @@ public class HCSController {
 	}
 
 	/*
-	 * Author: 			Jayesh gaur
+	 * Author: 			Jayesh Gaur
 	 * Description:		Ends the user session by setting null to the session objects
 	 * 					Redirects to the Login page
 	 * Created on: 		October 9, 2019 
@@ -394,8 +415,10 @@ public class HCSController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout() {
 		//remove session variables
+		logger.info("Releasing session variable details..");
 		session.setAttribute("userRole", null);
 		session.setAttribute("userId", null);
+		logger.info("User logged out successfully... return to Login page");
 		return "Login";
 	}
 
@@ -406,7 +429,9 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/addAppointment", method = RequestMethod.GET)
 	public String addAppointment(Map<String, Object> model) {
+		logger.info("Retrieving center List to send to add appointment page");
 		model.put("centerList", userService.getCenterList());
+		logger.info("Returning to add appointment page");
 		return "addAppointment";
 	}
 

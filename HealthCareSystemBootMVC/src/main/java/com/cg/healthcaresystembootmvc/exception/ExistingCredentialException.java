@@ -6,15 +6,15 @@ package com.cg.healthcaresystembootmvc.exception;
  * 					be unique
  * Created on:	 October 11, 2019
  */
-public class ExistingUserCredentialException extends Exception {
+public class ExistingCredentialException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
 	//Default constructor
-	public ExistingUserCredentialException() {
+	public ExistingCredentialException() {
 	}
 	
-	public ExistingUserCredentialException(String exception) {
+	public ExistingCredentialException(String exception) {
 		super(exception);
 	}
 	
