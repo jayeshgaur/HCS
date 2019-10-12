@@ -249,6 +249,8 @@ public class HCSController {
 	 * */
 	@RequestMapping(value = "/AddTest", method = RequestMethod.GET)
 	public String addTestPage(Map<String, Object> model) {
+		
+		logger.info("Returning Admin to Add Test Page");
 		model.put("centerList", userService.getCenterList());
 		return "addTest";
 	}
@@ -266,24 +268,47 @@ public class HCSController {
 	@RequestMapping(value = "/AddTest", method = RequestMethod.POST)
 	public String addTestSubmit(@RequestParam("centerId") String stringCenterId,
 			@RequestParam("testName") String testName, Map<String, Object> model) {
+		//Posting new Test Details in a given center
 		BigInteger centerId = null;
 		try {
+			//validating Center Id
+			logger.info("Checking Center if it is present in  data or not");
 			centerId = userService.validateCenterId(stringCenterId, userService.getCenterList());
 			if (null != userService.addTest(centerId, new Test(testName)))
+				logger.info("New Test has been added in a particular center");
+			//Adding new test in a center using center ID
 				model.put("message", "Added successfully");
 		} catch (ValidationException exception) {
+			
+			//if inserted improper Center Id, return back to Add Test page with proper error message
+			logger.error("Inserted improper ID, printing error message and  returning to Add Test page.");
 			model.put("message", exception.getMessage());
 		}
 		model.put("centerList", userService.getCenterList());
 		return "addTest";
 	}
-
+	
+	/*
+	 * Author:			Kushal Khurana
+	 * Description: 	Getting Delete Center page with Center List	 
+	* Created on: 		October 11, 2019
+	 */
 	@RequestMapping(value = "/DeleteCenter", method = RequestMethod.GET)
 	public String deleteCenterRequest(Map<String, Object> model) {
 		model.put("centerList", userService.getCenterList());
+		//Using Center List to select which Center you want to delete.
+		logger.info("Getting Center Details to delete among the list.");
 		return "deleteCenter";
 	}
-
+	
+	/*
+	 * Author:			Kushal Khurana
+	 * Description: 	Deleting Center	 
+	 * Input: 			Center ID
+	 * Output: 			Center Details with respect to center id.					
+	 * Created on: 		October 11, 2019
+	 */
+	
 	@RequestMapping(value = "/DeleteCenter", method = RequestMethod.POST)
 	public String deleteCenter(@RequestParam("centerId") String stringCenterId, Map<String, Object> model) {
 		BigInteger centerId = null;
@@ -291,21 +316,31 @@ public class HCSController {
 		try {
 			centerId = userService.validateCenterId(stringCenterId, userService.getCenterList());
 			center = userService.findCenter(centerId);
+			//Checking Center Id if it is present in the data or not.
+			logger.info("Finding Center Details from CenterID in the data");
 			model.put("center", center);
 		} catch (ValidationException exception) {
+			logger.error("Showing Error if the center Id entered doesn't match with data ");
 			model.put("centerList", userService.getCenterList());
 			model.put("deleteMessage", exception.getMessage());
 		}
 		return "deleteCenter";
 
 	}
-
+	/*
+	 * Author:			Kushal Khurana
+	 * Description: 	Confirmation for Deleting Center	 					
+	 * Created on: 		October 11, 2019
+	 */
 	@RequestMapping(value = "/ConfirmDelete", method = RequestMethod.POST)
 	public String confirmDeleteCenter(@RequestParam("centerId") BigInteger centerId, Map<String, Object> model) {
-
+		//Confirmation before Deleting a Center from the Database
+		logger.info("Delete Center confirmation");
 		if (userService.removeCenter(centerId)) {
+			logger.info("Center Id matched with Database, Deleting Center from the datbase");
 			model.put("deleteMessage", "Deleted successfully");
 		} else {
+			
 			model.put("deleteMessage", "Could not delete, please try again");
 		}
 		model.put("centerList", userService.getCenterList());
