@@ -395,8 +395,10 @@ public class HCSController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout() {
 		//remove session variables
+		logger.info("Releasing session variable details..");
 		session.setAttribute("userRole", null);
 		session.setAttribute("userId", null);
+		logger.info("User logged out successfully... return to Login page");
 		return "Login";
 	}
 
@@ -407,7 +409,9 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/addAppointment", method = RequestMethod.GET)
 	public String addAppointment(Map<String, Object> model) {
+		logger.info("Retrieving center List to send to add appointment page");
 		model.put("centerList", userService.getCenterList());
+		logger.info("Returning to add appointment page");
 		return "addAppointment";
 	}
 
