@@ -25,7 +25,7 @@ import com.cg.healthcaresystembootmvc.dto.Appointment;
 import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
 import com.cg.healthcaresystembootmvc.dto.User;
-import com.cg.healthcaresystembootmvc.exception.ExistingUserCredentialException;
+import com.cg.healthcaresystembootmvc.exception.ExistingCredentialException;
 import com.cg.healthcaresystembootmvc.exception.UserErrorMessage;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
 import com.cg.healthcaresystembootmvc.repository.AppointmentRepository;
@@ -110,17 +110,17 @@ public class UserServiceImpl implements UserService {
 	 * 							database, exception is thrown and user is notified.
 	 * Created on:			October 9, 2019
 	 */
-	public BigInteger register(User user) throws ExistingUserCredentialException{
+	public BigInteger register(User user) throws ExistingCredentialException{
 		
 		//validating unique database columns
 		User checkUserCredentials = userRepository.findByUserEmail(user.getUserEmail());
 		if(null != checkUserCredentials) {
-			throw new ExistingUserCredentialException(UserErrorMessage.userErrorDuplicateEmail);
+			throw new ExistingCredentialException(UserErrorMessage.userErrorDuplicateEmail);
 		}else {
 			checkUserCredentials = null;
 			checkUserCredentials = userRepository.findByContactNo(user.getContactNo());
 			if(null != checkUserCredentials) {
-				throw new ExistingUserCredentialException(UserErrorMessage.userErrorDuplicatePhoneNumber);
+				throw new ExistingCredentialException(UserErrorMessage.userErrorDuplicatePhoneNumber);
 			}
 		}
 		//save if email and phone numbers are unique
@@ -137,9 +137,19 @@ public class UserServiceImpl implements UserService {
 	 * Created on:  October 9, 2019
 	 */
 	public BigInteger userLogin(String email, String password) {
-		
+		//check if a user exists whose credentials match, if it does, get the user object
 		User user = userRepository.findByUserEmailAndUserPassword(email,password);
-		return user.getUserId();
+		//reference for bigInteger user Id to return to controller
+		BigInteger userId=null;
+		
+		//Check if any user object has been returned after matching credentials
+		if(null!=user)
+		{
+			//get his user Id
+			userId = user.getUserId();
+		}
+		//return user Id
+		return userId;
 	}
 
 	public String validatePassword(String userPassword) throws ValidationException {

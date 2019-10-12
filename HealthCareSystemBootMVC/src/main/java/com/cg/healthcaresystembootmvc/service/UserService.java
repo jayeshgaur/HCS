@@ -8,7 +8,7 @@ import com.cg.healthcaresystembootmvc.dto.Appointment;
 import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
 import com.cg.healthcaresystembootmvc.dto.User;
-import com.cg.healthcaresystembootmvc.exception.ExistingUserCredentialException;
+import com.cg.healthcaresystembootmvc.exception.ExistingCredentialException;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
 
 
@@ -21,7 +21,7 @@ public interface UserService {
 
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws ValidationException;
 
-	public BigInteger register(User user) throws ExistingUserCredentialException;
+	public BigInteger register(User user) throws ExistingCredentialException;
 
 	public List<DiagnosticCenter> getCenterList();
 

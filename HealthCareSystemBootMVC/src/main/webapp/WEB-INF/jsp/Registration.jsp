@@ -53,7 +53,7 @@
 				<td>Email-Id</td>
 				<td><tag:input path="userEmail" /></td>
 				<td><span><tag:errors path="userEmail">
-						</tag:errors></span><span>${duplicate }</span></td>
+						</tag:errors></span></td>
 
 			</tr>
 			<tr>
@@ -66,7 +66,7 @@
 				<td>Contact Number</td>
 				<td><tag:input path="contactNo" /></td>
 				<td><span><tag:errors path="contactNo">
-						</tag:errors></span><span>${duplicate }</span></td>
+						</tag:errors></span></td>
 			</tr>
 			<tr>
 				<td>Age</td>
@@ -86,7 +86,7 @@
 			
 		</tag:form>
 	</table>
-
+<span>${duplicate }</span>
 	<div class="footer" style="background-color:lightblue; position=äbsolute">
  <p align="center">Mumbai &nbsp;&nbsp;&nbsp;&nbsp;Pune&nbsp;&nbsp;&nbsp;&nbsp;Hyderabad&nbsp;&nbsp;&nbsp;&nbsp;Delhi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  <span class="glyphicon glyphicon-phone"> 1800-123-4567 </span></p>

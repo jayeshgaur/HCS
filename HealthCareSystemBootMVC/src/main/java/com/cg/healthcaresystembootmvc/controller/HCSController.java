@@ -30,7 +30,7 @@ import com.cg.healthcaresystembootmvc.dto.DiagnosticCenter;
 import com.cg.healthcaresystembootmvc.dto.Test;
 import com.cg.healthcaresystembootmvc.dto.User;
 import com.cg.healthcaresystembootmvc.exceldownload.ExcelReportView;
-import com.cg.healthcaresystembootmvc.exception.ExistingUserCredentialException;
+import com.cg.healthcaresystembootmvc.exception.ExistingCredentialException;
 import com.cg.healthcaresystembootmvc.exception.ValidationException;
 import com.cg.healthcaresystembootmvc.service.UserService;
 
@@ -131,8 +131,9 @@ public class HCSController {
 	}
 
 	/*
-	 * Author: Jayesh Gaur Description: Get registration page Created: October 9,
-	 * 2019
+	 * Author: Jayesh Gaur 
+	 * Description: Get registration page 
+	 * Created: October 9, 2019
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String registerPage(@ModelAttribute("customer") User user) {
@@ -154,19 +155,27 @@ public class HCSController {
 			Map<String, Object> model) {
 		BigInteger userId;
 		// Check if the validation tests are passed. Return the user back to registration page if any test fails
+		logger.info("Checking user details entered for registration...");
 		if (bindingResult.hasErrors()) {
+			logger.error("Errors in registration details... retuning back to registration.jsp");
 			return "Registration";
 		} else {
-		// Register the user and get his automatically generated user Id
+			logger.info("No errors in user details...proceeding");
+			// Register the user and get his automatically generated user Id
 			try {
+			logger.info("Calling Service to register the user");
 			userId = userService.register(user);
-			// Log the user in and set his user ID into the session object
+			// Log the user in and set his user ID into the session object and send him to user home pagee
+			logger.info("Registration successful.. logging the user in");
 			session.setAttribute("userId", userId);
 			model.put("userId", userId);
-			}catch(ExistingUserCredentialException exception) {
+			}catch(ExistingCredentialException exception) {
+				//if registration failed, return back to registration page with proper error message
+				logger.error("Error in registraton, returning to Registration page");
 				model.put("duplicate",exception.getMessage());
 				return "Registration";
-			}			
+			}
+			logger.info("New registered user logged in, returning to user home page");
 			return "UserHome";
 		}
 	}
@@ -192,6 +201,12 @@ public class HCSController {
 		}
 	}
 	
+	/*
+	 * Author: 			Jayesh Gaur
+	 * Description: 	Retrieves a list of all centers from the database and returns the view
+	 * 					ShowCenters with the model of list of centers.
+	 * Created on: 		October 9, 2019
+	 */
 	@RequestMapping(value = "/showAllCenter", method = RequestMethod.GET)
 	public ModelAndView getAllData() {
 		List<DiagnosticCenter> myList = userService.getCenterList();
