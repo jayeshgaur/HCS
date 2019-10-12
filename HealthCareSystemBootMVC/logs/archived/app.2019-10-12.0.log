@@ -1,0 +1,14 @@
+2019-10-12 21:29:32,696 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] Starting HealthCareSystemBootMvcApplication on DESKTOP-72TJ4UA with PID 11776 (C:\Users\Jayesh\git\HCS\HealthCareSystemBootMVC\target\classes started by Jayesh in C:\Users\Jayesh\git\HCS\HealthCareSystemBootMVC)
+2019-10-12 21:29:32,697 DEBUG com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-12 21:29:32,697 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] The following profiles are active: production
+2019-10-12 21:29:35,479 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] Started HealthCareSystemBootMvcApplication in 3.006 seconds (JVM running for 3.527)
+2019-10-12 21:29:39,759 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-1] returning to home page
+2019-10-12 21:29:42,418 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-9] Returning Register page..
+2019-10-12 21:29:43,539 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-4] Returning Home.jsp..
+2019-10-12 21:29:44,292 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-2] Returning Login.jsp..
+2019-10-12 21:29:45,401 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-6] Checking login credentials..
+2019-10-12 21:29:45,401 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-6] Admin Authenticated.. setting userRole as admin and returning AdminHome.jsp
+2019-10-12 21:29:46,906 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-4] Returning AdminHome.jsp..
+2019-10-12 21:29:48,953 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-3] Retrieving center List to send to approve appointment page
+2019-10-12 21:29:48,998 INFO com.cg.healthcaresystembootmvc.controller.HCSController [http-nio-9123-exec-3] Returning to ApproveAppointment page
+2019-10-12 21:29:50,234 ERROR com.cg.healthcaresystembootmvc.service.UserServiceImpl [http-nio-9123-exec-7] Invalid Center Id... throwing ValidationException in UserService.validateCenterId

@@ -458,23 +458,31 @@ public class HCSController implements ErrorController  {
 	
 	/*
 	 * Author: 		Jayesh Gaur
-	 * Description: Mapping for 404 error 
+	 * Description: Mapping for error pages 
 	 * Created on: October 12, 2019
 	 */
 	@RequestMapping(value = "/error")
 	public String handleError(HttpServletRequest request) {
+		logger.info("Getting type of error");
 		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 		
 		if(status!=null) {
+			logger.info("Retrieving integer number of the error code");
 			Integer statusCode = Integer.valueOf(status.toString());
 			
 			if(statusCode == HttpStatus.NOT_FOUND.value()) {
-				return "404";
+				logger.info("error code is 404.. .returning to 404 error page");
+				return "errorpages/404";
 			}
 		}
-		return "error";
+		return "errorpages/error";
 	}
 	
+	/*
+	 * Author: 		Jayesh Gaur
+	 * Description: Get the error path for the application 
+	 * Created on: October 12, 2019
+	 */
 	@Override
 	public String getErrorPath() {
 		return "/error";
