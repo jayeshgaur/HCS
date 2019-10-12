@@ -245,6 +245,11 @@ public class UserServiceImpl implements UserService {
 		throw new ValidationException(UserErrorMessage.userErrorInvalidTestId);
 	}
 
+	/*
+	 * Author: 			Jayesh Gaur
+	 * Description: 	validates the date and time input given by the user
+	 * Created on: 		October 9, 2019
+	 */
 	public LocalDateTime validateDateTime(String dateString) throws ValidationException {
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
@@ -254,23 +259,32 @@ public class UserServiceImpl implements UserService {
 		LocalTime closeTime = LocalTime.parse("20:00", timeFormat);
 		LocalTime openTime = LocalTime.parse("10:00", timeFormat);
 		try {
+			logger.info("Parsing string data into LocalDateTime");
 			userDateTime = LocalDateTime.parse(dateString, dateFormat);
 			userDate = userDateTime.toLocalDate();
 			userTime = userDateTime.toLocalTime();
 		} catch (Exception exception) {
+			logger.error("Caught ParseException... wrong format of date and time. Throwing ValidationException in ");
 			throw new ValidationException(UserErrorMessage.userErrorInvalidDateFormat);
 		}
 		LocalDate currentDate = LocalDate.now();
 		if (userDate.isBefore(currentDate)) {
+			logger.error("User has entered a date in the past.. throwing ValidationException");
 			throw new ValidationException(UserErrorMessage.userErrorPastDate);
 		} else if (userTime.isAfter(closeTime) || userTime.isBefore(openTime)) {
+			logger.error("The entered time is not within working hours... throwing ValidationException");
 			throw new ValidationException(UserErrorMessage.userErrorNonWorkingHours);
 		} else if (null == (userDateTime = LocalDateTime.parse(dateString, dateFormat))) {
 			throw new ValidationException(UserErrorMessage.userErrorInvalidDateFormat);
 		}
+		logger.info("Correct date and time entered by user... returning the same in LocalDateTime format");
 		return userDateTime;
 	}
 
+	/*
+	 * Author: 			Jayesh Gaur
+	 * Description: 	
+	 */
 	public BigInteger validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)
 			throws ValidationException {
 		if (appointmentId.matches("^[0-9]+")) {
