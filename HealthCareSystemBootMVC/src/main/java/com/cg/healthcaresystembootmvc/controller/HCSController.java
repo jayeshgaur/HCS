@@ -47,6 +47,12 @@ public class HCSController {
 	@Autowired
 	private UserService userService;
 
+	/*
+	 * Author: Jayesh Gaur 
+	 * Description: Default Mapper. Opens Home.jsp by default when the project is run
+	 * Created: October 9,
+	 * 2019
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String defaultMapper() {
 		return "Home";
@@ -66,6 +72,7 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginpage() {
+		logger.info("Returning Login.jsp page");
 		return "Login";
 	}
 
@@ -74,6 +81,7 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/AdminHome", method = RequestMethod.GET)
 	public String adminHomePage() {
+		logger.info("Returning AdminHome.jsp page");
 		return "AdminHome";
 	}
 
@@ -82,24 +90,40 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/UserHome", method = RequestMethod.GET)
 	public String userHomePage() {
+		logger.info("Returning UserHome.jsp page");
 		return "UserHome";
 	}
 
-	
+	/*
+	 * Author:			Jayesh Gaur
+	 * Description: 	Checks user credentials and sets session attributes depending on the type of user logging in
+	 * Input: 			User credentials, email Id and password
+	 * Output: 			Admins are returned to AdminHome.jsp
+	 * 					Customers are returned to UserHome.jsp
+	 * Created on: 		October 9, 2019
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password,
 			Map<String, Object> model) {
+		logger.info("Checking login credentials..");
 		
-		logger.debug("In login controller");
+		//Check admin credentials
 		if (email.equals("admin@hcs.com") && password.equals("hcsadmin")) {
+			//Log in the user as admin if login is successful
+			logger.info("Admin Authenticated.. setting userRole as admin and returning AdminHome.jsp");
 			session.setAttribute("userRole", "admin");
 			return "AdminHome";
 		} else {
+			//Check customer credentials, log in the user with his id if he's successfully authenticated
+			logger.info("User is not an admin.. checking customer credentials..");
 			BigInteger userId = userService.userLogin(email, password);
 			if (null != userId) {
+				logger.info("User authenticated... User id: "+userId+". Returning to UserHome.jsp");			
 				session.setAttribute("userId", userId);
 				return "UserHome";
 			} else {
+				//if credentials don't match, redirect user back to login page with error message
+				logger.error("Invalid user credentials.. retuning back to Login.jsp");
 				model.put("errormessage", "Invalid credentials");
 				return "login";
 			}
@@ -112,6 +136,7 @@ public class HCSController {
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String registerPage(@ModelAttribute("customer") User user) {
+		logger.info("Returning Register page..");
 		return "Registration";
 	}
 
@@ -128,14 +153,11 @@ public class HCSController {
 	public String register(@Valid @ModelAttribute("customer") User user, BindingResult bindingResult,
 			Map<String, Object> model) {
 		BigInteger userId;
-		
-		// Check if the validation tests are passed. Return the user back to
-		// registration page if any test fails
+		// Check if the validation tests are passed. Return the user back to registration page if any test fails
 		if (bindingResult.hasErrors()) {
 			return "Registration";
 		} else {
 		// Register the user and get his automatically generated user Id
-	
 			try {
 			userId = userService.register(user);
 			// Log the user in and set his user ID into the session object

@@ -78,7 +78,7 @@
 			<artifactId>jstl</artifactId>
 		</dependency>
 
-		<!-- Dev Ops to avoid restarting server each time -->
+		<!-- Dev Tools to avoid restarting server each time -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
