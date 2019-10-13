@@ -485,7 +485,7 @@ public class HCSController implements ErrorController  {
 	 */
 	@Override
 	public String getErrorPath() {
-		return "/error";
+		return "*/error";
 	}
 	
 
@@ -632,7 +632,7 @@ public class HCSController implements ErrorController  {
 				model.put("deleteMessage", "Could not delete, please try again");
 			}
 		} catch (ValidationException exception) {
-			model.put("Invalid center Id", exception.getMessage());
+			model.put("deleteMessage", exception.getMessage());
 
 		}
 

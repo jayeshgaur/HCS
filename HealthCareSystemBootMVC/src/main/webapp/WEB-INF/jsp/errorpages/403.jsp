@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 
@@ -9,12 +10,12 @@
 <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"  type="text/css" href="<c:url value="/css/footer.css"/>">
-<link rel="stylesheet"  type="text/css" href="<c:url value="/css/header.css"/>">
+<link rel="stylesheet"  type="text/css" href="<c:url value="./css/footer.css"/>">
+<link rel="stylesheet"  type="text/css" href="<c:url value="./css/header.css"/>">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link href="<c:url value="/css/footer.css" />" rel="stylesheet">
-<link href="<c:url value="/css/table.css" />" rel="stylesheet">
+<link href="<c:url value="./css/footer.css" />" rel="stylesheet">
+<link href="<c:url value="./css/table.css" />" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
@@ -32,7 +33,7 @@
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="./css/style.css" />
 
-<title>Page Not Found</title>
+<title>UNAUTHORISED ACCESS</title>
 </head>
 <body>
 <nav class="navbar navbar-style">
@@ -43,11 +44,11 @@
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a href="./Home"><img class="logo" src="<c:url value="./images/logo.jpg"/>" alt="Picture1"  /></a>
+<a href="Home"><img class="logo" src="<c:url value="./images/logo.jpg"/>" alt="Picture1"  /></a>
 </div>
 <div class="collapse navbar-collapse" id="micon">
 <ul class="nav navbar-nav navbar-right"> 
-<li><a href="./Home">HOME</a></li>
+<li><a href="Home">HOME</a></li>
 <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
 </ul>
 </div>
@@ -57,10 +58,10 @@
 <div id="notfound">
 		<div class="notfound">
 			<div class="notfound-404">
-				<h1>404</h1>
+				<h1>403</h1>
 			</div>
-			<h2>Oops, The Page you are looking for can't be found!</h2>
-			<a href="../Home"><span class="arrow"></span>Return To Homepage</a>
+			<h2>Sorry, you don't have access to this page.</h2>
+			<a href="Home"><span class="arrow"></span>Return To Homepage</a>
 		</div>
 	</div>
 

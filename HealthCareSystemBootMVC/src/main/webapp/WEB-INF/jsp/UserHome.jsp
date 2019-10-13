@@ -4,7 +4,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	if (null == session.getAttribute("userId")) {
-		response.sendRedirect("loginPage");
+		response.sendRedirect("login");
 	} else {
 		
 %>
