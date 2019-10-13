@@ -12,10 +12,10 @@
 
 	<table border="1">
 		<tr>
-			<td>Diagnostic Center Id</td>
-			<td>Diagnostic Center Name</td>
-			<td>Diagnostic Center Phone No</td>
-			<td>Diagnostic Center Address</td>
+			<td><b>Diagnostic Center Id</b></td>
+			<td><b>Diagnostic Center Name</b></td>
+			<td><b>Diagnostic Center Phone No</b></td>
+			<td><b>Diagnostic Center Address</b></td>
 		</tr>
 		<a:forEach var="center" items="${centerList}">
 			<tr>
