@@ -90,9 +90,10 @@
     </a>
   </div>
 </div>
-
-	
-	<span> ${message }</span>
+<br><br>
+	<tag:if test="${message != null }">
+	<div style="text-align: center;" class="alert alert-danger"> ${message }</div>
+	</tag:if>
 	<!-- <div class="footer" style="background-color:lightblue; position=äbsolute">
  <p align="center">Mumbai &nbsp;&nbsp;&nbsp;&nbsp;Pune&nbsp;&nbsp;&nbsp;&nbsp;Hyderabad&nbsp;&nbsp;&nbsp;&nbsp;Delhi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  <span class="glyphicon glyphicon-phone"> 1800-123-4567 </span></p>
