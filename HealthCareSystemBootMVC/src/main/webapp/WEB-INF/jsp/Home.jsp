@@ -100,7 +100,7 @@
 			<h3 style="color: darkblue; text-align: center;">The HealthCare
 				System</h3>
 			<p style="text-align: center;">
-				<em>We are NOT here for your care!</em>
+				<em>We are here for your care!</em>
 			</p>
 			<p>Spending hours in a queue at a diagnostic lab or a hospital is
 				now a thing of the past. With HCS you can get your lab tests booking

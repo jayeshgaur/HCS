@@ -1,7 +1,7 @@
 package com.cg.healthcaresystembootmvc.service;
 
 /*
- * Author: Jayesh Gaur
+ * Author: Jayesh Gaur, Kushal Khurana, Nidhi
  * Description: Service Class
  * Created on: October 9, 2019
  */
@@ -51,29 +51,58 @@ public class UserServiceImpl implements UserService {
 	private AppointmentRepository appointmentRepository;
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
+	
+	/*
+	 * Author : Kushal Khurana 
+	 * Description : This service method is adding center to the list of center and saving the center
+	 *  using the save method of Center Repository. 
+	 * Created Date : 11th October,2019 
+	 * Input: Center
+	 * Return Type : Center
+	 * 
+	 */
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
+		logger.info("saving the center using the save method of Center Repository. ");
 		return centerRepository.save(center);
 	}
+	
+	
+	/*
+	 * Author : Kushal Khurana
+	 * Description : This service method is removing center from the
+	 * list of Center and removing the Center by setting isDeleted attribute
+	 * of Center to true. 
+	 * Created Date : 11th October,2019 
+	 * Input: BigInteger removeCenterId.
+	 * Return Type : boolean
+	 * 
+	 */
 
 	public boolean removeCenter(BigInteger centerId) throws ValidationException {
 		Optional<DiagnosticCenter> center = centerRepository.findById(centerId);
 		if (!center.isPresent()) {
+			logger.info("Showing error Message if Particular center details are not present");
 			throw new ValidationException(UserErrorMessage.userErrorInvalidCenterId);
 		}
 		center.get().setDeleted(true);
+		logger.info("Deleting Center Successfully");
 		return true;
 	}
 
 	/*
-	 * Author : Nidhi Description : This service method is adding test to the list
+	 * Author : Nidhi 
+	 * Description : This service method is adding test to the list
 	 * of tests of center and saving the test using the save method of Test
-	 * Repository. Created Date : 9th October,2019 Input: Test Return Type : Test
+	 * Repository. 
+	 * Created Date : 9th October,2019 
+	 * Input: Test Return Type : Test
 	 * 
 	 */
 
 	public Test addTest(BigInteger centerId, Test test) {
 		DiagnosticCenter center = centerRepository.findById(centerId).get();
 		center.getListOfTests().add(test);
+		logger.info("saving the test using the save method of Test Repository.");
 		return testRepository.save(test);
 	}
 
@@ -86,16 +115,22 @@ public class UserServiceImpl implements UserService {
 	 */
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws ValidationException {
 		DiagnosticCenter center = centerRepository.findById(removeCenterId).get();
+		//validating
 		if (center == null) {
+			logger.info("if no center present for Removing test, showing validating message");
 			throw new ValidationException("center is not present");
 		}
 		Test test = testRepository.findById(removeTestId).get();
 		if (test == null) {
+			logger.info("if no center present for Removing test, showing validating message");
 			throw new ValidationException("test not found");
 		}
+		//
 		test.setDeleted(true);
+		//getting list of Test in a particular Center
 		center.getListOfTests().remove(test);
 		// testrepository.deleteById(removeTestId);
+		logger.info("Removing test after selecting test and center Id");
 		return true;
 	}
 
@@ -106,10 +141,12 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public List<Appointment> getCenterAppointmentList(BigInteger centerId) throws ValidationException {
+		logger.info("Returns the list of appointments which are not approved in the center corresponding to the center id received in input");
 		Optional<DiagnosticCenter> center = centerRepository.findById(centerId);
 		if (center.isPresent()) {
 			return appointmentRepository.findByCenterAndAppointmentStatus(center.get(), 0);
 		} else {
+			logger.error("Showing Error message if Center appointment List is not present");
 			throw new ValidationException(UserErrorMessage.userErrorInvalidCenterId);
 		}
 	}
@@ -123,6 +160,7 @@ public class UserServiceImpl implements UserService {
 	public List<Appointment> getAppointmentList(BigInteger userId) {
 		User user = userRepository.findById(userId).get();
 		List<Appointment> appointmentList = appointmentRepository.findByUser(user);
+		logger.info("Returns the list of appointment corresponding to the user Id");
 		return appointmentList;
 	}
 	/*
@@ -132,6 +170,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Test findTest(BigInteger testId) {
+		logger.info("Returns the test object corresponding to the test Id");
 		return testRepository.findById(testId).get();
 	}
 
@@ -142,6 +181,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Test> getListOfTests(BigInteger centerId) {
 		DiagnosticCenter center = centerRepository.findById(centerId).get();
+		logger.info("Returns the list of test corresponding to the center Id");
 		List<Test> testList = center.getListOfTests();
 		return testList;
 	}

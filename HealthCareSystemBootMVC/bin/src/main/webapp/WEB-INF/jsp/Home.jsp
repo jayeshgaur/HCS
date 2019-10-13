@@ -100,7 +100,7 @@
 			<h3 style="color: darkblue; text-align: center;">The HealthCare
 				System</h3>
 			<p style="text-align: center;">
-				<em>We are here for your care!</em>
+				<em>We are NOT here for your care!</em>
 			</p>
 			<p>Spending hours in a queue at a diagnostic lab or a hospital is
 				now a thing of the past. With HCS you can get your lab tests booking
@@ -136,13 +136,13 @@
 			<p></p>
 			<p></p>
 		</div>
-		<div class="footer" style="background-color: lightblue;">
+		<!-- <div class="footer" style="background-color: lightblue;">
 			<p align="center">
 				Mumbai
 				&nbsp;&nbsp;&nbsp;&nbsp;Pune&nbsp;&nbsp;&nbsp;&nbsp;Hyderabad&nbsp;&nbsp;&nbsp;&nbsp;Delhi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<span class="glyphicon glyphicon-phone"> 1800-123-4567 </span>
 			</p>
-		</div>
+		</div> -->
 	</header>
 
 
