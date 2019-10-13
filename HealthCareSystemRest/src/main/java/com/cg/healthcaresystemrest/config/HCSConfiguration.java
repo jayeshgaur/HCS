@@ -1,4 +1,4 @@
-package com.cg.healthcaresystemrest.auditconfig;
+package com.cg.healthcaresystemrest.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

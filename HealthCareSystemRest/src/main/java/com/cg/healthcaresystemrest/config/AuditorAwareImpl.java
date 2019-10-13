@@ -1,4 +1,4 @@
-package com.cg.healthcaresystemrest.auditconfig;
+package com.cg.healthcaresystemrest.config;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
