@@ -29,7 +29,7 @@
 		<property name="url" value="jdbc:mysql://localhost:3306/healthcaresystem" />
 		<property name="username" value="root" />
 
-		<property name="password" value="password" />
+		<property name="password" value="" />
 </bean>
 	
 	<!-- Spring way of entity manager factory configuration -->
