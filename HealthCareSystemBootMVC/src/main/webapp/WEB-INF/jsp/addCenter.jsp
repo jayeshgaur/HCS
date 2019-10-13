@@ -79,6 +79,7 @@
 	</fo:form>
 <span style="color:red;"> ${error }</span>
 <span > ${message }</span>
+<%-- <div style="text-align: center;" class="alert alert-danger"> ${message} </div> --%>
 
 <div class="footer" style="background-color:lightblue; position=äbsolute">
  <p align="center">Mumbai &nbsp;&nbsp;&nbsp;&nbsp;Pune&nbsp;&nbsp;&nbsp;&nbsp;Hyderabad&nbsp;&nbsp;&nbsp;&nbsp;Delhi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
