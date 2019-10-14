@@ -79,7 +79,7 @@ public class HCSAuthenticationSuccessHandler implements AuthenticationSuccessHan
 			if (grantedAuthority.getAuthority().equals("Customer")) {
 				isUser = true;
 				break;
-			} else if (grantedAuthority.getAuthority().equals("ROLE_Admin")) {
+			} else if (grantedAuthority.getAuthority().equals("Admin")) {
 				isAdmin = true;
 				break;
 			}
