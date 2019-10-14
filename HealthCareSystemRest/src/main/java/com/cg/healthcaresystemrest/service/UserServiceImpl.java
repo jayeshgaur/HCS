@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -20,17 +19,12 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cg.healthcaresystemrest.dto.Appointment;
 import com.cg.healthcaresystemrest.dto.DiagnosticCenter;
 import com.cg.healthcaresystemrest.dto.Test;
 import com.cg.healthcaresystemrest.dto.User;
-import com.cg.healthcaresystemrest.dto.UserDetailsImpl;
 import com.cg.healthcaresystemrest.exception.ExistingCredentialException;
 import com.cg.healthcaresystemrest.exception.UserErrorMessage;
 import com.cg.healthcaresystemrest.exception.ValidationException;
@@ -41,11 +35,8 @@ import com.cg.healthcaresystemrest.repository.UserRepository;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private PasswordEncoder bcryptEncoder;
-	
 	@Autowired
 	private UserRepository userRepository;
 
@@ -59,22 +50,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	private AppointmentRepository appointmentRepository;
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
-	@Override
-	public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-		User user = userRepository.findByUserEmail(userEmail);
-		if (user == null) {
-			throw new UsernameNotFoundException("User not found with userEmail: " + userEmail);
-		}
-		return new org.springframework.security.core.userdetails.User(user.getUserEmail(), user.getUserPassword(),
-				new ArrayList<>());
-	}
-	
-	public User register(UserDetailsImpl user) {
-		User newUser = new User(bcryptEncoder.encode(user.getUserPassword()), user.getUserName(), user.getContactNo(), user.getUserEmail(), user.getAge(), user.getGender());
-		return userRepository.save(newUser);
-	}
-	
-	
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
 		return centerRepository.save(center);
 	}

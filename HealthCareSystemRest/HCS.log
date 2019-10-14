@@ -1,9 +1,0 @@
-2019-10-14 10:25:38,319 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Starting HealthCareSystemRestApplication on DESKTOP-S9SRJSK with PID 9620 (C:\Users\Admin\git\HCS\HealthCareSystemRest\target\classes started by Admin in C:\Users\Admin\git\HCS\HealthCareSystemRest)
-2019-10-14 10:25:38,321 DEBUG com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
-2019-10-14 10:25:38,321 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] The following profiles are active: production
-2019-10-14 10:25:40,920 DEBUG com.cg.healthcaresystemrest.config.JwtRequestFilter [restartedMain] Filter 'jwtRequestFilter' configured for use
-2019-10-14 10:25:41,377 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Started HealthCareSystemRestApplication in 3.295 seconds (JVM running for 3.788)
-2019-10-14 10:25:49,066 WARN com.cg.healthcaresystemrest.config.JwtRequestFilter [http-nio-9123-exec-1] JWT Token does not begin with Bearer String
-2019-10-14 10:27:13,365 WARN com.cg.healthcaresystemrest.config.JwtRequestFilter [http-nio-9123-exec-4] JWT Token does not begin with Bearer String
-2019-10-14 10:27:29,339 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-7] Returning admin page..
-2019-10-14 10:41:39,715 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-10] Returning user page..

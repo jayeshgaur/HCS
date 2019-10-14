@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.healthcaresystemrest.config.JwtTokenUtil;
 import com.cg.healthcaresystemrest.dto.JwtRequest;
 import com.cg.healthcaresystemrest.dto.JwtResponse;
-import com.cg.healthcaresystemrest.service.UserService;
-import com.cg.healthcaresystemrest.service.UserServiceImpl;
+import com.cg.healthcaresystemrest.service.JwtUserDetailsService;
 
 
 @RestController
@@ -31,14 +30,14 @@ public class JwtAuthenticationController {
 	private JwtTokenUtil jwtTokenUtil;
 
 	@Autowired
-	private UserServiceImpl userService;
+	private JwtUserDetailsService userDetailsService;
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-		final UserDetails userDetails = userService
+		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
