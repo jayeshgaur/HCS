@@ -11,11 +11,11 @@
 
 	<table border="1">
 		<tr>
-			<td>Appointment Id</td>
-			<td>Diagnostic Center Name</td>
-			<td>Test Name</td>
-			<td>Date and Time</td>
-			<td>Status</td>
+			<td><b>Appointment Id</b></td>
+			<td><b>Diagnostic Center Name</b></td>
+			<td><b>Test Name</b></td>
+			<td><b>Date and Time</b></td>
+			<td><b>Status</b></td>
 		</tr>
 		<a:forEach var="appointment" items="${appointmentList}">
 			<tr>

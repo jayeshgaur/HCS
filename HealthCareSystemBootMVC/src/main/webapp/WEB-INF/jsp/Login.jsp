@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <%
 	if(null != session.getAttribute("userId")){
-		response.sendRedirect("UserHome.jsp");
+		response.sendRedirect("UserHome");
 	}
 	else if(("admin".equals(session.getAttribute("userRole")))){
-		response.sendRedirect("AdminHome.jsp");
+		response.sendRedirect("AdminHome");
 	}
 
 %>
@@ -70,7 +70,9 @@
 			
 
 	</form>
-	<span> ${errormessage} </span>
+	<c:if test="${errormessage != null }">
+	<div style="text-align: center;" class="alert alert-danger"> ${errormessage} </div>
+	</c:if>
 	<div class="footer" style="background-color:lightblue; position=äbsolute">
  <p align="center">Mumbai &nbsp;&nbsp;&nbsp;&nbsp;Pune&nbsp;&nbsp;&nbsp;&nbsp;Hyderabad&nbsp;&nbsp;&nbsp;&nbsp;Delhi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  <span class="glyphicon glyphicon-phone"> 1800-123-4567 </span></p>

@@ -46,32 +46,32 @@
 			<tr>
 				<td>Name</td>
 				<td><tag:input path="userName" /></td>
-				<td><span><tag:errors path="userName">
+				<td><span style="color:red;"><tag:errors path="userName">
 						</tag:errors></span></td>
 			</tr>
 			<tr>
 				<td>Email-Id</td>
 				<td><tag:input path="userEmail" /></td>
-				<td><span><tag:errors path="userEmail">
+				<td><span style="color:red;"><tag:errors path="userEmail">
 						</tag:errors></span></td>
 
 			</tr>
 			<tr>
 				<td>Set Password</td>
 				<td><tag:input path="userPassword" /></td>
-				<td><tag:errors path="userPassword">
-					</tag:errors></td>
+				<td><span style="color:red;"><tag:errors path="userPassword">
+					</tag:errors></span></td>
 			</tr>
 			<tr>
 				<td>Contact Number</td>
 				<td><tag:input path="contactNo" /></td>
-				<td><span><tag:errors path="contactNo">
+				<td><span style="color:red;"><tag:errors path="contactNo">
 						</tag:errors></span></td>
 			</tr>
 			<tr>
 				<td>Age</td>
 				<td><tag:input path="age" /></td>
-				<td><span><tag:errors path="age">
+				<td><span style="color:red;"><tag:errors path="age">
 						</tag:errors></span></td>
 			</tr>
 			<tr>
@@ -79,14 +79,16 @@
 				<td><tag:radiobutton path="gender" value="Male" />Male <tag:radiobutton
 						path="gender" value="Female" />Female <tag:radiobutton
 						path="gender" value="Other" />Other</td>
-				<td><span><tag:errors path="gender">
+				<td><span style="color:red;"><tag:errors path="gender">
 						</tag:errors></span></td>
 			</tr>
 			<tr><td><input type="submit" value="Register" /></td></tr>
 			
 		</tag:form>
 	</table>
-<span>${duplicate }</span>
+	<c:if test="${duplicate != null }">
+<div style="text-align: center;" class="alert alert-danger">${duplicate }</div>
+</c:if>
 	<div class="footer" style="background-color:lightblue; position=äbsolute">
  <p align="center">Mumbai &nbsp;&nbsp;&nbsp;&nbsp;Pune&nbsp;&nbsp;&nbsp;&nbsp;Hyderabad&nbsp;&nbsp;&nbsp;&nbsp;Delhi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  <span class="glyphicon glyphicon-phone"> 1800-123-4567 </span></p>

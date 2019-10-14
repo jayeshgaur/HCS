@@ -1,6 +1,7 @@
 package com.cg.healthcaresystembootmvc.service;
+
 /*
- * Author: Jayesh Gaur
+ * Author: Jayesh Gaur, Kushal Khurana, Nidhi
  * Description: Service Class
  * Created on: October 9, 2019
  */
@@ -37,7 +38,6 @@ import com.cg.healthcaresystembootmvc.repository.UserRepository;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-
 	@Autowired
 	private UserRepository userRepository;
 
@@ -46,89 +46,170 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private CenterRepository centerRepository;
-	
+
 	@Autowired
 	private AppointmentRepository appointmentRepository;
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
-
+	
+	/*
+	 * Author : Kushal Khurana 
+	 * Description : This service method is adding center to the list of center and saving the center
+	 *  using the save method of Center Repository. 
+	 * Created Date : 11th October,2019 
+	 * Input: Center
+	 * Return Type : Center
+	 * 
+	 */
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
+		logger.info("saving the center using the save method of Center Repository. ");
 		return centerRepository.save(center);
 	}
+	
+	
+	/*
+	 * Author : Kushal Khurana
+	 * Description : This service method is removing center from the
+	 * list of Center and removing the Center by setting isDeleted attribute
+	 * of Center to true. 
+	 * Created Date : 11th October,2019 
+	 * Input: BigInteger removeCenterId.
+	 * Return Type : boolean
+	 * 
+	 */
 
 	public boolean removeCenter(BigInteger centerId) throws ValidationException {
 		Optional<DiagnosticCenter> center = centerRepository.findById(centerId);
-		if(!center.isPresent()) {
+		if (!center.isPresent()) {
+			logger.info("Showing error Message if Particular center details are not present");
 			throw new ValidationException(UserErrorMessage.userErrorInvalidCenterId);
 		}
 		center.get().setDeleted(true);
+		logger.info("Deleting Center Successfully");
 		return true;
 	}
 
-
 	/*
-	 * Author : Nidhi
-	 * Description : This service method is adding test to the list of tests of center and saving the test using the save method of Test Repository.
-	 * Created Date : 9th October,2019
-	 * Input: Test
-	 * Return Type : Test
+	 * Author : Nidhi 
+	 * Description : This service method is adding test to the list
+	 * of tests of center and saving the test using the save method of Test
+	 * Repository. 
+	 * Created Date : 9th October,2019 
+	 * Input: Test Return Type : Test
 	 * 
-	 * */
+	 */
 
 	public Test addTest(BigInteger centerId, Test test) {
 		DiagnosticCenter center = centerRepository.findById(centerId).get();
 		center.getListOfTests().add(test);
+		logger.info("saving the test using the save method of Test Repository.");
 		return testRepository.save(test);
 	}
 
 	/*
-	 * Author : Nidhi
-	 * Description : This service method is removing test from the list of tests of center and removing the test by setting isDeleted attribute of Test to true.
-	 * Created Date : 9th October,2019
-	 * Input: BigInteger removeCenterId, BigInteger removeTestId
-	 * Return Type : boolean
+	 * Author : Nidhi Description : This service method is removing test from the
+	 * list of tests of center and removing the test by setting isDeleted attribute
+	 * of Test to true. Created Date : 9th October,2019 Input: BigInteger
+	 * removeCenterId, BigInteger removeTestId Return Type : boolean
 	 * 
-	 * */
+	 */
 	public boolean removeTest(BigInteger removeCenterId, BigInteger removeTestId) throws ValidationException {
 		DiagnosticCenter center = centerRepository.findById(removeCenterId).get();
+		//validating
 		if (center == null) {
+			logger.info("if no center present for Removing test, showing validating message");
 			throw new ValidationException("center is not present");
 		}
 		Test test = testRepository.findById(removeTestId).get();
 		if (test == null) {
+			logger.info("if no center present for Removing test, showing validating message");
 			throw new ValidationException("test not found");
 		}
+		//
 		test.setDeleted(true);
+		//getting list of Test in a particular Center
 		center.getListOfTests().remove(test);
 		// testrepository.deleteById(removeTestId);
+		logger.info("Removing test after selecting test and center Id");
 		return true;
 	}
 
 	/*
-	 * Author: 				Jayesh Gaur 
-	 * Description: 		Service method for registration. Calls the Repository save method 
-	 * 							and returns the automatically generated new user Id.
-	 * Exceptions thrown: 	If unique values like email or phone number already exist in
-	 * 							database, exception is thrown and user is notified.
-	 * Created on:			October 9, 2019
+	 * Author: Nidhi Description: Returns the list of appointments which are not
+	 * approved in the center corresponding to the center id received in input
+	 * Created on: October 9, 2019
 	 */
-	public BigInteger register(User user) throws ExistingCredentialException{
+	@Override
+	public List<Appointment> getCenterAppointmentList(BigInteger centerId) throws ValidationException {
+		logger.info("Returns the list of appointments which are not approved in the center corresponding to the center id received in input");
+		Optional<DiagnosticCenter> center = centerRepository.findById(centerId);
+		if (center.isPresent()) {
+			return appointmentRepository.findByCenterAndAppointmentStatus(center.get(), 0);
+		} else {
+			logger.error("Showing Error message if Center appointment List is not present");
+			throw new ValidationException(UserErrorMessage.userErrorInvalidCenterId);
+		}
+	}
+
+	/*
+	 * Author: Nidhi Description: Returns the list of appointment corresponding to
+	 * the user Id received in input Created on: October 11, 2019
+	 */
+
+	@Override
+	public List<Appointment> getAppointmentList(BigInteger userId) {
+		User user = userRepository.findById(userId).get();
+		List<Appointment> appointmentList = appointmentRepository.findByUser(user);
+		logger.info("Returns the list of appointment corresponding to the user Id");
+		return appointmentList;
+	}
+	/*
+	 * Author: Nidhi Description: Returns the test object corresponding to the test
+	 * Id received in input Created on: October 9, 2019
+	 */
+
+	@Override
+	public Test findTest(BigInteger testId) {
+		logger.info("Returns the test object corresponding to the test Id");
+		return testRepository.findById(testId).get();
+	}
+
+	/*
+	 * Author: Nidhi Description: Returns the list of test corresponding to the
+	 * center Id received in input Created on: October 9, 2019
+	 */
+	@Override
+	public List<Test> getListOfTests(BigInteger centerId) {
+		DiagnosticCenter center = centerRepository.findById(centerId).get();
+		logger.info("Returns the list of test corresponding to the center Id");
+		List<Test> testList = center.getListOfTests();
+		return testList;
+	}
+
+	/*
+	 * Author: Jayesh Gaur Description: Service method for registration. Calls the
+	 * Repository save method and returns the automatically generated new user Id.
+	 * Exceptions thrown: If unique values like email or phone number already exist
+	 * in database, exception is thrown and user is notified. Created on: October 9,
+	 * 2019
+	 */
+	public BigInteger register(User user) throws ExistingCredentialException {
 		logger.info("Checking if the email is already registered..");
-		//Validating unique database columns
+		// Validating unique database columns
 		User checkUserCredentials = userRepository.findByUserEmail(user.getUserEmail());
-		if(null != checkUserCredentials) {
+		if (null != checkUserCredentials) {
 			logger.error("An existing account with this email found... throwing ExistingCredentialException");
 			throw new ExistingCredentialException(UserErrorMessage.userErrorDuplicateEmail);
-		}else {
+		} else {
 			checkUserCredentials = null;
 			logger.info("Email is unique. Checking if the phone number is already registered..");
 			checkUserCredentials = userRepository.findByContactNo(user.getContactNo());
-			if(null != checkUserCredentials) {
+			if (null != checkUserCredentials) {
 				logger.error("An existing account with this contact found... throwing ExistingCredentialException");
 				throw new ExistingCredentialException(UserErrorMessage.userErrorDuplicatePhoneNumber);
 			}
 		}
-		//save if email and phone numbers are unique
+		// save if email and phone numbers are unique
 		logger.info("Phone number is also unique. Registering the user..");
 		return userRepository.save(user).getUserId();
 	}
@@ -138,89 +219,40 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/*
-	 * Author: 		Jayesh Gaur
-	 * Description: TO BE DONE (NOT VALIDATED)
-	 * Created on:  October 9, 2019
+	 * Author: Jayesh Gaur Description: TO BE DONE (NOT VALIDATED) Created on:
+	 * October 9, 2019
 	 */
 	public BigInteger userLogin(String email, String password) {
-		//check if a user exists whose credentials match, if it does, get the user object
-		User user = userRepository.findByUserEmailAndUserPassword(email,password);
-		//reference for bigInteger user Id to return to controller
-		BigInteger userId=null;
-		
-		//Check if any user object has been returned after matching credentials
-		if(null!=user)
-		{
-			//get his user Id
+		// check if a user exists whose credentials match, if it does, get the user
+		// object
+		User user = userRepository.findByUserEmailAndUserPassword(email, password);
+		// reference for bigInteger user Id to return to controller
+		BigInteger userId = null;
+
+		// Check if any user object has been returned after matching credentials
+		if (null != user) {
+			// get his user Id
 			userId = user.getUserId();
 		}
-		//return user Id
+		// return user Id
 		return userId;
 	}
 
-//	public String validatePassword(String userPassword) throws ValidationException {
-//		if (userPassword.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})")) {
-//			return userPassword;
-//		}
-//		throw new ValidationException(UserErrorMessage.userErrorSecret);
-//	}
-
-//	public String validateName(String userName) throws ValidationException {
-//
-//		if (userName.matches("^[A-Z].*")) {
-//			return userName;
-//		}
-//		throw new ValidationException(UserErrorMessage.userErrorUserName);
-//	}
-
-//	public String validateContactNo(String userContactNo) throws ValidationException {
-//		if (userContactNo.matches("^[0-9]+")) {
-//			if (userContactNo.length() != 10) {
-//				throw new ValidationException(UserErrorMessage.userErrorContactNoLength);
-//			} else {
-//				return userContactNo;
-//			}
-//		}
-//		throw new ValidationException(UserErrorMessage.userErrorStringContactNo);
-//	}
-
-//	public String validateEmail(String userEmail) throws ValidationException {
-//		if (userEmail.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-//			return userEmail;
-//		}
-//		logger.error("Entered Email is not Correct");
-//		throw new ValidationException(UserErrorMessage.userErrorEmailId);
-//	}
-
-//	public Integer validateAge(Integer age) throws ValidationException {
-//		if (age < 5 && age > 110) {
-//			throw new ValidationException(UserErrorMessage.userErrorUserAge);
-//		}
-//		return age;
-//	}
-
-//	public String validateGender(String gender) throws ValidationException {
-//		if (!(gender.equals("M") || gender.equals("F") || gender.equals("O"))) {
-//			throw new ValidationException(UserErrorMessage.userErrorUserGender);
-//		}
-//		return gender;
-//
-//	}
-
 	/*
-	 * Author: 			Jayesh Gaur
-	 * Description: 	Checks if the center Id in parameter 1 is present in the list of all centers present in parameter 2
-	 * Input: 			String Center Id and List<DiagnosticCenter>
-	 * Output:			throws ValidationException if invalid center Id
-	 * 					Returns BigInteger value of the center ID if centerID is valid
-	 * Created on: 		October 9, 2019
-	 */			
+	 * Author: Jayesh Gaur Description: Checks if the center Id in parameter 1 is
+	 * present in the list of all centers present in parameter 2 Input: String
+	 * Center Id and List<DiagnosticCenter> Output: throws ValidationException if
+	 * invalid center Id Returns BigInteger value of the center ID if centerID is
+	 * valid Created on: October 9, 2019
+	 */
 	public BigInteger validateCenterId(String centerId, List<DiagnosticCenter> centerList) throws ValidationException {
 		if (centerId.matches("^[0-9]+")) {
 			for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
 				DiagnosticCenter diagnosticCenter = iterator.next();
-				if (diagnosticCenter.getCenterId().compareTo(new BigInteger(centerId)) == 0)
+				if (diagnosticCenter.getCenterId().compareTo(new BigInteger(centerId)) == 0) {
+					logger.info("Center Id is proper... returning BigInteger value of the entered Id..");
 					return new BigInteger(centerId);
+				}
 			}
 		}
 		logger.error("Invalid Center Id... throwing ValidationException in UserService.validateCenterId");
@@ -228,31 +260,30 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/*
-	 * Author: 			Jayesh Gaur
-	 * Description: 	Checks if the test Id in parameter 1 is present in the list of all tests present in parameter 2
-	 * Input: 			String Test Id and List<Test> testList
-	 * Output:			throws ValidationException if invalid test Id
-	 * 					Returns BigInteger value of the test ID if the testId is valid 
-	 * Created on: 		October 9, 2019
-	 */			
+	 * Author: Jayesh Gaur Description: Checks if the test Id in parameter 1 is
+	 * present in the list of all tests present in parameter 2 Input: String Test Id
+	 * and List<Test> testList Output: throws ValidationException if invalid test Id
+	 * Returns BigInteger value of the test ID if the testId is valid Created on:
+	 * October 9, 2019
+	 */
 	public BigInteger validateTestId(String testId, List<Test> testList) throws ValidationException {
 		if (testId.matches("^[0-9]+")) {
 			Iterator<Test> testIterator = testList.iterator();
 			while (testIterator.hasNext()) {
 				Test test = testIterator.next();
 				if (test.getTestId().compareTo(new BigInteger(testId)) == 0) {
+					logger.info("Test Id is proper... returning BigInteger value of the entered Id..");
 					return test.getTestId();
 				}
 			}
 		}
-		logger.error("Invalid Test Id... throwing ValidationException in UserService.validateTestId");		
+		logger.error("Invalid Test Id... throwing ValidationException in UserService.validateTestId");
 		throw new ValidationException(UserErrorMessage.userErrorInvalidTestId);
 	}
 
 	/*
-	 * Author: 			Jayesh Gaur
-	 * Description: 	validates the date and time input given by the user
-	 * Created on: 		October 9, 2019
+	 * Author: Jayesh Gaur Description: validates the date and time input given by
+	 * the user Created on: October 9, 2019
 	 */
 	public LocalDateTime validateDateTime(String dateString) throws ValidationException {
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
@@ -286,8 +317,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/*
-	 * Author: 			Jayesh Gaur
-	 * Description: 	
+	 * Author: Jayesh Gaur Description: Validates the appointment Id selected by
+	 * admin to approve Created on: October 9, 2019 Input/Output: Returns BigInteger
+	 * value of the appointmentId if correct, else throws ValidationException
 	 */
 	public BigInteger validateAppointmentId(String appointmentId, List<Appointment> listOfAppointment)
 			throws ValidationException {
@@ -298,57 +330,46 @@ public class UserServiceImpl implements UserService {
 				appointment = appointmentListIterator.next();
 				if ((appointment.getAppointmentId().compareTo(new BigInteger(appointmentId)) == 0)
 						&& (appointment.getAppointmentStatus() == 0)) {
+					logger.info("Correct appointment id... returning BigInteger value of the appointment Id");
 					return new BigInteger(appointmentId);
 				}
 			}
 		}
+		logger.error("Invalid Appointment Id.... throwing ValidationException");
 		throw new ValidationException(UserErrorMessage.userErrorInvalidAppointmentId);
 	}
 
 	/*
-	 * Author:		 	Jayesh Gaur
-	 * Description:  	Calls appointmentRepository to persist the new appointment object
-	 * Created on: 		October 9, 2019
+	 * Author: Jayesh Gaur Description: Calls appointmentRepository to persist the
+	 * new appointment object Created on: October 9, 2019
 	 */
 	public Appointment addAppointment(Appointment appointment) {
+		logger.info("Calling repository save method to save the appointment in service layer..");
 		return appointmentRepository.save(appointment);
 	}
 
 	/*
-	 * Author:		 	Jayesh Gaur
-	 * Description:  	Accepts the appointment Id to be approved and marks it in the database
-	 * 					Returns true on successful completion
-	 * Created on: 		October 9, 2019
+	 * Author: Jayesh Gaur Description: Accepts the appointment Id to be approved
+	 * and marks it in the database Returns true on successful completion Created
+	 * on: October 9, 2019
 	 */
 	@Override
-	public boolean approveAppointment(BigInteger appointmentId) throws ValidationException{
-		Appointment appointment = appointmentRepository.findById(appointmentId).get();
-		if(null!=appointment) {
-			appointment.setAppointmentStatus(1);
-		}
-		else {
+	public boolean approveAppointment(BigInteger appointmentId) throws ValidationException {
+		logger.info("Getting the appointment object corresponding to the appointment Id...");
+		Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+		if (appointment.isPresent()) {
+			logger.info("Appointment object found.. setting status to 1 (Approved)");
+			appointment.get().setAppointmentStatus(1);
+		} else {
+			logger.info("Manipulated appointment id... throwing ValidationException in service approve appointment");
 			throw new ValidationException(UserErrorMessage.userErrorInvalidAppointmentId);
 		}
 		return true;
 	}
 
 	/*
-	 * Author:		 	Jayesh Gaur
-	 * Description:  	Returns the list of appointments which are not approved in the center
-	 * 					corresponding to the center id received in input
-	 * Created on: 		October 9, 2019
-	 */
-	@Override
-	public List<Appointment> getCenterAppointmentList(BigInteger centerId) {
-		DiagnosticCenter center = centerRepository.findById(centerId).get();
-		return appointmentRepository.findByCenterAndAppointmentStatus(center, 0);
-	}
-
-	/*
-	 * Author:		 	Jayesh Gaur
-	 * Description:  	Returns the center object corresponding to 
-	 * 					the center Id received in input
-	 * Created on: 		October 9, 2019
+	 * Author: Jayesh Gaur Description: Returns the center object corresponding to
+	 * the center Id received in input Created on: October 9, 2019
 	 */
 	@Override
 	public DiagnosticCenter findCenter(BigInteger centerId) {
@@ -356,51 +377,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/*
-	 * Author:		 	Jayesh Gaur
-	 * Description:  	Returns the user object corresponding to 
-	 * 					the user Id received in input
-	 * Created on: 		October 9, 2019
+	 * Author: Jayesh Gaur Description: Returns the user object corresponding to the
+	 * user Id received in input Created on: October 9, 2019
 	 */
 	@Override
 	public User findUser(BigInteger userId) {
 		return userRepository.findById(userId).get();
 	}
-	/*
-	 * Author:		 	Nidhi
-	 * Description:  	Returns the list of appointment corresponding to 
-	 * 					the user Id received in input
-	 * Created on: 		October 11, 2019
-	 */
-
-	@Override
-	public List<Appointment> getAppointmentList(BigInteger userId) {
-		User user = userRepository.findById(userId).get();
-		List<Appointment> appointmentList = appointmentRepository.findByUser(user);
-		return appointmentList;
-	}
-	/*
-	 * Author:		 	Nidhi
-	 * Description:  	Returns the test object corresponding to 
-	 * 					the test Id received in input
-	 * Created on: 		October 9, 2019
-	 */
-	
-	@Override
-	public Test findTest(BigInteger testId) {
-		return testRepository.findById(testId).get();
-	}
-	
-	/*
-	 * Author:		 	Nidhi
-	 * Description:  	Returns the list of test corresponding to 
-	 * 					the center Id received in input
-	 * Created on: 		October 9, 2019
-	 */
-	@Override
-	public List<Test> getListOfTests(BigInteger centerId) {
-			DiagnosticCenter center = centerRepository.findById(centerId).get();
-			List<Test> testList = center.getListOfTests();
-			return testList;
-		}
 
 }

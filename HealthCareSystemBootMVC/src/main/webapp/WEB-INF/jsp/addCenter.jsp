@@ -56,20 +56,20 @@
 				<td>Center Name:</td>
 				<td><fo:input path="centerName" id="form_center_name"/></td>
 				<%-- <td><span><fo:errors path="centerName"></fo:errors></span></td>
-				 --%><td><span class="form_error" id="centername_error_message" style="color:red;"></span></td>
+				 --%><td><span class="form_error" id="centername_error_message" style="color:red;"><fo:errors path="centerName"></fo:errors></span></td>
 			</tr>
 			<tr>
 				<td>Center Contact Number:</td>
 				<td><fo:input path="centerContactNo" id="form_center_contact_no"/></td>
-				<%-- <td><span><fo:errors path="centerContactNo"></fo:errors></span></td>
-			 --%><td><span class="form_error" id="centercontactno_error_message" style="color:red;"></span></td>
+				<%-- <td><span></span></td>
+			 --%><td><span class="form_error" id="centercontactno_error_message" style="color:red;"><fo:errors path="centerContactNo"></fo:errors></span></td>
 			</tr>
 			<tr>
 			
 				<td>Center Address</td>
 				<td><fo:input path="centerAddress" id="form_center_address"/></td>
-				<%-- <td><span><fo:errors path="centerAddress"></fo:errors></span></td> --%>
-			<td><span class="form_error" id="centeraddress_error_message" style="color:red;"></span></td>
+				<%-- <td><span></span></td> --%>
+			<td><span class="form_error" id="centeraddress_error_message" style="color:red;"><fo:errors path="centerAddress"></fo:errors></span></td>
 			</tr>
 			
 			<tr>
@@ -79,6 +79,7 @@
 	</fo:form>
 <span style="color:red;"> ${error }</span>
 <span > ${message }</span>
+<%-- <div style="text-align: center;" class="alert alert-danger"> ${message} </div> --%>
 
 <div class="footer" style="background-color:lightblue; position=äbsolute">
  <p align="center">Mumbai &nbsp;&nbsp;&nbsp;&nbsp;Pune&nbsp;&nbsp;&nbsp;&nbsp;Hyderabad&nbsp;&nbsp;&nbsp;&nbsp;Delhi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
