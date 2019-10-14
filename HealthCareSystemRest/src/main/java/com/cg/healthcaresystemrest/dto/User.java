@@ -28,76 +28,72 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name="hcs_user")
+@Table(name = "hcs_user")
 public class User {
 
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="user_id")
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "user_id")
 	private BigInteger userId;
-	
 
+	@JsonIgnore
 	@Size(min = 8, message = "Passwould length should be greater than or equal to 8 characters")
 	@Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})", message = "Password must have an uppercase, a lower case, a number and a special character")
-	@Column(name="user_password")
+	@Column(name = "user_password")
 	private String userPassword;
-	
 
 	@Pattern(regexp = "^[A-Z].*", message = "Name must start with a capital letter")
-	@Column(name="user_name")
+	@Column(name = "user_name")
 	private String userName;
-	
+
 	@NotNull(message = "Phone number cannot be empty")
 	@Min(value = 1000000000, message = "Should not be less than 10 digits")
 	@Digits(integer = 10, message = "Phone number cannot be more than 10 characters", fraction = 0)
-	@Column(name="user_contact_no")
+	@Column(name = "user_contact_no")
 	private BigInteger contactNo;
-	
-	@Transient //Because default value is Customer, which will be set by the database automatically, so we don't need to map this.
-	@Column(name="user_role")
+
+//	@Transient //Because default value is Customer, which will be set by the database automatically, so we don't need to map this.
+	@Column(name = "user_role")
 	private String userRole;
-	
 
 	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Enter a valid email id! Example: abc@gmail.com")
-	@Column(name="user_email")
+	@Column(name = "user_email")
 	private String userEmail;
-	
+
 	@NotNull(message = "Age cannot be empty")
 	@Min(value = 15)
-	@Column(name="user_age")
+	@Column(name = "user_age")
 	private Integer age;
-	
 
-	@Column(name="user_gender")
+	@Column(name = "user_gender")
 	private String gender;
-	
-	
+
 	@OneToMany(mappedBy = "user")
 	List<Appointment> userAppointmentList = new ArrayList<Appointment>();
-	
-	
+
 	@CreatedBy
 	protected String createdBy;
-	
-	@CreatedDate	
+
+	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date creationDate;
-	
+
 	@LastModifiedBy
 	protected String lastModifiedBy;
-	
+
 	@LastModifiedDate
 	protected String lastModifiedDate;
-	
-	
-	public User()
-	{
-		
+
+	public User() {
+
 	}
-	
-	public User(String userPassword, String userName, BigInteger contactNo, 
-			String userEmail, Integer age, String gender) {
+
+	public User(String userPassword, String userName, BigInteger contactNo, String userEmail, Integer age,
+			String gender) {
 		super();
 		this.userPassword = userPassword;
 		this.userName = userName;
@@ -105,10 +101,10 @@ public class User {
 		this.userEmail = userEmail;
 		this.age = age;
 		this.gender = gender;
+		this.userRole = "ROLE_Customer";
 	}
 
-	
-	//UserId
+	// UserId
 	public BigInteger getUserId() {
 		return userId;
 	}
@@ -117,8 +113,7 @@ public class User {
 		this.userId = userId;
 	}
 
-	
-	//UserPassword
+	// UserPassword
 	public String getUserPassword() {
 		return userPassword;
 	}
@@ -126,19 +121,17 @@ public class User {
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
-	
-	
-	//User Name
-		public String getUserName() {
-			return userName;
-		}
 
-		public void setUserName(String userName) {
-			this.userName = userName;
-		}
+	// User Name
+	public String getUserName() {
+		return userName;
+	}
 
-	
-	//ContactNumber
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	// ContactNumber
 	public BigInteger getContactNo() {
 		return contactNo;
 	}
@@ -147,18 +140,16 @@ public class User {
 		this.contactNo = contactNo;
 	}
 
-	
-	//UserRole
+	// UserRole
 	public String getUserRole() {
 		return userRole;
 	}
 
 	public void setUserRole(String userRole) {
-		this.userRole = userRole;
+		this.userRole = "ROLE_Customer";
 	}
 
-	
-	//User Email
+	// User Email
 	public String getUserEmail() {
 		return userEmail;
 	}
@@ -167,8 +158,7 @@ public class User {
 		this.userEmail = userEmail;
 	}
 
-	
-	//User Age
+	// User Age
 	public Integer getAge() {
 		return age;
 	}
@@ -177,8 +167,7 @@ public class User {
 		this.age = age;
 	}
 
-	
-	//User Gender
+	// User Gender
 	public String getGender() {
 		return gender;
 	}
@@ -261,6 +250,4 @@ public class User {
 				+ gender + "]";
 	}
 
-	
-	
 }

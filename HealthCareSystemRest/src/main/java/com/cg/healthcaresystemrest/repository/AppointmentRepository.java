@@ -11,13 +11,14 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.cg.healthcaresystemrest.dto.Appointment;
 import com.cg.healthcaresystemrest.dto.DiagnosticCenter;
 import com.cg.healthcaresystemrest.dto.User;
 
 
-
+@Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, BigInteger>{
 	//@Query("FROM Appointment WHERE center = :center AND	 appointment_status = :status")
 	public List<Appointment> findByCenterAndAppointmentStatus(@Param("center")DiagnosticCenter center,@Param("status") int status);
