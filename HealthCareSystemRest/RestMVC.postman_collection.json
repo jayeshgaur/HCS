@@ -1,0 +1,365 @@
+{
+	"info": {
+		"_postman_id": "2974489e-5f9d-4157-a43e-de91bbb6a4a9",
+		"name": "RestMVC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userPassword\":\"Test@07\",\n\t\"userName\":\"Test\",\n\t\"contactNo\":1234563122,\n\t\"userEmail\": \"user@hcs.com\",\n\t\"age\":22,\n\t\"gender\":\"Male\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9123/register",
+					"host": [
+						"localhost"
+					],
+					"port": "9123",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AdminRegister",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userPassword\":\"Jayesh@07\",\n\t\"userName\":\"JayeshAdmin\",\n\t\"contactNo\":8459854154,\n\t\"userEmail\": \"admin@hcs.com\",\n\t\"age\":22,\n\t\"gender\":\"Male\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9123/register",
+					"host": [
+						"localhost"
+					],
+					"port": "9123",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userEmail\":\"user@hcs.com\",\n\t\"password\":\"Jayesh@07\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9123/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "9123",
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userEmail\":\"admin@hcs.com\",\n\t\"password\":\"Jayesh@07\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9123/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "9123",
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Appointment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGhjcy5jb20iLCJleHAiOjE1NzEwOTAxMzksImlhdCI6MTU3MTA3MjEzOX0.x38jCYDmo6noSuO8qj--9nJ4xPI8OZwFi4RijuwhPkr6UHTlGIAqMuZ6TnZ267CoQx0YLmS9dZYC6OMKZ_r7kg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"centerId\":\"12\",\n\t\"testId\":\"17\",\n\t\"userId\":\"38\",\n\t\"dateAndTime\": \"2019-12-12T12:12\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9123/addAppointment",
+					"host": [
+						"localhost"
+					],
+					"port": "9123",
+					"path": [
+						"addAppointment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Test List",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoY3MuY29tIiwiZXhwIjoxNTcxMDg1NjkxLCJpYXQiOjE1NzEwNjc2OTF9.FRUTOdV9JV7jyTLRpPA08a5iHal0eCsDteKMAlectdCyY4MB3qfAPb7yRR3e3s1EBKzhHiyi7qOvltXDb_z8HA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9123/getTests?centerId=15",
+					"host": [
+						"localhost"
+					],
+					"port": "9123",
+					"path": [
+						"getTests"
+					],
+					"query": [
+						{
+							"key": "centerId",
+							"value": "15"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Center List",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGhjcy5jb20iLCJleHAiOjE1NzEwOTAxMzksImlhdCI6MTU3MTA3MjEzOX0.x38jCYDmo6noSuO8qj--9nJ4xPI8OZwFi4RijuwhPkr6UHTlGIAqMuZ6TnZ267CoQx0YLmS9dZYC6OMKZ_r7kg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9123/getCenters",
+					"host": [
+						"localhost"
+					],
+					"port": "9123",
+					"path": [
+						"getCenters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View User Appointments",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGhjcy5jb20iLCJleHAiOjE1NzEwOTAxMzksImlhdCI6MTU3MTA3MjEzOX0.x38jCYDmo6noSuO8qj--9nJ4xPI8OZwFi4RijuwhPkr6UHTlGIAqMuZ6TnZ267CoQx0YLmS9dZYC6OMKZ_r7kg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9123/viewAppointments?userId",
+					"host": [
+						"localhost"
+					],
+					"port": "9123",
+					"path": [
+						"viewAppointments"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": null
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Pending Appointments",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoY3MuY29tIiwiZXhwIjoxNTcxMDk3NTg5LCJpYXQiOjE1NzEwNzk1ODl9.wjhVFCX-wrE2DWtR8uBU3uSlOb2inyCw-Cnvg5DQP9LyB5RpSBJXUs6BmyepmQN3W5PlNvXUaXWk4RAPz6MqlQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9123/pendingAppointments?centerId=15",
+					"host": [
+						"localhost"
+					],
+					"port": "9123",
+					"path": [
+						"pendingAppointments"
+					],
+					"query": [
+						{
+							"key": "centerId",
+							"value": "15"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Approve Appointment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9123/approveAppointment",
+					"host": [
+						"localhost"
+					],
+					"port": "9123",
+					"path": [
+						"approveAppointment"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
