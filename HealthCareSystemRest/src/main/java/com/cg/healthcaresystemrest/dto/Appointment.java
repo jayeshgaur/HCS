@@ -1,5 +1,9 @@
 package com.cg.healthcaresystemrest.dto;
-
+/*
+ * Author: 			Jayesh Gaur
+ * Description: 	DTO class for Appointment Entity
+ * Created on: 		October 12, 2019
+ */
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.Date;

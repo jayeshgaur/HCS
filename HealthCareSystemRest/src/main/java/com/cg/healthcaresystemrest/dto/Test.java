@@ -17,6 +17,12 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+/*
+ * Author: 			Jayesh Gaur
+ * Description: 	DTO class for Test Entity
+ * Created on: 		October 12, 2019
+ */
+
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)

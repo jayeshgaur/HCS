@@ -45,6 +45,12 @@ public class HCSController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HCSController.class);
 	
+	
+	/*
+	 * Author: 		Jayesh Gaur
+	 * Description: /adminpage and /userpage -> used for debugging JWT Authentication
+	 * Created on: October 14, 2019
+	 */
 	@GetMapping(value = "/adminpage")
 	public String adminPage() {
 		logger.info("Returning admin page..");

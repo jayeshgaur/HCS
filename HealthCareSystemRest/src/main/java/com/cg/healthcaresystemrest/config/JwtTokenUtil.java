@@ -1,5 +1,9 @@
 package com.cg.healthcaresystemrest.config;
-
+/*
+ * Author: 		Jayesh Gaur
+ * Description: JWT Config, this class generates the token
+ * Created on:  October 14, 2019
+ */
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;

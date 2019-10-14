@@ -1,5 +1,9 @@
 package com.cg.healthcaresystemrest.dto;
-
+/*
+ * Author: 			Jayesh Gaur
+ * Description: 	DTO class for Login RequestBody for JWT Authentication
+ * Created on: 		October 12, 2019
+ */
 import java.io.Serializable;
 
 public class JwtRequest implements Serializable {

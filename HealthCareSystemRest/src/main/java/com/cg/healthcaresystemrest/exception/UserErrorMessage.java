@@ -1,5 +1,9 @@
 package com.cg.healthcaresystemrest.exception;
-
+/*
+ * Author: 		Jayesh Gaur
+ * Description: A class for all error messages
+ * Created on:	 October 11, 2019
+ */
 public class UserErrorMessage {
 	public static final String userErrorSecret = "Enter valid password.\\n Password should must contain one number,one capital letter,one small letter and one special character";
 	public static final String userErrorUserName = "Enter a valid name.\n Name should start with a capital letter";

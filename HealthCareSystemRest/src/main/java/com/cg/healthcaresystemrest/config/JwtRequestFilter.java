@@ -1,5 +1,9 @@
 package com.cg.healthcaresystemrest.config;
-
+/*
+ * Author: 		Jayesh Gaur
+ * Description: JWT Config
+ * Created on:  October 14, 2019
+ */
 import java.io.IOException;
 
 import javax.servlet.FilterChain;

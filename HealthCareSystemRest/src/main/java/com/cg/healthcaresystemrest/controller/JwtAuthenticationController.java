@@ -1,5 +1,9 @@
 package com.cg.healthcaresystemrest.controller;
-
+/*
+ * Author: 		Jayesh Gaur
+ * Description: JWT Controller for register and authenticate
+ * Created on:  October 14, 2019
+ */
 import java.util.ArrayList;
 
 import org.slf4j.Logger;

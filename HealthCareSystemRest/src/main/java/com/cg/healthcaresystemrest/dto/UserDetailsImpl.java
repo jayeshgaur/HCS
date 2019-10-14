@@ -1,5 +1,9 @@
 package com.cg.healthcaresystemrest.dto;
-
+/*
+ * Author: 			Jayesh Gaur
+ * Description: 	JWT UserDetails subclass for authentication/authorization purposes
+ * Created on: 		October 12, 2019
+ */
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;

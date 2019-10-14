@@ -1,5 +1,10 @@
 package com.cg.healthcaresystemrest.repository;
-
+/*
+ * Author : Nidhi
+ * Description : This inteface will perform CRUD operations for DiagnosticCenter Entity.
+ * Created Date : 9th October,2019 
+ * 
+ * */
 import java.math.BigInteger;
 import java.util.List;
 
