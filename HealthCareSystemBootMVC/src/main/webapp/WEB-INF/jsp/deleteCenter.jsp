@@ -49,7 +49,7 @@
 	<tag:if test="${centerList!=null }">
 		<jsp:include page="ShowCenters.jsp"></jsp:include>
 
-		<h3><br> Enter the center Id to be deleted:</h3>
+		<h3 style="text-align: center;"><br> Enter the center Id to be deleted:</h3>
 	
 		<form action="/DeleteCenter" method="POST">
 			<table>
@@ -85,9 +85,13 @@
 					</tr>
 				</table>
 				<input type="submit" value="Confirm Delete">
+				
 			</form>
 	</tag:if>
-	<span> ${deleteMessage }</span>
+
+	<%-- <div style="text-align: center;" class="alert alert-danger">${deleteMessage }</div>
+	 --%>
+<span style="color:red;"> ${deleteMessage }</span>
 	<div class="footer" style="background-color:lightblue; position=äbsolute">
  <p align="center">Mumbai &nbsp;&nbsp;&nbsp;&nbsp;Pune&nbsp;&nbsp;&nbsp;&nbsp;Hyderabad&nbsp;&nbsp;&nbsp;&nbsp;Delhi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  <span class="glyphicon glyphicon-phone"> 1800-123-4567 </span></p>
