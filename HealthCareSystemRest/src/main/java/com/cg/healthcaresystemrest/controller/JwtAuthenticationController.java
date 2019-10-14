@@ -2,7 +2,10 @@ package com.cg.healthcaresystemrest.controller;
 
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,7 +24,10 @@ import com.cg.healthcaresystemrest.dto.JwtRequest;
 import com.cg.healthcaresystemrest.dto.JwtResponse;
 import com.cg.healthcaresystemrest.dto.User;
 import com.cg.healthcaresystemrest.dto.UserDetailsImpl;
+import com.cg.healthcaresystemrest.exception.ExistingCredentialException;
 import com.cg.healthcaresystemrest.service.JwtUserDetailsService;
+import com.cg.healthcaresystemrest.service.UserServiceImpl;
+
 
 
 @RestController
@@ -36,6 +42,9 @@ public class JwtAuthenticationController {
 
 	@Autowired
 	private JwtUserDetailsService jwtUserDetailsService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationController.class);
+	
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
@@ -49,8 +58,16 @@ public class JwtAuthenticationController {
 	}
 	
 	@PostMapping(value = "/register")
-	public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
-		return ResponseEntity.ok(jwtUserDetailsService.save(user));
+	public ResponseEntity<String> saveUser(@RequestBody User user) {
+	//	return ResponseEntity.ok(jwtUserDetailsService.save(user));
+		
+		try {
+			return new ResponseEntity<String>(jwtUserDetailsService.save(user).toString(), HttpStatus.OK);
+		}catch(ExistingCredentialException exception) {
+			logger.error(exception.getMessage());
+			return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 
 	private void authenticate(String username, String password) throws Exception {

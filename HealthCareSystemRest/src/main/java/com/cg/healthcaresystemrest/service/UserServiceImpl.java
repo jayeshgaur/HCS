@@ -155,15 +155,15 @@ public class UserServiceImpl implements UserService {
 	public BigInteger register(User user) throws ExistingCredentialException {
 		logger.info("Checking if the email is already registered..");
 		// Validating unique database columns
-		User checkUserCredentials = userRepository.findByUserEmail(user.getUserEmail()).get();
-		if (null != checkUserCredentials) {
+		Optional<User> checkUserCredentials = userRepository.findByUserEmail(user.getUserEmail());
+		if (checkUserCredentials.isPresent()) {
 			logger.error("An existing account with this email found... throwing ExistingCredentialException");
 			throw new ExistingCredentialException(UserErrorMessage.userErrorDuplicateEmail);
 		} else {
 			checkUserCredentials = null;
 			logger.info("Email is unique. Checking if the phone number is already registered..");
 			checkUserCredentials = userRepository.findByContactNo(user.getContactNo());
-			if (null != checkUserCredentials) {
+			if (checkUserCredentials.isPresent()) {
 				logger.error("An existing account with this contact found... throwing ExistingCredentialException");
 				throw new ExistingCredentialException(UserErrorMessage.userErrorDuplicatePhoneNumber);
 			}
