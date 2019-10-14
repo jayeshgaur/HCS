@@ -40,10 +40,10 @@ public class User {
 	@Column(name = "user_id")
 	private BigInteger userId;
 
-	@JsonIgnore
-	@Size(min = 8, message = "Passwould length should be greater than or equal to 8 characters")
-	@Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})", message = "Password must have an uppercase, a lower case, a number and a special character")
-	@Column(name = "user_password")
+	// @JsonIgnore
+//	@Size(min = 8, message = "Passwould length should be greater than or equal to 8 characters")
+//	@Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})", message = "Password must have an uppercase, a lower case, a number and a special character")
+//	@Column(name = "user_password")
 	private String userPassword;
 
 	@Pattern(regexp = "^[A-Z].*", message = "Name must start with a capital letter")

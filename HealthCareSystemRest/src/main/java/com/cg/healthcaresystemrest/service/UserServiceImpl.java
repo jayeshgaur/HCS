@@ -155,7 +155,7 @@ public class UserServiceImpl implements UserService {
 	public BigInteger register(User user) throws ExistingCredentialException {
 		logger.info("Checking if the email is already registered..");
 		// Validating unique database columns
-		User checkUserCredentials = userRepository.findByUserEmail(user.getUserEmail());
+		User checkUserCredentials = userRepository.findByUserEmail(user.getUserEmail()).get();
 		if (null != checkUserCredentials) {
 			logger.error("An existing account with this email found... throwing ExistingCredentialException");
 			throw new ExistingCredentialException(UserErrorMessage.userErrorDuplicateEmail);
@@ -342,6 +342,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findUser(BigInteger userId) {
 		return userRepository.findById(userId).get();
+	}
+	
+	/*
+	 * Author: Jayesh Gaur Description: Returns the user object corresponding to the
+	 * user Id received in input Created on: October 9, 2019
+	 */
+	public User findUser(String userEmail) {
+		return userRepository.findByUserEmail(userEmail).get();
 	}
 
 }

@@ -5,6 +5,7 @@ package com.cg.healthcaresystemrest.repository;
  */
 
 import java.math.BigInteger;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
@@ -22,7 +23,7 @@ public interface UserRepository extends JpaRepository<User, BigInteger> {
 	
 	public User findByUserEmailAndUserPassword(@Param("email")String email, @Param("password")String password);
 
-	public User findByUserEmail(String userEmail);
+	public Optional<User> findByUserEmail(String userEmail);
 	
 	public User findByContactNo(BigInteger contactNo);
 	

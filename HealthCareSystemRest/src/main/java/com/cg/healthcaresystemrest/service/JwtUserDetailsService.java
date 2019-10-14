@@ -1,6 +1,7 @@
 package com.cg.healthcaresystemrest.service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,7 @@ import com.cg.healthcaresystemrest.repository.UserRepository;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
-
+	
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -23,19 +24,16 @@ public class JwtUserDetailsService implements UserDetailsService {
 	private PasswordEncoder brcyptEncoder;
 	
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		if ("javainuse".equals(username)) {
-			return new org.springframework.security.core.userdetails.User("javainuse", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
-					new ArrayList<>());
-		} else {
-			throw new UsernameNotFoundException("User not found with username: " + username);
+	public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+		Optional<User> user = userRepository.findByUserEmail(userEmail);
+		if(user == null) {
+			throw new UsernameNotFoundException("User not found with email: " + userEmail);
 		}
+		return user.map(UserDetailsImpl::new).get();
 	}
 	
-	public User save(UserDetailsImpl user) {
-		User newUser = new User();
-		newUser.setUserEmail(user.getUserEmail());
-		newUser.setUserPassword(brcyptEncoder.encode(user.getUserPassword()));
+	public User save(User user) {
+		User newUser = new User(brcyptEncoder.encode(user.getUserPassword()), user.getUserName(), user.getContactNo(), user.getUserEmail(), user.getAge(), user.getGender());
 		return userRepository.save(newUser);
 	}
 	
