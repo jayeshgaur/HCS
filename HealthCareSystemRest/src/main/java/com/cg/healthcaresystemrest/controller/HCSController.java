@@ -22,14 +22,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import com.cg.healthcaresystemrest.dto.Appointment;
 import com.cg.healthcaresystemrest.dto.AppointmentRequest;
 import com.cg.healthcaresystemrest.dto.DiagnosticCenter;
 import com.cg.healthcaresystemrest.dto.Test;
 import com.cg.healthcaresystemrest.dto.User;
+import com.cg.healthcaresystemrest.exceldownload.ExcelReportView;
 import com.cg.healthcaresystemrest.exception.ValidationException;
 import com.cg.healthcaresystemrest.service.UserServiceImpl;
 
@@ -241,5 +246,35 @@ public class HCSController {
 			logger.error("Caught validation exception in /approveAppointment Controller");
 			return new ResponseEntity<String>(exception.getMessage(),HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	/*
+	 * Author: Jayesh Gaur 
+	 * Description: Get Excel sheet consisting of appointment
+	 * 					details for the user 
+	 * Input: User Id
+	 * Output: Excel download of the appointments
+	 * Created on: October 9, 2019
+	 */
+	@RequestMapping(value = "/downloadExcel", method = RequestMethod.GET)
+	public ModelAndView downloadExcel(@RequestParam("userId") String stringUserId) {
+		BigInteger userId = null;
+		try {
+			logger.info("Validating user Id entered for appointment");
+			userId = userService.validateUserId(stringUserId);
+			logger.info("Getting appointments of the user corresponding to the user id..");
+			List<Appointment> appointmentList = userService.getAppointmentList(userId);
+			if(appointmentList.size() > 0) {
+				logger.info("Returning appointment list to the user..");
+				return new ModelAndView((View) new ExcelReportView(), "appointmentList", appointmentList);
+			}else {
+				logger.info("0 appointments in the system from this user.. returning nothing");
+			//	return new ResponseEntity<String>("You have no appointments", HttpStatus.NO_CONTENT);
+			}
+		
+		}catch(ValidationException exception) {
+			logger.error("Caught validation exception in /viewAppointments Controller");
+	//		return new ResponseEntity<String>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+		}	return null;
 	}
 }
