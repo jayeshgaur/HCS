@@ -297,6 +297,21 @@ public class UserServiceImpl implements UserService {
 		logger.error("Invalid Appointment Id.... throwing ValidationException");
 		throw new ValidationException(UserErrorMessage.userErrorInvalidAppointmentId);
 	}
+	
+	public BigInteger validateUserId(String userId) throws ValidationException {
+		if (userId.matches("^[0-9]+")) {
+			List<User> listOfUser = userRepository.findAll();
+			Iterator<User> userIterator = listOfUser.iterator();
+			while (userIterator.hasNext()) {
+				User user = userIterator.next();
+				if (user.getUserId().compareTo(new BigInteger(userId)) == 0) {
+					return new BigInteger(userId);
+				}
+
+			}
+		}
+		throw new ValidationException(UserErrorMessage.userErrorInvalidUserId);
+	}
 
 	/*
 	 * Author: Jayesh Gaur Description: Calls appointmentRepository to persist the
@@ -332,6 +347,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public DiagnosticCenter findCenter(BigInteger centerId) {
+		logger.info("Returning center object of the center id..");
 		return centerRepository.findById(centerId).get();
 	}
 
@@ -340,16 +356,27 @@ public class UserServiceImpl implements UserService {
 	 * user Id received in input Created on: October 9, 2019
 	 */
 	@Override
-	public User findUser(BigInteger userId) {
-		return userRepository.findById(userId).get();
+	public User findUser(BigInteger userId) throws ValidationException {
+	Optional<User> user = userRepository.findById(userId);
+	if(user.isPresent()) {
+		return user.get();
+	}
+	throw new ValidationException(UserErrorMessage.userErrorInvalidUserId);
 	}
 	
 	/*
 	 * Author: Jayesh Gaur Description: Returns the user object corresponding to the
 	 * user Id received in input Created on: October 9, 2019
 	 */
-	public User findUser(String userEmail) {
-		return userRepository.findByUserEmail(userEmail).get();
+	public User findUser(String userEmail) throws ValidationException {
+		Optional<User> user =  userRepository.findByUserEmail(userEmail);
+		if(user.isPresent()) {
+			return user.get();
+		}
+		throw new ValidationException(UserErrorMessage.userErrorInvalidEmailId);
 	}
 
+	public List<Appointment> getAppointments() {
+		return appointmentRepository.findAll();
+	}
 }

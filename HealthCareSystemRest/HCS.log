@@ -1,0 +1,161 @@
+2019-10-15 00:36:07,229 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-2] Validating center Id entered for appointment..
+2019-10-15 00:36:07,235 ERROR com.cg.healthcaresystemrest.service.UserServiceImpl [http-nio-9123-exec-2] Invalid Center Id... throwing ValidationException in UserService.validateCenterId
+2019-10-15 00:36:07,235 ERROR com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-2] Caught validation exception in /pendingAppointments Controller
+2019-10-15 00:36:10,287 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-4] Validating center Id entered for appointment..
+2019-10-15 00:36:10,289 INFO com.cg.healthcaresystemrest.service.UserServiceImpl [http-nio-9123-exec-4] Center Id is proper... returning BigInteger value of the entered Id..
+2019-10-15 00:36:10,289 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-4] Getting appointments of the user corresponding to the user id..
+2019-10-15 00:36:10,294 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-4] Returning appointment list to the admin..
+2019-10-15 00:36:14,725 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-5] Validating center Id entered for appointment..
+2019-10-15 00:36:14,728 INFO com.cg.healthcaresystemrest.service.UserServiceImpl [http-nio-9123-exec-5] Center Id is proper... returning BigInteger value of the entered Id..
+2019-10-15 00:36:14,728 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-5] Getting appointments of the user corresponding to the user id..
+2019-10-15 00:36:14,730 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-5] 0 appointments in the system from this center.. returning nothing
+2019-10-15 00:36:23,359 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-6] Validating user Id entered for appointment
+2019-10-15 00:36:23,364 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-6] Getting appointments of the user corresponding to the user id..
+2019-10-15 00:36:23,367 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-6] 0 appointments in the system from this user.. returning nothing
+2019-10-15 00:36:33,891 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-7] Validating center Id entered for appointment..
+2019-10-15 00:36:33,893 INFO com.cg.healthcaresystemrest.service.UserServiceImpl [http-nio-9123-exec-7] Center Id is proper... returning BigInteger value of the entered Id..
+2019-10-15 00:36:33,894 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-7] Getting appointments of the user corresponding to the user id..
+2019-10-15 00:36:33,895 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-7] 0 appointments in the system from this center.. returning nothing
+2019-10-15 00:36:40,338 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-8] Validating user Id entered for appointment
+2019-10-15 00:36:40,339 ERROR com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-8] Caught validation exception in /viewAppointments Controller
+2019-10-15 00:36:44,928 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-10] Validating user Id entered for appointment
+2019-10-15 00:36:44,930 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-10] Getting appointments of the user corresponding to the user id..
+2019-10-15 00:36:44,932 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-10] 0 appointments in the system from this user.. returning nothing
+2019-10-15 00:36:49,163 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-1] Validating user Id entered for appointment
+2019-10-15 00:36:49,164 ERROR com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-1] Caught validation exception in /viewAppointments Controller
+2019-10-15 00:36:51,995 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-3] Validating user Id entered for appointment
+2019-10-15 00:36:51,996 ERROR com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-3] Caught validation exception in /viewAppointments Controller
+2019-10-15 00:37:26,563 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Starting HealthCareSystemRestApplication on DESKTOP-72TJ4UA with PID 1352 (C:\Users\Jayesh\git\HCS\HealthCareSystemRest\target\classes started by Jayesh in C:\Users\Jayesh\git\HCS\HealthCareSystemRest)
+2019-10-15 00:37:26,563 DEBUG com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-15 00:37:26,563 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] The following profiles are active: production
+2019-10-15 00:37:26,980 DEBUG com.cg.healthcaresystemrest.config.JwtRequestFilter [restartedMain] Filter 'jwtRequestFilter' configured for use
+2019-10-15 00:37:26,998 ERROR org.springframework.boot.SpringApplication [restartedMain] Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'HCSController' defined in file [C:\Users\Jayesh\git\HCS\HealthCareSystemRest\target\classes\com\cg\healthcaresystemrest\controller\HCSController.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.cg.healthcaresystemrest.controller.HCSController]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problems: 
+	Syntax error, insert "}" to complete ClassBody
+	Syntax error, insert ")" to complete SingleMemberAnnotation
+	Syntax error, insert "Type VariableDeclaratorId" to complete FormalParameter
+	Syntax error, insert ")" to complete MethodDeclaration
+	Syntax error, insert ";" to complete MethodDeclaration
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1303)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1197)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:515)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:847)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:877)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:549)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:141)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:744)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:391)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1204)
+	at com.cg.healthcaresystemrest.HealthCareSystemRestApplication.main(HealthCareSystemRestApplication.java:10)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.cg.healthcaresystemrest.controller.HCSController]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problems: 
+	Syntax error, insert "}" to complete ClassBody
+	Syntax error, insert ")" to complete SingleMemberAnnotation
+	Syntax error, insert "Type VariableDeclaratorId" to complete FormalParameter
+	Syntax error, insert ")" to complete MethodDeclaration
+	Syntax error, insert ";" to complete MethodDeclaration
+
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:184)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:87)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1295)
+	... 22 common frames omitted
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error, insert "}" to complete ClassBody
+	Syntax error, insert ")" to complete SingleMemberAnnotation
+	Syntax error, insert "Type VariableDeclaratorId" to complete FormalParameter
+	Syntax error, insert ")" to complete MethodDeclaration
+	Syntax error, insert ";" to complete MethodDeclaration
+
+	at com.cg.healthcaresystemrest.controller.HCSController.<init>(HCSController.java:216)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:172)
+	... 24 common frames omitted
+2019-10-15 00:37:36,462 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Starting HealthCareSystemRestApplication on DESKTOP-72TJ4UA with PID 1352 (C:\Users\Jayesh\git\HCS\HealthCareSystemRest\target\classes started by Jayesh in C:\Users\Jayesh\git\HCS\HealthCareSystemRest)
+2019-10-15 00:37:36,462 DEBUG com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-15 00:37:36,462 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] The following profiles are active: production
+2019-10-15 00:37:36,901 DEBUG com.cg.healthcaresystemrest.config.JwtRequestFilter [restartedMain] Filter 'jwtRequestFilter' configured for use
+2019-10-15 00:37:37,066 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Started HealthCareSystemRestApplication in 0.618 seconds (JVM running for 2008.267)
+2019-10-15 00:37:48,703 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Starting HealthCareSystemRestApplication on DESKTOP-72TJ4UA with PID 1352 (C:\Users\Jayesh\git\HCS\HealthCareSystemRest\target\classes started by Jayesh in C:\Users\Jayesh\git\HCS\HealthCareSystemRest)
+2019-10-15 00:37:48,703 DEBUG com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-15 00:37:48,703 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] The following profiles are active: production
+2019-10-15 00:37:49,116 DEBUG com.cg.healthcaresystemrest.config.JwtRequestFilter [restartedMain] Filter 'jwtRequestFilter' configured for use
+2019-10-15 00:37:49,283 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Started HealthCareSystemRestApplication in 0.595 seconds (JVM running for 2020.483)
+2019-10-15 00:38:00,913 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Starting HealthCareSystemRestApplication on DESKTOP-72TJ4UA with PID 1352 (C:\Users\Jayesh\git\HCS\HealthCareSystemRest\target\classes started by Jayesh in C:\Users\Jayesh\git\HCS\HealthCareSystemRest)
+2019-10-15 00:38:00,913 DEBUG com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-15 00:38:00,913 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] The following profiles are active: production
+2019-10-15 00:38:01,325 DEBUG com.cg.healthcaresystemrest.config.JwtRequestFilter [restartedMain] Filter 'jwtRequestFilter' configured for use
+2019-10-15 00:38:01,488 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Started HealthCareSystemRestApplication in 0.59 seconds (JVM running for 2032.689)
+2019-10-15 00:38:06,094 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Starting HealthCareSystemRestApplication on DESKTOP-72TJ4UA with PID 1352 (C:\Users\Jayesh\git\HCS\HealthCareSystemRest\target\classes started by Jayesh in C:\Users\Jayesh\git\HCS\HealthCareSystemRest)
+2019-10-15 00:38:06,094 DEBUG com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-15 00:38:06,094 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] The following profiles are active: production
+2019-10-15 00:38:06,505 DEBUG com.cg.healthcaresystemrest.config.JwtRequestFilter [restartedMain] Filter 'jwtRequestFilter' configured for use
+2019-10-15 00:38:06,669 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Started HealthCareSystemRestApplication in 0.591 seconds (JVM running for 2037.87)
+2019-10-15 00:38:37,406 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Starting HealthCareSystemRestApplication on DESKTOP-72TJ4UA with PID 1352 (C:\Users\Jayesh\git\HCS\HealthCareSystemRest\target\classes started by Jayesh in C:\Users\Jayesh\git\HCS\HealthCareSystemRest)
+2019-10-15 00:38:37,408 DEBUG com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-15 00:38:37,408 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] The following profiles are active: production
+2019-10-15 00:38:37,822 DEBUG com.cg.healthcaresystemrest.config.JwtRequestFilter [restartedMain] Filter 'jwtRequestFilter' configured for use
+2019-10-15 00:38:37,985 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Started HealthCareSystemRestApplication in 0.596 seconds (JVM running for 2069.186)
+2019-10-15 00:41:25,301 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Starting HealthCareSystemRestApplication on DESKTOP-72TJ4UA with PID 1352 (C:\Users\Jayesh\git\HCS\HealthCareSystemRest\target\classes started by Jayesh in C:\Users\Jayesh\git\HCS\HealthCareSystemRest)
+2019-10-15 00:41:25,301 DEBUG com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-15 00:41:25,301 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] The following profiles are active: production
+2019-10-15 00:41:25,707 DEBUG com.cg.healthcaresystemrest.config.JwtRequestFilter [restartedMain] Filter 'jwtRequestFilter' configured for use
+2019-10-15 00:41:25,868 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Started HealthCareSystemRestApplication in 0.582 seconds (JVM running for 2237.068)
+2019-10-15 00:41:55,991 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Starting HealthCareSystemRestApplication on DESKTOP-72TJ4UA with PID 1352 (C:\Users\Jayesh\git\HCS\HealthCareSystemRest\target\classes started by Jayesh in C:\Users\Jayesh\git\HCS\HealthCareSystemRest)
+2019-10-15 00:41:55,991 DEBUG com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-15 00:41:55,991 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] The following profiles are active: production
+2019-10-15 00:41:56,417 DEBUG com.cg.healthcaresystemrest.config.JwtRequestFilter [restartedMain] Filter 'jwtRequestFilter' configured for use
+2019-10-15 00:41:56,577 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Started HealthCareSystemRestApplication in 0.602 seconds (JVM running for 2267.777)
+2019-10-15 00:42:19,270 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Starting HealthCareSystemRestApplication on DESKTOP-72TJ4UA with PID 1352 (C:\Users\Jayesh\git\HCS\HealthCareSystemRest\target\classes started by Jayesh in C:\Users\Jayesh\git\HCS\HealthCareSystemRest)
+2019-10-15 00:42:19,270 DEBUG com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-15 00:42:19,270 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] The following profiles are active: production
+2019-10-15 00:42:19,680 DEBUG com.cg.healthcaresystemrest.config.JwtRequestFilter [restartedMain] Filter 'jwtRequestFilter' configured for use
+2019-10-15 00:42:19,847 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Started HealthCareSystemRestApplication in 0.592 seconds (JVM running for 2291.048)
+2019-10-15 00:43:05,647 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Starting HealthCareSystemRestApplication on DESKTOP-72TJ4UA with PID 1352 (C:\Users\Jayesh\git\HCS\HealthCareSystemRest\target\classes started by Jayesh in C:\Users\Jayesh\git\HCS\HealthCareSystemRest)
+2019-10-15 00:43:05,647 DEBUG com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-15 00:43:05,647 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] The following profiles are active: production
+2019-10-15 00:43:06,062 DEBUG com.cg.healthcaresystemrest.config.JwtRequestFilter [restartedMain] Filter 'jwtRequestFilter' configured for use
+2019-10-15 00:43:06,230 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Started HealthCareSystemRestApplication in 0.6 seconds (JVM running for 2337.43)
+2019-10-15 00:44:23,176 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Starting HealthCareSystemRestApplication on DESKTOP-72TJ4UA with PID 1352 (C:\Users\Jayesh\git\HCS\HealthCareSystemRest\target\classes started by Jayesh in C:\Users\Jayesh\git\HCS\HealthCareSystemRest)
+2019-10-15 00:44:23,176 DEBUG com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-15 00:44:23,176 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] The following profiles are active: production
+2019-10-15 00:44:23,598 DEBUG com.cg.healthcaresystemrest.config.JwtRequestFilter [restartedMain] Filter 'jwtRequestFilter' configured for use
+2019-10-15 00:44:23,763 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Started HealthCareSystemRestApplication in 0.602 seconds (JVM running for 2414.963)
+2019-10-15 00:44:27,775 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Starting HealthCareSystemRestApplication on DESKTOP-72TJ4UA with PID 1352 (C:\Users\Jayesh\git\HCS\HealthCareSystemRest\target\classes started by Jayesh in C:\Users\Jayesh\git\HCS\HealthCareSystemRest)
+2019-10-15 00:44:27,775 DEBUG com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-15 00:44:27,775 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] The following profiles are active: production
+2019-10-15 00:44:28,185 DEBUG com.cg.healthcaresystemrest.config.JwtRequestFilter [restartedMain] Filter 'jwtRequestFilter' configured for use
+2019-10-15 00:44:28,356 INFO com.cg.healthcaresystemrest.HealthCareSystemRestApplication [restartedMain] Started HealthCareSystemRestApplication in 0.596 seconds (JVM running for 2419.556)
+2019-10-15 00:45:02,385 WARN com.cg.healthcaresystemrest.config.JwtRequestFilter [http-nio-9123-exec-2] JWT Token does not begin with Bearer String
+2019-10-15 00:45:08,516 INFO com.cg.healthcaresystemrest.service.UserServiceImpl [http-nio-9123-exec-3] Correct appointment id... returning BigInteger value of the appointment Id
+2019-10-15 00:45:08,517 INFO com.cg.healthcaresystemrest.service.UserServiceImpl [http-nio-9123-exec-3] Getting the appointment object corresponding to the appointment Id...
+2019-10-15 00:45:08,517 INFO com.cg.healthcaresystemrest.service.UserServiceImpl [http-nio-9123-exec-3] Appointment object found.. setting status to 1 (Approved)
+2019-10-15 00:45:21,983 ERROR com.cg.healthcaresystemrest.service.UserServiceImpl [http-nio-9123-exec-4] Invalid Appointment Id.... throwing ValidationException
+2019-10-15 00:45:21,983 ERROR com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-4] Caught validation exception in /approveAppointment Controller
+2019-10-15 00:45:29,206 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-6] Validating center Id entered for appointment..
+2019-10-15 00:45:29,208 INFO com.cg.healthcaresystemrest.service.UserServiceImpl [http-nio-9123-exec-6] Center Id is proper... returning BigInteger value of the entered Id..
+2019-10-15 00:45:29,208 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-6] Getting appointments of the user corresponding to the user id..
+2019-10-15 00:45:29,211 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-6] 0 appointments in the system from this center.. returning nothing
+2019-10-15 00:45:37,368 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-7] Validating center Id entered for appointment..
+2019-10-15 00:45:37,370 INFO com.cg.healthcaresystemrest.service.UserServiceImpl [http-nio-9123-exec-7] Center Id is proper... returning BigInteger value of the entered Id..
+2019-10-15 00:45:37,370 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-7] Getting appointments of the user corresponding to the user id..
+2019-10-15 00:45:37,372 INFO com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-7] Returning appointment list to the admin..
+2019-10-15 00:46:02,763 ERROR com.cg.healthcaresystemrest.service.UserServiceImpl [http-nio-9123-exec-8] Invalid Appointment Id.... throwing ValidationException
+2019-10-15 00:46:02,763 ERROR com.cg.healthcaresystemrest.controller.HCSController [http-nio-9123-exec-8] Caught validation exception in /approveAppointment Controller
+2019-10-15 00:46:06,921 INFO com.cg.healthcaresystemrest.service.UserServiceImpl [http-nio-9123-exec-10] Correct appointment id... returning BigInteger value of the appointment Id
+2019-10-15 00:46:06,921 INFO com.cg.healthcaresystemrest.service.UserServiceImpl [http-nio-9123-exec-10] Getting the appointment object corresponding to the appointment Id...
+2019-10-15 00:46:06,921 INFO com.cg.healthcaresystemrest.service.UserServiceImpl [http-nio-9123-exec-10] Appointment object found.. setting status to 1 (Approved)

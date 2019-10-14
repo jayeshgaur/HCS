@@ -19,7 +19,7 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-
+import com.cg.healthcaresystemrest.exception.ValidationException;
 import com.cg.healthcaresystemrest.service.UserServiceImpl;
 
 public class HCSAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
@@ -45,7 +45,12 @@ public class HCSAuthenticationSuccessHandler implements AuthenticationSuccessHan
 		}
 
 		System.out.println("loginName: "+loginName);
-		session.setAttribute("user", service.findUser(loginName));
+		try {
+			session.setAttribute("user", service.findUser(loginName));
+		} catch (ValidationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		handle(request, response, authentication);
 		clearAuthenticationAttributes(request);
 	}

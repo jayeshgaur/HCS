@@ -1,5 +1,9 @@
 package com.cg.healthcaresystemrest.config;
-
+/*
+ * Author:			Jayesh Gaur
+ * Description: 	Security configuration class. Responsible for injecting the AuthenticationManagerBuilder
+ * Created on: 		October 14, 2019
+ */
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,12 +56,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		// We don't need CSRF for this example
 		httpSecurity.csrf().disable()
-				// dont authenticate this particular request
 				.authorizeRequests()
 				.antMatchers("/userpage").hasRole("Customer")
 				.antMatchers("/adminpage").hasRole("Admin")
 				.antMatchers("/getCenters").hasAnyRole("Customer","Admin")
 				.antMatchers("/getTests").hasAnyRole("Customer","Admin")
+				.antMatchers("/addAppointment").hasRole("Customer")
+				.antMatchers("/viewAppointments").hasRole("Customer")
+				.antMatchers("/pendingAppointments").hasRole("Admin")
+				.antMatchers("/approveAppointment").hasRole("Admin")			
 				.antMatchers("/authenticate", "/register").permitAll()
 				// all other requests need to be authenticated
 				.anyRequest().authenticated()

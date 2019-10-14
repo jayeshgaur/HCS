@@ -23,4 +23,5 @@ public class UserErrorMessage {
 	public static final String userErrorNoTestDeleted="Delete test failed";
 	public static final String userErrorDuplicateEmail = "This email is already registered in the system";
 	public static final String userErrorDuplicatePhoneNumber = "This phone number is already linked with one of our accounts";
+	public static final String userErrorInvalidEmailId="Wrong email Id";
 }
