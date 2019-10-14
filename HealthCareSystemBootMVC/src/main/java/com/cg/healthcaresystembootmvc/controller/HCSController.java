@@ -153,7 +153,7 @@ public class HCSController implements ErrorController  {
 	 * all the validation tests are passed Created: October 9, 2019 Input: User
 	 * details in the form of User object Output: Returns the newly registered user
 	 * to his homepage and automatically logs him in
-	 */
+	 */ 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("customer") User user, BindingResult bindingResult,
 			Map<String, Object> model) {
