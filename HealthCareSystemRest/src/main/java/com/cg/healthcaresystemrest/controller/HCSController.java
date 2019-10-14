@@ -1,6 +1,7 @@
 package com.cg.healthcaresystemrest.controller;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.healthcaresystemrest.dto.DiagnosticCenter;
 import com.cg.healthcaresystemrest.dto.User;
 import com.cg.healthcaresystemrest.dto.UserDetailsImpl;
 import com.cg.healthcaresystemrest.exception.ExistingCredentialException;
@@ -47,43 +49,18 @@ public class HCSController {
 	
 	/*
 	 * Author: 			Jayesh Gaur 
-	 * Description: 	Registers the new user into the system if
-	 * 					all the validation tests are passed 
+	 * Description: 	Returns a list of all centers
 	 * Created: 		October 9, 2019 
 	 * Input: 			User details in the form of User object 
 	 * Output: 			Returns the newly registered user
 	 * 					to his homepage and automatically logs him in
+	 *
 	 */ 
-	// @PostMapping(value = "/register")
-	public String register(@Valid @ModelAttribute("customer") User user, BindingResult bindingResult,
-			Map<String, Object> model) {
-		BigInteger userId;
-		// Check if the validation tests are passed. Return the user back to
-		// registration page if any test fails
-		logger.info("Checking user details entered for registration...");
-		if (bindingResult.hasErrors()) {
-			logger.error("Improper registration details... retuning back to registration.jsp");
-			return "Registration";
-		} else {
-			logger.info("Center details passed validation... proceeding");
-			// Register the user and get his automatically generated user Id
-			try {
-				logger.info("Calling Service to register the user");
-				user.setUserRole("ROLE_Customer");
-				userId = userService.register(user);
-				// Log the user in and set his user ID into the session object and send him to
-				// user home page
-				logger.info("Registration successful.. logging the user in");
-			} catch (ExistingCredentialException exception) {
-				// if registration failed, return back to registration page with proper error
-				// message
-				logger.error("Caught ExistingCredentialException in register post, returning to Registration page");
-				return "Registration";
-			}
-			logger.info("New registered user logged in, returning the user id");
-			return userId.toString();
-		}
+	
+	@GetMapping(value="/getCenters")
+	public List<DiagnosticCenter> getCenters(){
+		List<DiagnosticCenter> centerList = userService.getCenterList();
+		return centerList;
 	}
-
-
+	
 }

@@ -1,0 +1,4 @@
+2019-10-14 17:11:51,895 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] Starting HealthCareSystemBootMvcApplication on DESKTOP-S9SRJSK with PID 5876 (C:\Users\Admin\git\HCS\HealthCareSystemBootMVC\target\classes started by Admin in C:\Users\Admin\git\HCS\HealthCareSystemBootMVC)
+2019-10-14 17:11:51,897 DEBUG com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-14 17:11:51,897 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] The following profiles are active: production
+2019-10-14 17:11:55,676 INFO com.cg.healthcaresystembootmvc.HealthCareSystemBootMvcApplication [restartedMain] Started HealthCareSystemBootMvcApplication in 4.029 seconds (JVM running for 10.011)
