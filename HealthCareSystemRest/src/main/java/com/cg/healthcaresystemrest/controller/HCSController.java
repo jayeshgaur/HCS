@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -277,4 +277,129 @@ public class HCSController {
 	//		return new ResponseEntity<String>(exception.getMessage(),HttpStatus.BAD_REQUEST);
 		}	return null;
 	}
-}
+	
+	/*
+	* Author: Nidhi
+	* Description: Add Test to the given center
+	* Created: October 14, 2019
+	* Input: BigInteger centerId,Test test
+	* Output: ResponseEntity<Test>
+	*
+	*/
+
+
+	@PostMapping("/addTest")
+	public ResponseEntity<?> addTest(@RequestParam("centerId")String id,@ModelAttribute Test test) throws ValidationException
+	{
+	try {
+	logger.info("Validating center Id entered for add Test..");
+	BigInteger centerId=userService.validateCenterId(id,userService.getCenterList());
+	Test newTest=userService.addTest(centerId, test);
+	logger.info("adding test to the given centerId");
+	if(newTest==null)
+	{
+	return new ResponseEntity<String>("Data not added",HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	else
+	{
+	return new ResponseEntity<Test>(newTest,HttpStatus.OK);
+	}}
+	catch(ValidationException exception) {
+	logger.error("Caught Validation Exception in /addTests Controller... ");
+	return new ResponseEntity<String>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+	}
+	}
+
+	/*
+	* Author: Nidhi
+	* Description: Remove Test to the given center
+	* Created: October 14, 2019
+	* Input: BigInteger centerId,BigInteger testId
+	* Output: ResponseEntity<Test>
+	*
+	*/
+
+	@DeleteMapping("/removeTest")
+	public ResponseEntity<?> deleteTest(@RequestParam("centerId")String stringCenterId,@RequestParam("testId")String stringTestId) throws Exception  {
+	boolean remove=false;
+	BigInteger centerId=null;
+	BigInteger testId=null;
+	try {
+
+	centerId=userService.validateCenterId(stringCenterId,userService.getCenterList());
+	testId=userService.validateTestId(stringTestId, userService.getListOfTests(centerId));
+	   remove=userService.removeTest(centerId, testId);
+	    logger.info("removing test from the given centerId");
+
+	//System.out.println(exception.getMessage());
+
+	if(remove==true)
+	return new ResponseEntity<String>("test deleted",HttpStatus.OK);
+	else if(remove==false)
+	return new ResponseEntity<String>("Data not deleted",HttpStatus.OK);
+	else
+	return new ResponseEntity<String>("Data not added",HttpStatus.INTERNAL_SERVER_ERROR);
+
+	  }
+	catch(ValidationException exception) {
+	logger.error("Caught Validation Exception in /removeTest Controller... ");
+	return new ResponseEntity<String>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+	} }
+	
+	/*
+	* Author: Kushal
+	* Description: Add Center
+	* Created: October 14, 2019
+	* Input: DiagnosticCenter center
+	* Output: ResponseEntity<DiagnosticCenter>
+	*
+	*/
+
+
+	@PostMapping("/addCenter")
+	public ResponseEntity<?> addTest(@ModelAttribute DiagnosticCenter center)
+	{
+
+		
+	DiagnosticCenter newCenter=userService.addCenter(center);
+
+	if(newCenter==null)
+	{
+	return new ResponseEntity<String>("Center not added",HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	else
+	{
+	return new ResponseEntity<DiagnosticCenter>(newCenter,HttpStatus.OK);
+	}
+	}
+	/*
+	* Author: Kushal
+	* Description: Remove center
+	* Created: October 14, 2019
+	* Input: BigInteger centerId
+	* Output: ResponseEntity<DiagnosticCenter>
+	*
+	*/
+
+	@DeleteMapping("/removeCenter")
+	public ResponseEntity<?> deleteCenter(@RequestParam("centerId")String stringCenterId) throws Exception  {
+	boolean remove=false;
+	BigInteger centerId=null;
+	try {
+
+		centerId=userService.validateCenterId(stringCenterId,userService.getCenterList());
+	    remove=userService.removeCenter(centerId);
+
+
+	//System.out.println(exception.getMessage());
+
+	if(remove==true)
+	return new ResponseEntity<String>("Center deleted successfully",HttpStatus.OK);
+	else 
+	return new ResponseEntity<String>(" Center not deleted",HttpStatus.OK);
+	
+	}catch(ValidationException exception) {
+		logger.error("Caught Validation Exception in /deleteCenter Controller... ");
+		return new ResponseEntity<String>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+		} 
+}}

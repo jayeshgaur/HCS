@@ -59,11 +59,5 @@ public class HealthCareSystemRestApplicationTests {
 		assertThat(appointment);
 	}
 	
-	@Test
-	public void getCenters() {
-		@SuppressWarnings("unchecked")
-		List<DiagnosticCenter> centerList = restTemplate.getForObject("/getCenters", List.class);
-		assertThat(centerList);
-	}
 
 }
