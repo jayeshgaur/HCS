@@ -16,7 +16,7 @@ export class HcsService {
     getTests(center:CenterModel){
         let params = new HttpParams();
         params = params.append('centerId', center.centerId);
-        return this.myhttp.get('localhost:9123/getTests',{params:params});
+        return this.myhttp.get('http://localhost:9123/getTests',{params:params});
     }
 
 }
