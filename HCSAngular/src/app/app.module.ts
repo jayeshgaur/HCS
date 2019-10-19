@@ -7,11 +7,13 @@ import { HttpClientModule } from '@angular/common/http';
 import {GetTestsComponent} from './_components/app.gettestscomponent';
 import { AddAppointmentComponent } from './_components/app.addappointment';
 import { Routes, RouterModule } from '@angular/router'
-
+import {UserHomeComponent} from './_components/app.userhome';
 
 const myRoute: Routes = [
-    { path: '', redirectTo:'home', pathMatch:'full'},
-    { path: '', component: }
+    { path: '', redirectTo:'userhome', pathMatch:'full'},
+    { path: 'userhome', component: UserHomeComponent},
+    { path: 'addappointment', component:AddAppointmentComponent}
+]
 
 @NgModule({
     imports: [
@@ -22,7 +24,7 @@ const myRoute: Routes = [
         
     ],
     declarations: [
-        AppComponent, GetCentersComponent,GetTestsComponent, AddAppointmentComponent
+        AppComponent, GetCentersComponent,GetTestsComponent, AddAppointmentComponent, UserHomeComponent
    	],
     providers: [ ],
     bootstrap: [AppComponent]

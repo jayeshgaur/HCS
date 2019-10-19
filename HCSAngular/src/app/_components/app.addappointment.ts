@@ -18,4 +18,8 @@ export class AddAppointmentComponent implements OnInit{
         this.service.getCenters().subscribe((centerList:CenterModel[]) => this.centerList = centerList);
     }
 
+    selectCenter(center:CenterModel){
+        this.service.getTests(center).subscribe((testList:TestModel[]) => this.testList = testList);
+    }
+
 }

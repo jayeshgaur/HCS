@@ -13,8 +13,10 @@ export class HcsService {
        return this.myhttp.get("http://localhost:9123/getCenters");
     }
 
-    getTests(){
-        return this.myhttp.get
+    getTests(center:CenterModel){
+        let params = new HttpParams();
+        params = params.append('centerId', center.centerId);
+        return this.myhttp.get('localhost:9123/getTests',{params:params});
     }
 
 }
