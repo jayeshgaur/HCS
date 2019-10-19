@@ -248,35 +248,7 @@ public class HCSController {
 		}
 	}
 	
-	/*
-	 * Author: Jayesh Gaur 
-	 * Description: Get Excel sheet consisting of appointment
-	 * 					details for the user 
-	 * Input: User Id
-	 * Output: Excel download of the appointments
-	 * Created on: October 9, 2019
-	 */
-	@RequestMapping(value = "/downloadExcel", method = RequestMethod.GET)
-	public ModelAndView downloadExcel(@RequestParam("userId") String stringUserId) {
-		BigInteger userId = null;
-		try {
-			logger.info("Validating user Id entered for appointment");
-			userId = userService.validateUserId(stringUserId);
-			logger.info("Getting appointments of the user corresponding to the user id..");
-			List<Appointment> appointmentList = userService.getAppointmentList(userId);
-			if(appointmentList.size() > 0) {
-				logger.info("Returning appointment list to the user..");
-				return new ModelAndView((View) new ExcelReportView(), "appointmentList", appointmentList);
-			}else {
-				logger.info("0 appointments in the system from this user.. returning nothing");
-			//	return new ResponseEntity<String>("You have no appointments", HttpStatus.NO_CONTENT);
-			}
-		
-		}catch(ValidationException exception) {
-			logger.error("Caught validation exception in /viewAppointments Controller");
-	//		return new ResponseEntity<String>(exception.getMessage(),HttpStatus.BAD_REQUEST);
-		}	return null;
-	}
+	
 	
 	/*
 	* Author: Nidhi
