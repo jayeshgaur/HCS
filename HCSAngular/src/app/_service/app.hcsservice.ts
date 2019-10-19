@@ -13,4 +13,8 @@ export class HcsService {
        return this.myhttp.get("http://localhost:9123/getCenters");
     }
 
+    getTests(){
+        return this.myhttp.get
+    }
+
 }

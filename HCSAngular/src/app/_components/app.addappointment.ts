@@ -1,16 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import { CenterModel } from '../_model/app.centermodel';
 import {HcsService} from '../_service/app.hcsservice';
+import { TestModel } from '../_model/app.testmodel';
 @Component({
-    selector: 'getcenters',
-    templateUrl: '../_html/app.getcenters.html'
+    selector: 'addappointment',
+    templateUrl: '../_html/app.addappointment.html'
 })
-export class GetCentersComponent implements OnInit{
+export class AddAppointmentComponent implements OnInit{
     
     centerList:CenterModel[]=[];
+    testList:TestModel[]=[];
 
-    constructor(private service:HcsService){
-        
+    constructor(private service:HcsService){    
     }
     
     ngOnInit(){
