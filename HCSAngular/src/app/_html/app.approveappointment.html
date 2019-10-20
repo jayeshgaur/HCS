@@ -1,0 +1,47 @@
+<table border="1">
+        <tr>
+            <th>Center Id</th>
+            <th>Center Name</th>
+            <th>Contact Number</th>
+            <th>Address</th>
+            
+        </tr>
+        <tr *ngFor="let center of centerList">       
+            <td>{{center.centerId}}</td>
+            <td>{{center.centerName}}</td>
+            <td>{{center.centerContactNo}}</td>
+            <td>{{center.centerAddress}}</td>
+
+            <td *ngIf='(centerId==null) else goback'>
+                <input type="submit" value="Select" (click)="selectCenter(center)"></td>
+            <ng-template #goback><td><input type="submit" value="Change Center" (click)="changeCenter()"></td></ng-template>
+        </tr>
+    </table> 
+
+    <table border="1" *ngIf='(appointmentList != null)'>
+            <tr>
+                    <th>Appointment Id</th>
+                    <th>User Id</th>
+                    <th>User Name</th>
+                    <th>Center Name</th>
+                    <th>Test Name</th>
+                    <th>Date and Time</th>
+                    <th>Status</th>
+          
+            </tr>
+            <tr *ngFor="let appointment of appointmentList">       
+                    <td>{{appointment.appointmentId}}</td>
+                    <td>{{appointment.user.userId}}</td>
+                    <td>{{appointment.user.userName}}</td>         
+                    <td>{{appointment.center.centerName}}</td>
+                    <td>{{appointment.test.testName}}</td>
+                    <td>{{appointment.dateTime}}</td>
+                    <td>Pending</td>
+                <td *ngIf='(appointmentId==null) else goback'>
+                        <input type="submit" value="Approve" (click)="approve(appointment)"></td>
+                    <ng-template #goback><td><input type="submit" value="Confirm Approve?" (click)="confirmApprove()"></td></ng-template>
+            </tr>
+        </table> 
+        
+        <ng-template #noTests [ngIf]="(centerId != null) && (appointmentList == null)">Sorry, no Appointments present in this center</ng-template>
+        

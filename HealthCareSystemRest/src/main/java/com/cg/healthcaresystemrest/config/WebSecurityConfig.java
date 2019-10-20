@@ -67,8 +67,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// .hasRole("Customer")
 				.antMatchers("/viewAppointments").permitAll()
 				//.hasRole("Customer")
-				.antMatchers("/pendingAppointments").hasRole("Admin")
-				.antMatchers("/approveAppointment").hasRole("Admin")			
+				.antMatchers("/pendingAppointments").permitAll()
+				//.hasRole("Admin")
+				.antMatchers("/approveAppointment").permitAll()
+				//.hasRole("Admin")			
 				.antMatchers("/authenticate", "/register").permitAll()
 				// all other requests need to be authenticated
 				.anyRequest().authenticated()

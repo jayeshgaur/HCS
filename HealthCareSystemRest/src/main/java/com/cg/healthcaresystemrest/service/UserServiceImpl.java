@@ -205,7 +205,7 @@ public class UserServiceImpl implements UserService {
 	 * valid Created on: October 9, 2019
 	 */
 	public BigInteger validateCenterId(String centerId, List<DiagnosticCenter> centerList) throws ValidationException {
-		System.out.println(centerId);
+		
 		if (centerId.matches("^[0-9]+")) {
 			
 			for (Iterator<DiagnosticCenter> iterator = centerList.iterator(); iterator.hasNext();) {
@@ -228,7 +228,7 @@ public class UserServiceImpl implements UserService {
 	 * October 9, 2019
 	 */
 	public BigInteger validateTestId(String testId, List<Test> testList) throws ValidationException {
-		System.out.println(testId);
+		
 		if (testId.matches("^[0-9]+")) {
 			Iterator<Test> testIterator = testList.iterator();
 			while (testIterator.hasNext()) {

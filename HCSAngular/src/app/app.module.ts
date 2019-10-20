@@ -9,12 +9,16 @@ import { AddAppointmentComponent } from './_components/app.addappointment';
 import { Routes, RouterModule } from '@angular/router'
 import {UserHomeComponent} from './_components/app.userhome';
 import {ViewAppointment} from './_components/app.viewappoinment'
+import { AdminHomeComponent } from './_components/app.adminhome';
+import { ApproveAppointmentComponent } from './_components/app.approveappointment';
 
 const myRoute: Routes = [
-    { path: '', redirectTo:'userhome', pathMatch:'full'},
+   // { path: '', redirectTo:'userhome', pathMatch:'full'},
+    {path: 'adminhome', component: AdminHomeComponent},
     { path: 'userhome', component: UserHomeComponent},
     { path: 'addappointment', component:AddAppointmentComponent},
     { path: 'viewappointment', component: ViewAppointment}
+    { path: 'approveappointment', component:ApproveAppointmentComponent}
 ]
 
 @NgModule({
@@ -27,7 +31,9 @@ const myRoute: Routes = [
     ],
     declarations: [
         AppComponent, GetCentersComponent,GetTestsComponent, 
-        AddAppointmentComponent, UserHomeComponent, ViewAppointment
+        AddAppointmentComponent, ViewAppointment,
+        ApproveAppointmentComponent,
+        AdminHomeComponent, UserHomeComponent
    	],
     providers: [ ],
     bootstrap: [AppComponent]

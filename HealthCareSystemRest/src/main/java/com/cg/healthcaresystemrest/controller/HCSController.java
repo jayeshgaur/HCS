@@ -238,7 +238,9 @@ public class HCSController {
 	public ResponseEntity<?> approveAppointments(@RequestParam("appointmentId") String stringAppointmentId){
 		BigInteger appointmentId = null;
 		try {
+			logger.info("Validating appointment Id selected for approval");
 			appointmentId = userService.validateAppointmentId(stringAppointmentId, userService.getAppointments());
+			logger.info("Appointment Id Validated... approving appointment.");
 			if(userService.approveAppointment(appointmentId)) {
 				return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 			}
