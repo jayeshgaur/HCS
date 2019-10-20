@@ -8,6 +8,7 @@ import { AppointmentModel } from '../_model/app.appointmentmodel';
     providedIn: 'root'
 })
 export class HcsService {
+    
     constructor(private myhttp: HttpClient) {}
 
     getCenters(){   
@@ -30,5 +31,17 @@ export class HcsService {
         params = params.append('userId', userId);
         return this.myhttp.get('http://localhost:9123/viewAppointments',{params:params});
     }
+
+    getAppointments(centerId: any) {
+        let params = new HttpParams();
+        params = params.append('centerId', centerId);
+        return this.myhttp.get('http://localhost:9123/pendingAppointments',{params:params});
+     }
+
+     approveAppointment(appointmentId:any){
+        let params = new HttpParams();
+        params = params.append('appointmentId', appointmentId);
+        return this.myhttp.post("http://localhost:9123/approveAppointment?appointmentId"+appointmentId, params,);
+     }
 
 }
