@@ -37,9 +37,11 @@
         <ng-template #noTests [ngIf]="(centerId != null) && (testList == null)">Sorry, no tests present in this center</ng-template>
         
         <div *ngIf='(testId!=null)'>
-        Select Date and Time:
-        <input type="datetime-local" name="dateAndTime" [(ngModel)]="dateAndTime"/>
-        Enter your User Id:
-        <input type="number" name="userId" [(ngModel)]="userId"/>
-        <input type="submit" value="Confirm Appointment" (click)=confirmAppointment()>
-        </div>
+        <table>
+            <tr><td>Select Date and Time:</td>
+        <td><input type="datetime-local" name="dateAndTime" [(ngModel)]="dateAndTime"/></td></tr>
+        <tr><td>Enter your User Id:</td>
+        <td><input type="text" name="userId" [(ngModel)]="userId" required/></td></tr>
+        <td><input type="submit" value="Confirm Appointment" (click)=confirmAppointment()></td>
+        <span>{{errorMessage}}</span>
+        </table></div>

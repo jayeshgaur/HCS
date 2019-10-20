@@ -17,6 +17,7 @@ export class AddAppointmentComponent implements OnInit{
     testId:any;
     dateAndTime:string;
     userId:any;
+    errorMessage:any;
 
     constructor(private service:HcsService){    
     }
@@ -60,7 +61,7 @@ export class AddAppointmentComponent implements OnInit{
         this.appointment.userId = this.userId;
         this.service.addAppointment(this.appointment).subscribe(
             (data:any)=>alert("Appointment booked successfully"),
-            error => alert(error.error)
+            error => this.errorMessage= error.error
             );
     }
 
