@@ -30,6 +30,7 @@ import com.cg.healthcaresystemrest.dto.User;
 import com.cg.healthcaresystemrest.dto.UserDetailsImpl;
 import com.cg.healthcaresystemrest.exception.ExistingCredentialException;
 import com.cg.healthcaresystemrest.service.JwtUserDetailsService;
+import com.cg.healthcaresystemrest.service.UserService;
 import com.cg.healthcaresystemrest.service.UserServiceImpl;
 
 
@@ -41,6 +42,9 @@ public class JwtAuthenticationController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
+	@Autowired
+	private UserService userService;
+	
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 
@@ -55,7 +59,9 @@ public class JwtAuthenticationController {
 		authenticate(authenticationRequest.getUserEmail(), authenticationRequest.getPassword());
 		final UserDetails userDetails = jwtUserDetailsService
 				.loadUserByUsername(authenticationRequest.getUserEmail());
-
+		
+		User user = userService.findUser(authenticationRequest.getUserEmail());	
+		System.out.println(user);
 		final String token = jwtTokenUtil.generateToken(userDetails);
 
 		return ResponseEntity.ok(new JwtResponse(token));

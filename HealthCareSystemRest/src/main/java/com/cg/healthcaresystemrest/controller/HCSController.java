@@ -108,7 +108,6 @@ public class HCSController {
 			logger.info("Center Id validated... Getting test List");
 			testList = userService.getListOfTests(centerId);
 			if (testList.size() > 0) {
-				System.out.println(testList);
 				logger.info("Returning test list in the center..");
 				return new ResponseEntity<List<Test>>(testList, HttpStatus.OK);
 			} else {

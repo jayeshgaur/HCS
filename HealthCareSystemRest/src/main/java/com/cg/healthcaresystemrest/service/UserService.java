@@ -66,4 +66,5 @@ public interface UserService {
 	public DiagnosticCenter findCenter(BigInteger centerId);
 	public Test findTest(BigInteger testId);
 	public User findUser(BigInteger userId) throws ValidationException;
+	public User findUser(String userEmail) throws ValidationException;
 }

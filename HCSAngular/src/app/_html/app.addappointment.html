@@ -19,7 +19,7 @@
         </tr>
     </table> 
 
-    <table border="1" *ngIf='(testList.length != 0)'>
+    <table border="1" *ngIf='(testList != null)'>
             <tr>
                 <th>Test Id</th>
                 <th>Test Name</th>
@@ -28,6 +28,16 @@
             <tr *ngFor="let test of testList">       
                 <td>{{test.testId}}</td>
                 <td>{{test.testName}}</td>
-                <td></td>
+                <td *ngIf='(testId==null) else goback'>
+                        <input type="submit" value="Select" (click)="selectTest(test)"></td>
+                    <ng-template #goback><td><input type="submit" value="Change Test" (click)="changeTest()"></td></ng-template>
             </tr>
         </table> 
+
+        <div *ngIf='(testId!=null)'>
+        Select Date and Time:
+        <input type="datetime-local" name="dateAndTime" [(ngModel)]="dateAndTime"/>
+        Enter your User Id:
+        <input type="number" name="userId" [(ngModel)]="userId"/>
+        <input type="submit" value="Confirm Appointment" (click)=confirmAppointment()>
+        </div>
