@@ -25,4 +25,10 @@ export class HcsService {
         return this.myhttp.post('http://localhost:9123/addAppointment', appointment);
     }
 
+    getUserAppointments(userId:any){
+        let params = new HttpParams();
+        params = params.append('userId', userId);
+        return this.myhttp.get('http://localhost:9123/viewAppointments',{params:params});
+    }
+
 }

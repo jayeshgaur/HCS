@@ -1,6 +1,12 @@
+import { CenterModel } from "./app.centermodel";
+import { TestModel } from "./app.testmodel";
+import { UserModel } from "./app.usermodel";
+
 export class AppointmentModel{
-    centerId:any;
-    testId:any;
-    userId:any;
-    dateAndTime:string;
+    appointmentId:any;
+    center:CenterModel;
+    test:TestModel;
+    user:UserModel;
+    appointmentStatus:any;
+    dateTime:any;
 }

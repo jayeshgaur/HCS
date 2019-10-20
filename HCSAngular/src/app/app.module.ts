@@ -8,11 +8,13 @@ import {GetTestsComponent} from './_components/app.gettestscomponent';
 import { AddAppointmentComponent } from './_components/app.addappointment';
 import { Routes, RouterModule } from '@angular/router'
 import {UserHomeComponent} from './_components/app.userhome';
+import {ViewAppointment} from './_components/app.viewappoinment'
 
 const myRoute: Routes = [
     { path: '', redirectTo:'userhome', pathMatch:'full'},
     { path: 'userhome', component: UserHomeComponent},
-    { path: 'addappointment', component:AddAppointmentComponent}
+    { path: 'addappointment', component:AddAppointmentComponent},
+    { path: 'viewappointment', component: ViewAppointment}
 ]
 
 @NgModule({
@@ -24,7 +26,8 @@ const myRoute: Routes = [
         
     ],
     declarations: [
-        AppComponent, GetCentersComponent,GetTestsComponent, AddAppointmentComponent, UserHomeComponent
+        AppComponent, GetCentersComponent,GetTestsComponent, 
+        AddAppointmentComponent, UserHomeComponent, ViewAppointment
    	],
     providers: [ ],
     bootstrap: [AppComponent]

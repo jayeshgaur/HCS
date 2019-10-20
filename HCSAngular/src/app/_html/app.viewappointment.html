@@ -1,0 +1,21 @@
+<input type="number" [(ngModel)]="userId">
+<input type="submit" value="Get AppointmentList" (click)="getList()">
+
+<table border="1" *ngIf='(appointmentList != null) else noappointments'> 
+        <tr>
+            <th>Appointment Id</th>
+            <th>Center Name</th>
+            <th>Test Number</th>
+            <th>Date and Time</th>
+            <th>Status</th>
+        </tr>
+        <tr *ngFor="let appointment of appointmentList">       
+            <td>{{appointment.appointmentId}}</td>
+            <td>{{appointment.center.centerName}}</td>
+            <td>{{appointment.test.testName}}</td>
+            <td>{{appointment.dateTime}}</td>
+            <td>{{appointment.appointmentStatus}}</td>
+        </tr>
+    </table> 
+
+    <ng-template #noappointments> You have no appointments with us</ng-template>

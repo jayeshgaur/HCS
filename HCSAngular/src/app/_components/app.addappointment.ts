@@ -59,7 +59,7 @@ export class AddAppointmentComponent implements OnInit{
         this.appointment.dateAndTime = this.dateAndTime;
         this.appointment.userId = this.userId;
         this.service.addAppointment(this.appointment).subscribe(
-            (data:AppointmentModel)=>alert("Appointment booked successfully"),
+            (data:any)=>alert("Appointment booked successfully"),
             error => alert(error.error)
             );
     }
