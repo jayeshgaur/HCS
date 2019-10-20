@@ -9,7 +9,7 @@ import {AppointmentModel} from '../_model/app.appointmentmodel';
     templateUrl: '../_html/app.addappointment.html'
 })
 export class AddAppointmentComponent implements OnInit{
-    
+    // p: number = 1;
     centerList:CenterModel[]=[];
     testList:TestModel[]=[];
     appointment:any={ centerId:"", testId:"", dateAndTime:"", userId:""};
