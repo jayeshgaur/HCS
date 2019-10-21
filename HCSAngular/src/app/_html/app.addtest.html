@@ -1,12 +1,15 @@
-<div>
+<div class="col-md-4 col-lg-4" style="font-size: larger;">Add Test</div>
+
+<div class="col-md-4 col-lg-4">Select Center</div>
+<div class="col-md-4 col-lg-4" >
     <select [(ngModel)]="centerSelected">
     <option *ngFor="let center of centerList" value={{center.centerId}}>{{center.centerName}}</option></select>
     
 </div>   
-<br><br>
-<div><input type="text" name="testName" [(ngModel)]="model.testName" />
+<br>
+<div class="col-md-4 col-lg-4">Enter Test Name</div>
+<div class="col-md-4 col-lg-4"><input type="text" name="testName" [(ngModel)]="model.testName" />
 
 </div>
 <br><br>
-<div><input type="button" (click)="addTest(centerSelected)" value="add test"/></div>
-
+<div class="col-md-4 col-lg-4"><input type="button" (click)="addTest(centerSelected)" value="Add Test"/></div>

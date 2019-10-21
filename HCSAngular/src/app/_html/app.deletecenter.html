@@ -1,29 +1,33 @@
-<table border="1" cellpadding=10>
-    <tr>
-        <th>Center Id</th>
-        <th>Center Name</th>
-        <th>Contact Number</th>
-        <th>Address</th>
-        <th>Action</th>
-    </tr>
-    <tr *ngFor="let center of centerList">       
-        <td>{{center.centerId}}</td>
-        <td>{{center.centerName}}</td>
-        <td>{{center.centerContactNo}}</td>
-        <td>{{center.centerAddress}}</td>
-         <td><input type="button"
-        class="btn btn-default"
-        mwlConfirmationPopover
-        [popoverTitle]="popoverTitle"
-        [popoverMessage]="popoverMessage   +' '+center.centerName"
-        placement="left"
-        (confirm)=" deleteCenter(center.centerId)"
-        
-        (cancel)="cancelClicked = true"
-        
-        value="delete">
-        <td>
-    </tr>
+<h2><p class="font-weight-bold">Delete Center</p></h2>
 
+<table class="table">
+        <tr>
+            <th scope="col">Center Id</th>
+            <th scope="col">Center Name</th>
+            <th scope="col">Contact Number</th>
+            <th scope="col">Address</th>
+            <th scope="col">Action</th>
+        </tr>
+        <tr *ngFor="let center of centerList | paginate: { itemsPerPage: 10, currentPage: p }">       
+            <td>{{center.centerId}}</td>
+            <td>{{center.centerName}}</td>
+            <td>{{center.centerContactNo}}</td>
+            <td>{{center.centerAddress}}</td>
+            <td>
+            <input type="button"
+            class="btn btn-default"
+            mwlConfirmationPopover
+            [popoverTitle]="popoverTitle"
+            [popoverMessage]="popoverMessage   +' '+center.centerName"
+            placement="center"
+            (confirm)=" deleteCenter(center.centerId)"
+            
+            (cancel)="cancelClicked = true"
+            
+            value="delete">
+            <td>
+        </tr>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+       
+    </table> 
    
-</table>

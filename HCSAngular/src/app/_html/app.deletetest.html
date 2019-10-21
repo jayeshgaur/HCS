@@ -1,4 +1,4 @@
-<table border="1">
+<table class="table table-list-search" style='width: 70%; margin: auto;'>
     <tr>
         <th>Center Id</th>
         <th>Center Name</th>
@@ -7,7 +7,7 @@
         <th></th>
         
     </tr>
-    <tr *ngFor="let center of centerList">       
+    <tr *ngFor="let center of centerList | paginate: { itemsPerPage: 10, currentPage: p }">       
         <td>{{center.centerId}}</td>
         <td>{{center.centerName}}</td>
         <td>{{center.centerContactNo}}</td>
@@ -17,9 +17,11 @@
             <input type="submit" value="Select" (click)="selectCenter(center)"></td>
         <ng-template #goback><td><input type="submit" value="Change Center" (click)="changeCenter()"></td></ng-template>
     </tr>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </table> 
 
-<table border="1" *ngIf='(testList != null)'>
+<table class="table table-list-search" style='width: 70%; margin: auto;' *ngIf='(testList != null)'>
+
         <tr>
                 <th>test Id</th>
                 <th>Test Name</th>
@@ -27,7 +29,7 @@
                
       
         </tr>
-        <tr *ngFor="let test of testList">       
+        <tr *ngFor="let test of testList | paginate: { itemsPerPage: 10, currentPage: p }">       
                 <td>{{test.testId}}</td>
                 <td>{{test.testName}}</td>
                
@@ -35,6 +37,8 @@
                     <input type="submit" value="Delete" (click)="delete(test)"></td>
                 <ng-template #goback><td><input type="submit" value="Confirm delete?" (click)="confirmDelete()"></td></ng-template>
         </tr>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </table> 
     
     <ng-template #noTests [ngIf]="(centerId != null) && (testList == null)">Sorry, no test present in this center</ng-template>
+    
