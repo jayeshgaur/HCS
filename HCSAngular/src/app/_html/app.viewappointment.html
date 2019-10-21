@@ -57,7 +57,7 @@
             <th>Date and Time</th>
             <th>Status</th>
         </tr>
-        <tr *ngFor="let appointment of appointmentList">       
+        <tr *ngFor="let appointment of appointmentList | paginate: { itemsPerPage: 10, currentPage: p }">       
             <td>{{appointment.appointmentId}}</td>
             <td>{{appointment.center.centerName}}</td>
             <td>{{appointment.test.testName}}</td>
@@ -65,6 +65,7 @@
             <td *ngIf='appointment.appointmentStatus ==1 else pending'>Approved</td>
             <ng-template #pending><td>Pending</td></ng-template>
         </tr>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </table> 
     <ng-template #noappointments> You have no appointments with us</ng-template>
      <br>
