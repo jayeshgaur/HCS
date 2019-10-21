@@ -3,6 +3,7 @@ import { CenterModel } from '../_model/app.centermodel';
 import {HcsService} from '../_service/app.hcsservice';
 import { TestModel } from '../_model/app.testmodel';
 import {AppointmentModel} from '../_model/app.appointmentmodel';
+import {Router} from "@angular/router"
 
 @Component({
     selector: 'addappointment',
@@ -19,7 +20,7 @@ export class AddAppointmentComponent implements OnInit{
     userId:any;
     errorMessage:any;
 
-    constructor(private service:HcsService){    
+    constructor(private service:HcsService, private router:Router){    
     }
     
     ngOnInit(){
@@ -60,7 +61,8 @@ export class AddAppointmentComponent implements OnInit{
         this.appointment.dateAndTime = this.dateAndTime;
         this.appointment.userId = this.userId;
         this.service.addAppointment(this.appointment).subscribe(
-            (data:any)=>alert("Appointment booked successfully"),
+            (data:any)=>{alert("Appointment booked successfully");
+            this.router.navigate(['/userhome'])},
             error => this.errorMessage= error.error
             );
     }

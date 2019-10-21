@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
             <div class="col-md-4 order-md-2 mb-2 mb-md-0 align-items-center text-center">
-                <a class="navbar-brand" href="userhome">MedHistory<span>Get your tests done at convenience</span></a>
+                <a class="navbar-brand" href="userhome">LifeLine<span>Get your tests done at convenience</span></a>
             </div>
             <div class="col-md-4 order-md-1 d-flex topper mb-md-0 mb-2 align-items-center text-md-right">
                 <div class="icon d-flex justify-content-center align-items-center order-md-last">
@@ -63,7 +63,7 @@
         <td *ngIf='(centerId==null) else goback'>
             <input type="submit" value="Select" (click)="selectCenter(center)"></td>
         <ng-template #goback>
-            <td><input type="submit" value="Change Center" (click)="changeCenter()"></td>
+            <td><input type="submit" value="Change" (click)="changeCenter()"></td>
         </ng-template>
     </tr>
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
@@ -82,7 +82,7 @@
         <td *ngIf='(testId==null) else goback'>
             <input type="submit" value="Select" (click)="selectTest(test)"></td>
         <ng-template #goback>
-            <td><input type="submit" value="Change Test" (click)="changeTest()"></td>
+            <td><input type="submit" value="Change" (click)="changeTest()"></td>
         </ng-template>
     </tr>
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
@@ -92,7 +92,7 @@
 </ng-template>
 
 <div *ngIf='(testId!=null)'>
-    <table>
+    <table class="table table-list-search" style='width: 70%; margin: auto;'>
         <tr>
             <td>Select Date and Time:</td>
             <td><input type="datetime-local" name="dateAndTime" [(ngModel)]="dateAndTime" /></td>
@@ -101,7 +101,10 @@
             <td>Enter your User Id:</td>
             <td><input type="text" name="userId" [(ngModel)]="userId" required /></td>
         </tr>
+    </table>
+    <table class="table table-list-search" style='width: 70%; margin: auto;'>
+        <tr>
         <td><input type="submit" value="Confirm Appointment" (click)=confirmAppointment()></td>
-        <span>{{errorMessage}}</span>
+        <td><span style='font-family: Arial, Helvetica, sans-serif; color:red'>{{errorMessage}}</span></td></tr>
     </table>
 </div>
