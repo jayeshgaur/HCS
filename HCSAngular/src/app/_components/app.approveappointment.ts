@@ -47,6 +47,7 @@ export class ApproveAppointmentComponent implements OnInit{
     confirmApprove(){
         this.service.approveAppointment(this.appointmentId).subscribe(
          (data:boolean) => alert("Approved Successfully.")
+     //    ,error => alert(error.error)
          ,error => alert("Please refresh the page.")
         );
         this.appointmentId=null;
