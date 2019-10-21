@@ -1,0 +1,12 @@
+<div>
+    <select [(ngModel)]="centerSelected">
+    <option *ngFor="let center of centerList" value={{center.centerId}}>{{center.centerName}}</option></select>
+    
+</div>   
+<br><br>
+<div><input type="text" name="testName" [(ngModel)]="model.testName" />
+
+</div>
+<br><br>
+<div><input type="button" (click)="addTest(centerSelected)" value="add test"/></div>
+

@@ -13,15 +13,23 @@ import { AdminHomeComponent } from './_components/app.adminhome';
 import { ApproveAppointmentComponent } from './_components/app.approveappointment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgxPaginationModule} from 'ngx-pagination'; 
-
+import { AddCenterComponent } from './_components/app.addcenter';
+import { AddTestComponent } from './_components/app.addtest';
+import { DeleteCenterComponent } from './_components/app.deletecenter';
+import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
+import { DeleteTestComponent } from './_components/app.deletetest';
 
 const myRoute: Routes = [
-   // { path: '', redirectTo:'userhome', pathMatch:'full'},
+    { path: '', redirectTo:'userhome', pathMatch:'full'},
     { path: 'adminhome', component: AdminHomeComponent},
     { path: 'userhome', component: UserHomeComponent},
     { path: 'addappointment', component:AddAppointmentComponent},
     { path: 'viewappointment', component: ViewAppointment},
-    { path: 'approveappointment', component:ApproveAppointmentComponent}
+    { path: 'approveappointment', component:ApproveAppointmentComponent},
+    { path: 'addcenter', component: AddCenterComponent },
+    { path: 'addtest', component :AddTestComponent},
+    { path: 'deletecenter', component: DeleteCenterComponent},
+    { path: 'deletetest', component:DeleteTestComponent}
 ]
 
 @NgModule({
@@ -31,14 +39,16 @@ const myRoute: Routes = [
         HttpClientModule,
         BrowserAnimationsModule,
         RouterModule.forRoot(myRoute),
-        NgxPaginationModule
+        NgxPaginationModule,
+        ConfirmationPopoverModule.forRoot({confirmButtonType:'danger'})
         
     ],
     declarations: [
         AppComponent, GetCentersComponent,GetTestsComponent, 
         AddAppointmentComponent, ViewAppointment,
         ApproveAppointmentComponent,
-        AdminHomeComponent, UserHomeComponent
+        AdminHomeComponent, UserHomeComponent,
+        AddCenterComponent, AddTestComponent,DeleteCenterComponent,DeleteTestComponent
    	],
     providers: [ ],
     bootstrap: [AppComponent]

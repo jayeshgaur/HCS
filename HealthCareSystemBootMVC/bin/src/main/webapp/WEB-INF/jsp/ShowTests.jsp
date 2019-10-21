@@ -12,8 +12,8 @@
 
 	<table border="1">
 		<tr>
-			<td>Test Id</td>
-			<td>Test Name</td>
+			<td><b>Test Id</b></td>
+			<td><b>Test Name</b></td>
 		</tr>
 		<tag:forEach var="test" items="${testList}">
 			<tr>

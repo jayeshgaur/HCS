@@ -1,0 +1,29 @@
+<table border="1" cellpadding=10>
+    <tr>
+        <th>Center Id</th>
+        <th>Center Name</th>
+        <th>Contact Number</th>
+        <th>Address</th>
+        <th>Action</th>
+    </tr>
+    <tr *ngFor="let center of centerList">       
+        <td>{{center.centerId}}</td>
+        <td>{{center.centerName}}</td>
+        <td>{{center.centerContactNo}}</td>
+        <td>{{center.centerAddress}}</td>
+         <td><input type="button"
+        class="btn btn-default"
+        mwlConfirmationPopover
+        [popoverTitle]="popoverTitle"
+        [popoverMessage]="popoverMessage   +' '+center.centerName"
+        placement="left"
+        (confirm)=" deleteCenter(center.centerId)"
+        
+        (cancel)="cancelClicked = true"
+        
+        value="delete">
+        <td>
+    </tr>
+
+   
+</table>

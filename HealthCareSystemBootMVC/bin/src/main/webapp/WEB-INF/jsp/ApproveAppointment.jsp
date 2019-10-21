@@ -44,7 +44,7 @@
 </div>
 </div>
 </nav>
-
+	<h2 style="text-align: center;">Center List</h2>
 	<div>
 		<jsp:include page="ShowCenters.jsp" />
 	</div>
@@ -58,10 +58,12 @@
 				<td><input type="submit" value="Display Appointments"></td>
 		</table>
 	</form>
-	<span>${errorMessage }</span>
+	<tag:if test="${errorMessage != null }">
+	<div style="text-align: center;" class="alert alert-danger">${errorMessage }</div>
+	</tag:if>
 	<tag:if test="${appointmentList != null }">
 
-		<div>Appointments under the selected center:</div>
+		<h4 style="text-align: center;">Appointments under the selected center:</h4>
 
 		<jsp:include page="ShowAppointments.jsp"></jsp:include>
 		<form action="approveAppointment" method="POST">
@@ -70,12 +72,13 @@
 			<td><input type="submit" value="Submit Appointment Id to approve"></td>
 			</tr></table>
 		</form>
-		<span>${appointmentErrorMessage }</span>
-
+		<tag:if test="${appointmentErrorMessage != null }">
+		<div style="text-align: center;" class="alert alert-danger">${appointmentErrorMessage }</div>
+	</tag:if>
 		<br>
 		<tag:if test="${appointmentId != null }">
 		
-			Confirm Approval: 
+			<h4 style="text-align: center;">Confirm Approval:</h4> 
 			<form action="approve" method="POST">
 			<table><tr>
 			<td>CenterID: <input type="text" name="centerId" value="<%out.println(session.getAttribute("centerId"));%>" readonly></td>

@@ -1,0 +1,42 @@
+<form name="form" #f="ngForm" novalidate> 
+    <div class="form-group">
+    <div class="col-md-4 col-lg-4">  <label for="centerName">Center Name</label></div>
+    <div class="col-md-4 col-lg-4"><input type="text" class="form-control" name="centerName" [(ngModel)]="model.centerName" 
+        #centerName="ngModel" [ngClass]="{'is-invalid':f.submitted && centerName.invalid }"
+        required/>
+        <div class="invalid-feedback">
+                <div>Center name is required</div>
+        </div>
+    </div>
+    
+    
+    </div>
+    <div class="form-group">
+    
+        <div class="col-md-4 col-lg-4"> <label for="centerContactNumber">Center Contact Number</label></div>    
+        <div class="col-md-4 col-lg-4"> <input type="text" class="form-control" name="centerContactNumber" [(ngModel)]="model.centerContactNo"
+            #centerContactNumber="ngModel" [ngClass]="{'is-invalid':f.submitted && centerContactNumber.invalid }"
+            required/>
+            <div class="invalid-feedback">
+                    <div>Center contact number is required</div>
+            </div>
+        </div>
+            
+        </div>
+        <div class="form-group">
+                <div class="col-md-4 col-lg-4">
+                <label for="centerAddress">Center Address</label></div>
+                <div class="col-md-4 col-lg-4">
+                <input type="text" class="form-control" name="centerAddress" [(ngModel)]="model.centerAddress"
+                #centerAddress="ngModel" [ngClass]="{'is-invalid':f.submitted && centerAddress.invalid }"
+                 required/>
+                 <div class="invalid-feedback">
+                        <div>Center address is required</div>
+                </div>
+                </div>
+                
+        </div>
+        <button type="submit" class="btn btn-success" (click)="addCenter()">Submit</button>
+      
+    
+    </form>

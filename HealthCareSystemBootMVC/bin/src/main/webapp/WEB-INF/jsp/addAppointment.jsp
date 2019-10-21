@@ -63,8 +63,9 @@
 			</tr>
 		</table>
 	</form>
-	<span>${message }</span>
-	
+	<tag:if test="${message != null }">
+	<div style="text-align: center;" class="alert alert-danger">${message }</div>
+	</tag:if>
 <tag:if test="${testList != null }">
 
 			<table border=1>
@@ -101,8 +102,9 @@
 					</tr>
 				</table>
 			</form>
-			<span> ${testmessage } </span>
-
+			<tag:if test="${testmessage != null }">
+			<div style="text-align: center;" class="alert alert-danger"> ${testmessage } </div>
+			</tag:if>
 		</tag:if>
 	
 

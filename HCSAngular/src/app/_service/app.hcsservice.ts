@@ -56,4 +56,15 @@ export class HcsService {
         return this.myhttp.post("http://localhost:9123/addTest",params);
     }
 
+    deleteCenter(centerId: any) {
+        // let params: URLSearchParams = new URLSearchParams();
+        // params.set('appid', StaticSettings.API_KEY);
+        return this.myhttp.delete("http://localhost:9123/removeCenter?centerId="+centerId)
+     }
+
+     deleteTest(centerId:any,testId:any)
+    {
+        return this.myhttp.delete("http://localhost:9123/removeTest?centerId="+centerId+"&testId="+testId)
+    }
+
 }
