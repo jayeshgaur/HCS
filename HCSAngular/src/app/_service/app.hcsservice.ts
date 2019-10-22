@@ -72,24 +72,26 @@ export class HcsService {
         return this.myhttp.get("http://localhost:9123/download?userId="+userId, {'responseType':"blob"});
     }
 
+
+
     authenticate(username, password) {
         if (username === "javainuse" && password === "password") {
-          sessionStorage.setItem('username', username)
-          return true;
+            sessionStorage.setItem('username', username)
+            return true;
         } else {
-          return false;
+            return false;
         }
-      }
-    
-      isUserLoggedIn() {
+    }
+
+    isUserLoggedIn() {
         let user = sessionStorage.getItem('username')
         console.log(!(user === null))
         return !(user === null)
-      }
-    
-      logOut() {
+    }
+
+    logOut() {
         sessionStorage.removeItem('username')
-      }
+    }
 
     
 }
