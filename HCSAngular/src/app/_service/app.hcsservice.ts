@@ -75,7 +75,7 @@ export class HcsService {
 
 
     authenticate(username, password) {
-        if (username === "javainuse" && password === "password") {
+        if (username === "test@hcs.com" && password === "password") {
             sessionStorage.setItem('username', username)
             return true;
         } else {
@@ -90,6 +90,7 @@ export class HcsService {
     }
 
     logOut() {
+        alert("Remove")
         sessionStorage.removeItem('username')
     }
 

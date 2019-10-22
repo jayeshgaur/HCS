@@ -24,9 +24,10 @@ import { RegistrationComponent } from './_components/app.registration';
 import { LoginComponent } from './_components/app.login';
 
 import { HomeComponent } from './_components/app.home';
+import { LogoutComponent } from './_components/app.logout';
 
 const myRoute: Routes = [
-    { path: '', redirectTo:'userhome', pathMatch:'full'},
+    { path: '', redirectTo:'home', pathMatch:'full'},
     { path: 'adminhome', component: AdminHomeComponent},
     { path: 'userhome', component: UserHomeComponent},
     { path: 'home', component: HomeComponent},
@@ -37,10 +38,10 @@ const myRoute: Routes = [
     { path: 'addtest', component :AddTestComponent},
     { path: 'deletecenter', component: DeleteCenterComponent},
     { path: 'deletetest', component:DeleteTestComponent},
-    { path: 'forbidden', component:Error403Component},
-    
-    { path: 'registration', component:RegistrationComponent},
+    { path: 'forbidden', component:Error403Component}, 
+    { path: 'register', component:RegistrationComponent},
     { path: 'login' ,component:LoginComponent},
+    { path: 'logout', component:LogoutComponent}
     { path: '**', component:Error404Component}
   
 ]
@@ -62,7 +63,8 @@ const myRoute: Routes = [
         ApproveAppointmentComponent,
         AdminHomeComponent, UserHomeComponent, HomeComponent,
         AddCenterComponent, AddTestComponent,DeleteCenterComponent,DeleteTestComponent,
-        Error404Component, Error403Component,RegistrationComponent,LoginComponent
+        Error404Component, Error403Component,RegistrationComponent,
+        LoginComponent,LogoutComponent
    	],
     providers: [ ],
     bootstrap: [AppComponent]

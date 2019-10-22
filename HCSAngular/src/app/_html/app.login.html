@@ -3,7 +3,7 @@
           <div>
               <label for="email">Email</label>
           </div>
-          <div class="col-sm-16"><input type="text" class="form-control" name="userEmail" [(ngModel)]="model.userEmail" 
+          <div class="col-sm-16"><input type="text" class="form-control" name="userEmail" [(ngModel)]="useremail" 
               #userEmail="ngModel" [ngClass]="{'is-invalid':f.submitted && userEmail.invalid }" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
               required/>
            
@@ -20,7 +20,7 @@
           <div>
               <label for="password">password</label>
           </div>
-          <div class="col-sm-16"><input type="password" class="form-control" name="userPassword" [(ngModel)]="model.userPassword" 
+          <div class="col-sm-16"><input type="password" class="form-control" name="userPassword" [(ngModel)]="password" 
               #userPassword="ngModel" [ngClass]="{'is-invalid':f.submitted && userPassword.invalid }" pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})"
               required/>
            
@@ -33,5 +33,5 @@
                 </div>
           </div>
    </div>
-   <button type="submit" class="btn btn-success" (click)="login()"  class="btn btn-primary mx-auto d-block">Submit</button>
+   <button type="submit" class="btn btn-success" (click)=checkLogin() class="btn btn-primary mx-auto d-block">Submit</button>
 </form>
