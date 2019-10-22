@@ -46,7 +46,9 @@ export class ApproveAppointmentComponent implements OnInit{
 
     confirmApprove(){
         this.service.approveAppointment(this.appointmentId).subscribe(
-         (data:boolean) => alert("Approved Successfully.")
+         (data:boolean) => {alert("Approved Successfully.");
+         this.service.getAppointments(this.centerId).subscribe((appointmentList:AppointmentModel[]) => this.appointmentList = appointmentList);
+        }
      //    ,error => alert(error.error)
          ,error => alert("Please refresh the page.")
         );

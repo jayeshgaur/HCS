@@ -53,7 +53,7 @@
         <tr>
             <th>Appointment Id</th>
             <th>Center Name</th>
-            <th>Test Number</th>
+            <th>Test Name</th>
             <th>Date and Time</th>
             <th>Status</th>
         </tr>
@@ -66,7 +66,8 @@
             <ng-template #pending><td>Pending</td></ng-template>
         </tr>
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <a href="#" (click)="downloadExcel()" class="btn btn-lg btn-info" style="position: relative; left: 50%;">Download excel sheet of your appointments</a>
     </table> 
     <ng-template #noappointments> You have no appointments with us</ng-template>
      <br>
-    <a href="#" class="btn btn-lg btn-info" style="position: relative; left: 50%;">Download excel sheet of your appointments</a>
+    

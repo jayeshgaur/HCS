@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { HcsService } from '../_service/app.hcsservice';
 import { AppointmentModel } from '../_model/app.appointmentmodel';
+import { ResponseContentType } from '@angular/http';
 
 @Component({
     selector: 'viewappointment',
@@ -11,6 +12,8 @@ export class ViewAppointment implements OnInit{
 
     appointmentList:AppointmentModel[]=[];
     userId:any;
+    blockedDocument = true;
+    fileName="Appointments.xlsx";
 
     constructor(private service:HcsService){
 
@@ -26,5 +29,29 @@ export class ViewAppointment implements OnInit{
             (this.appointmentList = appointmentList),
             error => alert(error.error)
             );
+    }
+
+    downloadExcel(){
+        this.service.downloadExcel(this.userId).subscribe((success: any) => {
+            var blob = new Blob([success._body], { type: 'application/vnd.ms-excel' });
+       
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+              window.navigator.msSaveOrOpenBlob(blob, this.fileName);
+              this.blockedDocument = false;
+            } else {
+              var a = document.createElement('a');
+              a.href = URL.createObjectURL(blob);
+              a.download = this.fileName;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              this.blockedDocument = false;
+            }
+          },
+          err => {
+            alert("Error while downloading. File Not Found on the Server");
+            this.blockedDocument = false;
+          }
+        );
     }
 }

@@ -67,4 +67,10 @@ export class HcsService {
         return this.myhttp.delete("http://localhost:9123/removeTest?centerId="+centerId+"&testId="+testId)
     }
 
+    downloadExcel(userId:any){
+        // let params = new HttpParams();
+        // params = params.append('userId', userId);
+        return this.myhttp.get("localhost:9123/download?userId"+userId)
+    }
+
 }
