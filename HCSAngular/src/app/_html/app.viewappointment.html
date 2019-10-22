@@ -66,7 +66,7 @@
             <ng-template #pending><td>Pending</td></ng-template>
         </tr>
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        <a href="#" (click)="downloadExcel()" class="btn btn-lg btn-info" style="position: relative; left: 50%;">Download excel sheet of your appointments</a>
+        <a (click)="downloadExcel()" class="btn btn-lg btn-info" style="position: relative; left: 50%;">Download excel sheet of your appointments</a>
     </table> 
     <ng-template #noappointments> You have no appointments with us</ng-template>
      <br>

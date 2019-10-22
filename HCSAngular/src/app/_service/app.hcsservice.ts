@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CenterModel } from '../_model/app.centermodel';
 import { AppointmentModel } from '../_model/app.appointmentmodel';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -67,8 +68,8 @@ export class HcsService {
         return this.myhttp.delete("http://localhost:9123/removeTest?centerId="+centerId+"&testId="+testId);
     }
 
-    download(userId:any){
-        return this.myhttp.get("http://localhost:9123/download?userId="+userId, {'responseType':'blob'});
+    download(userId:any): Observable<Blob>{
+        return this.myhttp.get("http://localhost:9123/download?userId="+userId, {'responseType':"blob"});
     }
 
     authenticate(username, password) {

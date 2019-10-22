@@ -13,7 +13,7 @@ export class ViewAppointment implements OnInit{
 
     appointmentList:AppointmentModel[]=[];
     userId:any;
-    blockedDocument = true;
+
 
     constructor(private service:HcsService){
 
@@ -37,8 +37,7 @@ export class ViewAppointment implements OnInit{
           var blob = new Blob([response], {type: 'application/xlsx'});
           console.log(blob.size);
           var filename = 'appointments.xlsx';
-          saveAs(blob,filename);
-          alert("File sent?");        
+          saveAs(blob,filename);        
         } ,
       error=>{
         alert("Some error");
