@@ -15,6 +15,7 @@ export class AddTestComponent implements OnInit
 {
     centerList:CenterModel[]=[];
     model:TestModel={testId:null,testName:null};
+    errorMessage: any;
     
 
     constructor(private service:HcsService){
@@ -27,9 +28,14 @@ export class AddTestComponent implements OnInit
     }
     addTest(centerId:any):any
     {
-        console.log(this.model.testName)
+         //console.log(this.model.testName)
+        //alert("centerId"+centerId)
        // alert(centerId);
-        this.service.addTest(centerId,this.model).subscribe();
+       if(centerId!=undefined && centerId!=null && this.model.testName!=null)
+        this.service.addTest(centerId,this.model).subscribe((data:any)=>{alert("Test added successfully");
+    
+        
+    },error => this.errorMessage= error.error);
        
     }
     
