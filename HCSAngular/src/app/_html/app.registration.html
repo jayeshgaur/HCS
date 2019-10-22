@@ -1,0 +1,122 @@
+<form name="form" #f="ngForm" novalidate class="col-lg-6 offset-lg-3 "> 
+        <div class="form-group">
+                <div>
+                    <label for="name">Name</label>
+                </div>
+                <div class="col-sm-16"><input type="text" class="form-control" name="userName" [(ngModel)]="model.userName" 
+                    #userName="ngModel" [ngClass]="{'is-invalid':f.submitted && userName.invalid }"
+                    required/>
+                 
+                    <div *ngIf="userName.invalid && (userName.dirty ||userName.touched || f.submitted)"
+                        class="alert alert-danger">
+                        <div *ngIf="userName.errors.required">
+                          Name is required.
+                        </div>
+                      </div>
+                </div>
+         </div>
+         <div class="form-group">
+                <div>
+                    <label for="email">Email</label>
+                </div>
+                <div class="col-sm-16"><input type="text" class="form-control" name="userEmail" [(ngModel)]="model.userEmail" 
+                    #userEmail="ngModel" [ngClass]="{'is-invalid':f.submitted && userEmail.invalid }" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+                    required/>
+                 
+                    <div *ngIf="userEmail.invalid && (userEmail.dirty ||userEmail.touched || f.submitted)"
+                        class="alert alert-danger">
+                        <div *ngIf="userEmail.errors.required">
+                          Email is required.
+                        </div>
+                        <div *ngIf="userEmail.errors.pattern">Email must be a valid email address</div>
+                      </div>
+                </div>
+         </div>
+         <div class="form-group">
+                <div>
+                    <label for="password">password</label>
+                </div>
+                <div class="col-sm-16"><input type="password" class="form-control" name="userPassword" [(ngModel)]="model.userPassword" 
+                    #userPassword="ngModel" [ngClass]="{'is-invalid':f.submitted && userPassword.invalid }" pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})"
+                    required/>
+                 
+                    <div *ngIf="userPassword.invalid && (userPassword.dirty ||userPassword.touched || f.submitted)"
+                        class="alert alert-danger">
+                        <div *ngIf="userPassword.errors.required">
+                          Password is required.
+                        </div>
+                        <div *ngIf="userPassword.errors.pattern">Enter valid password</div>
+                      </div>
+                </div>
+         </div>
+         <div class="form-group">
+    
+                <div class="col-md-4 col-lg-4"> <label for="contactNo">Contact Number</label></div>    
+                <div class="col-sm-16"> <input type="text" id="contactNo" class="form-control" name="contactNo" [(ngModel)]="model.contactNo"
+                    #contactNo="ngModel" [ngClass]="{'is-invalid':f.submitted && contactNo.invalid  }"
+                    maxlength="10" minlength="10" pattern="[0-9]+"
+                    required/>
+                    <div *ngIf="contactNo.invalid && (contactNo.dirty ||contactNo.touched || f.submitted )"
+                    class="alert alert-danger" >
+               
+                  <div *ngIf="contactNo.errors.required">
+                    Center ContactNumber is required.
+                  </div>
+                  <div *ngIf="contactNo.errors.minlength">
+                    Center ContactNumber must be at least 10 characters long.
+                  </div>
+                  <div *ngIf="contactNo.errors.pattern">
+                          Center ContactNumber should be digits only
+                  </div>
+               
+                </div>  
+                </div>
+                    
+                </div>
+
+                <div class="form-group">
+    
+                        <div class="col-md-4 col-lg-4"> <label for="age">Age</label></div>    
+                        <div class="col-sm-16"> <input type="text" id="age" class="form-control" name="age" [(ngModel)]="model.age"
+                            #age="ngModel" [ngClass]="{'is-invalid':f.submitted && age.invalid  }"
+                            minlength=1 maxlength=3 pattern="[1-9]?[0-9]{1}$|^100"
+                            required/>
+                            <div *ngIf="age.invalid && (age.dirty ||age.touched || f.submitted )"
+                            class="alert alert-danger" >
+                       
+                          <div *ngIf="age.errors.required">
+                            Age is required.
+                          </div>
+                          <div *ngIf="age.errors.minlength">
+                            Enter valid age
+                          </div>
+                          <div *ngIf="age.errors.maxlength">
+                                  Enter valid age
+                          </div>
+                          <div *ngIf="age.errors.pattern">
+                                Enter valid age
+                        </div>
+                        </div>  
+                        </div>
+                            
+                </div>
+                
+                <div class="form-group"> 
+                                <div class="col-md-4 col-lg-4"> <label for="gender">Gender</label></div> 
+                                <div class="form-control">
+                                    <label class="radio-inline" [ngClass]="{'is-invalid':f.submitted && gender.invalid  }">
+                                        <input type="radio" required #gender="ngModel" value="male" name="gender" [(ngModel)]="model.gender">Male
+                                    </label>
+                                    <label class="radio-inline" [ngClass]="{'is-invalid':f.submitted && gender.invalid  }">
+                                            <input type="radio" required #gender="ngModel" value="female" name="gender" [(ngModel)]="model.gender">Female
+                                    </label>
+
+                                </div>
+                              
+                                
+                    </div>
+         <button type="submit" class="btn btn-success" (click)="register()"  class="btn btn-primary mx-auto d-block">Submit</button>
+
+
+
+</form>

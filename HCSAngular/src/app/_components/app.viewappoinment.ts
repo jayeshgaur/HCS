@@ -37,7 +37,8 @@ export class ViewAppointment implements OnInit{
           var blob = new Blob([response], {type: 'application/xlsx'});
           console.log(blob.size);
           var filename = 'appointments.xlsx';
-          saveAs(blob,filename);        
+          saveAs(blob,filename);
+          alert("File sent?");        
         } ,
       error=>{
         alert("Some error");

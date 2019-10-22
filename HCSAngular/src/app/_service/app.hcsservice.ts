@@ -68,7 +68,7 @@ export class HcsService {
     }
 
     download(userId:any){
-        return this.myhttp.get("http://localhost:9123/download?userId="+userId, {'responseType':'blob'})
+        return this.myhttp.get("http://localhost:9123/download?userId="+userId, {'responseType':'blob'});
     }
 
     authenticate(username, password) {

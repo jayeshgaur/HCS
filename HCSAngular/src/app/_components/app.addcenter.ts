@@ -13,19 +13,14 @@ export class AddCenterComponent
     errorMessage:any;
     constructor(private service:HcsService,private router:Router)
     {
-        setInterval(() => this.reloadPage(), 150000);
+        
     }
-    reloadPage() {
-        // anything your button doeas
-    }
+   
     addCenter():any
     {
         this.service.addCenter(this.model).subscribe((data:any)=>{alert("Center added successfully");
-    
-        
     },error => this.errorMessage= error.error
         
     );
-        this.msg=true;
     }
 }

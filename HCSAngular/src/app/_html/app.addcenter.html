@@ -70,24 +70,6 @@
             #centerContactNumber="ngModel" [ngClass]="{'is-invalid':f.submitted && centerContactNumber.invalid  }"
             maxlength="10" minlength="10" pattern="[0-9]+"
             required/>
-           <!-- <div *ngIf="centerContactNo.valid || centerContactNo.pristine" class="alert alert-danger">
-              <div *ngIf="!centerContactNo.hasError('minlength')">Mobile no should be 10 digits</div>
-              <div *ngIf="!centerContactNo.hasError('required')">Mobile no is required</div>
-              <div *ngIf="!centerContactNo.hasError('pattern')">Mobile no should only be digits</div>
-            </div>-->
-
-          <!-- <div class="invalid-feedback">
-                    <div >Center contact number is required</div></div>-->
-           <!-- <div *ngIf="centerContactNumber.errors.minlength || centerContactNumber.errors.maxlength">
-                        Contact number should be of 10 digits.
-                      </div>
-                      <div *ngIf="centerContactNumber.errors.pattern">
-                          Contact number should be digits only.
-                        </div>
-                        <div *ngIf="centerContactNo.errors.required ">
-                            Center contact number is required
-                        </div>
-            </div>-->
             <div *ngIf="centerContactNumber.invalid && (centerContactNumber.dirty ||centerContactNumber.touched || f.submitted )"
             class="alert alert-danger" >
        
