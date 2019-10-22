@@ -23,10 +23,13 @@ import { Error403Component } from './_components/app.error403';
 import { RegistrationComponent } from './_components/app.registration';
 import { LoginComponent } from './_components/app.login';
 
+import { HomeComponent } from './_components/app.home';
+
 const myRoute: Routes = [
     { path: '', redirectTo:'userhome', pathMatch:'full'},
     { path: 'adminhome', component: AdminHomeComponent},
     { path: 'userhome', component: UserHomeComponent},
+    { path: 'home', component: HomeComponent},
     { path: 'addappointment', component:AddAppointmentComponent},
     { path: 'viewappointment', component: ViewAppointment},
     { path: 'approveappointment', component:ApproveAppointmentComponent},
@@ -37,7 +40,7 @@ const myRoute: Routes = [
     { path: 'forbidden', component:Error403Component},
     
     { path: 'registration', component:RegistrationComponent},
-    { path: 'login' ,component:LoginComponent}
+    { path: 'login' ,component:LoginComponent},
     { path: '**', component:Error404Component}
   
 ]
@@ -57,7 +60,7 @@ const myRoute: Routes = [
         AppComponent, GetCentersComponent,GetTestsComponent, 
         AddAppointmentComponent, ViewAppointment,
         ApproveAppointmentComponent,
-        AdminHomeComponent, UserHomeComponent,
+        AdminHomeComponent, UserHomeComponent, HomeComponent,
         AddCenterComponent, AddTestComponent,DeleteCenterComponent,DeleteTestComponent,
         Error404Component, Error403Component,RegistrationComponent,LoginComponent
    	],
