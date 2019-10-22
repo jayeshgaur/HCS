@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { HcsService } from '../_service/app.hcsservice';
 import { AppointmentModel } from '../_model/app.appointmentmodel';
+import { ResponseContentType } from '@angular/http';
 
 @Component({
     selector: 'viewappointment',
