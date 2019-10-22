@@ -1,6 +1,8 @@
 package com.cg.healthcaresystemrest.controller;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 /*
  * Author: Jayesh Gaur
  * Description: Controller class for all functionalities
@@ -16,7 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,7 +36,7 @@ import com.cg.healthcaresystemrest.dto.AppointmentRequest;
 import com.cg.healthcaresystemrest.dto.DiagnosticCenter;
 import com.cg.healthcaresystemrest.dto.Test;
 import com.cg.healthcaresystemrest.dto.User;
-
+import com.cg.healthcaresystemrest.exceldownload.ExcelGenerator;
 import com.cg.healthcaresystemrest.exception.ValidationException;
 import com.cg.healthcaresystemrest.service.UserServiceImpl;
 
@@ -249,6 +252,25 @@ public class HCSController {
 		}
 	}
 	
+	/*
+	 *Author: 			Jayesh Gaur
+	 *Description:		Controller method to map download excel request of the user.
+	 *Created on: 		October 22, 2019
+	 *Input: 			User Id
+	 *Output: 			Excel file of the user
+	 */
+	@GetMapping("/download")
+	public ResponseEntity<InputStreamResource> downloadAppointments(@RequestParam("userId") BigInteger userId) throws IOException {
+		List<Appointment> appointmentList = userService.getAppointmentList(userId);
+
+		ByteArrayInputStream in = ExcelGenerator.customersToExcel(appointmentList);
+		// return IOUtils.toByteArray(in);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attachment; filename=customers.xlsx");
+
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(in));
+	}
 	
 	/*
 	* Author: Nidhi
