@@ -69,11 +69,11 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Apache POI Excel Download -->
+		<!-- Apache POI Excel Download REST -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>4.1.0</version>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.17</version>
 		</dependency>
 
 		<!-- JSTL -->
@@ -107,6 +107,12 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
 		</dependency>
+		
+		<!-- send email -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
 
 
 	</dependencies>

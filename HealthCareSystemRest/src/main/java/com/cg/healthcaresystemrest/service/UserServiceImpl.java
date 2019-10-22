@@ -1,5 +1,6 @@
 package com.cg.healthcaresystemrest.service;
 
+import java.io.IOException;
 /*
  * Author: Jayesh Gaur
  * Description: Service Class
@@ -14,11 +15,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.cg.healthcaresystemrest.dto.Appointment;
@@ -45,6 +50,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private CenterRepository centerRepository;
+	
+	@Autowired
+    private JavaMailSender javaMailSender;
+
 
 	@Autowired
 	private AppointmentRepository appointmentRepository;
@@ -336,7 +345,10 @@ public class UserServiceImpl implements UserService {
 		Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
 		if (appointment.isPresent()) {
 			logger.info("Appointment object found.. setting status to 1 (Approved)");
-			appointment.get().setAppointmentStatus(1);
+			Appointment appointmentObject= appointment.get();
+			appointmentObject.setAppointmentStatus(1);
+			logger.info("Sending confirmation email of approval to user..");
+			sendEmail(appointmentObject);
 		} else {
 			logger.info("Manipulated appointment id... throwing ValidationException in service approve appointment");
 			throw new ValidationException(UserErrorMessage.userErrorInvalidAppointmentId);
@@ -382,4 +394,12 @@ public class UserServiceImpl implements UserService {
 	public List<Appointment> getAppointments() {
 		return appointmentRepository.findAll();
 	}
+
+	void sendEmail(Appointment appointment) {
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(appointment.getUser().getUserEmail());
+        msg.setSubject("Update on your appointment. ID: "+appointment.getAppointmentId());
+        msg.setText("Hello, your appointment request has been approved! Please be on time.");
+        javaMailSender.send(msg);
+    }
 }

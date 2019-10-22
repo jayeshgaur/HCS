@@ -1,4 +1,52 @@
-<table border="1">
+<div class="py-md-5 py-4 border-bottom">
+    <div class="container">
+      <div class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
+        <div class="col-md-4 order-md-2 mb-2 mb-md-0 align-items-center text-center">
+          <a class="navbar-brand" href="adminhome">LifeLine<span>Get your tests done at convenience</span></a>
+        </div>
+        <div class="col-md-4 order-md-1 d-flex topper mb-md-0 mb-2 align-items-center text-md-right">
+          <div class="icon d-flex justify-content-center align-items-center order-md-last">
+            <span class="icon-map"></span>
+          </div>
+          <div class="pr-md-4 pl-md-0 pl-3 text">
+            <p class="con"><span>Free Call</span> <span>+1 234 456 78910</span></p>
+            <p class="con">198 West 21th Street, Suite 721 New York NY 10016</p>
+          </div>
+        </div>
+        <div class="col-md-4 order-md-3 d-flex topper mb-md-0 align-items-center">
+          <div class="icon d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+          <div class="text pl-3 pl-md-3">
+            <p class="hr"><span>Open Hours</span></p>
+            <p class="time"><span>Everyday</span> <span>10:00am - 8:00pm</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container d-flex align-items-center">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+      </button>
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav m-auto">
+          <!-- <li class="nav-item active"><a href="index.html" class="nav-link pl-0">Home</a></li>
+          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="doctor.html" class="nav-link">Doctor</a></li>
+          <li class="nav-item"><a href="department.html" class="nav-link">Treatments</a></li>
+          <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li> -->
+          <li class="nav-item"><a href="addcenter" class="nav-link">Add Center</a></li>
+          <li class="nav-item"><a href="deletecenter" class="nav-link">Delete Center</a></li>
+          <li class="nav-item"><a href="addtest" class="nav-link">Add Test</a></li>
+          <li class="nav-item"><a href="deletetest" class="nav-link">Delete Test</a></li>
+          <li class="nav-item"><a href="approveappointment" class="nav-link">Approve Appointment</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- END nav -->		
+
+<table class="table table-list-search" style='width: 70%; margin: auto;'>
         <tr>
             <th>Center Id</th>
             <th>Center Name</th>
@@ -6,7 +54,7 @@
             <th>Address</th>
             
         </tr>
-        <tr *ngFor="let center of centerList">       
+        <tr *ngFor="let center of centerList | paginate: { itemsPerPage: 10, currentPage: p }">       
             <td>{{center.centerId}}</td>
             <td>{{center.centerName}}</td>
             <td>{{center.centerContactNo}}</td>
@@ -16,9 +64,10 @@
                 <input type="submit" value="Select" (click)="selectCenter(center)"></td>
             <ng-template #goback><td><input type="submit" value="Change Center" (click)="changeCenter()"></td></ng-template>
         </tr>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </table> 
 
-    <table border="1" *ngIf='(appointmentList != null)'>
+    <table class="table table-list-search" style='width: 70%; margin: auto;' *ngIf='(appointmentList != null)'>
             <tr>
                     <th>Appointment Id</th>
                     <th>User Id</th>
@@ -29,7 +78,7 @@
                     <th>Status</th>
           
             </tr>
-            <tr *ngFor="let appointment of appointmentList">       
+            <tr *ngFor="let appointment of appointmentList | paginate: { itemsPerPage: 10, currentPage: p }">       
                     <td>{{appointment.appointmentId}}</td>
                     <td>{{appointment.user.userId}}</td>
                     <td>{{appointment.user.userName}}</td>         
@@ -41,6 +90,7 @@
                         <input type="submit" value="Approve" (click)="approve(appointment)"></td>
                     <ng-template #goback><td><input type="submit" value="Confirm Approve?" (click)="confirmApprove()"></td></ng-template>
             </tr>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </table> 
         
         <ng-template #noTests [ngIf]="(centerId != null) && (appointmentList == null)">Sorry, no Appointments present in this center</ng-template>
