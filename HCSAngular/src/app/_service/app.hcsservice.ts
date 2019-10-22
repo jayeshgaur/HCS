@@ -67,16 +67,28 @@ export class HcsService {
         return this.myhttp.delete("http://localhost:9123/removeTest?centerId="+centerId+"&testId="+testId);
     }
 
-    downloadExcel(userId:any){
-        const httpOptions = {
-            headers: new HttpHeaders({
-              'Content-Type':  'application/pdf',
-              responseType : 'blob',
-              Accept : 'application/xlsx',
-              observe : 'response'
-            })
-          };
-        return this.myhttp.get("http://localhost:9123/download?userId="+userId, httpOptions);
+    download(userId:any){
+        return this.myhttp.get("http://localhost:9123/download?userId="+userId, {'responseType':'blob'})
     }
 
+    authenticate(username, password) {
+        if (username === "javainuse" && password === "password") {
+          sessionStorage.setItem('username', username)
+          return true;
+        } else {
+          return false;
+        }
+      }
+    
+      isUserLoggedIn() {
+        let user = sessionStorage.getItem('username')
+        console.log(!(user === null))
+        return !(user === null)
+      }
+    
+      logOut() {
+        sessionStorage.removeItem('username')
+      }
+
+    
 }
