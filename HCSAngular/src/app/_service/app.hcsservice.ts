@@ -45,7 +45,7 @@ export class HcsService {
     }
 
     addCenter(data: any) {
-        return this.myhttp.post("http://localhost:9123/addCenter", data);
+        return this.myhttp.post("http://localhost:9123/addCenter",data);
     }
 
     addTest(centerId:any,data:any)

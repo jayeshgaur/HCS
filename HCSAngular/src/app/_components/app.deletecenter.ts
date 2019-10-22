@@ -22,8 +22,6 @@ export class DeleteCenterComponent implements OnInit
      }
         deleteCenter(centerId:any):any
         { 
-        this.service.deleteCenter(centerId).subscribe(
-          
-        );
+        this.service.deleteCenter(centerId).subscribe();   
         }
 }

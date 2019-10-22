@@ -5,7 +5,7 @@ import { TestModel } from '../_model/app.testmodel';
 
 @Component({
     selector: 'deletetest',
-    templateUrl:'../_html/app.deleteTest.html'
+    templateUrl:'../_html/app.deletetest.html'
 })
 
 export class DeleteTestComponent implements OnInit{
