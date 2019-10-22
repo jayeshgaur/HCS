@@ -20,6 +20,8 @@ import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
 import { DeleteTestComponent } from './_components/app.deletetest';
 import { Error404Component } from './_components/app.error404';
 import { Error403Component } from './_components/app.error403';
+import { RegistrationComponent } from './_components/app.registration';
+import { LoginComponent } from './_components/app.login';
 
 const myRoute: Routes = [
     { path: '', redirectTo:'userhome', pathMatch:'full'},
@@ -33,6 +35,9 @@ const myRoute: Routes = [
     { path: 'deletecenter', component: DeleteCenterComponent},
     { path: 'deletetest', component:DeleteTestComponent},
     { path: 'forbidden', component:Error403Component},
+    
+    { path: 'registration', component:RegistrationComponent},
+    { path: 'login' ,component:LoginComponent}
     { path: '**', component:Error404Component}
   
 ]
@@ -54,7 +59,7 @@ const myRoute: Routes = [
         ApproveAppointmentComponent,
         AdminHomeComponent, UserHomeComponent,
         AddCenterComponent, AddTestComponent,DeleteCenterComponent,DeleteTestComponent,
-        Error404Component, Error403Component
+        Error404Component, Error403Component,RegistrationComponent,LoginComponent
    	],
     providers: [ ],
     bootstrap: [AppComponent]
