@@ -14,6 +14,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cg.healthcaresystemrest.dto.Appointment;
 import com.cg.healthcaresystemrest.dto.AppointmentRequest;
@@ -274,6 +278,33 @@ public class HCSController {
 	}
 	
 	/*
+	 * Author: 			Jayesh Gaur
+	 * Description: 	Reads an excel file having names of tests inside rows and adds it into the center selected in parameter
+	 * Created on: 		October 22, 2019
+	 * Input: 			Excel file having test list and center id
+	 */
+	@PostMapping("/uploadtest")
+//	@ResponseStatus(HttpStatus.OK)
+	public void uploadTest(@RequestParam("file") MultipartFile reapExcelDataFile, @RequestParam("centerId") BigInteger centerId) throws IOException {
+System.out.println("testUPLOAD");
+XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
+   XSSFSheet worksheet = workbook.getSheetAt(0);
+   System.out.println(worksheet.getLastRowNum());
+   for(int i=0;i<=worksheet.getLastRowNum() ;i++) {
+       Test tempTest = new Test ();
+
+       XSSFRow row = worksheet.getRow(i);
+       if(row != null) {
+        tempTest .setTestName(row.getCell(0).getStringCellValue());
+       userService.addTest(centerId,tempTest);}
+       workbook.close();
+       
+           
+   }
+}
+
+	
+	/*
 	* Author: Nidhi
 	* Description: Add Test to the given center
 	* Created: October 14, 2019
@@ -281,8 +312,6 @@ public class HCSController {
 	* Output: ResponseEntity<Test>
 	*
 	*/
-
-
 	@PostMapping("/addTest")
 	public ResponseEntity<?> addTest(@RequestParam("centerId")String id,@ModelAttribute Test test) throws ValidationException
 	{
