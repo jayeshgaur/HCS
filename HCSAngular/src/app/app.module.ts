@@ -20,11 +20,13 @@ import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
 import { DeleteTestComponent } from './_components/app.deletetest';
 import { Error404Component } from './_components/app.error404';
 import { Error403Component } from './_components/app.error403';
+import { HomeComponent } from './_components/app.home';
 
 const myRoute: Routes = [
     { path: '', redirectTo:'userhome', pathMatch:'full'},
     { path: 'adminhome', component: AdminHomeComponent},
     { path: 'userhome', component: UserHomeComponent},
+    { path: 'home', component: HomeComponent},
     { path: 'addappointment', component:AddAppointmentComponent},
     { path: 'viewappointment', component: ViewAppointment},
     { path: 'approveappointment', component:ApproveAppointmentComponent},
@@ -52,7 +54,7 @@ const myRoute: Routes = [
         AppComponent, GetCentersComponent,GetTestsComponent, 
         AddAppointmentComponent, ViewAppointment,
         ApproveAppointmentComponent,
-        AdminHomeComponent, UserHomeComponent,
+        AdminHomeComponent, UserHomeComponent, HomeComponent,
         AddCenterComponent, AddTestComponent,DeleteCenterComponent,DeleteTestComponent,
         Error404Component, Error403Component
    	],
