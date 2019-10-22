@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CenterModel } from '../_model/app.centermodel';
 import { AppointmentModel } from '../_model/app.appointmentmodel';
@@ -59,18 +59,24 @@ export class HcsService {
     deleteCenter(centerId: any) {
         // let params: URLSearchParams = new URLSearchParams();
         // params.set('appid', StaticSettings.API_KEY);
-        return this.myhttp.delete("http://localhost:9123/removeCenter?centerId="+centerId)
+        return this.myhttp.delete("http://localhost:9123/removeCenter?centerId="+centerId);
      }
 
      deleteTest(centerId:any,testId:any)
     {
-        return this.myhttp.delete("http://localhost:9123/removeTest?centerId="+centerId+"&testId="+testId)
+        return this.myhttp.delete("http://localhost:9123/removeTest?centerId="+centerId+"&testId="+testId);
     }
 
     downloadExcel(userId:any){
-        // let params = new HttpParams();
-        // params = params.append('userId', userId);
-        return this.myhttp.get("localhost:9123/download?userId"+userId)
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type':  'application/pdf',
+              responseType : 'blob',
+              Accept : 'application/xlsx',
+              observe : 'response'
+            })
+          };
+        return this.myhttp.get("http://localhost:9123/download?userId="+userId, httpOptions);
     }
 
 }
