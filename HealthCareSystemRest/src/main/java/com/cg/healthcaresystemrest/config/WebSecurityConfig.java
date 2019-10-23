@@ -58,32 +58,56 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// We don't need CSRF for this example
 		httpSecurity.csrf().disable()
 				
-		.authorizeRequests().antMatchers("/authenticate","/register").
-		permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
-		.permitAll()
+		.authorizeRequests().antMatchers("/authenticate", "/register").permitAll()
+		.antMatchers("/finduser").permitAll()
+		.antMatchers("/userpage").hasRole("Customer")
+		.antMatchers("/adminpage").hasRole("Admin")
+		.antMatchers("/getCenters").permitAll()
+		.antMatchers("/getTests").permitAll()
+		.antMatchers("/addAppointment","/viewAppointments").hasRole("Customer")
+		//	.antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+		// all other requests need to be authenticated
+		.anyRequest().authenticated().and()
+		// make sure we use stateless session; session won't be used to
+		// store user's state.
+		.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+		.and()
+		.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
+		/*.authorizeRequests().antMatchers("/authenticate","/register").
+		permitAll()
 		.antMatchers("/**").permitAll()
 		
-				/*.authorizeRequests()
-				.antMatchers("/userpage").hasRole("Customer")
-				.antMatchers("/addCenter").permitAll()
-				.antMatchers("/adminpage","/addTest","/removeTest","/removeCenter").permitAll()
 				
-				// .hasRole("Admin")
-				.antMatchers("/getCenters").permitAll()
-				// .hasAnyRole("Customer","Admin")
-				.antMatchers("/getTests").permitAll()
-				//.hasAnyRole("Customer","Admin")
-				.antMatchers("/addAppointment").permitAll()
-				// .hasRole("Customer")
-				.antMatchers("/viewAppointments").permitAll()
-				//.hasRole("Customer")
-				.antMatchers("/pendingAppointments").permitAll()
-				//.hasRole("Admin")
-				.antMatchers("/approveAppointment").permitAll()
-				//.hasRole("Admin")			
+				.antMatchers("/userpage").hasRole("Customer")
+				.antMatchers("/addCenter").hasRole("Admin")
+				.antMatchers("/adminpage","/addTest","/removeTest","/removeCenter")
+				// .permitAll()
+				
+				 .hasRole("Admin")
+				 
+				.antMatchers("/getCenters")
+				//.permitAll()
+				.hasAnyRole("Customer","Admin")
+				.antMatchers("/getTests")
+				//.permitAll()
+				.hasAnyRole("Customer","Admin")
+				.antMatchers("/addAppointment")
+				//.permitAll()
+				 .hasRole("Customer")
+				.antMatchers("/viewAppointments")
+				//.permitAll()
+				.hasRole("Customer")
+				.antMatchers("/pendingAppointments")
+				//.permitAll()
+				.hasRole("Admin")
+				.antMatchers("/approveAppointment")
+				//.permitAll()
+				.hasRole("Admin")			
 				.antMatchers("/authenticate", "/register").permitAll()
 				.antMatchers("/download").permitAll()
-				.antMatchers("/uploadtest").permitAll()*/
+				.antMatchers("/uploadtest").permitAll()
 		
 		
 				// all other requests need to be authenticated
@@ -92,7 +116,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// store user's state.
 				.and()
 				.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);*/
 
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

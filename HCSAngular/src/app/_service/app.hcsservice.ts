@@ -31,7 +31,9 @@ export class HcsService {
     constructor(private myhttp: HttpClient) { }
 
     getCenters() {
-        return this.myhttp.get("http://localhost:9123/getCenters");
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', sessionStorage.getItem('token'));
+        return this.myhttp.get("http://localhost:9123/getCenters",  { headers: headers });
     }
 
     getTests(centerId: any) {
@@ -109,15 +111,13 @@ export class HcsService {
                let tokenStr= 'Bearer '+userData.token;
                sessionStorage.setItem('token', tokenStr);
 
-               this.getUser(username).subscribe(
-                   (data:any)=>{
-                       console.log(data.userId)
-                       sessionStorage.setItem('userRole',data.userRole);
-                       sessionStorage.setItem('userId',data.userId);
-                       sessionStorage.setItem('userName',data.userName)
-                 },
-                   error => console.log(error.error)      
-                   );
+            //    this.getUser(username).subscribe(
+            //        (data:any)=>{
+            //            console.log(data.userId)
+            //           
+            //      },
+            //        error => console.log(error.error)      
+            //        );
 
 
                return userData;
