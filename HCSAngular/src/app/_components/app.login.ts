@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 
 export class LoginComponent implements OnInit {
     model:any=[];
-    useremail:'javainuse';
-    password = '';
+    useremail:any;
+    password:any;
     invalidLogin = false;
   
     constructor(private router: Router,
@@ -20,9 +20,10 @@ export class LoginComponent implements OnInit {
     }
   
     checkLogin() {
+      console.log("Inside login.ts checkLogin.. email: "+this.useremail+" password: "+this.password)
       if (this.hcsservice.authenticate(this.useremail, this.password)
-      ) {
-        this.router.navigate([''])
+) {
+      //  this.router.navigate([''])
         this.invalidLogin = false
       } else
         this.invalidLogin = true

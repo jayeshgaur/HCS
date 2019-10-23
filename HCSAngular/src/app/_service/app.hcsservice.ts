@@ -4,6 +4,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { CenterModel } from '../_model/app.centermodel';
 import { AppointmentModel } from '../_model/app.appointmentmodel';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { error } from '@angular/compiler/src/util';
+
+export class User{
+    constructor(
+      public status:string,
+       ) {}
+    
+  }
+
+  export class JwtResponse{
+    constructor(
+      public jwttoken:string,
+       ) {}
+    
+  }
 
 @Injectable({
     providedIn: 'root'
@@ -74,14 +90,27 @@ export class HcsService {
 
 
 
-    authenticate(username, password) {
-        if (username === "test@hcs.com" && password === "password") {
-            sessionStorage.setItem('username', username)
-            return true;
-        } else {
-            return false;
-        }
-    }
+    authenticate(username:string, password:string): Observable<boolean> {
+        console.log("Inside service authenticate.. email: "+username+" password: "+password);
+        const reqbody={userEmail: username, password:password};
+        console.log(JSON.stringify(reqbody))
+        
+        return this.myhttp.post<any>('http://localhost:9123/authenticate',
+        {userEmail: username, password:password})
+        .pipe(
+            map(
+              userData => {
+               
+               sessionStorage.setItem('username',username);
+               let tokenStr= 'Bearer '+userData.token;
+               sessionStorage.setItem('token', tokenStr);
+               return userData;
+              }
+             
+            )
+       
+           );
+      }
 
     isUserLoggedIn() {
         let user = sessionStorage.getItem('username')

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent }  from './app.component';
 import{FormsModule} from '@angular/forms';
 import {GetCentersComponent} from './_components/app.getcenterscomponent';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {GetTestsComponent} from './_components/app.gettestscomponent';
 import { AddAppointmentComponent } from './_components/app.addappointment';
 import { Routes, RouterModule } from '@angular/router'
@@ -25,6 +25,7 @@ import { LoginComponent } from './_components/app.login';
 
 import { HomeComponent } from './_components/app.home';
 import { LogoutComponent } from './_components/app.logout';
+import { BasicAuthHtppInterceptorService } from './_service/app.basicauthservice';
 
 const myRoute: Routes = [
     { path: '', redirectTo:'home', pathMatch:'full'},
@@ -41,7 +42,7 @@ const myRoute: Routes = [
     { path: 'forbidden', component:Error403Component}, 
     { path: 'register', component:RegistrationComponent},
     { path: 'login' ,component:LoginComponent},
-    { path: 'logout', component:LogoutComponent}
+    { path: 'logout', component:LogoutComponent},
     { path: '**', component:Error404Component}
   
 ]
@@ -66,7 +67,9 @@ const myRoute: Routes = [
         Error404Component, Error403Component,RegistrationComponent,
         LoginComponent,LogoutComponent
    	],
-    providers: [ ],
+    providers: [ {  
+        provide:HTTP_INTERCEPTORS, useClass:BasicAuthHtppInterceptorService, multi:true 
+      }],
     bootstrap: [AppComponent]
 })
 

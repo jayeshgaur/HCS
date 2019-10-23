@@ -7,6 +7,7 @@ package com.cg.healthcaresystemrest.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -56,7 +57,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		// We don't need CSRF for this example
 		httpSecurity.csrf().disable()
-				.authorizeRequests()
+				
+		.authorizeRequests().antMatchers("/authenticate","/register").
+		permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
+		.permitAll()
+		
+				/*.authorizeRequests()
 				.antMatchers("/userpage").hasRole("Customer")
 				.antMatchers("/addCenter").permitAll()
 				.antMatchers("/adminpage","/addTest","/removeTest","/removeCenter").permitAll()
@@ -76,7 +82,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				//.hasRole("Admin")			
 				.antMatchers("/authenticate", "/register").permitAll()
 				.antMatchers("/download").permitAll()
-				.antMatchers("/uploadtest").permitAll()
+				.antMatchers("/uploadtest").permitAll()*/
+		
+		
 				// all other requests need to be authenticated
 				.anyRequest().authenticated()
 				// make sure we use stateless session; session won't be used to
