@@ -65,6 +65,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/getCenters").permitAll()
 		.antMatchers("/getTests").permitAll()
 		.antMatchers("/addAppointment","/viewAppointments").hasRole("Customer")
+		.antMatchers("/addCenter").hasRole("Admin")
+		.antMatchers("/removeCenter").hasRole("Admin")
+		.antMatchers("/addTest").hasRole("Admin")
+		.antMatchers("/removeTest").hasRole("Admin")
 		//	.antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
 		// all other requests need to be authenticated
 		.anyRequest().authenticated().and()
