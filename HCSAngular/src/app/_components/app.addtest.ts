@@ -20,6 +20,7 @@ export class AddTestComponent implements OnInit
     errorMessage: any;
     myFiles:string [] = [];
     sMsg:string = '';
+    center:any={};
     
 
     constructor(private service:HcsService, private myhttp:HttpClient, private router:Router){
@@ -39,11 +40,13 @@ export class AddTestComponent implements OnInit
        // alert(centerId);
        if(centerId!=undefined && centerId!=null && this.model.testName!=null)
         this.service.addTest(centerId,this.model).subscribe((data:any)=>{alert("Test added successfully");
-    
+        location.reload();
         
     },error => this.errorMessage= error.error);
        
     }
+    
+
 
     getFileDetails (e) {
         //console.log (e.target.files);

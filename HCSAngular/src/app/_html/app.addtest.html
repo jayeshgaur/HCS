@@ -46,11 +46,18 @@
   <h4><p class="font-weight-bold" style="color: dodgerblue; text-align: center;">Add Test</p></h4>
   <form name="form" #f="ngForm" novalidate class="col-lg-6 offset-lg-3">
     <div class="form-group">
-        <div class="col-md-4 col-lg-4" >Select Center</div>
-        
-            <select [(ngModel)]="centerSelected" [ngModelOptions]="{standalone: true}">
-            <option *ngFor="let center of centerList" value={{center.centerId}} >{{center.centerName}}</option></select>
-    </div>
+      <div class="col-md-4 col-lg-4" >Select Center</div>
+      
+          <select class="form-control" name="centerSelected" [(ngModel)]="center.centerId" #centerSelected="ngModel"  
+          [ngClass]="{'invalid-data': centerSelected.invalid && f.submitted, 'valid-data': centerSelected.valid && f.submitted}" required>  
+          
+          <option *ngFor="let center of centerList" [value]="center.centerId" >{{center.centerName}}</option></select>
+          <div *ngIf="centerSelected.invalid && f.submitted">  
+              <span style="color: red;">Please Select Center.</span>  
+            </div>  
+  
+        </div>
+       
     <div class="form-group">
       <div><label for="testName">Test Name</label></div>
      <input type="text" class="form-control" name="testName" [(ngModel)]="model.testName"
@@ -58,7 +65,7 @@
       <div class="invalid-feedback"><div>Test Name is required</div>
       </div>
     </div>
-    <button type="submit"  value="addtest" class="btn btn-success" (click)="addTest(centerSelected)" class="btn btn-primary mx-auto d-block">Add test</button>
+    <button type="submit"  value="addtest" class="btn btn-success" (click)="addTest(center.centerId)" class="btn btn-primary mx-auto d-block">Add test</button>
     <div><label> Select a center and add an excel file with all tests</label></div>
    
     <input type="file" id="file" multiple 

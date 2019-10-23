@@ -1,0 +1,10 @@
+npm install --save angular-confirmation-popover
+
+npm install ngx-pagination --save 
+
+npm install file-saver --save
+
+npm install @types/file-saver --save-dev
+
+npm i ng2-file-upload --save
+

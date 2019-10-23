@@ -25,6 +25,7 @@ export class AddCenterComponent implements OnInit
     addCenter():any
     {
         this.service.addCenter(this.model).subscribe((data:any)=>{alert("Center added successfully");
+        location.reload();
     },error => this.errorMessage= error.error
         
     );
