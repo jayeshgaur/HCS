@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { HcsService } from '../_service/app.hcsservice';
 import { CenterModel } from '../_model/app.centermodel';
 import { AppointmentModel } from '../_model/app.appointmentmodel';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'approveappointment',
@@ -14,10 +15,13 @@ export class ApproveAppointmentComponent implements OnInit{
     appointmentList:AppointmentModel[]=null;
     appointmentId:any;
 
-    constructor(private service:HcsService){    
+    constructor(private service:HcsService, private router:Router){    
     }
 
     ngOnInit()  {
+        if(!(sessionStorage.getItem('userRole') === "ROLE_Admin")){
+            this.router.navigate(['forbidden']);
+        }
         this.centerId=null;
         this.appointmentList=null;
         this.appointmentId=null;

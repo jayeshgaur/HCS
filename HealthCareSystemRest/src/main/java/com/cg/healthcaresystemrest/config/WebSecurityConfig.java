@@ -61,6 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.authorizeRequests().antMatchers("/authenticate","/register").
 		permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
 		.permitAll()
+		.antMatchers("/**").permitAll()
 		
 				/*.authorizeRequests()
 				.antMatchers("/userpage").hasRole("Customer")

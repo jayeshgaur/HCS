@@ -17,13 +17,15 @@ export class AddAppointmentComponent implements OnInit{
     centerId:any;
     testId:any;
     dateAndTime:string;
-    userId:any;
     errorMessage:any;
 
     constructor(private service:HcsService, private router:Router){    
     }
     
     ngOnInit(){
+        if(!(sessionStorage.getItem('userRole')==="ROLE_Customer")){
+            this.router.navigate(['forbidden'])
+        }
         this.centerId=null;
         this.testId=null;
         this.testList=null;
@@ -59,13 +61,11 @@ export class AddAppointmentComponent implements OnInit{
         this.appointment.centerId = this.centerId;
         this.appointment.testId = this.testId;
         this.appointment.dateAndTime = this.dateAndTime;
-        this.appointment.userId = this.userId;
+        this.appointment.userId = sessionStorage.getItem('userId');
         this.service.addAppointment(this.appointment).subscribe(
             (data:any)=>{alert("Appointment booked successfully");
             this.router.navigate(['/userhome'])},
             error => this.errorMessage= error.error
             );
     }
-
-
 }

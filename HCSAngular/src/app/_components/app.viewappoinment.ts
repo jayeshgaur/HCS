@@ -12,7 +12,6 @@ import { saveAs } from 'file-saver';
 export class ViewAppointment implements OnInit{
 
     appointmentList:AppointmentModel[]=[];
-    userId:any;
 
 
     constructor(private service:HcsService){
@@ -20,11 +19,11 @@ export class ViewAppointment implements OnInit{
     }
 
     ngOnInit(){
-        this.appointmentList=null;
+        this.getList();
     }
 
     getList(){   
-        this.service.getUserAppointments(this.userId).subscribe(
+        this.service.getUserAppointments(sessionStorage.getItem('userId')).subscribe(
             (appointmentList:AppointmentModel[]) => 
             (this.appointmentList = appointmentList),
             error => alert(error.error)
@@ -32,7 +31,7 @@ export class ViewAppointment implements OnInit{
     }
 
     downloadExcel(){
-      this.service.download(this.userId).subscribe(
+      this.service.download(sessionStorage.getItem('userId')).subscribe(
         response => {
           var blob = new Blob([response], {type: 'application/xlsx'});
           console.log(blob.size);

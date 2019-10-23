@@ -302,8 +302,48 @@ XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
            
    }
 }
-
+	/*
+	 * Author: 			Jayesh Gaur
+	 * Description: 	Returns user Id of the user associated with the useremail in parameter
+	 * Created on: 		October 23, 2019
+	 * Input: 			User Email
+	 * Output: 			User id
+	 */
+	@GetMapping("/finduser")
+	public ResponseEntity<?> findUser(@RequestParam("userEmail") String userEmail){
+		try {
+			logger.info("Fetching user object linked with user Email..");
+			User user = userService.findUser(userEmail);
+			return new ResponseEntity<User>(user,HttpStatus.OK);
+		} catch (ValidationException exception) {
+			logger.info("ValidationException caught in find user controller..");
+			return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
 	
+	
+	/*
+	 * Author: 			Jayesh Gaur
+	 * Description: 	Returns role of the user associated with the useremail in parameter
+	 * Created on: 		October 23, 2019
+	 * Input: 			User Email
+	 * Output: 			User id
+	 */
+	@GetMapping("/finduserrole")
+	public ResponseEntity<?> findUserRole(@RequestParam("userEmail") String userEmail){
+		try {
+			logger.info("Fetching user object linked with user Email..");
+			User user = userService.findUser(userEmail);
+			return new ResponseEntity<String>(user.getUserRole(),HttpStatus.OK);
+		} catch (ValidationException exception) {
+			logger.info("ValidationException caught in find user controller..");
+			return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+
+
 	/*
 	* Author: Nidhi
 	* Description: Add Test to the given center

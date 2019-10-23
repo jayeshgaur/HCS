@@ -36,7 +36,7 @@ import com.cg.healthcaresystemrest.service.UserServiceImpl;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins="http://localhost:4200")
 public class JwtAuthenticationController {
 
 	@Autowired

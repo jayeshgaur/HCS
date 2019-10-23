@@ -395,6 +395,13 @@ public class UserServiceImpl implements UserService {
 		return appointmentRepository.findAll();
 	}
 
+	/*
+	 * Author: Jayesh Gaur
+	 * Description: sends mail to the user associated with the appointment in the parameter
+	 * Created on: October 21, 2019
+	 * Input: Appointment object
+	 * Output: void
+	 */
 	void sendEmail(Appointment appointment) {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(appointment.getUser().getUserEmail());
@@ -402,4 +409,22 @@ public class UserServiceImpl implements UserService {
         msg.setText("Hello, your appointment request has been approved! Please be on time.");
         javaMailSender.send(msg);
     }
+	
+	
+	/*
+	 * Author: JayeshGaur
+	 * Description: returns user role of the user associated with the email in parameter
+	 * Created on: October 23, 2019
+	 * Input: User Email
+	 * Output: user role
+	 */
+	public String findUserRole(String userEmail) {
+		Optional<User> user = userRepository.findByUserEmail(userEmail);
+		if(user.isPresent()) {
+			return user.get().getUserRole();
+		}
+		else {
+			return "ROLE_Customer";
+		}
+	}
 }

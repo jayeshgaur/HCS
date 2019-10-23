@@ -45,10 +45,7 @@
 </nav>
 <!-- END nav -->
 
-<table class="table table-list-search" style='width: 30%; margin: auto;'>
-<td><input type="number" [(ngModel)]="userId" placeholder="Enter user Id"></td>
-<td><input type="submit" value="Get AppointmentList" (click)="getList()"></td>
-</table>
+
 <table class="table table-list-search" style='width: 70%; margin: auto;' *ngIf='(appointmentList != null) else noappointments'> 
         <tr>
             <th>Appointment Id</th>

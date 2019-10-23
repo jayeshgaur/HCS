@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { HcsService } from "../_service/app.hcsservice";
 
 @Component({
     selector:'register',
@@ -6,8 +7,15 @@ import { Component } from "@angular/core";
 
 
 })
-export class RegistrationComponent
+export class RegistrationComponent implements OnInit
 {
+
+    constructor(private service:HcsService){
+        
+    }
+
+    ngOnInit(){
+    }
     model:any={};
     
 }

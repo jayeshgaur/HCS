@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { HcsService } from '../_service/app.hcsservice';
 import { CenterModel } from '../_model/app.centermodel';
 import { TestModel } from '../_model/app.testmodel';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'deletetest',
@@ -14,10 +15,13 @@ export class DeleteTestComponent implements OnInit{
     testList:TestModel[]=null;
     testId:any;
 
-    constructor(private service:HcsService){    
+    constructor(private service:HcsService, private router:Router){    
     }
 
     ngOnInit()  {
+        if(!(sessionStorage.getItem('userRole') === "ROLE_Admin")){
+            this.router.navigate(['forbidden']);
+        }
         this.centerId=null;
         this.testList=null;
         this.testId=null;

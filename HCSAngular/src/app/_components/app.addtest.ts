@@ -4,6 +4,7 @@ import { CenterModel } from "../_model/app.centermodel";
 import { TestModel } from "../_model/app.testmodel";
 import {FileUploader} from 'ng2-file-upload'
 import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Component({
     selector:'addtest',
@@ -21,11 +22,13 @@ export class AddTestComponent implements OnInit
     sMsg:string = '';
     
 
-    constructor(private service:HcsService, private myhttp:HttpClient){
+    constructor(private service:HcsService, private myhttp:HttpClient, private router:Router){
         
     }
     ngOnInit(): void {
-
+      if(!(sessionStorage.getItem('userRole') === "ROLE_Admin")){
+        this.router.navigate(['forbidden']);
+    }
         this.service.getCenters().subscribe((centerListS:CenterModel[]) => this.centerList = centerListS);
         console.log(this.centerList);
     }

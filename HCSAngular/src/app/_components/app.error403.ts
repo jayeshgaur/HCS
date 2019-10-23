@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 
 @Component({
-    selector:'error404',
-    templateUrl:'../_html/app.eror404.html'
+    selector:'error403',
+    templateUrl:'../_html/app.error403.html'
 })
 export class Error403Component{
 

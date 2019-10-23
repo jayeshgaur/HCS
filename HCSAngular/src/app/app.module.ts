@@ -22,7 +22,6 @@ import { Error404Component } from './_components/app.error404';
 import { Error403Component } from './_components/app.error403';
 import { RegistrationComponent } from './_components/app.registration';
 import { LoginComponent } from './_components/app.login';
-
 import { HomeComponent } from './_components/app.home';
 import { LogoutComponent } from './_components/app.logout';
 import { BasicAuthHtppInterceptorService } from './_service/app.basicauthservice';

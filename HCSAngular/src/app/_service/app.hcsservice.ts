@@ -6,12 +6,12 @@ import { AppointmentModel } from '../_model/app.appointmentmodel';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { error } from '@angular/compiler/src/util';
+import { UserModel } from '../_model/app.usermodel';
 
 export class User{
     constructor(
       public status:string,
-       ) {}
-    
+       ) {}   
   }
 
   export class JwtResponse{
@@ -25,6 +25,8 @@ export class User{
     providedIn: 'root'
 })
 export class HcsService {
+
+    userObject:any;
 
     constructor(private myhttp: HttpClient) { }
 
@@ -88,26 +90,40 @@ export class HcsService {
         return this.myhttp.get("http://localhost:9123/download?userId="+userId, {'responseType':"blob"});
     }
 
+    getUser(useremail:any){
+        return this.myhttp.get("http://localhost:9123/finduser?userEmail="+useremail);
+    }
 
 
-    authenticate(username:string, password:string): Observable<boolean> {
+
+    authenticate(username:string, password:string) {
         console.log("Inside service authenticate.. email: "+username+" password: "+password);
         const reqbody={userEmail: username, password:password};
         console.log(JSON.stringify(reqbody))
         
         return this.myhttp.post<any>('http://localhost:9123/authenticate',
         {userEmail: username, password:password})
-        .pipe(
-            map(
-              userData => {
-               
+        .subscribe(
+              userData => {      
                sessionStorage.setItem('username',username);
                let tokenStr= 'Bearer '+userData.token;
                sessionStorage.setItem('token', tokenStr);
+
+               this.getUser(username).subscribe(
+                   (data:any)=>{
+                       console.log(data.userId)
+                       sessionStorage.setItem('userRole',data.userRole);
+                       sessionStorage.setItem('userId',data.userId);
+                       sessionStorage.setItem('userName',data.userName)
+                 },
+                   error => console.log(error.error)      
+                   );
+
+
                return userData;
               }
              
-            )
+            
        
            );
       }
@@ -120,7 +136,11 @@ export class HcsService {
 
     logOut() {
         alert("Remove")
-        sessionStorage.removeItem('username')
+        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('userId');
+        sessionStorage.removeItem('userRole');
+        sessionStorage.removeItem('userName');
     }
 
     
