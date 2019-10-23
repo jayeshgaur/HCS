@@ -45,7 +45,8 @@
 </nav>
 <!-- END nav -->
 
-
+<body style="background-image:url('/assets/images/home2.jpg') ">
+  <br>
 <table class="table table-list-search" style='width: 70%; margin: auto;' *ngIf='(appointmentList != null) else noappointments'> 
         <tr>
             <th>Appointment Id</th>
@@ -67,4 +68,4 @@
     </table> 
     <ng-template #noappointments> You have no appointments with us</ng-template>
      <br>
-    
+    </body>
