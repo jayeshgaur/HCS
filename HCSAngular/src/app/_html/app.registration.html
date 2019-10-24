@@ -22,9 +22,9 @@
             </div>
         </div>
     </div>
-</div>
-
-<body style="background-image:url('/assets/images/home1 (1).jpg') ">
+  </div>
+  
+  <body style="background-image:url('/assets/images/home1 (1).jpg') ">
     <br>
     <form name="form" #f="ngForm" novalidate class="col-lg-6 offset-lg-3 ">
         <div class="form-group">
@@ -32,7 +32,7 @@
                 <label for="name"><b>Name</b></label>
             </div>
             <div class="col-sm-16"><input type="text" class="form-control" name="userName" [(ngModel)]="model.userName" #userName="ngModel" [ngClass]="{'is-invalid':f.submitted && userName.invalid }" required/>
-
+  
                 <div *ngIf="userName.invalid && (userName.dirty ||userName.touched || f.submitted)" class="alert alert-danger">
                     <div *ngIf="userName.errors.required">
                         Name is required.
@@ -45,7 +45,7 @@
                 <label for="email"><b>Email</b></label>
             </div>
             <div class="col-sm-16"><input type="text" class="form-control" name="userEmail" [(ngModel)]="model.userEmail" #userEmail="ngModel" [ngClass]="{'is-invalid':f.submitted && userEmail.invalid }" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" required/>
-
+  
                 <div *ngIf="userEmail.invalid && (userEmail.dirty ||userEmail.touched || f.submitted)" class="alert alert-danger">
                     <div *ngIf="userEmail.errors.required">
                         Email is required.
@@ -60,7 +60,7 @@
             </div>
             <div class="col-sm-16"><input type="password" class="form-control" name="userPassword" [(ngModel)]="model.userPassword" #userPassword="ngModel" [ngClass]="{'is-invalid':f.submitted && userPassword.invalid }" pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})"
                     required/>
-
+  
                 <div *ngIf="userPassword.invalid && (userPassword.dirty ||userPassword.touched || f.submitted)" class="alert alert-danger">
                     <div *ngIf="userPassword.errors.required">
                         Password is required.
@@ -70,11 +70,11 @@
             </div>
         </div>
         <div class="form-group">
-
+  
             <div class="col-md-4 col-lg-4"> <label for="contactNo"><b>Contact Number</b></label></div>
             <div class="col-sm-16"> <input type="text" id="contactNo" class="form-control" name="contactNo" [(ngModel)]="model.contactNo" #contactNo="ngModel" [ngClass]="{'is-invalid':f.submitted && contactNo.invalid  }" maxlength="10" minlength="10" pattern="[0-9]+" required/>
                 <div *ngIf="contactNo.invalid && (contactNo.dirty ||contactNo.touched || f.submitted )" class="alert alert-danger">
-
+  
                     <div *ngIf="contactNo.errors.required">
                         Center ContactNumber is required.
                     </div>
@@ -84,18 +84,18 @@
                     <div *ngIf="contactNo.errors.pattern">
                         Center ContactNumber should be digits only
                     </div>
-
+  
                 </div>
             </div>
-
+  
         </div>
-
+  
         <div class="form-group">
-
+  
             <div class="col-md-4 col-lg-4"> <label for="age"><b>Age</b></label></div>
             <div class="col-sm-16"> <input type="text" id="age" class="form-control" name="age" [(ngModel)]="model.age" #age="ngModel" [ngClass]="{'is-invalid':f.submitted && age.invalid  }" minlength=1 maxlength=3 pattern="[1-9]?[0-9]{1}$|^100" required/>
                 <div *ngIf="age.invalid && (age.dirty ||age.touched || f.submitted )" class="alert alert-danger">
-
+  
                     <div *ngIf="age.errors.required">
                         Age is required.
                     </div>
@@ -110,9 +110,9 @@
                     </div>
                 </div>
             </div>
-
+  
         </div>
-
+  
         <div class="form-group">
             <div class="col-md-4 col-lg-4"> <label for="gender"><b>Gender</b></label></div>
             <div class="form-control">
@@ -122,19 +122,19 @@
                 <label class="radio-inline" [ngClass]="{'is-invalid':f.submitted && gender.invalid  }">
                                             <input type="radio" required #gender="ngModel" value="female" name="gender" [(ngModel)]="model.gender">Female
                                     </label>
-
+  
             </div>
-
-
+  
+  
         </div>
         <button type="submit" class="btn btn-success" (click)="register()" class="btn btn-primary mx-auto d-block" class="btn btn-primary btn-lg" style="margin-left: 40%">Submit</button>
-
-
-
+  
+  
+  
     </form>
     <br> <br> </body>
-
-<footer class="ftco-footer ftco-bg-dark ftco-section">
+  
+  <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">
         <div class="row mb-5">
             <div class="col-md">
@@ -152,7 +152,7 @@
                 <li><a href="#"><span class="icon icon-envelope"></span><span class="text">lifelinehealthcaresystem@gmail.com</span></a></li>
               </ul>
             </div> -->
-
+  
                 <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
                     <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                     <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -160,7 +160,7 @@
                 </ul>
                 <!-- </div> -->
             </div>
-
+  
             <div class="col-md">
                 <div class="ftco-footer-widget mb-5 ml-md-4">
                     <h2 class="ftco-heading-2">Links</h2>
@@ -171,7 +171,7 @@
                         <li><a href="#"><span class="ion-ios-arrow-round-forward mr-2"></span>Contact</a></li>
                     </ul>
                 </div>
-
+  
                 <!-- <div class="ftco-footer-widget mb-5 ml-md-4">
             <h2 class="ftco-heading-2">Services</h2>
             <ul class="list-unstyled">
@@ -221,14 +221,14 @@
             </div>
           </div>
         </div> -->
-
+  
             <div class="col-md">
                 <!-- <div class="ftco-footer-widget mb-5">
             <h2 class="ftco-heading-2">Opening Hours</h2>
             <h3 class="open-hours pl-4"><span class="ion-ios-time mr-3"></span>Booking opens 24/7</h3>
             <h3 class="open-hours pl-4"><span class="ion-ios-time mr-3"></span>Center opens 10:00 am - 8:00 pm</h3>
           </div> -->
-
+  
                 <!-- <div class="ftco-footer-widget mb-5">
             <h2 class="ftco-heading-2">Subscribe Us!</h2>
             <form action="#" class="subscribe-form">
@@ -249,7 +249,7 @@
                     </div>
                 </div>
             </div>
-
+  
         </div>
         <div class="row">
             <div class="col-md-12 text-center">
@@ -265,4 +265,4 @@
             </div>
         </div>
     </div>
-</footer>
+  </footer>

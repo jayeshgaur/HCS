@@ -43,9 +43,11 @@
     </div>
   </nav>
 
+  <body style="background-image:url('/assets/images/center2.jpg') ">
+    <br><br>
 <form name="form" #f="ngForm" novalidate class="col-lg-6 offset-lg-3 "> 
     <div class="form-group">
-    <div><label for="centerName">Center Name</label></div>
+    <div><label for="centerName"><b>Center Name</b></label></div>
     <div class="col-sm-16"><input type="text" class="form-control" name="centerName" [(ngModel)]="model.centerName" 
         #centerName="ngModel" [ngClass]="{'is-invalid':f.submitted && centerName.invalid }"
         required/>
@@ -65,7 +67,7 @@
     </div>
     <div class="form-group">
     
-        <div class="col-md-16 col-lg-8"> <label for="centerContactNumber">Center Contact Number</label></div>    
+        <div class="col-md-16 col-lg-8"> <label for="centerContactNumber"><b>Contact Number</b></label></div>    
         <div class="col-sm-16"> <input type="text" id="centerContactNumber" class="form-control" name="centerContactNumber" [(ngModel)]="model.centerContactNo"
             #centerContactNumber="ngModel" [ngClass]="{'is-invalid':f.submitted && centerContactNumber.invalid  }"
             maxlength="10" minlength="10" pattern="[0-9]+"
@@ -89,7 +91,7 @@
         </div>
         <div class="form-group">
                 <div class="col-md-4 col-lg-4">
-                <label for="centerAddress">Center Address</label></div>
+                <label for="centerAddress"><b>Center Address</b></label></div>
                 <div class="col-sm-16">
                 <input type="text" id="centerAddress" class="form-control" name="centerAddress" [(ngModel)]="model.centerAddress"
                 #centerAddress="ngModel" [ngClass]="{'is-invalid':f.submitted && centerAddress.invalid  }"
@@ -114,7 +116,8 @@
       
     
     </form>
-
+    <br><br>
+</body>
     <!-- <br><br>
     <footer class="ftco-footer ftco-bg-dark ftco-section">
         <div class="container">
