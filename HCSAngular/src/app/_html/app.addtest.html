@@ -68,13 +68,15 @@
     <button type="submit"  value="addtest" class="btn btn-success" (click)="addTest(center.centerId)" class="btn btn-primary mx-auto d-block">Add test</button>
     <div><label> Select a center and add an excel file with all tests</label></div>
    
-    <input type="file" id="file" multiple 
-    (change)="getFileDetails($event)">
-
+   
   </form>
+  <form class="col-lg-6 offset-lg-3">
+  <input type="file" id="file" multiple 
+  (change)="getFileDetails($event)">
 
-  <button (click)="uploadFiles(centerSelected)">Upload</button>
-  <div>
+  <button class="btn btn-primary mx-auto d-block" (click)="uploadFiles(centerSelected)">Upload</button>
+</form>
+ 
    
 
  

@@ -134,5 +134,9 @@ export class HcsService {
         sessionStorage.removeItem('userName');
     }
 
+    register(newUser: any){
+        return this.myhttp.post('http://localhost:9123/register', newUser);
+   }
+
     
 }

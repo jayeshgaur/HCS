@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { HcsService } from "../_service/app.hcsservice";
 import { Router } from "@angular/router";
+import { UserModel } from "../_model/app.usermodel";
 
 @Component({
     selector:'register',
@@ -35,7 +36,12 @@ export class RegistrationComponent implements OnInit
         this.newUser.contactNo = this.model.contactNo;
         this.newUser.age = this.model.age;
         this.newUser.gender = this.model.gender;
-
+        this.service.register(this.newUser). subscribe (
+           (data: UserModel)=>{alert("Registration successful. Please login, "+data.userName)
+           this.router.navigate(['/login']);
+           }, 
+           error => alert(error.error)
+           );
     }
    
     

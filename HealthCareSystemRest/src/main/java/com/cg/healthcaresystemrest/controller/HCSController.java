@@ -278,7 +278,7 @@ public class HCSController {
 	}
 	
 	/*
-	 * Author: 			Jayesh Gaur
+	 * Author: 			Kushal
 	 * Description: 	Reads an excel file having names of tests inside rows and adds it into the center selected in parameter
 	 * Created on: 		October 22, 2019
 	 * Input: 			Excel file having test list and center id
