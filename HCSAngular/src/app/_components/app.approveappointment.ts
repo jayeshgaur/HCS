@@ -14,6 +14,7 @@ export class ApproveAppointmentComponent implements OnInit{
     centerId:any;
     appointmentList:AppointmentModel[]=null;
     appointmentId:any;
+    buttonStatus:string='0';
 
     constructor(private service:HcsService, private router:Router){    
     }
@@ -46,6 +47,7 @@ export class ApproveAppointmentComponent implements OnInit{
         this.appointmentId=appointment.appointmentId;
         this.appointmentList = [];
         this.appointmentList.push(appointment);
+        this.buttonStatus='1';
     }
 
     confirmApprove(){
@@ -57,6 +59,29 @@ export class ApproveAppointmentComponent implements OnInit{
          ,error => alert("Please refresh the page.")
         );
         this.appointmentId=null;
+        this.buttonStatus='0';
+        this.appointmentList = [];
+        this.service.getAppointments(this.centerId).subscribe((appointmentList:AppointmentModel[]) => this.appointmentList = appointmentList);
+    }
+
+    reject(appointment:AppointmentModel){
+        this.appointmentId=appointment.appointmentId;
+        this.appointmentList = [];
+        this.appointmentList.push(appointment);
+        this.buttonStatus='2';
+    }
+
+    confirmReject(){
+        this.service.reject(this.appointmentId).subscribe(
+         (data:any) => {
+         alert("Rejected successfully.");
+         this.service.getAppointments(this.centerId).subscribe((appointmentList:AppointmentModel[]) => this.appointmentList = appointmentList);
+        }
+     //    ,error => alert(error.error)
+         ,error => alert("Please refresh the page.")
+        );
+        this.appointmentId=null;
+        this.buttonStatus='0';
         this.appointmentList = [];
         this.service.getAppointments(this.centerId).subscribe((appointmentList:AppointmentModel[]) => this.appointmentList = appointmentList);
     }

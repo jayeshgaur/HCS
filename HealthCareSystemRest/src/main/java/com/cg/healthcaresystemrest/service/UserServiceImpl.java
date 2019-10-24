@@ -427,4 +427,22 @@ public class UserServiceImpl implements UserService {
 			return "ROLE_Customer";
 		}
 	}
+	
+	/*
+	 * Author:  		Jayesh Gaur
+	 * Description: 	Service function to call repository to change appointment status
+	 * Created on: 		October 24, 2019
+	 * Input: 			Appointment Id
+	 * Output:			Boolean status of the operation
+	 */
+	public boolean rejectAppointment(BigInteger appointmentId) {
+		Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+		if(appointment.isPresent()) {
+			appointment.get().setAppointmentStatus(2);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }

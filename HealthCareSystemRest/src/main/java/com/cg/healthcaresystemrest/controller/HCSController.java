@@ -45,7 +45,7 @@ import com.cg.healthcaresystemrest.exceldownload.ExcelGenerator;
 import com.cg.healthcaresystemrest.exception.ValidationException;
 import com.cg.healthcaresystemrest.service.UserServiceImpl;
 
-@ComponentScan
+
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
 public class HCSController {
@@ -340,7 +340,27 @@ XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
 			return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
+
+	/*
+	 * Author: 			Jayesh Gaur
+	 * Description: 	Maps the reject appointment request and takes care of rejecting appointments
+	 * Created on: 		October 24, 2019
+	 * Input: 			Appointment Id
+	 * Output:			Boolean status of the delete operation
+	 */
+	@DeleteMapping("/rejectappointment")
+	public ResponseEntity<?> rejectAppointment(@RequestParam("appointmentId") BigInteger appointmentId)
+	{
+		
+			if(userService.rejectAppointment(appointmentId)) {
+				return new ResponseEntity<String>("Appointment Rejected!", HttpStatus.OK);
+			}
+			else {
+				return new ResponseEntity<String>("Please try again",HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		
+	}
 	
 
 

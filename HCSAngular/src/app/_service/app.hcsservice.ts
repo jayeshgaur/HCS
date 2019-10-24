@@ -138,5 +138,9 @@ export class HcsService {
         return this.myhttp.post('http://localhost:9123/register', newUser);
    }
 
+   reject(appointmentId:any){
+    return this.myhttp.delete('http://localhost:9123/rejectappointment?appointmentId='+appointmentId);
+}
+
     
 }
