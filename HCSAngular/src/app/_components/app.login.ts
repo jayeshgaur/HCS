@@ -25,8 +25,7 @@ export class LoginComponent implements OnInit {
     console.log("Inside login.ts checkLogin.. email: " + this.useremail + " password: " + this.password)
     if (this.hcsservice.authenticate(this.useremail, this.password)) {
       this.hcsservice.getUser(this.useremail).subscribe((data: UserModel) => {
-        this.model = data;
-        
+        this.model = data;   
         sessionStorage.setItem('userRole', data.userRole);
         sessionStorage.setItem('userId', data.userId);
         sessionStorage.setItem('userName', data.userName)

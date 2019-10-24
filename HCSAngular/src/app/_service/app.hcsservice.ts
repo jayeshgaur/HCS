@@ -5,7 +5,6 @@ import { CenterModel } from '../_model/app.centermodel';
 import { AppointmentModel } from '../_model/app.appointmentmodel';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { error } from '@angular/compiler/src/util';
 import { UserModel } from '../_model/app.usermodel';
 
 export class User{
