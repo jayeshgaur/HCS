@@ -38,7 +38,7 @@ export class ViewAppointment implements OnInit{
       this.service.download(sessionStorage.getItem('userId')).subscribe(
         response => {
           var blob = new Blob([response], {type: 'application/xlsx'});
-          console.log(blob.size);
+          
           var filename = 'appointments.xlsx';
           saveAs(blob,filename);        
         } ,
