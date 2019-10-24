@@ -110,19 +110,12 @@ export class HcsService {
                sessionStorage.setItem('username',username);
                let tokenStr= 'Bearer '+userData.token;
                sessionStorage.setItem('token', tokenStr);
-
-            //    this.getUser(username).subscribe(
-            //        (data:any)=>{
-            //            console.log(data.userId)
-            //           
-            //      },
-            //        error => console.log(error.error)      
-            //        );
-
-
                return userData;
-              }
+              },
              
+              error => {
+                    alert("Invalid Credentials  ")
+              }
             
        
            );
@@ -135,7 +128,6 @@ export class HcsService {
     }
 
     logOut() {
-        alert("Remove")
         sessionStorage.removeItem('username');
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('userId');

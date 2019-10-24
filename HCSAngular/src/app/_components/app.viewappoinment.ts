@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { HcsService } from '../_service/app.hcsservice';
 import { AppointmentModel } from '../_model/app.appointmentmodel';
 import { saveAs } from 'file-saver';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,11 +15,14 @@ export class ViewAppointment implements OnInit{
     appointmentList:AppointmentModel[]=[];
 
 
-    constructor(private service:HcsService){
+    constructor(private service:HcsService, private router:Router){
 
     }
 
     ngOnInit(){
+        if(!(sessionStorage.getItem('userRole') === "ROLE_Customer")){
+          this.router.navigate(['/home']);
+        }
         this.getList();
     }
 

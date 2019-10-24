@@ -7,13 +7,14 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit{
     ngOnInit(){
-        
+        if(sessionStorage.getItem('token')){
             if(sessionStorage.getItem('userRole') === "ROLE_Customer"){
                 this.router.navigate(['/userhome'])
             }
             else if(sessionStorage.getItem('userRole') === "ROLE_Admin"){
                 this.router.navigate(['/adminhome'])
             }
+        }
            
     }
     constructor(private router:Router)
