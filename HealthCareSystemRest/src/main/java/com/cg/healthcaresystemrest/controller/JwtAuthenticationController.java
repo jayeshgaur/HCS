@@ -69,11 +69,11 @@ public class JwtAuthenticationController {
 	}
 	
 	@PostMapping(value = "/register")
-	public ResponseEntity<String> saveUser(@RequestBody User user) {
+	public ResponseEntity<?> saveUser(@RequestBody User user) {
 	//	return ResponseEntity.ok(jwtUserDetailsService.save(user));
 		
 		try {
-			return new ResponseEntity<String>(jwtUserDetailsService.save(user).toString(), HttpStatus.OK);
+			return new ResponseEntity<User>(jwtUserDetailsService.save(user), HttpStatus.OK);
 		}catch(ExistingCredentialException exception) {
 			logger.error(exception.getMessage());
 			return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);

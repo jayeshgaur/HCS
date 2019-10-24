@@ -89,6 +89,6 @@
             </tr>
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </table> 
-        
+        <table class="table table-list-search" style='width: 70%; margin: auto;'>
         <ng-template #noTests [ngIf]="(centerId != null) && (appointmentList == null)">Sorry, no Appointments present in this center</ng-template>
-        
+      </table>
