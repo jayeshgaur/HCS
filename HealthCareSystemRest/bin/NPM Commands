@@ -9,4 +9,4 @@ npm install @types/file-saver --save-dev
 npm i ng2-file-upload --save
 
 
-RUN CHROME: chrome.exe --user-data-dir="C:/Chrome dev session" --disable-web-security
+chrome.exe --user-data-dir="C:/Chrome dev session" --disable-web-security

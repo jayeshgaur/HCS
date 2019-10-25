@@ -83,11 +83,11 @@
                   <td>{{appointment.test.testName}}</td>
                   <td>{{appointment.dateTime}}</td>
                   <td>Pending</td>
-              <td *ngIf="((appointmentId==null) && (buttonStatus != '1')) else goback">
+              <td *ngIf="((appointmentId==null) || (buttonStatus != '1')) else goback">
                       <input type="submit" value="Approve" (click)="approve(appointment)"></td>
                   <ng-template #goback><td><input type="submit" value="Confirm Approve?" (click)="confirmApprove()"></td></ng-template>
                   
-                  <td *ngIf="((appointmentId==null) && (buttonStatus != '2')) else goback2">
+                  <td *ngIf="((appointmentId==null) || (buttonStatus != '2')) else goback2">
                     <input type="submit" value="Reject" (click)="reject(appointment)"></td>
                 <ng-template #goback2><td><input type="submit" value="Confirm Reject?" (click)="confirmReject()"></td></ng-template>
           </tr>
