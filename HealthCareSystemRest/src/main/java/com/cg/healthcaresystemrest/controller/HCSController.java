@@ -386,6 +386,7 @@ XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
 	}
 	else
 	{
+	logger.info("Test added! AUDIT TRAIL=> Created on: "+newTest.getCreationDate()+" Created by: "+newTest.getCreatedBy());
 	return new ResponseEntity<Test>(newTest,HttpStatus.OK);
 	}}
 	catch(ValidationException exception) {
@@ -453,6 +454,7 @@ XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
 	}
 	else
 	{
+	logger.info("Center added. Audit Details: Created on: "+newCenter.getCreationDate()+". Created by: "+newCenter.getCreatedBy());
 	return new ResponseEntity<DiagnosticCenter>(newCenter,HttpStatus.OK);
 	}
 	}
@@ -477,9 +479,10 @@ XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
 
 	//System.out.println(exception.getMessage());
 
-	if(remove==true)
+	if(remove==true) {
 	return new ResponseEntity<String>("Center deleted successfully",HttpStatus.OK);
-	else 
+
+	}else 
 	return new ResponseEntity<String>(" Center not deleted",HttpStatus.OK);
 	
 	}catch(ValidationException exception) {
