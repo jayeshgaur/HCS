@@ -5,6 +5,7 @@ import { TestModel } from "../_model/app.testmodel";
 import {FileUploader} from 'ng2-file-upload'
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { text } from "@angular/core/src/render3/instructions";
 
 @Component({
     selector:'addtest',
@@ -50,7 +51,7 @@ export class AddTestComponent implements OnInit
 
     getFileDetails (e) {
         //console.log (e.target.files);
-
+        alert(e.file.getFileDetails)
         for (var i = 0; i < e.target.files.length; i++) { 
           this.myFiles.push(e.target.files[i]);
         }
@@ -58,14 +59,14 @@ export class AddTestComponent implements OnInit
 
   uploadFiles(centerId: any) {
 
-    if (this.center.centerId != null) {
+  if ((this.center.centerId != undefined) && (this.myFiles.length > 0)) {
       const frmData = new FormData();
 
       for (var i = 0; i < this.myFiles.length; i++) {
         frmData.append("file", this.myFiles[i]);
       }
 
-      this.myhttp.post('http://localhost:9123/uploadtest?centerId=' + this.center.centerId, frmData).subscribe(
+      this.myhttp.post('http://localhost:9123/uploadtest?centerId=' + this.center.centerId, frmData,{responseType:'text'}).subscribe(
         data => {
           // SHOW A MESSAGE RECEIVED FROM THE WEB API.
           this.sMsg = data as string;
@@ -81,9 +82,14 @@ export class AddTestComponent implements OnInit
     }
 
     else {
-      this.sMsg = "select center";
+      if(this.center.centerId == undefined){
+        this.errorMessage = "select center";
+      }
+      else{
+      this.errorMessage = "choose a file first to upload";
     }
-
+  }
+  
   }
 
    

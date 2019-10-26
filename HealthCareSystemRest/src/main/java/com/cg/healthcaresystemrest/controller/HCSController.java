@@ -286,7 +286,7 @@ public class HCSController {
 	 */
 	@PostMapping("/uploadtest")
 //	@ResponseStatus(HttpStatus.OK)
-	public void uploadTest(@RequestParam("file") MultipartFile reapExcelDataFile, @RequestParam("centerId") BigInteger centerId) throws IOException {
+	public ResponseEntity<?> uploadTest(@RequestParam("file") MultipartFile reapExcelDataFile, @RequestParam("centerId") BigInteger centerId) throws IOException {
 System.out.println("testUPLOAD");
 XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
    XSSFSheet worksheet = workbook.getSheetAt(0);
@@ -302,6 +302,7 @@ XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
        
            
    }
+   return new ResponseEntity<String>("Added successfully!", HttpStatus.OK);
 }
 	/*
 	 * Author: 			Jayesh Gaur
