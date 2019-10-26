@@ -60,8 +60,9 @@
             <td>{{appointment.center.centerName}}</td>
             <td>{{appointment.test.testName}}</td>
             <td>{{appointment.dateTime}}</td>
-            <td *ngIf='appointment.appointmentStatus ==1 else pending'>Approved</td>
-            <ng-template #pending><td>Pending</td></ng-template>
+            <td *ngIf='appointment.appointmentStatus ==1'>Approved</td>
+            <td *ngIf='appointment.appointmentStatus ==2'>Rejected</td>
+            <td *ngIf='appointment.appointmentStatus ==0'>Pending</td>
         </tr>
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
         <a (click)="downloadExcel()" class="btn btn-lg btn-info" style="position: relative; left: 50%;">Download excel sheet of your appointments</a>

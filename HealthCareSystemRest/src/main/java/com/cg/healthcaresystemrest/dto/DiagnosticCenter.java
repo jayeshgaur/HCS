@@ -33,6 +33,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "hcs_center")
@@ -58,10 +60,12 @@ public class DiagnosticCenter {
 	@Column(name = "center_address")
 	private String centerAddress;
 	
+	@JsonIgnore
 	@OneToMany
 	@JoinColumn(name="center_id_fk")
 	private List<Test> listOfTests = new ArrayList<Test>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "center")
 	List<Appointment> userAppointmentList = new ArrayList<Appointment>();
 	

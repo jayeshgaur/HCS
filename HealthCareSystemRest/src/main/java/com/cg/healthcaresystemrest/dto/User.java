@@ -76,6 +76,7 @@ public class User {
 	@Column(name = "user_gender")
 	private String gender;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	List<Appointment> userAppointmentList = new ArrayList<Appointment>();
 

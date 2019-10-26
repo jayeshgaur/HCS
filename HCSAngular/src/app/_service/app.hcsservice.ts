@@ -79,12 +79,12 @@ export class HcsService {
     deleteCenter(centerId: any) {
         // let params: URLSearchParams = new URLSearchParams();
         // params.set('appid', StaticSettings.API_KEY);
-        return this.myhttp.delete("http://localhost:9123/removeCenter?centerId="+centerId);
+        return this.myhttp.delete("http://localhost:9123/removeCenter?centerId="+centerId,{responseType: 'text'});
      }
 
      deleteTest(centerId:any,testId:any)
     {
-        return this.myhttp.delete("http://localhost:9123/removeTest?centerId="+centerId+"&testId="+testId);
+        return this.myhttp.delete("http://localhost:9123/removeTest?centerId="+centerId+"&testId="+testId,{responseType: 'text'});
     }
 
     download(userId:any): Observable<Blob>{

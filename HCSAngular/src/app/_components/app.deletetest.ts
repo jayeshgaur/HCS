@@ -50,15 +50,15 @@ export class DeleteTestComponent implements OnInit{
 
     confirmDelete(){
         this.service.deleteTest(this.centerId,this.testId).subscribe(
-        (data:any)=>{alert("Deleted successfully");
+        (data:string)=>{alert(data);
         this.service.getTests(this.centerId).subscribe((testList:TestModel[]) => this.testList = testList);
         }
         ,error => alert("Please refresh the page.")
          
         );
-        this.testId=null;
-        this.testList = [];
-        this.service.getTests(this.centerId).subscribe((testList:TestModel[]) => this.testList = testList);
+        // this.testId=null;
+        // this.testList = [];
+        // this.service.getTests(this.centerId).subscribe((testList:TestModel[]) => this.testList = testList);
         
     }
 

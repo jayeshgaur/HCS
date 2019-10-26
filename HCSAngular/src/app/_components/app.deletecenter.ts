@@ -26,6 +26,13 @@ export class DeleteCenterComponent implements OnInit
      }
         deleteCenter(centerId:any):any
         { 
-        this.service.deleteCenter(centerId).subscribe();   
+        this.service.deleteCenter(centerId).subscribe(
+            (data:string) => {
+                alert(data)
+                this.service.getCenters().subscribe((data:CenterModel[])=>this.centerList=data);
+            },
+            error => alert(error.message)
+
+        );   
         }
 }

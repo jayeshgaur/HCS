@@ -265,16 +265,23 @@ public class UserServiceImpl implements UserService {
 		LocalTime userTime = null;
 		LocalTime closeTime = LocalTime.parse("20:00", timeFormat);
 		LocalTime openTime = LocalTime.parse("10:00", timeFormat);
+		int userYear=0;
+		int currentYear=0;
 		try {
 			logger.info("Parsing string data into LocalDateTime");
 			userDateTime = LocalDateTime.parse(dateString, dateFormat);
+			userYear = userDateTime.getYear();
 			userDate = userDateTime.toLocalDate();
+			currentYear = LocalDate.now().getYear();
 			userTime = userDateTime.toLocalTime();
 		} catch (Exception exception) {
 			logger.error("Caught ParseException... wrong format of date and time. Throwing ValidationException in ");
 			throw new ValidationException(UserErrorMessage.userErrorInvalidDateFormat);
 		}
 		LocalDate currentDate = LocalDate.now();
+		if(userYear > currentYear+1) {
+			throw new ValidationException("You can book an appointment only a year in advance.");
+		}
 		if (userDate.isBefore(currentDate)) {
 			logger.error("User has entered a date in the past.. throwing ValidationException");
 			throw new ValidationException(UserErrorMessage.userErrorPastDate);

@@ -63,6 +63,8 @@ public class ExcelGenerator {
         }
         else if(appointment.getAppointmentStatus() == 1) {
         	 row.createCell(4).setCellValue("Approved");
+        }else {
+        	row.createCell(4).setCellValue("Rejected");
         }
 
       }
