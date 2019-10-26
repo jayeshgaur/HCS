@@ -66,7 +66,9 @@ public class UserServiceImpl implements UserService {
 		if (!center.isPresent()) {
 			throw new ValidationException(UserErrorMessage.userErrorInvalidCenterId);
 		}
-		center.get().setDeleted(true);
+		DiagnosticCenter diagnosticCenter = center.get();
+		diagnosticCenter.setDeleted(true);
+		logger.info("Center Deleted. Audit Details: Modified on: "+diagnosticCenter.getLastModifiedDate()+". Modified by: "+diagnosticCenter.getLastModifiedBy());
 		return true;
 	}
 
@@ -101,6 +103,7 @@ public class UserServiceImpl implements UserService {
 		}
 		test.setDeleted(true);
 		center.getListOfTests().remove(test);
+		logger.info("Test Deleted. AUDIT TRAIL=> Modified by: "+test.getLastModifiedBy()+"Modified on: "+test.getLastModifiedDate());
 		// testrepository.deleteById(removeTestId);
 		return true;
 	}

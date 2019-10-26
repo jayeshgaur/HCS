@@ -27,11 +27,9 @@ import com.cg.healthcaresystemrest.config.JwtTokenUtil;
 import com.cg.healthcaresystemrest.dto.JwtRequest;
 import com.cg.healthcaresystemrest.dto.JwtResponse;
 import com.cg.healthcaresystemrest.dto.User;
-import com.cg.healthcaresystemrest.dto.UserDetailsImpl;
 import com.cg.healthcaresystemrest.exception.ExistingCredentialException;
 import com.cg.healthcaresystemrest.service.JwtUserDetailsService;
 import com.cg.healthcaresystemrest.service.UserService;
-import com.cg.healthcaresystemrest.service.UserServiceImpl;
 
 
 

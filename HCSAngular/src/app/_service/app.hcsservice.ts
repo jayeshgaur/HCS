@@ -102,22 +102,7 @@ export class HcsService {
         const reqbody={userEmail: username, password:password};
         console.log(JSON.stringify(reqbody))
         
-        return this.myhttp.post<any>('http://localhost:9123/authenticate',
-        {userEmail: username, password:password})
-        .subscribe(
-              userData => {      
-               sessionStorage.setItem('username',username);
-               let tokenStr= 'Bearer '+userData.token;
-               sessionStorage.setItem('token', tokenStr);
-               return userData;
-              },
-             
-              error => {
-                    alert("Invalid Credentials  ")
-              }
-            
-       
-           );
+        return this.myhttp.post<any>('http://localhost:9123/authenticate', {userEmail: username, password:password});
       }
 
     isUserLoggedIn() {

@@ -190,4 +190,44 @@ public class DiagnosticCenter {
 		this.listOfTests = listOfTests;
 	}
 
+	public List<Appointment> getUserAppointmentList() {
+		return userAppointmentList;
+	}
+
+	public void setUserAppointmentList(List<Appointment> userAppointmentList) {
+		this.userAppointmentList = userAppointmentList;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+
+	public String getLastModifiedDate() {
+		return lastModifiedDate;
+	}
+
+	public void setLastModifiedDate(String lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
 }
