@@ -1,6 +1,6 @@
 package com.cg.healthcaresystemrest.service;
 
-import java.io.IOException;
+
 /*
  * Author: Jayesh Gaur
  * Description: Service Class
@@ -15,13 +15,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
