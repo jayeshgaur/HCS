@@ -168,7 +168,9 @@ public class HCSController {
 			appointment.setUser(user);
 			appointment.setDateTime(dateAndTime);
 			logger.info("Appointment created.. returning appointment object");
-			return new ResponseEntity<Appointment>(userService.addAppointment(appointment),HttpStatus.OK);
+			appointment = userService.addAppointment(appointment);
+			logger.info("New Appointment Added. AUDIT TRAIL=> Appointment ID: "+appointment.getAppointmentId()+" Created on: "+appointment.getCreationDate()+" Created by: "+appointment.getCreatedBy());
+			return new ResponseEntity<Appointment>(appointment,HttpStatus.OK);
 		}catch(ValidationException exception) {
 			logger.error("Caught validation exception in /addAppointment Controller");
 			return new ResponseEntity<String>(exception.getMessage(),HttpStatus.BAD_REQUEST);
@@ -246,6 +248,7 @@ public class HCSController {
 			appointmentId = userService.validateAppointmentId(stringAppointmentId, userService.getAppointments());
 			logger.info("Appointment Id Validated... approving appointment.");
 			if(userService.approveAppointment(appointmentId)) {
+				
 				return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 			}
 			return null;
@@ -452,7 +455,7 @@ XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
 	}
 	else
 	{
-	logger.info("Center added. Audit Details: Created on: "+newCenter.getCreationDate()+". Created by: "+newCenter.getCreatedBy());
+	logger.info("Center added. Audit Details: CenterID: "+newCenter.getCenterId()+" Created on: "+newCenter.getCreationDate()+". Created by: "+newCenter.getCreatedBy());
 	return new ResponseEntity<DiagnosticCenter>(newCenter,HttpStatus.OK);
 	}
 	}

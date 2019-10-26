@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
 		}
 		DiagnosticCenter diagnosticCenter = center.get();
 		diagnosticCenter.setDeleted(true);
-		logger.info("Center Deleted. Audit Details: Modified on: "+diagnosticCenter.getLastModifiedDate()+". Modified by: "+diagnosticCenter.getLastModifiedBy());
+		logger.info("Center Deleted. Audit Details: CenterID: "+diagnosticCenter.getCenterId()+" Modified on: "+diagnosticCenter.getLastModifiedDate()+". Modified by: "+diagnosticCenter.getLastModifiedBy());
 		return true;
 	}
 
@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
 		}
 		test.setDeleted(true);
 		center.getListOfTests().remove(test);
-		logger.info("Test Deleted. AUDIT TRAIL=> Modified by: "+test.getLastModifiedBy()+"Modified on: "+test.getLastModifiedDate());
+		logger.info("Test Deleted. AUDIT TRAIL=> TestID: "+test.getTestId()+" Modified by: "+test.getLastModifiedBy()+"Modified on: "+test.getLastModifiedDate());
 		// testrepository.deleteById(removeTestId);
 		return true;
 	}
@@ -348,6 +348,7 @@ public class UserServiceImpl implements UserService {
 			logger.info("Appointment object found.. setting status to 1 (Approved)");
 			Appointment appointmentObject= appointment.get();
 			appointmentObject.setAppointmentStatus(1);
+			logger.info("Appointment status UPDATED. AUDIT TRAIL=> Appointment Id: "+appointmentObject.getAppointmentId()+" Modified on: "+appointmentObject.getLastModifiedDate()+" Modified by: "+appointmentObject.getLastModifiedBy());
 			logger.info("Sending confirmation email of approval to user..");
 			sendEmail(appointmentObject);
 		} else {
@@ -439,7 +440,9 @@ public class UserServiceImpl implements UserService {
 	public boolean rejectAppointment(BigInteger appointmentId) {
 		Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
 		if(appointment.isPresent()) {
-			appointment.get().setAppointmentStatus(2);
+			Appointment appointmentObject = appointment.get();
+			appointmentObject.setAppointmentStatus(2);
+			logger.info("Appointment status UPDATED(Rejected). AUDIT TRAIL=> Appointment Id: "+appointmentObject.getAppointmentId()+" Modified on: "+appointmentObject.getLastModifiedDate()+" Modified by: "+appointmentObject.getLastModifiedBy());
 			return true;
 		}
 		else {

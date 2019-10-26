@@ -71,7 +71,9 @@ public class JwtAuthenticationController {
 	//	return ResponseEntity.ok(jwtUserDetailsService.save(user));
 		
 		try {
-			return new ResponseEntity<User>(jwtUserDetailsService.save(user), HttpStatus.OK);
+			User newUser = jwtUserDetailsService.save(user);
+			logger.info("New User Created. AUDIT TRAIL=> User ID: "+newUser.getUserId()+" Created by: "+newUser.getCreatedBy()+" Created on: "+newUser.getCreationDate());
+			return new ResponseEntity<User>(newUser, HttpStatus.OK);
 		}catch(ExistingCredentialException exception) {
 			logger.error(exception.getMessage());
 			return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);

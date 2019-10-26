@@ -154,5 +154,13 @@ public class Appointment {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+
 	
 }
