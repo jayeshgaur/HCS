@@ -72,7 +72,7 @@
   </form>
   <form class="col-lg-6 offset-lg-3">
   <td><input type="file" id="file" 
-  (change)="getFileDetails($event)" accept=".xls,.xlsx,.csv"></td>
+  (change)="getFileDetails($event)" accept=".xls,.xlsx,.csv"/></td>
    <td style="color: red;"> {{errorMessage}}</td>
   <button class="btn btn-primary mx-auto d-block" (click)="uploadFiles(centerSelected)">Upload</button>
 </form>

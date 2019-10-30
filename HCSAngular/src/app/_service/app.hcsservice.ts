@@ -96,7 +96,10 @@ export class HcsService {
     }
 
 
-
+    /*
+    Author: Jayesh Gaur
+    Description: Service method to call /authenticate. Checks login details and returns a token is successful.
+    */
     authenticate(username:string, password:string) {
         console.log("Inside service authenticate.. email: "+username+" password: "+password);
         const reqbody={userEmail: username, password:password};

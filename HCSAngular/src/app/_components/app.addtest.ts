@@ -50,12 +50,12 @@ export class AddTestComponent implements OnInit
 
 
     getFileDetails (e) {
-        //console.log (e.target.files);
-        alert(e.file.getFileDetails)
-        for (var i = 0; i < e.target.files.length; i++) { 
-          this.myFiles.push(e.target.files[i]);
-        }
+      //console.log (e.target.files);
+
+      for (var i = 0; i < e.target.files.length; i++) { 
+        this.myFiles.push(e.target.files[i]);
       }
+    }
 
   uploadFiles(centerId: any) {
 
