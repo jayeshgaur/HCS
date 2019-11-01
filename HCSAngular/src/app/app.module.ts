@@ -24,6 +24,7 @@ import { RegistrationComponent } from './_components/app.registration';
 import { LoginComponent } from './_components/app.login';
 import { HomeComponent } from './_components/app.home';
 import { LogoutComponent } from './_components/app.logout';
+import { AboutComponent } from './_components/app.about';
 import { BasicAuthHtppInterceptorService } from './_service/app.basicauthservice';
 
 const myRoute: Routes = [
@@ -42,7 +43,9 @@ const myRoute: Routes = [
     { path: 'register', component:RegistrationComponent},
     { path: 'login' ,component:LoginComponent},
     { path: 'logout', component:LogoutComponent},
+    { path: 'about', component:AboutComponent},
     { path: '**', component:Error404Component}
+    
   
 ]
 
@@ -64,7 +67,7 @@ const myRoute: Routes = [
         AdminHomeComponent, UserHomeComponent, HomeComponent,
         AddCenterComponent, AddTestComponent,DeleteCenterComponent,DeleteTestComponent,
         Error404Component, Error403Component,RegistrationComponent,
-        LoginComponent,LogoutComponent
+        LoginComponent,LogoutComponent, AboutComponent
    	],
     providers: [ {  
         provide:HTTP_INTERCEPTORS, useClass:BasicAuthHtppInterceptorService, multi:true 
