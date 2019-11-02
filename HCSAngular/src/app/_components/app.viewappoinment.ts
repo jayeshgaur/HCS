@@ -20,6 +20,7 @@ export class ViewAppointment implements OnInit{
 
     }
 
+    
     ngOnInit(){
         if(!(sessionStorage.getItem('userRole') === "ROLE_Customer")){
           this.router.navigate(['/home']);
