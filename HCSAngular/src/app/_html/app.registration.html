@@ -147,7 +147,9 @@
   
   
         </div>
-        <button type="submit" class="btn btn-success" (click)="register()" class="btn btn-primary mx-auto d-block" class="btn btn-primary btn-lg" style="margin-left: 40%">Submit</button>
+        <button type="submit" class="btn btn-success" (click)="register()" 
+        [disabled]="f.form.invalid"
+        class="btn btn-primary mx-auto d-block" class="btn btn-primary btn-lg" style="margin-left: 40%">Submit</button>
   
   
   
