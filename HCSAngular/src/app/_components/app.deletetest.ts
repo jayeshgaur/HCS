@@ -52,6 +52,7 @@ export class DeleteTestComponent implements OnInit{
         this.service.deleteTest(this.centerId,this.testId).subscribe(
         (data:string)=>{alert(data);
         this.service.getTests(this.centerId).subscribe((testList:TestModel[]) => this.testList = testList);
+        this.testId=null;
         }
         ,error => alert("Please refresh the page.")
          

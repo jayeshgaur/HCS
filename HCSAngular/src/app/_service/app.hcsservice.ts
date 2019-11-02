@@ -126,8 +126,14 @@ export class HcsService {
         return this.myhttp.post('http://localhost:9123/register', newUser);
    }
 
-   reject(appointmentId:any){
-    return this.myhttp.delete('http://localhost:9123/rejectappointment?appointmentId='+appointmentId);
+//    reject(appointmentId:any){
+//     return this.myhttp.delete('http://localhost:9123/rejectappointment?appointmentId='+appointmentId);
+// }
+
+reject(appointmentId: any) {
+    let params = new HttpParams();
+    params = params.append('appointmentId', appointmentId);
+    return this.myhttp.post("http://localhost:9123/rejectappointment?appointmentId" + appointmentId, params,{responseType: 'text'});
 }
 
     

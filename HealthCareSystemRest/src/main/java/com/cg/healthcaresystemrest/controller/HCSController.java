@@ -351,7 +351,7 @@ XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
 	 * Input: 			Appointment Id
 	 * Output:			Boolean status of the delete operation
 	 */
-	@DeleteMapping("/rejectappointment")
+	@PostMapping("/rejectappointment")
 	public ResponseEntity<?> rejectAppointment(@RequestParam("appointmentId") BigInteger appointmentId)
 	{
 		

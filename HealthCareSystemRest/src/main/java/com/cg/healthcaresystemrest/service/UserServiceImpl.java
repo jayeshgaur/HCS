@@ -449,6 +449,13 @@ public class UserServiceImpl implements UserService {
 		if(appointment.isPresent()) {
 			Appointment appointmentObject = appointment.get();
 			appointmentObject.setAppointmentStatus(2);
+			
+			SimpleMailMessage msg = new SimpleMailMessage();
+			msg.setTo(appointmentObject.getUser().getUserEmail());
+			msg.setSubject("Update on your appointment ID: "+appointmentObject.getAppointmentId());
+			msg.setText("Sorry but your appointment application was rejected. Please select another date and time, and for more information, contact us by reverting on this email.");
+			javaMailSender.send(msg);
+			
 			logger.info("Appointment status UPDATED(Rejected). AUDIT TRAIL=> Appointment Id: "+appointmentObject.getAppointmentId()+" Modified on: "+appointmentObject.getLastModifiedDate()+" Modified by: "+appointmentObject.getLastModifiedBy());
 			return true;
 		}
