@@ -15,6 +15,8 @@ export class ApproveAppointmentComponent implements OnInit{
     appointmentList:AppointmentModel[]=null;
     appointmentId:any;
     buttonStatus:string='0';
+    orderName:any;
+    searchCenter:any='';
 
     constructor(private service:HcsService, private router:Router){    
     }
@@ -84,6 +86,36 @@ export class ApproveAppointmentComponent implements OnInit{
         this.buttonStatus='0';
         this.appointmentList = [];
         this.service.getAppointments(this.centerId).subscribe((appointmentList:AppointmentModel[]) => this.appointmentList = appointmentList);
+    }
+
+    sortName() {
+        if (this.orderName != 1) {
+          this.centerList.sort((left, right) => left.centerName.localeCompare(right.centerName));
+          this.orderName = 1;
+        }
+        else if (this.orderName == 1){
+          this.centerList.sort((right, left) => left.centerName.localeCompare(right.centerName));
+          this.orderName = 0;
+        }
+      }
+
+      searchCenterFx(){
+    
+        if(!this.searchCenter){
+            this.centerId=null;
+            this.appointmentList=null;
+            this.appointmentId=null;
+            this.service.getCenters().subscribe((centerList:CenterModel[]) => this.centerList = centerList);
+       
+        }
+        else{
+          
+        for(let i=this.centerList.length-1;i>=0 ;i--){
+          if(this.searchCenter != this.centerList[i].centerName){
+            this.centerList.splice(i,1);
+          }
+        }
+      }
     }
 
 }

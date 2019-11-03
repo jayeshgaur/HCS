@@ -44,9 +44,12 @@
 <!-- END nav -->		
 
 <table class="table table-list-search" style='width: 70%; margin: auto;'>
-      <tr>
+    <input type="text" placeholder="Search by center name" [(ngModel)]='searchCenter'/>
+    <button value="Search" type="button" (click)="searchCenterFx()">SEARCH CENTER</button>
+
+  <tr>
           <th>Center Id</th>
-          <th>Center Name</th>
+          <th (click)=sortName()>Center Name</th>
           <th>Contact Number</th>
           <th>Address</th>
           
@@ -65,7 +68,7 @@
   </table> 
 
   <table class="table table-list-search" style='width: 70%; margin: auto;' *ngIf='(appointmentList != null)'>
-          <tr>
+    <tr>
                   <th>Appointment Id</th>
                   <th>User Id</th>
                   <th>User Name</th>
