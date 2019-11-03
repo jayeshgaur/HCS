@@ -32,40 +32,40 @@ export class HcsService {
     getCenters() {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', sessionStorage.getItem('token'));
-        return this.myhttp.get("http://localhost:9123/getCenters",  { headers: headers });
+        return this.myhttp.get("http://"+ window.location.hostname+":9123/getCenters",  { headers: headers });
     }
 
     getTests(centerId: any) {
         let params = new HttpParams();
         params = params.append('centerId', centerId);
-        return this.myhttp.get('http://localhost:9123/getTests', { params: params });
+        return this.myhttp.get('http://'+ window.location.hostname+':9123/getTests', { params: params });
     }
 
     addAppointment(appointment: any) {
 
-        return this.myhttp.post('http://localhost:9123/addAppointment', appointment);
+        return this.myhttp.post('http://'+ window.location.hostname+':9123/addAppointment', appointment);
     }
 
     getUserAppointments(userId: any) {
         let params = new HttpParams();
         params = params.append('userId', userId);
-        return this.myhttp.get('http://localhost:9123/viewAppointments', { params: params });
+        return this.myhttp.get('http://'+ window.location.hostname+':9123/viewAppointments', { params: params });
     }
 
     getAppointments(centerId: any) {
         let params = new HttpParams();
         params = params.append('centerId', centerId);
-        return this.myhttp.get('http://localhost:9123/pendingAppointments', { params: params });
+        return this.myhttp.get('http://'+ window.location.hostname+':9123/pendingAppointments', { params: params });
     }
 
     approveAppointment(appointmentId: any) {
         let params = new HttpParams();
         params = params.append('appointmentId', appointmentId);
-        return this.myhttp.post("http://localhost:9123/approveAppointment?appointmentId" + appointmentId, params);
+        return this.myhttp.post("http://"+ window.location.hostname+":9123/approveAppointment?appointmentId" + appointmentId, params);
     }
 
     addCenter(data: any) {
-        return this.myhttp.post("http://localhost:9123/addCenter",data);
+        return this.myhttp.post("http://"+ window.location.hostname+":9123/addCenter",data);
     }
 
     addTest(centerId:any,data:any)
@@ -73,26 +73,26 @@ export class HcsService {
         let params = new HttpParams();
         params = params.append('centerId', centerId);
         params = params.append('testName', data.testName);
-        return this.myhttp.post("http://localhost:9123/addTest",params);
+        return this.myhttp.post("http://"+ window.location.hostname+":9123/addTest",params);
     }
 
     deleteCenter(centerId: any) {
         // let params: URLSearchParams = new URLSearchParams();
         // params.set('appid', StaticSettings.API_KEY);
-        return this.myhttp.delete("http://localhost:9123/removeCenter?centerId="+centerId,{responseType: 'text'});
+        return this.myhttp.delete("http://"+ window.location.hostname+":9123/removeCenter?centerId="+centerId,{responseType: 'text'});
      }
 
      deleteTest(centerId:any,testId:any)
     {
-        return this.myhttp.delete("http://localhost:9123/removeTest?centerId="+centerId+"&testId="+testId,{responseType: 'text'});
+        return this.myhttp.delete("http://"+ window.location.hostname+":9123/removeTest?centerId="+centerId+"&testId="+testId,{responseType: 'text'});
     }
 
     download(userId:any): Observable<Blob>{
-        return this.myhttp.get("http://localhost:9123/download?userId="+userId, {'responseType':"blob"});
+        return this.myhttp.get("http://"+ window.location.hostname+":9123/download?userId="+userId, {'responseType':"blob"});
     }
 
     getUser(useremail:any){
-        return this.myhttp.get("http://localhost:9123/finduser?userEmail="+useremail);
+        return this.myhttp.get("http://"+ window.location.hostname+":9123/finduser?userEmail="+useremail);
     }
 
 
@@ -105,7 +105,7 @@ export class HcsService {
         const reqbody={userEmail: username, password:password};
         console.log(JSON.stringify(reqbody))
         
-        return this.myhttp.post<any>('http://localhost:9123/authenticate', {userEmail: username, password:password});
+        return this.myhttp.post<any>('http://'+ window.location.hostname+':9123/authenticate', {userEmail: username, password:password});
       }
 
     isUserLoggedIn() {
@@ -123,7 +123,7 @@ export class HcsService {
     }
 
     register(newUser: any){
-        return this.myhttp.post('http://localhost:9123/register', newUser);
+        return this.myhttp.post('http://'+ window.location.hostname+':9123/register', newUser);
    }
 
 //    reject(appointmentId:any){
@@ -133,7 +133,7 @@ export class HcsService {
 reject(appointmentId: any) {
     let params = new HttpParams();
     params = params.append('appointmentId', appointmentId);
-    return this.myhttp.post("http://localhost:9123/rejectappointment?appointmentId" + appointmentId, params,{responseType: 'text'});
+    return this.myhttp.post("http://"+ window.location.hostname+":9123/rejectappointment?appointmentId" + appointmentId, params,{responseType: 'text'});
 }
 
     

@@ -3,7 +3,6 @@ import { HcsService } from '../_service/app.hcsservice';
 import { AppointmentModel } from '../_model/app.appointmentmodel';
 import { saveAs } from 'file-saver';
 import { Router } from '@angular/router';
-import { SmartTable, of } from 'smart-table-ng';
 
 @Component({
     selector: 'viewappointment',

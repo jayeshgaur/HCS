@@ -66,7 +66,7 @@ export class AddTestComponent implements OnInit
         frmData.append("file", this.myFiles[i]);
       }
 
-      this.myhttp.post('http://localhost:9123/uploadtest?centerId=' + this.center.centerId, frmData,{responseType:'text'}).subscribe(
+      this.myhttp.post('http://'+ window.location.hostname+':9123/uploadtest?centerId=' + this.center.centerId, frmData,{responseType:'text'}).subscribe(
         data => {
           // SHOW A MESSAGE RECEIVED FROM THE WEB API.
           this.sMsg = data as string;

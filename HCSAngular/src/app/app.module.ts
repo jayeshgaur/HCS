@@ -26,7 +26,7 @@ import { HomeComponent } from './_components/app.home';
 import { LogoutComponent } from './_components/app.logout';
 import { AboutComponent } from './_components/app.about';
 import { BasicAuthHtppInterceptorService } from './_service/app.basicauthservice';
-import { SmartTableModule, of} from 'smart-table-ng';
+
 
 const myRoute: Routes = [
     { path: '', redirectTo:'home', pathMatch:'full'},
@@ -58,7 +58,6 @@ const myRoute: Routes = [
         BrowserAnimationsModule,
         RouterModule.forRoot(myRoute),
         NgxPaginationModule,
-        SmartTableModule ,
         ConfirmationPopoverModule.forRoot({confirmButtonType:'danger'})
         
     ],

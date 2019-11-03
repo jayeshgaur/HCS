@@ -44,7 +44,7 @@ import com.cg.healthcaresystemrest.exception.ValidationException;
 import com.cg.healthcaresystemrest.service.UserServiceImpl;
 
 
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class HCSController {
 	
