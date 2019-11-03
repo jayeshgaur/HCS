@@ -46,10 +46,13 @@
 <!-- END nav -->
 
 <table class="table table-list-search" style='width: 70%; margin: auto;'>
-        Select Center: 
+        Select Center: <br>
+        <input type="text" placeholder="Search by center name" [(ngModel)]='searchCenter'/>
+        <button value="Search" type="button" (click)="searchCenterFx()">SEARCH CENTER</button>
+       
     <tr>
         <th>Center Id</th>
-        <th>Center Name</th>
+        <th (click)=sortName()>Center Name</th>
         <th>Contact Number</th>
         <th>Address</th>
 
@@ -70,10 +73,13 @@
 </table>
   
 <table class="table table-list-search" style='width: 70%; margin: auto;' *ngIf='(testList != null)'>
-        Select the test you want to book an appointment for: 
+        Select the test you want to book an appointment for: <br>
+        <input type="text" placeholder="Search by test name" [(ngModel)]='searchTest'/>
+        <button value="Search" type="button" (click)="searchTestFx()">SEARCH TEST</button>
+      
     <tr>
         <th>Test Id</th>
-        <th>Test Name</th>
+        <th (click)=sortTestName()>Test Name</th>
 
     </tr>
     <tr *ngFor="let test of testList | paginate: { itemsPerPage: 10, currentPage: p }">

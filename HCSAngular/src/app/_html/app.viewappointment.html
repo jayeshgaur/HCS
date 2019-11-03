@@ -47,14 +47,20 @@
 
 <body style="background-image:url('/assets/images/home2.jpg') ">
   <br>
+ 
+
 <table class="table table-list-search" style='width: 70%; margin: auto;' *ngIf='(appointmentList != null) else noappointments'> 
+       <input type="text" placeholder="Search by center name" [(ngModel)]='searchCenter'/>
+        <button value="Search" type="button" (click)="searchCenterFx()">SEARCH CENTER</button>
         <tr>
             <th>Appointment Id</th>
-            <th>Center Name</th>
+            <th (click)=sortName()>Center Name</th>
             <th>Test Name</th>
-            <th>Date and Time</th>
+            <th (click)=sortDate()>Date and Time</th>
             <th>Status</th>
         </tr>
+      
+     
         <tr *ngFor="let appointment of appointmentList | paginate: { itemsPerPage: 10, currentPage: p }">       
             <td>{{appointment.appointmentId}}</td>
             <td>{{appointment.center.centerName}}</td>
@@ -64,9 +70,11 @@
             <td *ngIf='appointment.appointmentStatus ==2'>Rejected</td>
             <td *ngIf='appointment.appointmentStatus ==0'>Pending</td>
         </tr>
+      
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
         <a (click)="downloadExcel()" class="btn btn-lg btn-info" style="position: relative; left: 50%;">Download excel sheet of your appointments</a>
     </table> 
+  
     <ng-template #noappointments> You have no appointments with us</ng-template>
      <br>
     </body>

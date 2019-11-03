@@ -18,6 +18,10 @@ export class AddAppointmentComponent implements OnInit{
     testId:any;
     dateAndTime:string;
     errorMessage:any;
+    orderName:any;
+    orderTestName:any;
+    searchCenter:any;
+    searchTest:any;
 
     constructor(private service:HcsService, private router:Router){    
     }
@@ -68,4 +72,61 @@ export class AddAppointmentComponent implements OnInit{
             error => this.errorMessage= error.error
             );
     }
+
+    
+  sortName() {
+    if (this.orderName != 1) {
+      this.centerList.sort((left, right) => left.centerName.localeCompare(right.centerName));
+      this.orderName = 1;
+    }
+    else if (this.orderName == 1){
+      this.centerList.sort((right, left) => left.centerName.localeCompare(right.centerName));
+      this.orderName = 0;
+    }
+  }
+
+  searchCenterFx(){
+   
+    if(!this.searchCenter){
+        this.centerId=null;
+        this.testId=null;
+        this.testList=null;
+        this.service.getCenters().subscribe((centerList:CenterModel[]) => this.centerList = centerList);
+  
+      }
+      else{
+    for(let i=this.centerList.length-1;i>=0 ;i--){
+      if(this.searchCenter != this.centerList[i].centerName){
+        this.centerList.splice(i,1);
+      }
+    }
+  }}
+
+  sortTestName() {
+    if (this.orderTestName != 1) {
+      this.testList.sort((left, right) => left.testName.localeCompare(right.testName));
+      this.orderTestName = 1;
+    }
+    else if (this.orderTestName == 1){
+      this.testList.sort((right, left) => left.testName.localeCompare(right.testName));
+      this.orderTestName = 0;
+    }
+  }
+
+  searchTestFx(){
+   
+    if(!this.searchTest){
+        this.testId=null;
+        this.testList=null;
+        this.service.getTests(this.centerId).subscribe((testList:TestModel[]) => this.testList = testList);
+   
+      }
+      else{
+    for(let i=this.testList.length-1;i>=0 ;i--){
+      if(this.searchTest != this.testList[i].testName){
+        this.testList.splice(i,1);
+      }
+    }
+  }}
+
 }
