@@ -17,6 +17,8 @@ export class ApproveAppointmentComponent implements OnInit{
     buttonStatus:string='0';
     orderName:any;
     searchCenter:any='';
+    orderUser:any;
+    searchUser:any='';
 
     constructor(private service:HcsService, private router:Router){    
     }
